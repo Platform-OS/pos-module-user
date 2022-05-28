@@ -1,0 +1,12 @@
+{% comment %}
+  Create a user.
+  Params:
+    - email: string
+      the user's email address
+    - password: string
+      the user's password
+{% endcomment %}
+{% liquid
+  graphql user = 'modules/user/create', email: email, password: password
+  return user
+%}
