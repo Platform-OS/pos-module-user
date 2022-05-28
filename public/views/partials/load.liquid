@@ -1,0 +1,10 @@
+{% comment %}
+  Load a user's data.
+  Params:
+    - id: string
+      the user's id
+{% endcomment %}
+{% liquid
+  graphql users = 'modules/user/load', id: id
+  return users.users.results.first
+%}
