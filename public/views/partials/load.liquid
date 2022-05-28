@@ -6,5 +6,11 @@
 {% endcomment %}
 {% liquid
   graphql users = 'modules/user/load', id: id
-  return users.users.results.first
+  assign user = users.users.results.first
+  if user
+    assign params = '{}' | parse_json | hash_merge: user: user
+    function results = 'modules/hook/fire', hook: 'user_load', params: params
+    hash_assign user['hook_results'] = results
+  endif
+  return user
 %}
