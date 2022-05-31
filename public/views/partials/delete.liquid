@@ -1,0 +1,17 @@
+{% comment %}
+  Delete a user.
+  Params:
+    - id: string
+      the user's id
+{% endcomment %}
+{% liquid
+  graphql user = 'modules/user/delete', id: id
+
+  unless user.errors
+    assign params = '{}' | parse_json | hash_merge: user: user.user
+    function results = 'modules/core/hook/fire', hook: 'user_delete', params: params
+    hash_assign user['hook_results'] = results
+  endunless
+
+  return user
+%}

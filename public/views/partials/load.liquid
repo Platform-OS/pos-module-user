@@ -1,0 +1,17 @@
+{% comment %}
+  Load a user's data.
+  Params:
+    - id: string
+      the user's id
+{% endcomment %}
+{% liquid
+  graphql users = 'modules/user/load', id: id
+  assign user = users.users.results.first
+  unless user
+    assign user = '{}' | parse_json
+  endunless
+  assign params = '{}' | parse_json | hash_merge: user: user
+  function results = 'modules/core/hook/fire', hook: 'user_load', params: params, merge_to_object: true
+  hash_assign user['hook_results'] = results
+  return user
+%}
