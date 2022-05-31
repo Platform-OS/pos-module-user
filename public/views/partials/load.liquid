@@ -9,7 +9,7 @@
   assign user = users.users.results.first
   if user
     assign params = '{}' | parse_json | hash_merge: user: user
-    function results = 'modules/hook/fire', hook: 'user_load', params: params
+    function results = 'modules/core/hook/fire', hook: 'user_load', params: params, merge_to_object: true
     hash_assign user['hook_results'] = results
   endif
   return user
