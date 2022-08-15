@@ -1,0 +1,18 @@
+{% comment %}
+  Implements hook_module_info.
+{% endcomment %}
+{% parse_json info %}
+{
+  "name": "User",
+  "machine_name": "user",
+  "type": "module",
+  "version": "1.0.0",
+  "dependencies": [
+    "core",
+    "permission",
+    "admin"
+  ]
+}
+{% endparse_json %}
+
+{% return info %}

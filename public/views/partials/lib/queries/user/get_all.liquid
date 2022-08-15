@@ -2,7 +2,7 @@
   graphql users_res = 'modules/user/list'
   assign users = '[]' | parse_json
   for row in users_res.users.results
-    function user = 'modules/user/load', id: row.id
+    function user = 'modules/user/lib/queries/user/load', id: row.id
     assign users = users | add_to_array: user
   endfor
 

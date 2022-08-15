@@ -9,7 +9,7 @@
 
   unless user.errors
     assign params = '{}' | parse_json | hash_merge: user: user.user
-    function results = 'modules/core/hook/fire', hook: 'user_delete', params: params
+    function results = 'modules/core/lib/commands/hook/fire', hook: 'user_delete', params: params
     hash_assign user['hook_results'] = results
   endunless
 
