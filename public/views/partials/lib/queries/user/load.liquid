@@ -5,7 +5,7 @@
       the user's id
 {% endcomment %}
 {% liquid
-  graphql users = 'modules/user/load', id: id
+  graphql users = 'modules/user/user/load', id: id
   assign user = users.users.results.first
   unless user
     assign user = '{}' | parse_json

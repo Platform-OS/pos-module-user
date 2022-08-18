@@ -9,7 +9,7 @@
       the other params that will be passed to hook_user_create
 {% endcomment %}
 {% liquid
-  graphql user = 'modules/user/create', email: email, password: password
+  graphql user = 'modules/user/user/create', email: email, password: password
 
   unless user.errors
     assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
