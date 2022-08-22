@@ -1,0 +1,7 @@
+{% comment %}
+  Counts the created users
+{% endcomment %}
+{% liquid
+  graphql count = 'modules/user/user/count'
+  return count.users.total_entries
+%}

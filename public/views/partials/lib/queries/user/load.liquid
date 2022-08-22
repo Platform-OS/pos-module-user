@@ -1,15 +1,39 @@
 {% comment %}
-  Load a user's data.
+  Loads a user's data.
   Params:
     - id: string
       the user's id
+    - current: boolean
+      load the user from context
 {% endcomment %}
 {% liquid
-  graphql users = 'modules/user/user/load', id: id
+  assign user_id = id
+  if current
+    assign user_id = context.current_user.id
+  endif
+
+  graphql users = 'modules/user/user/load', id: user_id
   assign user = users.users.results.first
-  unless user
-    assign user = '{}' | parse_json
-  endunless
+
+  if user
+    function user_roles = 'modules/user/lib/queries/user_roles/get', user_id: user.id
+    assign user_roles = user_roles.roles
+    if current
+      assign user_roles = user_roles | add_to_array: 'authenticated'
+    endif
+    hash_assign user['roles'] = user_roles
+  else
+    assign user = '{"roles": []}' | parse_json
+    if current
+      assign user_roles = 'anonymous' | split: ','
+      hash_assign user['roles'] = user_roles
+    endif
+  endif
+
+  function permissions = 'modules/user/lib/queries/user/get_permissions', user: user
+  hash_assign user['permissions'] = permissions
+
+
   assign params = '{}' | parse_json | hash_merge: user: user
   function results = 'modules/core/lib/commands/hook/fire', hook: 'user_load', params: params, merge_to_object: true
   hash_assign user['hook_results'] = results

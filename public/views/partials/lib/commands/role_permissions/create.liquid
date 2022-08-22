@@ -1,0 +1,12 @@
+{% comment %}
+  Creates a role.
+  Params:
+    - role_name: string
+      the role's name
+    - permissions: array of strings
+      the permissions that assigned to the role
+{% endcomment %}
+{% liquid
+  graphql role = 'modules/user/role_permissions/create', role_name: role_name, permissions: permissions
+  return role
+%}
