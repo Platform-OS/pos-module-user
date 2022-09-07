@@ -39,7 +39,7 @@ function permissions = 'modules/user/lib/queries/user/get_permissions', user: us
 ### Own hooks
 
 #### hook_user_create
-Fires when the user is loaded. The created user is added to `params.created_user` and the other sent params are added to `params.hook_params`.
+Fires when the user is created. The created user is added to `params.created_user` and the other sent params are added to `params.hook_params`.
 
 For example:
 ```
