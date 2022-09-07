@@ -1,0 +1,5 @@
+name: role_permissions
+properties:
+  - name: role_name
+  - name: permissions
+    type: array

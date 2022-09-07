@@ -1,0 +1,5 @@
+name: user_roles
+properties:
+  - name: user_id
+  - name: roles
+    type: array
