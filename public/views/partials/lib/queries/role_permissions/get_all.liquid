@@ -26,11 +26,12 @@
   comment
     Superadmins should do everything.
   endcomment
-  function all_permissions = 'modules/permission/lib/queries/permission/get_all'
+  function all_permissions = 'modules/permission/get_permissions'
   assign role = '{}' | parse_json | hash_merge: role_name: 'superadmin', permissions: all_permissions
   assign roles = roles | prepend_to_array: role
+  
   comment
-    Decalre the default roles.
+    Declare the default roles.
   endcomment
   unless authenticated_declared
     assign no_permissions = '[]' | parse_json
