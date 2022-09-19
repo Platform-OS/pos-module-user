@@ -2,6 +2,8 @@
 
 This module handles the user operations, assign users to roles and add permissions to roles.
 
+If you want to use user related form components, you can use [User module](https://github.com/Platform-OS/pos-module-user-forms).
+
 ## Usage
 
 ### User operations
