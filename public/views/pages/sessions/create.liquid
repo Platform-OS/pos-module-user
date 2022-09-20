@@ -1,0 +1,10 @@
+---
+method: post
+slug: sessions/create
+---
+
+{% liquid
+  function res = 'modules/user/lib/commands/session/create', email: params.email, password: params.password, hook_params: params
+  assign redirect_path = res.hook_results.redirect_to | default: params.redirect_to | default: '/'
+  redirect_to redirect_path
+%}
