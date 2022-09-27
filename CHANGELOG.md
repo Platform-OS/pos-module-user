@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 ## Breaking changes
 
-## Merge pull requests
+## Merged pull requests
 
 - Register and session handlers [`#7`](https://github.com/Platform-OS/pos-module-user/pull/7)
 - Authentication and authorization [`#4`](https://github.com/Platform-OS/pos-module-user/pull/4)
