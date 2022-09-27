@@ -1,0 +1,44 @@
+{
+  "name": "user",
+  "version": "1.0.0",
+  "description": "This module handles the user operations, assign users to roles and add permissions to roles.",
+  "main": " ",
+  "dependencies": {
+    "commander": "^7.2.0",
+    "handlebars": "^4.7.7",
+    "lru-cache": "^6.0.0",
+    "minimist": "^1.2.6",
+    "neo-async": "^2.6.2",
+    "node-fetch": "^2.6.7",
+    "parse-github-url": "^1.0.2",
+    "semver": "^7.3.7",
+    "source-map": "^0.6.1",
+    "tr46": "^0.0.3",
+    "uglify-js": "^3.17.2",
+    "webidl-conversions": "^3.0.1",
+    "whatwg-url": "^5.0.0",
+    "wordwrap": "^1.0.0",
+    "yallist": "^4.0.0"
+  },
+  "devDependencies": {
+    "auto-changelog": "^2.4.0"
+  },
+  "scripts": {
+    "version": "(cd ../../ pos-cli modules version user -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
+  },
+  "auto-changelog": {
+    "template": "changelog-template.hbs",
+    "unreleased": true,
+    "commitLimit": false
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Platform-OS/pos-module-user.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Platform-OS/pos-module-user/issues"
+  },
+  "homepage": "https://github.com/Platform-OS/pos-module-user#readme"
+}
