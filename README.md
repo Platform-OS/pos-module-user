@@ -154,3 +154,9 @@ function count = 'lib/commands/profiles/increment_logouts_number', user_id: para
 assign result = '{}' | parse_json | hash_merge: logout_count: count
 return result
 ```
+
+## Versioning
+
+```
+npm version major | minor | patch
+```
