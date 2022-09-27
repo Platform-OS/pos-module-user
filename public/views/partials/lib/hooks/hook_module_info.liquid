@@ -3,16 +3,14 @@
 {% endcomment %}
 {% parse_json info %}
 {
-  "name": "User",
-  "machine_name": "user",
-  "type": "module",
-  "version": "1.0.0",
-  "dependencies": [
-    "core",
-    "permission",
-    "admin"
-  ]
+  "name": "<%= &name =%>",
+  "machine_name": "<%= &machine_name =%>",
+  "type": "<%= &type =%>",
+  "version": "<%= &version =%>",
+  "dependencies": "<%= &dependencies =%>"
 }
 {% endparse_json %}
 
-{% return info %}
+{% liquid
+  return info
+%}
