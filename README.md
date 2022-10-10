@@ -89,7 +89,7 @@ function permissions = 'modules/user/lib/queries/user/get_permissions', user: us
 ### Implements
 
 - hook_module_info
-- hook_admin_menu
+- hook_admin_page
 - hook_permission
 
 ### Own hooks

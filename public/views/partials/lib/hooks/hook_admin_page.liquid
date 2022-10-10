@@ -1,0 +1,29 @@
+{% comment %}
+  Implements hook_admin_page.
+{% endcomment %}
+
+{% parse_json admin_pages %}
+[
+  {
+    "relative_path": "/admin/users",
+    "partial": "modules/user/admin_pages/list",
+    "menu": {
+      "title": "Users",
+      "link_attributes": {}
+    },
+    "permission": "users.manage"
+  },
+  {
+    "relative_path": null,
+    "menu": {
+      "title": "Log out",
+      "link_attributes": {
+        "href": "/sessions/destroy"
+      }
+    },
+    "permission": "sessions.destroy"
+  }
+]
+{% endparse_json %}
+
+{% return admin_pages %}
