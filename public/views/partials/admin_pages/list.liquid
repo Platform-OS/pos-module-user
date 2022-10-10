@@ -1,9 +1,4 @@
-{% liquid
-  function current_user = 'modules/user/lib/queries/user/current'
-  include 'modules/permission/lib/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.manage'
-
-  function users = 'modules/user/lib/queries/user/get_all'
-%}
+{% function users = 'modules/user/lib/queries/user/get_all' %}
 {% for user in users %}
   <div>
     <h3>{{ user.email }} (#{{ user.id }})</h3>
