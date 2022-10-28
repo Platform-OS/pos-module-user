@@ -8,6 +8,22 @@ slug: sessions/create
   include 'modules/permission/lib/helpers/can_do_or_unauthorized', requester: current_user, do: 'sessions.create'
 
   function res = 'modules/user/lib/commands/session/create', email: params.email, password: params.password, hook_params: params
+
   assign redirect_path = res.hook_results.redirect_to | default: params.redirect_to | default: '/'
-  redirect_to redirect_path
+  assign redirect_on_fail = res.hook_results.redirect_on_fail | default: params.redirect_on_fail | default: context.headers.HTTP_REFERER
+
+  if res.valid
+    redirect_to redirect_path
+  else
+    function form_exists = 'modules/core/lib/queries/module/exists', type: 'module', name: 'form'
+    if form_exists
+      assign form_name = params.form_name | default: 'session_create'
+      function _ = 'modules/form/lib/commands/error/register', form_name: form_name, errors: res.errors
+      assign values = res | deep_clone
+      assign _ = values | hash_delete_key: 'password'
+      function _ = 'modules/form/lib/commands/value/store', form_name: form_name, values: values
+    endif
+
+    redirect_to redirect_on_fail
+  endif
 %}
