@@ -3,14 +3,14 @@
 {% endcomment %}
 {% liquid
   function user = 'modules/user/lib/queries/user/current'
-  graphql destory = 'modules/user/session/destroy'
-  hash_assign destory['user'] = user
+  graphql destroy = 'modules/user/session/destroy'
+  hash_assign destroy['user'] = user
 
-  unless destory.errors
-    assign params = '{}' | parse_json | hash_merge: destory: destory
+  unless destroy.errors
+    assign params = '{}' | parse_json | hash_merge: destroy: destroy
     function results = 'modules/core/lib/commands/hook/fire', hook: 'user_logout', params: params
-    hash_assign destory['hook_results'] = results
+    hash_assign destroy['hook_results'] = results
   endunless
 
-  return destory
+  return destroy
 %}
