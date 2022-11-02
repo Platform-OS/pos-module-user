@@ -11,8 +11,9 @@
 {% liquid
   function user = 'modules/user/lib/commands/user/verify_password', email: email, password: password
 
-  if user.authenticate.valid
+  if user.valid
     function user = 'modules/user/lib/queries/user/load', id: user.id
+    hash_assign user['valid'] = true
     sign_in_rc user_id: user.id
     assign params = '{}' | parse_json | hash_merge: user: user, hook_params: hook_params
     function results = 'modules/core/lib/commands/hook/fire', hook: 'user_login', params: params, merge_to_object: true
