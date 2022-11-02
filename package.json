@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This module handles the user operations, assign users to roles and add permissions to roles.",
   "scripts": {
-    "version": "(cd ../../ && pos-cli modules version user -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
+    "version": "(cd ../../ && node /Volumes/Mini1TB/Work/pOS/pos-cli/bin/pos-cli.js modules version user -p) && git add template-values.json && auto-changelog -p && git add CHANGELOG.md"
   },
   "repository": {
     "type": "git",
