@@ -6,7 +6,7 @@
 {% endcomment %}
 {% liquid
   assign permissions = '[]' | parse_json
-  function role_permissions = 'modules/user/lib/queries/role_permissions/get_all'
+  function role_permissions = 'modules/user/lib/queries/role_permissions/search'
 
   assign role_tree = '{}' | parse_json
 

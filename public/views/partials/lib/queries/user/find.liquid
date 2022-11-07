@@ -12,11 +12,11 @@
     assign user_id = context.current_user.id
   endif
 
-  graphql users = 'modules/user/user/load', id: user_id
+  graphql users = 'modules/user/user/find', id: user_id
   assign user = users.users.results.first
 
   if user
-    function user_roles = 'modules/user/lib/queries/user_roles/get', user_id: user.id
+    function user_roles = 'modules/user/lib/queries/user_roles/search', user_id: user.id
     assign user_roles = user_roles.roles | default: '[]' | parse_json
     if current
       assign user_roles = user_roles | add_to_array: 'authenticated'
@@ -30,7 +30,7 @@
     endif
   endif
 
-  function permissions = 'modules/user/lib/queries/user/get_permissions', user: user
+  function permissions = 'modules/user/lib/queries/user/find_permissions', user: user
   hash_assign user['permissions'] = permissions
 
 

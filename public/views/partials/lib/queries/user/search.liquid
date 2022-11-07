@@ -2,10 +2,10 @@
   Loads all users.
 {% endcomment %}
 {% liquid
-  graphql users_res = 'modules/user/user/list'
+  graphql users_res = 'modules/user/user/search'
   assign users = '[]' | parse_json
   for row in users_res.users.results
-    function user = 'modules/user/lib/queries/user/load', id: row.id
+    function user = 'modules/user/lib/queries/user/find', id: row.id
     assign users = users | add_to_array: user
   endfor
 
