@@ -14,10 +14,10 @@ You can create:
 function result = 'modules/user/lib/commands/user/create', email: 'admin@example.com', password: 'password'
 ```
 
-load:
+find:
 
 ```
-function user = 'modules/user/lib/queries/user/load', id: '1'
+function user = 'modules/user/lib/queries/user/find', id: '1'
 ```
 
 and delete:
@@ -81,7 +81,7 @@ function current_user = 'modules/user/lib/queries/user/current'
 ```
 
 ```
-function permissions = 'modules/user/lib/queries/user/get_permissions', user: user
+function permissions = 'modules/user/lib/queries/user/find_permissions', user: user
 ```
 
 ## Hooks
@@ -121,7 +121,7 @@ For example:
 Fires when the user is loaded. The loaded user is added to `params.user`. You can return with your user related data.
 
 ```
-function profile = 'lib/quieries/profiles/load', user_id: params.user.id
+function profile = 'lib/queries/profiles/find', user_id: params.user.id
 assign result = '{}' | parse_json | hash_merge: profile: profile
 return result
 ```

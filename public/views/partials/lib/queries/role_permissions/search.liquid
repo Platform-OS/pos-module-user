@@ -5,7 +5,7 @@
   assign anonymous_declared = false
   assign authenticated_declared = false
 
-  graphql defined_roles = 'modules/user/role_permissions/get', per_page: 1000
+  graphql defined_roles = 'modules/user/role_permissions/search', per_page: 1000
 
   assign roles = '[]' | parse_json
 
@@ -24,7 +24,7 @@
     assign roles = roles | add_to_array: role
   endfor
 
-  function all_permissions = 'modules/permission/lib/queries/permission/get_all'
+  function all_permissions = 'modules/permission/lib/queries/permission/search'
   assign auth_permissions = '["sessions.destroy"]' | parse_json
   assign anonym_permissions = anonym_permissions | default: '["sessions.create", "users.register"]' | parse_json
 
