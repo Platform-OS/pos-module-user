@@ -1,23 +1,36 @@
-### Changelog
+# Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v1.0.1](https://github.com/Platform-OS/pos-module-user/compare/v1.0.0...v1.0.1)
+## [v1.0.2](https://github.com/Platform-OS/pos-module-user/compare/v1.0.1...v1.0.2)
 
-## Breaking changes
+> 10 November 2022
 
-## Merged pull requests
-- Fix typo [`#6`](https://github.com/Platform-OS/pos-module-user/pull/6)
+### Breaking changes
 
-## Fixes
+### Merged pull requests
+- Update changelog template [`#13`](https://github.com/Platform-OS/pos-module-user/pull/13)
 
-#### v1.0.0
+### Fixes
+
+## [v1.0.1](https://github.com/Platform-OS/pos-module-user/compare/v1.0.0...v1.0.1)
 
 > 2 November 2022
 
-## Breaking changes
+### Breaking changes
 
-## Merged pull requests
+### Merged pull requests
+- Fix typo [`#6`](https://github.com/Platform-OS/pos-module-user/pull/6)
+
+### Fixes
+
+## v1.0.0
+
+> 2 November 2022
+
+### Breaking changes
+
+### Merged pull requests
 - Versioning [`#8`](https://github.com/Platform-OS/pos-module-user/pull/8)
 - Use build/check when validating the authentication [`#11`](https://github.com/Platform-OS/pos-module-user/pull/11)
 - Permission handling for registration [`#10`](https://github.com/Platform-OS/pos-module-user/pull/10)
@@ -28,4 +41,4 @@ All notable changes to this project will be documented in this file. Dates are d
 - User list [`#2`](https://github.com/Platform-OS/pos-module-user/pull/2)
 - Basics (create, load, delete) [`#1`](https://github.com/Platform-OS/pos-module-user/pull/1)
 
-## Fixes
+### Fixes
