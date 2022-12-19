@@ -126,6 +126,17 @@ assign result = '{}' | parse_json | hash_merge: profile: profile
 return result
 ```
 
+#### hook_user_load_alter
+
+Fires after the user is loaded. You can override the already loaded user object before returning it in `modules/user/lib/queries/user/load`.
+
+```
+function profile = 'lib/queries/profiles/find', user_id: params.user.id
+hash_assign params_to_modify['user']['roles'] = profile.roles
+
+return params_to_modify
+```
+
 #### hook_user_delete
 
 Fires when the user is deleted. The deleted user is added to `params.user`.
