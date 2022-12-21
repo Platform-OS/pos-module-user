@@ -12,8 +12,10 @@
     assign user_id = context.current_user.id
   endif
 
-  graphql users = 'modules/user/user/load', id: user_id
-  assign user = users.users.results.first
+  if user_id != blank
+    graphql users = 'modules/user/user/load', id: user_id
+    assign user = users.users.results.first
+  endif
 
   if user
     function user_roles = 'modules/user/lib/queries/user_roles/get', user_id: user.id
