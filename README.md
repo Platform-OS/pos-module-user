@@ -57,7 +57,7 @@ function res = 'modules/user/lib/commands/session/destroy'
 
 These functions will fire `hook_user_login/logout` hooks.
 
-There are also default rest handlers to create (`POST /sessions/create`) or destroy (`GET /sessions/destroy`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login`
+There are also default rest handlers to create (`POST /user/sessions/create`) or destroy (`GET /sessions/destroy`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login`
 
 ```
 assign redirect_to = '/'
