@@ -20,13 +20,19 @@ load:
 function user = 'modules/user/lib/queries/user/load', id: '1'
 ```
 
+update:
+
+```
+function user = 'modules/user/lib/queries/user/update', id: '1', email: 'admin@example.com', password: 'password'
+```
+
 and delete:
 
 ```
 function result = 'modules/user/lib/commands/user/delete', id: '1'
 ```
 
-These functions will fire `hook_user_create/load/delete` hooks.
+These functions will fire `hook_user_create/load/update/delete` hooks.
 
 There is also a default rest handlers to register (`POST /users/register`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create`
 
@@ -135,6 +141,16 @@ function profile = 'lib/queries/profiles/find', user_id: params.user.id
 hash_assign params_to_modify['user']['roles'] = profile.roles
 
 return params_to_modify
+```
+
+#### hook_user_update
+
+Fires when the user is updated. The updated user is added to `params.updated_user`. You can return with your updated user related data.
+
+```
+function profile = 'lib/quieries/profiles/update', user_id: params.updated_user.id, first_name: params.hook_params.first_name
+assign result = '{}' | parse_json | hash_merge: profile: profile
+return result
 ```
 
 #### hook_user_delete
