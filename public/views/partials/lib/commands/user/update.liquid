@@ -1,0 +1,27 @@
+{% comment %}
+  Updates a user.
+  Params:
+    - id: string
+    - email: string
+      the user's email address
+    - password: string
+      the user's password
+    - hook_params: object
+      the other params that will be passed to hook_user_update
+{% endcomment %}
+{% liquid
+  function object = 'modules/user/lib/commands/user/update/build', id: id, email: email, password: password
+  function object = 'modules/user/lib/commands/user/update/check', object: object
+
+  if object.valid
+    graphql user = 'modules/user/user/update', args: object
+    hash_assign object['update_result'] = user
+    unless user.errors
+      assign params = '{}' | parse_json | hash_merge: updated_user: user.user, hook_params: hook_params
+      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_update', params: params, merge_to_object: true
+      hash_assign object['hook_results'] = results
+    endunless
+  endif
+
+  return object
+%}
