@@ -9,18 +9,35 @@
       the other params that will be passed to hook_user_create
 {% endcomment %}
 {% liquid
-  graphql user = 'modules/user/user/create', email: email, password: password
+  function object = 'modules/user/lib/commands/user/create/build', email: email, password: password
+  function object = 'modules/user/lib/commands/user/create/check', object: object
 
-  unless user.errors
-    function users_count = 'modules/user/lib/queries/user/count'
-    if users_count == 1
-      assign roles = 'superadmin' | split: ','
-      function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
-    endif
-    assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
-    function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
-    hash_assign user['hook_results'] = results
-  endunless
+  if object.valid
+    graphql user = 'modules/user/user/create', email: object.email, password: object.password
 
-  return user
+    unless user.errors
+      function users_count = 'modules/user/lib/queries/user/count'
+      if users_count == 1
+        assign roles = 'superadmin' | split: ','
+        function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
+      endif
+      assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
+      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
+      hash_assign user['hook_results'] = results
+
+      for result in user['hook_results']
+        unless result[1].valid
+          function delete = 'modules/user/lib/commands/user/delete', id: user.user.id
+          hash_assign object['valid'] = false
+
+          hash_assign object['errors'] = object['errors'] | hash_merge: result[1]['errors']
+
+          hash_assign object['delete_result'] = delete
+          break
+        endunless
+      endfor
+    endunless
+  endif
+
+  return object
 %}

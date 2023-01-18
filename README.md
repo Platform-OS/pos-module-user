@@ -34,19 +34,6 @@ function result = 'modules/user/lib/commands/user/delete', id: '1'
 
 These functions will fire `hook_user_create/load/update/delete` hooks.
 
-There is also a default rest handlers to register (`POST /users/register`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create`
-
-```
-assign redirect_to = '/'
-function can = 'modules/permission/lib/helpers/can_do', requester: params.user, do: 'admin_pages.view'
-if can
-  assign redirect_to = '/admin'
-endif
-
-assign res = '{}' | parse_json | hash_merge: redirect_to: redirect_to
-return res
-```
-
 ### Authentication
 
 You can create:
