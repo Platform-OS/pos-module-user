@@ -63,6 +63,12 @@ function res = 'modules/user/lib/commands/session/destroy'
 
 These functions will fire `hook_user_login/logout` hooks.
 
+It's possible to skip password validation and just create a session and fire `hook_user_login` by set `validate_password` boolean to `false` when calling `sessions/create` command. In this case to have to set `user_id`.
+
+```
+function res = 'modules/user/lib/commands/session/create', user_id: '1', validate_password: false
+```
+
 There are also default rest handlers to create (`POST /user/sessions/create`) or destroy (`GET /sessions/destroy`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login`
 
 ```
