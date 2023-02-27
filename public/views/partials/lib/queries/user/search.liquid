@@ -1,0 +1,76 @@
+{% comment %}
+  Searches for users.
+
+  This function will fire hook_user_search_query_alter where you can modify the query params and set up additional joins.
+  Params:
+    - args: Object
+      the argument that passed to graphql search query.
+{% endcomment %}
+
+{% liquid
+  assign query_params = '{}' | parse_json
+  hash_assign query_params['id'] = 'ID'
+  hash_assign query_params['ids'] = '[ID!]'
+  hash_assign query_params['skip_ids'] = '[ID!]'
+  hash_assign query_params['emails'] = '[String!]'
+  hash_assign query_params['limit'] = 'Int = 1'
+  hash_assign query_params['valid_for'] = 'Int = 1'
+  hash_assign query_params['page'] = 'Int = 1'
+  hash_assign query_params['with_token'] = 'Boolean = false'
+  hash_assign query_params['from'] = 'String'
+  hash_assign query_params['to'] = 'String'
+  hash_assign query_params['sort_order'] = 'SortOrderEnum = ASC'
+
+  assign filter_joins = '{}' | parse_json
+  assign result_joins = '{}' | parse_json
+
+  assign params_to_modify = '{}' | parse_json | hash_merge: query_params: query_params, filter_joins: filter_joins, result_joins: result_joins
+  assign params = '{}' | parse_json | hash_merge: query_params: query_params
+  function _ = 'modules/core/lib/commands/hook/alter', hook: 'user_search_query', params_to_modify: params_to_modify, params: params
+%}
+
+{% graphql result, args: args %}
+ query (
+    {%- for param in query_params %}
+      ${%- print param[0] %}: {% print param[1] %}
+    {%- endfor %}
+  ) {
+    users(
+      page: $page
+      per_page: $limit
+      filter: {
+        email: {value_in: $emails}
+        id: { value: $id, value_in: $ids, not_value_in: $skip_ids }
+        created_at: { lte: $to, gte: $from }
+        related_records: [
+          {%- for related_record in filter_joins %}
+            {%- print related_record[1] %}
+          {%- endfor %}
+        ]
+      }
+      sort: [{ id: { order: $sort_order } }]
+    ) {
+      total_entries
+      total_pages
+      has_previous_page
+      has_next_page
+      results {
+        id
+        email
+        created_at
+        uuid: property(name: "uuid")
+        attempts: property_int(name: "attempts")
+        locked_at: property(name: "locked_at")
+        token: temporary_token(valid_for: $valid_for) @include(if: $with_token)
+
+        {%- for result_join in result_joins %}
+          {%- print result_join[0] %}: {%- print result_join[1] %}
+        {%- endfor %}
+      }
+    }
+  }
+{% endgraphql %}
+
+{% liquid
+  return result
+%}
