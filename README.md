@@ -20,6 +20,12 @@ load:
 function user = 'modules/user/lib/queries/user/load', id: '1'
 ```
 
+search:
+
+```
+function user = 'modules/user/lib/queries/user/search', limit: 10, sort_order: 'DESC'
+```
+
 update:
 
 ```
