@@ -149,6 +149,63 @@ hash_assign params_to_modify['user']['roles'] = profile.roles
 return params_to_modify
 ```
 
+#### hook_user_search_query_alter
+
+Fires before the user search query will be run. You can override the query params, add filter joins and result data to the query.
+
+```
+{%- capture profile_filter -%}
+  {
+    join: { join_on_property: "id", foreign_property: "user_id" }
+    filter: {
+      table: { value: "modules/community/profile" }
+      or: [
+        { properties: { name: "first_name", contains: $query }}
+        { properties: { name: "last_name", contains: $query }}
+      ]
+    }
+  }
+{%- endcapture -%}
+
+{%- capture profile_result %}
+  related_record(
+    table: "modules/community/profile"
+    join_on_property: "id"
+    foreign_property: "user_id"
+  ) {
+    id
+    created_at
+    type: table
+
+    name: property(name: "name")
+    first_name: property(name: "first_name")
+    last_name: property(name: "last_name")
+
+    avatar: related_record(
+      table: "photo"
+      join_on_property: "uuid"
+      foreign_property: "object_uuid"
+      filter: { properties: { name: "photo_type", value: "avatar" } }
+    ) {
+      photo_width: property_int(name: "photo_width")
+      photo_height: property_int(name: "photo_height")
+      photo: property_upload(name: "photo") {
+        url
+        versions
+      }
+    }
+  }
+{% endcapture %}
+
+{%liquid
+  hash_assign params_to_modify['filter_joins']['profile'] = profile_filter
+  hash_assign params_to_modify['result_joins']['profile'] = profile_result
+  hash_assign params_to_modify['query_params']['query'] = 'String'
+
+  return params_to_modify
+%}
+```
+
 #### hook_user_update
 
 Fires when the user is updated. The updated user is added to `params.updated_user`. You can return with your updated user related data.
