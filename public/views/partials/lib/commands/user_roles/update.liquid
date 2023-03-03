@@ -1,0 +1,12 @@
+{% comment %}
+  Updates a user's roles.
+  Params:
+    - id: string
+      the model ID
+    - roles: array of strings
+      the roles that assigned to the user
+{% endcomment %}
+{% liquid
+  graphql user_role = 'modules/user/user_roles/update', id: id, roles: roles
+  return user_role
+%}
