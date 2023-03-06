@@ -24,27 +24,24 @@
     assign roles = roles | add_to_array: role
   endfor
 
-  function all_permissions = 'modules/permission/lib/queries/permission/get_all'
-  assign auth_permissions = '["sessions.destroy"]' | parse_json
-  assign anonym_permissions = anonym_permissions | default: '["sessions.create", "users.register"]' | parse_json
+  function default_roles = 'modules/user/lib/queries/role_permissions/get_defaults'
 
   comment
     Decalre the default roles.
   endcomment
   unless authenticated_declared
-    assign role = '{}' | parse_json | hash_merge: role_name: 'authenticated', permissions: auth_permissions
+    assign role = '{}' | parse_json | hash_merge: role_name: 'authenticated', permissions: default_roles['authenticated']
     assign roles = roles | prepend_to_array: role
   endunless
   unless anonymous_declared
-    assign role = '{}' | parse_json | hash_merge: role_name: 'anonymous', permissions: anonym_permissions
+    assign role = '{}' | parse_json | hash_merge: role_name: 'anonymous', permissions: default_roles['anonymous']
     assign roles = roles | prepend_to_array: role
   endunless
 
   comment
     Superadmins should do everything except anonymous ones.
   endcomment
-  assign superadmin_permissions = all_permissions | array_subtract: anonym_permissions
-  assign role = '{}' | parse_json | hash_merge: role_name: 'superadmin', permissions: superadmin_permissions
+  assign role = '{}' | parse_json | hash_merge: role_name: 'superadmin', permissions: default_roles['superadmin']
   assign roles = roles | prepend_to_array: role
 
   return roles
