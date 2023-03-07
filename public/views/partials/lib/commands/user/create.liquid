@@ -9,18 +9,31 @@
       the other params that will be passed to hook_user_create
 {% endcomment %}
 {% liquid
-  graphql user = 'modules/user/user/create', email: email, password: password
+  function object = 'modules/user/lib/commands/user/create/build', email: email, password: password, hook_params: hook_params
+  function object = 'modules/user/lib/commands/user/create/check', object: object
 
-  unless user.errors
-    function users_count = 'modules/user/lib/queries/user/count'
-    if users_count == 1
-      assign roles = 'superadmin' | split: ','
-      function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
-    endif
-    assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
-    function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
-    hash_assign user['hook_results'] = results
-  endunless
+  if object.valid
+    graphql user = 'modules/user/user/create', email: email, password: password
+    unless user.errors
+      function users_count = 'modules/user/lib/queries/user/count'
+      if users_count == 1
+        assign roles = 'superadmin' | split: ','
+        function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
+      endif
+      assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
+      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
+      for result in results
+        if result[1].valid == false
+          function delete = 'modules/user/lib/commands/user/delete', id: user.user.id
+          hash_assign object['valid'] = false
+          hash_assign object['errors'] = 'Error in the hook_user_create results. Handling transaction by running user delete command'
+          hash_assign object['delete_result'] = delete
+          break
+        endif
+      endfor
+      hash_assign object['hook_results'] = results
+    endunless
+  endif
 
-  return user
+  return object
 %}

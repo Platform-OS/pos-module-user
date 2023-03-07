@@ -1,5 +1,6 @@
-query {
-  users(per_page: 1000) {
+query users_list($email:String) {
+  users(per_page: 1000, filter: {email: {exact: $email}}) {
+    total_entries
     results {
       created_at
       email
