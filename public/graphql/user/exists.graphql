@@ -1,5 +1,0 @@
-query user_exists($email:String!) {
-  users(per_page: 1, filter: {email: {exact: $email}}) {
-    total_entries
-  }
-}
