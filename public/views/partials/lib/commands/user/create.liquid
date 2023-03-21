@@ -15,6 +15,7 @@
   if object.valid
     graphql user = 'modules/user/user/create', email: email, password: password
     unless user.errors
+      hash_assign object['id'] = user.user.id
       function users_count = 'modules/user/lib/queries/user/count'
       if users_count == 1
         assign roles = 'superadmin' | split: ','
