@@ -5,6 +5,7 @@
   assign anonymous_declared = false
   assign authenticated_declared = false
 
+  # log 1, type: 'role_permissions/get_all'
   graphql defined_roles = 'modules/user/role_permissions/get', per_page: 1000
 
   assign roles = '[]' | parse_json

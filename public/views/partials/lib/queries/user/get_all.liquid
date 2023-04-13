@@ -2,6 +2,7 @@
   Loads all users.
 {% endcomment %}
 {% liquid
+  # log 1, type: 'user/list'
   graphql users_res = 'modules/user/user/list'
   assign users = '[]' | parse_json
   for row in users_res.users.results
