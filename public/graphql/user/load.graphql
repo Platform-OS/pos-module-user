@@ -4,6 +4,19 @@ query ($id: ID!) {
       created_at
       email
       id
+
+      user_roles: related_records(
+        table: "modules/user/user_role"
+        join_on_property: "id"
+        foreign_property: "user_id"
+      ) {
+        id
+        created_at
+        type: table
+
+        user_id: property(name: "user_id")
+        roles: property_array(name: "roles")
+      }
     }
   }
 }
