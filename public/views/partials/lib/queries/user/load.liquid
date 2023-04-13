@@ -25,16 +25,16 @@
 
   if user
     # TODO: do we need seperate table for this?
-    assign user_roles = user.user_roles.roles | default: '[]' | parse_json
+    assign roles = user.user_role.roles | default: '[]' | parse_json
     if current
-      assign user_roles = user_roles | add_to_array: 'authenticated'
+      assign roles = roles | add_to_array: 'authenticated'
     endif
-    hash_assign user['roles'] = user_roles
+    hash_assign user['roles'] = roles
   else
     assign user = '{"roles": []}' | parse_json
     if current
-      assign user_roles = 'anonymous' | split: ','
-      hash_assign user['roles'] = user_roles
+      assign roles = 'anonymous' | split: ','
+      hash_assign user['roles'] = roles
     endif
   endif
 

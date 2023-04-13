@@ -5,8 +5,8 @@ query ($id: ID!) {
       email
       id
 
-      user_roles: related_records(
-        table: "modules/user/user_role"
+      user_role: related_record(
+        table: "modules/user/user_roles"
         join_on_property: "id"
         foreign_property: "user_id"
       ) {

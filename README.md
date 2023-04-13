@@ -143,7 +143,7 @@ return result
 Fires after the user is loaded. You can override the already loaded user object before returning it in `modules/user/lib/queries/user/load`.
 
 ```
-function profile = 'lib/queries/profiles/find', user_id: params.user.id
+function profile = 'modules/profile/queries/profiles/find_proxy', user_id: params.user.id
 hash_assign params_to_modify['user']['roles'] = profile.roles
 
 return params_to_modify
