@@ -18,9 +18,11 @@
     hash_assign object['update_result'] = user
     unless user.errors
       assign params = '{}' | parse_json | hash_merge: updated_user: user.user, hook_params: hook_params
+      # todo: merge_to_object for hooks with the same name will overwrite the validity of previous results
       function results = 'modules/core/lib/commands/hook/fire', hook: 'user_update', params: params, merge_to_object: true
       for result in results
-        if result[1].valid == false
+        # using the errors key for a quick workaround for now
+        if result[1].valid == false or result[1].errors != blank
           hash_assign object['valid'] = false
           hash_assign object['errors'] = result[1].errors
           break
