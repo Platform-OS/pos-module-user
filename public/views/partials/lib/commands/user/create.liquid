@@ -11,34 +11,43 @@
 {% liquid
   function object = 'modules/user/lib/commands/user/create/build', email: email, password: password, hook_params: hook_params
   function object = 'modules/user/lib/commands/user/create/check', object: object
+  function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create_validate', params: hook_params
 
-  if object.valid
+  # Merge the array of hook results into a single object.
+  # Do all validation before taking any action.
+  assign results = results | array_add: object
+  assign merged = '{"errors": {}, "valid": true}' | parse_json
+  for result in results
+    unless merged['valid'] and result.valid
+      hash_assign merged['valid'] = false
+    endunless
+
+    assign keys = result.errors | hash_keys
+    for key in keys
+      assign value = merged['errors'][key] | default: '[]' | parse_json | array_add: result.errors[key]
+      hash_assign merged['errors'][key] = value | array_flatten
+    endfor
+  endfor
+
+  log merged, type: 'merged'
+
+  if merged.valid
     graphql user = 'modules/user/user/create', email: email, password: password
     unless user.errors
-      hash_assign object['id'] = user.user.id
+      hash_assign merged['id'] = user.user.id
       function users_count = 'modules/user/lib/queries/user/count'
       if users_count == 1
         assign roles = 'superadmin' | split: ','
         function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
       endif
       assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
-      # todo: merge_to_object for hooks with the same name will overwrite the validity of previous results
       function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
-      for result in results
-        # using the errors key for a quick workaround for now
-        if result[1].valid == false or result[1].errors != blank
-          function delete = 'modules/user/lib/commands/user/delete', id: user.user.id
-          hash_assign object['valid'] = false
-          hash_assign object['errors'] = result[1].errors
-          hash_assign object['delete_result'] = delete
-          graphql _ = 'sessions/destroy'
-          session profile = null
-          break
-        endif
-      endfor
-      hash_assign object['hook_results'] = results
+      unless results.profile
+        response_status 500
+        include 'theme/simple/500'
+      endunless
     endunless
   endif
 
-  return object
+  return merged
 %}
