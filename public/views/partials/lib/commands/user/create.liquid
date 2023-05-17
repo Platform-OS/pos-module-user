@@ -13,39 +13,22 @@
   function object = 'modules/user/lib/commands/user/create/check', object: object
   function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create_validate', params: hook_params
 
-  # Merge the array of hook results into a single object.
   # Do all validation before taking any action.
   assign results = results | array_add: object
-  assign merged = '{"errors": {}, "valid": true}' | parse_json
-  for result in results
-    unless merged['valid'] and result.valid
-      hash_assign merged['valid'] = false
-    endunless
-
-    assign keys = result.errors | hash_keys
-    for key in keys
-      assign value = merged['errors'][key] | default: '[]' | parse_json | array_add: result.errors[key]
-      hash_assign merged['errors'][key] = value | array_flatten
-    endfor
-  endfor
-
-  log merged, type: 'merged'
+  function merged = 'modules/user/lib/helpers/merge_hook_result', results: results
 
   if merged.valid
     graphql user = 'modules/user/user/create', email: email, password: password
     unless user.errors
-      hash_assign merged['id'] = user.user.id
       function users_count = 'modules/user/lib/queries/user/count'
       if users_count == 1
         assign roles = 'superadmin' | split: ','
         function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
       endif
       assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
-      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params, merge_to_object: true
-      unless results.profile
-        response_status 500
-        include 'theme/simple/500'
-      endunless
+      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params
+      function merged = 'modules/user/lib/helpers/merge_hook_result', results: results
+      hash_assign merged['id'] = user.user.id
     endunless
   endif
 
