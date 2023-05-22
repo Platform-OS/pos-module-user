@@ -128,6 +128,37 @@ For example:
 %}
 ```
 
+#### user_create_validate
+
+Fires before the user is created. The command does not attempt to create the user when the input is invalid.
+
+The `params` variable holds the input required by the create command.
+It must return an object indicating error if there is any:
+```json
+{
+  "errors": {
+    "fist_name": [
+      "Fist name is too long"
+    ],
+    "favorite_color": [
+      "Given value is not a color: foobar"
+    ]
+  },
+  "valid": false
+}
+```
+
+For example:
+```
+{% liquid
+  # modules/community/public/lib/hooks/hook_user_create_validate.liquid
+  function object = 'modules/profile/commands/profiles/create/build', object: params
+  function object = 'modules/profile/commands/profiles/create/check', object: object
+
+  return object
+%}
+```
+
 #### hook_user_load
 
 Fires when the user is loaded. The loaded user is added to `params.user`. You can return with your user related data.
