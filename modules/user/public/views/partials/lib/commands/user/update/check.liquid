@@ -2,7 +2,7 @@
   assign c = '{ "errors": {}, "valid": true }' | parse_json
 
   if object['email']
-    function c = 'modules/core/lib/validations/email', c: c, object: object, field_name: 'email', key: 'validation.email'
+    function c = 'modules/core/validations/email', c: c, object: object, field_name: 'email', key: 'validation.email'
   endif
 
   hash_assign object['valid'] = c.valid
