@@ -11,7 +11,7 @@
 {% liquid
   function object = 'modules/user/lib/commands/user/create/build', email: email, password: password, hook_params: hook_params
   function object = 'modules/user/lib/commands/user/create/check', object: object
-  function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create_validate', params: hook_params
+  function results = 'modules/core/commands/hook/fire', hook: 'user_create_validate', params: hook_params
 
   # Do all validation before taking any action.
   assign results = results | array_add: object
@@ -26,7 +26,7 @@
         function user_role = 'modules/user/lib/commands/user_roles/create', user_id: user.user.id, roles: roles
       endif
       assign params = '{}' | parse_json | hash_merge: created_user: user.user, hook_params: hook_params
-      function results = 'modules/core/lib/commands/hook/fire', hook: 'user_create', params: params
+      function results = 'modules/core/commands/hook/fire', hook: 'user_create', params: params
       function merged = 'modules/user/lib/helpers/merge_hook_result', results: results
       hash_assign merged['id'] = user.user.id
     endunless

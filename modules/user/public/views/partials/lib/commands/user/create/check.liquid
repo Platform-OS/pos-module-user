@@ -9,7 +9,7 @@
     graphql user_exists = 'modules/user/user/list', email: object.email
     if user_exists.users.total_entries > 0
       assign message = 'modules/user/validation.user_exists' | t
-      include 'modules/core/lib/helpers/register_error', contract: c, field_name: 'email', message: message
+      include 'modules/core/helpers/register_error', contract: c, field_name: 'email', message: message
     endif
   endif
 

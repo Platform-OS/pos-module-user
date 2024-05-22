@@ -15,7 +15,7 @@ slug: user/sessions/create
   if res.valid
     redirect_to redirect_path
   else
-    function form_exists = 'modules/core/lib/queries/module/exists', type: 'module', name: 'form'
+    function form_exists = 'modules/core/queries/module/exists', type: 'module', name: 'form'
     if form_exists
       assign form_name = params.form_name | default: 'session_create'
       function _ = 'modules/form/lib/commands/error/register', form_name: form_name, errors: res.errors

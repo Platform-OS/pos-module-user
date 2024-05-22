@@ -8,7 +8,7 @@
 
   unless destroy.errors
     assign params = '{}' | parse_json | hash_merge: destroy: destroy
-    function results = 'modules/core/lib/commands/hook/fire', hook: 'user_logout', params: params
+    function results = 'modules/core/commands/hook/fire', hook: 'user_logout', params: params
     hash_assign destroy['hook_results'] = results
   endunless
 

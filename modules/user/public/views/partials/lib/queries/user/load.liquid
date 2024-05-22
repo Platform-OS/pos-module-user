@@ -44,12 +44,12 @@
 
   assign params = '{}' | parse_json | hash_merge: user: user
   # log 1, type: 'user/load hook'
-  function results = 'modules/core/lib/commands/hook/fire', hook: 'user_load', params: params, merge_to_object: true
+  function results = 'modules/core/commands/hook/fire', hook: 'user_load', params: params, merge_to_object: true
   hash_assign user['hook_results'] = results
 
   assign params_to_modify = '{}' | parse_json | hash_merge: user: user
   assign params = '{}' | parse_json | hash_merge: user: user
-  function _ = 'modules/core/lib/commands/hook/alter', hook: 'user_load', params_to_modify: params_to_modify, params: params
+  function _ = 'modules/core/commands/hook/alter', hook: 'user_load', params_to_modify: params_to_modify, params: params
 
   return user
 %}

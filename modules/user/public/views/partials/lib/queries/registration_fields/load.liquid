@@ -26,7 +26,7 @@
 {% liquid
   assign params_to_modify = '{}' | parse_json | hash_merge: fields: fields
   assign params = '{}' | parse_json | hash_merge: hook_params: hook_params
-  function _ = 'modules/core/lib/commands/hook/alter', hook: 'user_registration_fields', params_to_modify: params_to_modify, params: params
+  function _ = 'modules/core/commands/hook/alter', hook: 'user_registration_fields', params_to_modify: params_to_modify, params: params
 
   assign fields = params_to_modify.fields | array_sort_by: 'weight'
 
