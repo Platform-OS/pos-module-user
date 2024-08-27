@@ -1,0 +1,25 @@
+{% comment %}
+  Loads the role's permissions.
+
+  Params
+    - role_name: string
+{% endcomment %}
+{% liquid
+  assign anonymous_declared = false
+  assign authenticated_declared = false
+
+  graphql role_permissions = 'modules/user/role_permissions/get', per_page: 1, role_name: role_name
+
+  if role_permissions.records.total_entries > 0
+    return role_permissions.records.results.first.permissions
+  endif
+
+  assign no_permissions = '[]' | parse_json
+  function default_roles = 'modules/user/queries/role_permissions/get_defaults'
+
+  if default_roles[role_name]
+    return default_roles[role_name]
+  endif
+
+  return no_permissions
+%}

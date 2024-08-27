@@ -1,0 +1,16 @@
+{% comment %}
+  Gets default role permissions.
+{% endcomment %}
+{% liquid
+
+  function all_permissions = 'users/permissions'
+
+  assign anonym_permissions = anonym_permissions | default: '["sessions.create", "users.register"]' | parse_json
+  assign auth_permissions = '["sessions.destroy"]' | parse_json
+  assign superadmin_permissions = all_permissions | deep_clone
+  assign _ = superadmin_permissions | hash_delete_key: 'anonymous'
+
+  assign roles = '{}' | parse_json | hash_merge: anonymous: anonym_permissions, authenticated: auth_permissions, superadmin: superadmin_permissions
+
+  return roles
+%}

@@ -1,0 +1,24 @@
+---
+method: post
+slug: users
+---
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+
+  function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params
+  if object.valid
+    assign new_roles = 'member' | split: ','
+    function _update_user_roles = 'modules/user/commands/user_roles/create', user_id: object.id, roles: new_roles
+
+    assign redirect_path = object.redirect_to | default: params.redirect_to | default: '/'
+    redirect_to redirect_path
+  else
+    assign values = object | default: null | hash_merge: password: '', authenticity_token: ''
+
+    function registration_fields = 'modules/user/queries/registration_fields/load'
+
+    assign values = params | hash_merge: password: ''
+    theme_render_rc 'components/pages/register', context: context, registration_fields: registration_fields, errors: object.errors, values: values
+  endif
+%}

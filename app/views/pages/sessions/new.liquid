@@ -1,0 +1,4 @@
+{% liquid
+  include 'lib/anonymous_or_redirect', user: context.current_user
+  theme_render_rc 'components/pages/login', context: context
+%}

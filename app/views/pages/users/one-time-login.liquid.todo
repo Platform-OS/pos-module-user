@@ -1,0 +1,20 @@
+---
+slug: users/one-time-login
+---
+{% liquid
+  include 'lib/anonymous_or_redirect', user: context.current_user
+  if context.params.token == blank or context.params.email == blank
+    include 'redirect_to', url: '/sessions/new', error: 'app.errors.unauthenticated'
+  endif
+
+  function user = 'lib/queries/users/find', email: context.params.email
+  assign authenticated = context.params.token | is_token_valid: user.id
+
+  if authenticated
+    function url = 'lib/after_sign_in_url', user_id: user.id
+    function _ = 'modules/user/commands/session/create', user_id: user.id, validate_password: false
+    redirect_to url
+  else
+    include 'redirect_to', url: '/sessions/new', error: 'app.errors.unauthenticated'
+  endif
+%}

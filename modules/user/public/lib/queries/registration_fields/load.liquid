@@ -1,0 +1,25 @@
+{% comment %}
+  Loads the registration fields.
+{% endcomment %}
+
+{% parse_json fields %}
+[
+  {
+    "name": "email",
+    "required": true,
+    "type": "email",
+    "weight": 0,
+    "label": "Email"
+  },
+  {
+    "name": "password",
+    "required": true,
+    "type": "password",
+    "weight": 1,
+    "label": "Password"
+  }
+]
+{% endparse_json %}
+{% liquid
+  return fields
+%}

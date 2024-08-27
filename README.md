@@ -11,25 +11,25 @@ If you want to use user related form components, you can use [User module](https
 You can create:
 
 ```
-function result = 'modules/user/lib/commands/user/create', email: 'admin@example.com', password: 'password'
+function result = 'modules/user/commands/user/create', email: 'admin@example.com', password: 'password'
 ```
 
 load:
 
 ```
-function user = 'modules/user/lib/queries/user/load', id: '1'
+function user = 'modules/user/queries/user/load', id: '1'
 ```
 
 update:
 
 ```
-function user = 'modules/user/lib/queries/user/update', id: '1', email: 'admin@example.com', password: 'password'
+function user = 'modules/user/queries/user/update', id: '1', email: 'admin@example.com', password: 'password'
 ```
 
 and delete:
 
 ```
-function result = 'modules/user/lib/commands/user/delete', id: '1'
+function result = 'modules/user/commands/user/delete', id: '1'
 ```
 
 These functions will fire `hook_user_create/load/update/delete` hooks.
@@ -38,7 +38,7 @@ There is also a default rest handlers to register (`POST /users/register`) a ses
 
 ```
 assign redirect_to = '/'
-function can = 'modules/permission/lib/helpers/can_do', requester: params.user, do: 'admin_pages.view'
+function can = 'modules/user/helpers/can_do', requester: params.user, do: 'admin_pages.view'
 if can
   assign redirect_to = '/admin'
 endif
@@ -52,13 +52,13 @@ return res
 You can create:
 
 ```
-function res = 'modules/user/lib/commands/session/create', email: 'email@example.com', password: 'password'
+function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
 ```
 
 or destroy a user session:
 
 ```
-function res = 'modules/user/lib/commands/session/destroy'
+function res = 'modules/user/commands/session/destroy'
 ```
 
 These functions will fire `hook_user_login/logout` hooks.
@@ -66,14 +66,14 @@ These functions will fire `hook_user_login/logout` hooks.
 It's possible to skip password validation and just create a session and fire `hook_user_login` by set `validate_password` boolean to `false` when calling `sessions/create` command. In this case to have to set `user_id`.
 
 ```
-function res = 'modules/user/lib/commands/session/create', user_id: '1', validate_password: false
+function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
 ```
 
 There are also default rest handlers to create (`POST /user/sessions/create`) or destroy (`GET /sessions/destroy`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login`
 
 ```
 assign redirect_to = '/'
-function can = 'modules/permission/lib/helpers/can_do', requester: params.user, do: 'admin_pages.view'
+function can = 'modules/user/helpers/can_do', requester: params.user, do: 'admin_pages.view'
 if can
   assign redirect_to = '/admin'
 endif
@@ -85,15 +85,15 @@ return res
 ### Helpers
 
 ```
-function users_count = 'modules/user/lib/queries/user/count'
+function users_count = 'modules/user/queries/user/count'
 ```
 
 ```
-function current_user = 'modules/user/lib/queries/user/current'
+function current_user = 'modules/user/queries/user/current'
 ```
 
 ```
-function permissions = 'modules/user/lib/queries/user/get_permissions', user: user
+function permissions = 'modules/user/queries/user/get_permissions', user: user
 ```
 
 ## Hooks
@@ -171,7 +171,7 @@ return result
 
 #### hook_user_load_alter
 
-Fires after the user is loaded. You can override the already loaded user object before returning it in `modules/user/lib/queries/user/load`.
+Fires after the user is loaded. You can override the already loaded user object before returning it in `modules/user/queries/user/load`.
 
 ```
 function profile = 'modules/profile/queries/profiles/find_proxy', user_id: params.user.id
