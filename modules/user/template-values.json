@@ -4,8 +4,6 @@
   "type": "module",
   "version": "1.0.4",
   "dependencies": {
-    "core": "^1.4.7",
-    "permission": "^1.0.0",
-    "admin": "^1.0.0"
+    "core": "^1.5.0"
   }
 }

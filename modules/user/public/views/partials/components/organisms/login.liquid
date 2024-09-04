@@ -23,7 +23,7 @@ metadata:
   assign classes = classes | default: params.classes
   assign email_placeholder = email_placeholder | default: params.email_placeholder
   assign submit = submit | default: params.submit
-  assign default_submit = 'passwords.login' | t
+  assign default_submit = 'modules/user/passwords.login' | t
   assign submit = submit | default: default_submit
 %}
 

@@ -1,0 +1,34 @@
+---
+metadata:
+  name: Card
+  params:
+    tag: "div"
+    classes: ''
+    variant:
+      - default
+      - highlighted
+    content: This is an example card
+---
+{% liquid
+  assign tag = tag | default: params.tag | default: 'div'
+  assign variant = variant | default: params.variant | default: 'default'
+  assign content = content | default: params.content
+  assign classes = classes | default: params.classes
+  assign attributes = attributes | default: params.attributes
+
+  assign classes = 'p-6 rounded-surface shadow-card ' | append: classes
+
+  if variant == 'highlighted'
+    assign classes = classes | append: ' bg-highlighted'
+  else
+    assign classes = classes | append: ' bg-panel'
+  endif
+%}
+<{{tag}}
+  {% for attribute in attributes %}
+    {{ attribute[0] | html_safe }}="{{ attribute[1] | html_safe }}"
+  {% endfor %}
+  class="{{classes}}"
+>
+  {% print content %}
+</{{tag}}>

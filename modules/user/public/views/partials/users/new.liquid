@@ -1,0 +1,24 @@
+---
+metadata:
+  name: Register
+  params:
+    values: {}
+    errors: []
+    registration_fields: []
+---
+{% liquid
+  assign values = values | default: params.values
+  assign errors = errors | default: params.errors
+  assign values = values | default: params.values
+  assign registration_fields = registration_fields | default: params.registration_fields
+  assign pageTitle = 'modules/user/users.new.create_account' | t
+  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
+%}
+{% capture registerCardContent %}
+  {% theme_render_rc 'components/organisms/register', action: '/users', errors: errors, values: values, registration_fields: registration_fields, submit: 'SIGN UP', classes: 'form--register' %}
+{% endcapture %}
+
+<section class="container my-auto">
+  {% theme_render_rc 'components/atoms/card', content: registerCardContent, classes: "w-full max-w-lg mx-auto" %}
+</section>
+

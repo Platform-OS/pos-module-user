@@ -1,0 +1,9 @@
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+%}
+{% if current_user.id %}
+  current_user: {{ current_user }}
+{% else %}
+  <a href="/users/new">Register</a><br/>
+  <a href="/sessions/new">Log in</a>
+{% endif %}

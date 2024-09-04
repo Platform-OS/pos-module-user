@@ -1,6 +1,0 @@
-{% liquid
-  include 'lib/anonymous_or_redirect', user: context.current_user, error: 'app.errors.already_logged_in'
-  function registration_fields = 'modules/user/queries/registration_fields/load'
-
-  theme_render_rc 'components/pages/register', context: context, registration_fields: registration_fields
-%}
