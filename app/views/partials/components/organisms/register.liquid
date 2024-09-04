@@ -2,7 +2,7 @@
 metadata:
   name: register form
   params:
-    action: '/users/register'
+    action: '/users'
     method: 'POST'
     redirect_to: '/'
     registration_fields: []
@@ -24,7 +24,7 @@ metadata:
   assign registration_fields = registration_fields | default: params.registration_fields
   assign classes = classes | default: params.classes
   assign submit = submit | default: params.submit
-  assign default_submit = 'modules/user-forms/register' | t
+  assign default_submit = 'passwords.register' | t
   assign submit = submit | default: default_submit
 %}
 

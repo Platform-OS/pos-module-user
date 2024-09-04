@@ -3,7 +3,7 @@
 {% endcomment %}
 {% liquid
 
-  function all_permissions = 'users/permissions'
+  function all_permissions = 'modules/user/queries/role_permissions/permissions'
 
   assign anonym_permissions = anonym_permissions | default: '["sessions.create", "users.register"]' | parse_json
   assign auth_permissions = '["sessions.destroy"]' | parse_json

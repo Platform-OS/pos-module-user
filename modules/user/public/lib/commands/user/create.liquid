@@ -9,14 +9,14 @@
 {% liquid
   function object = 'modules/user/commands/user/create/build', email: email, password: password, hook_params: hook_params
   function object = 'modules/user/commands/user/create/check', object: object
-  log object, type: 'object'
+  log object, type: 'command object'
   if object.valid
     function object = 'modules/core/commands/execute', mutation_name: 'modules/user/user/create', object: object, selection: 'user'
     if object.valid
       function users_count = 'modules/user/queries/user/count'
       if users_count == 1
         assign roles = 'superadmin' | split: ','
-        function user_role = 'modules/user/commands/user_roles/create', user_id: user.user.id, roles: roles
+        function _user_role = 'modules/user/commands/user_roles/create', user_id: object.id, roles: roles
       endif
     endif
   endif

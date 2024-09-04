@@ -1,0 +1,17 @@
+{% parse_json data %}
+{
+  "authenticated": [
+    "profiles.list"
+  ],
+  "member": [
+    "sessions.destroy",
+    "site.access",
+    "site.interact"
+  ],
+  "registered": [
+    "sessions.destroy",
+    "site.access"
+  ]
+}
+{% endparse_json %}
+{% return data %}
