@@ -2,3 +2,4 @@ en:
   users:
     new:
       create_account: Create an Account
+    logout: Log out
