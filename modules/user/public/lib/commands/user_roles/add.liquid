@@ -1,0 +1,12 @@
+{% liquid
+  function user_role = 'modules/user/queries/user_roles/get', user_id: user_id
+
+  if user_role
+    assign new_roles = user_role.roles | array_add: roles | array_flatten
+    function object = 'modules/user/commands/user_roles/update', id: user_role.id, roles: new_roles
+  else
+    function object = 'modules/user/commands/user_roles/create', user_id: user_id, roles: roles
+  endif
+
+  return object
+%}

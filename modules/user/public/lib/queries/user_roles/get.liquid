@@ -5,7 +5,6 @@
       the user's id
 {% endcomment %}
 {% liquid
-  # log 1, type: 'user_roles/get'
   graphql user_roles = 'modules/user/user_roles/get', user_id: user_id
 
   return user_roles.records.results.first
