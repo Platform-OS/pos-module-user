@@ -4,3 +4,15 @@ en:
       required: Please provide your email address
       format: The email doesn't look right, please check again
     user_exists: It seems you already have a registered account. Please check the email field again or <a href="/sessions/new">sign in</a> with your credentials.
+    taken: already taken
+    not_uniq: not unique
+    invalid_email_or_password: Invalid email or password
+    invalid_password: Invalid password.
+    matches: not valid format
+    not_truthy: not true
+    password:
+      lowercase: must include at least one lower case
+      uppercase: must include at least one upper case
+      number: must include at least one number
+      do_not_match: passwords do not match
+    invalid: invalid

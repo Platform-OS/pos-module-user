@@ -1,15 +1,15 @@
 {% liquid
   assign c = '{ "errors": {}, "valid": true }' | parse_json
 
-  function c = 'modules/core/validations/email', c: c, object: object, field_name: 'email', key: 'validation.email'
-  function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'email', key: 'validation.blank'
-  function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'password', key: 'validation.blank'
+  function c = 'modules/core/validations/email', c: c, object: object, field_name: 'email'
+  function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'email'
+  function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'password'
 
   if c.valid
     graphql user = 'modules/user/user/verify_password', args: object
     assign user = user.users.results.first
 
-    function c = 'modules/core/validations/truthy', c: c, field_name: 'password', object: user.authenticate, key: 'validation.invalid_email_or_password'
+    function c = 'modules/core/validations/truthy', c: c, field_name: 'password', object: user.authenticate, key: 'modules/user/validation.invalid_email_or_password'
     hash_assign object['id'] = user.id
   endif
 
