@@ -1,10 +1,8 @@
 {% liquid
-  include 'lib/anonymous_or_redirect', user: context.current_user, error: 'app.errors.already_logged_in'
+  if context.current_user
+    function _ = 'modules/user/helpers/flash', error: 'app.errors.already_logged_in'
+    redirect_to '/'
+  endif
 
-  unless context.current_user or context.session.reset_password_session_user_id
-    include 'theme/json/shared/not_authenticated'
-    break
-  endunless
-
-  theme_render_rc 'components/pages/new-password', context: context
+  theme_render_rc 'modules/user/passwords/new', context: context
 %}

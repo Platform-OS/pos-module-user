@@ -1,5 +1,5 @@
 {% liquid
-  graphql r = 'users/update_password', args: object
+  graphql r = 'modules/user/user/update_password', args: object
 
   if r.errors
     log r.errors, type: 'errors.graphql.invalid'

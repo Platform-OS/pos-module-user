@@ -72,7 +72,6 @@ metadata:
   endif
 
   assign description_params = description_params | default: params.description_params
-
 %}
 <{{tag}} class="flex flex-col items-start gap-1 {{classes}}">
   <label for="{{id}}" class="leading-tight {% if input_params.type == 'checkbox' %}flex gap-2{% endif %}">

@@ -19,6 +19,6 @@ slug: users
     function registration_fields = 'modules/user/queries/registration_fields/load'
 
     assign values = params | hash_merge: password: ''
-    theme_render_rc 'components/pages/register', context: context, registration_fields: registration_fields, errors: object.errors, values: values
+    theme_render_rc 'modules/user/users/new', context: context, registration_fields: registration_fields, errors: object.errors, values: values
   endif
 %}

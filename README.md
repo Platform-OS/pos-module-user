@@ -123,7 +123,7 @@ For example:
   }
 {% endparse_json %}
 {% liquid
-  function profile = 'lib/commands/profiles/create', args: args
+  function profile = 'modules/user/commands/profiles/create', args: args
   return profile
 %}
 ```
@@ -164,7 +164,7 @@ For example:
 Fires when the user is loaded. The loaded user is added to `params.user`. You can return with your user related data.
 
 ```
-function profile = 'lib/quieries/profiles/load', user_id: params.user.id
+function profile = 'lib/queries/profiles/load', user_id: params.user.id
 assign result = '{}' | parse_json | hash_merge: profile: profile
 return result
 ```
@@ -195,7 +195,7 @@ return result
 Fires when the user is deleted. The deleted user is added to `params.user`.
 
 ```
-function _delete_ = 'lib/commands/profiles/delete', user_id: params.user.id
+function _delete_ = 'modules/user/commands/profiles/delete', user_id: params.user.id
 return nil
 ```
 
@@ -204,7 +204,7 @@ return nil
 Fires when the user is logged in. The logged in user is added to `params.user`.
 
 ```
-function count = 'lib/commands/profiles/increment_logins_number', user_id: params.user.id
+function count = 'modules/user/commands/profiles/increment_logins_number', user_id: params.user.id
 assign result = '{}' | parse_json | hash_merge: login_count: count
 return result
 ```
@@ -214,7 +214,7 @@ return result
 Fires when the user is logged out. The logged out user is added to `params.user`.
 
 ```
-function count = 'lib/commands/profiles/increment_logouts_number', user_id: params.user.id
+function count = 'modules/user/commands/profiles/increment_logouts_number', user_id: params.user.id
 assign result = '{}' | parse_json | hash_merge: logout_count: count
 return result
 ```

@@ -9,7 +9,6 @@
 {% liquid
   function object = 'modules/user/commands/user/create/build', email: email, password: password, hook_params: hook_params
   function object = 'modules/user/commands/user/create/check', object: object
-  log object, type: 'command object'
   if object.valid
     function object = 'modules/core/commands/execute', mutation_name: 'modules/user/user/create', object: object, selection: 'user'
     if object.valid
