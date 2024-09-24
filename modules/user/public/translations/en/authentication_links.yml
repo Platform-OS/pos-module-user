@@ -1,0 +1,6 @@
+en:
+  authentication_links:
+    created:
+      Please check your inbox. If the provided email was correct, you'll
+      receive some instructions on how to reset your password.
+    something_went_wrong: Something went wrong

@@ -29,7 +29,7 @@ metadata:
 %}
 
 <form action="{{action}}" method="{{method}}" class="{{classes}}" data-tc="register-user">
-  {% render 'modules/user/authenticity_token' %}
+  {% render 'modules/core/helpers/authenticity_token', context: context %}
 
   {% for field in registration_fields %}
     {% liquid

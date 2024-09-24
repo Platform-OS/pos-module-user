@@ -8,7 +8,7 @@ metadata:
 {% liquid
   assign context = context | default: params.context
   assign errors = errors | default: params.errors
-  assign pageTitle = 'app.passwords.edit' | t
+  assign pageTitle = 'modules/user/passwords.edit' | t
   theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
 %}
 

@@ -1,0 +1,15 @@
+<html>
+  <body>
+    {% liquid
+      function flash = 'modules/core/commands/session/get', key: 'sflash'
+      if context.location.pathname != flash.from or flash.force_clear
+        function _ = 'modules/core/commands/session/clear', key: 'sflash'
+      endif
+    %}
+    {% if flash %}
+      flash: {{ flash.message }}
+      <hr/>
+    {% endif %}
+    {{ content_for_layout }}
+  </body>
+</html>
