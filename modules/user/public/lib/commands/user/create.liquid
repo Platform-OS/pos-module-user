@@ -17,6 +17,9 @@
         assign roles = 'superadmin' | split: ','
         function _user_role = 'modules/user/commands/user_roles/create', user_id: object.id, roles: roles
       endif
+
+      assign event_payload = null | hash_merge: user_id: object.id
+      function _ = 'modules/core/commands/events/publish', type: 'user_created', object: event_payload
     endif
   endif
 
