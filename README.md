@@ -1,12 +1,55 @@
 # User Module
 
-This module handles the user operations, assign users to roles and add permissions to roles.
+This module acts as a starting point to add authentication and RBAC authorization to your application. Before using the module for the first time, you might want to go through [User Authentication basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication) official platformOS documentation.
 
-If you want to use user related form components, you can use [User module](https://github.com/Platform-OS/pos-module-user-forms).
+This module follows [platformOS DevKit best practices](https://documentation.staging.oregon.platform-os.com/developer-guide/modules/platformos-modules) and adds [the core module](https://github.com/Platform-OS/pos-module-core) as a dependency to be able to follow patterns like [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
 
-## Usage
+You might want to read about the [built-in User](https://documentation.platformos.com/developer-guide/users/user) table, about [How platformOS manages Sessions](https://documentation.platformos.com/developer-guide/users/session) and high-level overview of [built-in Authentication Strategies in platformOS](https://documentation.platformos.com/developer-guide/users/authentication)
 
-### User operations
+## Setup
+
+1. First, install the module using the [pos-cli](https://github.com/Platform-OS/pos-cli).
+2. Configure [components](https://github.com/Platform-OS/pos-module-components) theme paths by creating/adding to [app/config.yml](/developer-guide/platformos-workflow/directory-structure/config) the following `theme_search_paths` property:
+
+```yml
+theme_search_paths:
+  - modules/user
+```
+3. Overwrite default views by following [overwriting a module file guide](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file).
+
+
+### Troubleshoot
+
+> There is an error about missing partial `Liquid error: can't find partial "components/molecules/pagetitle". url: my-application.staging.oregon.platform-os.com/users/new page: users/new`
+
+This is because the [app/config.yml](/developer-guide/platformos-workflow/directory-structure/config) has not been configured per the instructions, you have to configure `theme_search_paths` in the `app/config.yml` :
+
+```yml
+theme_search_paths:
+  - modules/user
+```
+
+## Functionality provided by the user module:
+
+- [x] [Registration](#crud-endpoints-including-registration) - provides CRUD commands for the users and implements endpoints for the registration (located in `modules/user/public/views/pages/users/` directory)
+- [x] [Session based authentication](#session-based-authentication) - Sign In form / Sign Out
+- [x] [Reset password](#reset-password) (NOTE: staging environment requires [additional configuration to send email](https://documentation.platformos.com/get-started/build-your-first-app/sending-email-notifications#enabling-emails-on-the-staging-instance))- endpoints are defined in  `modules/user/public/views/pages/passwords/`
+- [x] [RBAC Authorization](#rbac-authorization)
+
+TODO:
+
+- [ ] 2FA authentication through [displaying OTP secret QR code](https://documentation.platformos.com/api-reference/graphql/common/objects/otp) and [OTP verification](https://documentation.platformos.com/api-reference/graphql/common/objects/authenticate)
+- [ ] mandatory email verification (as a feature flag)
+- [ ] mandatory sms verification (as a feature flag)
+- [ ] creating and integrating OAuth module
+- [ ] [JWT authentication](https://documentation.platformos.com/api-reference/graphql/common/objects/authenticate)
+- [ ] built-in captcha protection
+
+### Registration
+
+The module by itself is functional and you do not require to modify it in order to have a working registration process. The module provides the following commands which provide a basic CRUD for the [User](https://documentation.platformos.com/developer-guide/users/user) built-in platformOS object.
+
+#### CRUD commands 
 
 You can create:
 
@@ -32,44 +75,49 @@ and delete:
 function result = 'modules/user/commands/user/delete', id: '1'
 ```
 
-These functions will fire `hook_user_create/load/update/delete` hooks.
+#### Endpoints for the registration
 
-There is also a default rest handlers to register (`POST /users/register`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create`
+There are default REST handlers to display a registration form (`GET /users/new`) and create a User (`POST /users`). They are defined in `modules/user/public/views/pages/users` - this follows the [Resourceful routes naming convention](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention). You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create` hook. Example code that redirects a user to `/admin` endpoint if they have `admin_pages.view` permission:
 
-```
-assign redirect_to = '/'
-function can = 'modules/user/helpers/can_do', requester: params.user, do: 'admin_pages.view'
-if can
-  assign redirect_to = '/admin'
-endif
+#### Assigning roles to users during registration
 
-assign res = '{}' | parse_json | hash_merge: redirect_to: redirect_to
-return res
-```
+The `modules/user/commands/user/create` will set role `superadmin` to the first User that registers. 
 
-### Authentication
+The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` will assign a role `member` to a user without an existing role.
 
-You can create:
+### Session based authentication
+
+#### Log in using email and password
+
+You can log the user in (which [creates a new session](https://documentation.platformos.com/developer-guide/users/session#security)):
 
 ```
 function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
 ```
 
-or destroy a user session:
+This command fires `hook_user_login` hooks.
+
+#### Log out
+
+You can destroy a user session (which will log out the user) by invoking the following command:
 
 ```
 function res = 'modules/user/commands/session/destroy'
 ```
 
-These functions will fire `hook_user_login/logout` hooks.
+It will fire `hook_user_logout` hooks.
 
-It's possible to skip password validation and just create a session and fire `hook_user_login` by set `validate_password` boolean to `false` when calling `sessions/create` command. In this case to have to set `user_id`.
+#### Log in without password validation 
+
+It's possible to skip the password validation and just create a session and fire `hook_user_login` by setting `validate_password` boolean argument to `false` when calling `modules/user/sessions/create` command. In this case `user_id` argument must be provided.
 
 ```
 function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
 ```
 
-There are also default rest handlers to create (`POST /user/sessions/create`) or destroy (`GET /sessions/destroy`) a session. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login`
+#### Endpoints for sign in / sign out
+
+There are default REST handlers to display a login form (`GET /sessions/new`), create (`POST /sessions`) or destroy (`DELETE /sessions`) a session defined in `modules/user/public/views/pages/sessions` - this follows the [Resourceful routes naming convention](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention). You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. Example code that redirects a user to `/admin` endpoint if they have `admin_pages.view` permission:
 
 ```
 assign redirect_to = '/'
@@ -82,142 +130,80 @@ assign res = '{}' | parse_json | hash_merge: redirect_to: redirect_to
 return res
 ```
 
-### Helpers
+### Reset password
+
+### RBAC Authorization
+
+
+### Built-in helpers commands/queries
+
+#### Query which returns the amount of all users in the system
 
 ```
 function users_count = 'modules/user/queries/user/count'
 ```
 
+#### Query which returns currently authenticated user
+
 ```
 function current_user = 'modules/user/queries/user/current'
 ```
+
+#### Query which returns permissions of a given user
 
 ```
 function permissions = 'modules/user/queries/user/get_permissions', user: user
 ```
 
-## Hooks
 
-### Implements
+## Customizing the module
 
-- hook_module_info
-- hook_admin_page
-- hook_permission
+You can easily customize the module using [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). In this section you will find some most common examples.
 
-### Own hooks
+### Example 1: Changing sign up URL
 
-#### hook_user_create
+By default the module creates [Page](https://documentation.platformos.com/developer-guide/pages/pages) which defines `/users/new` endpoint to display the registration form. If you would like to change it, for example to `/sign-up`, you can do it by creating a file overwrite for this page and manually defining `slug: sign-up`. 
 
-Fires when the user is created. The created user is added to `params.created_user` and the other sent params are added to `params.hook_params`.
+First, create nested directories to be able to place your file overwrite there:
 
-For example:
+`mkdir -p app/modules/user/public/views/pages/users/`
 
+Copy the page you would like to overwrite:
+
+`cp modules/user/public/views/pages/users/new.liquid app/modules/user/public/views/pages/users/new.liquid`
+
+Edit the overwrite `app/modules/user/public/views/pages/users/new.liquid` YAML section of the Page (make sure you are modifying the overwrite and not the original file - overwrites are inside `<project root>/app/modules` directory, whereas original files will be in `<project root>/modules`):
+
+```yaml
+---
+slug: sign-up
+---
 ```
-{% parse_json args %}
-  {
-    "user_id": {{ params.created_user.id | json }},
-    "first_name": {{ params.hook_params.first_name | json }},
-    "last_name": {{ params.hook_params.last_name | json }},
-    "dog_name": {{ params.hook_params.dog_name | json }},
-    "favorite_color": {{ params.hook_params.favorite_color | json }}
-  }
-{% endparse_json %}
+```liquid
+{% raw %}
 {% liquid
-  function profile = 'modules/user/commands/profiles/create', args: args
-  return profile
+  function current_user = 'modules/user/queries/user/current'
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+
+  function registration_fields = 'modules/user/queries/registration_fields/load'
+  theme_render_rc 'modules/user/users/new', context: context, registration_fields: registration_fields
 %}
+{% endraw %}
 ```
 
-#### user_create_validate
+As the end result, the registration form will be located now in /sign-up, and /users/new will render 404 Not Found error.
 
-Fires before the user is created. The command does not attempt to create the user when the input is invalid.
+### Example 2: Modifying the HTML of the sign in form
 
-The `params` variable holds the input required by the create command.
-It must return an object indicating error if there is any:
-```json
-{
-  "errors": {
-    "fist_name": [
-      "Fist name is too long"
-    ],
-    "favorite_color": [
-      "Given value is not a color: foobar"
-    ]
-  },
-  "valid": false
-}
-```
+First, create the directory for the overwrite. Because we want to override the presentation layer, we should overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages). 
 
-For example:
-```
-{% liquid
-  # modules/community/public/lib/hooks/hook_user_create_validate.liquid
-  function object = 'modules/profile/commands/profiles/create/build', object: params
-  function object = 'modules/profile/commands/profiles/create/check', object: object
+`mkdir -p modules/user/public/views/partials/sessions`
 
-  return object
-%}
-```
+Please note that in this example we are  working with `sessions` directory, because this is where Sign In functionality is located. Copy the partial which is responsible for rendering the sign in form:
 
-#### hook_user_load
+`cp modules/user/public/views/partials/sessions/new.liquid app/modules/user/public/views/partials/sessions/new.liquid`
 
-Fires when the user is loaded. The loaded user is added to `params.user`. You can return with your user related data.
-
-```
-function profile = 'lib/queries/profiles/load', user_id: params.user.id
-assign result = '{}' | parse_json | hash_merge: profile: profile
-return result
-```
-
-#### hook_user_load_alter
-
-Fires after the user is loaded. You can override the already loaded user object before returning it in `modules/user/queries/user/load`.
-
-```
-function profile = 'modules/profile/queries/profiles/find_proxy', user_id: params.user.id
-hash_assign params_to_modify['user']['roles'] = profile.roles
-
-return params_to_modify
-```
-
-#### hook_user_update
-
-Fires when the user is updated. The updated user is added to `params.updated_user`. You can return with your updated user related data.
-
-```
-function profile = 'lib/quieries/profiles/update', user_id: params.updated_user.id, first_name: params.hook_params.first_name
-assign result = '{}' | parse_json | hash_merge: profile: profile
-return result
-```
-
-#### hook_user_delete
-
-Fires when the user is deleted. The deleted user is added to `params.user`.
-
-```
-function _delete_ = 'modules/user/commands/profiles/delete', user_id: params.user.id
-return nil
-```
-
-#### hook_user_login
-
-Fires when the user is logged in. The logged in user is added to `params.user`.
-
-```
-function count = 'modules/user/commands/profiles/increment_logins_number', user_id: params.user.id
-assign result = '{}' | parse_json | hash_merge: login_count: count
-return result
-```
-
-#### hook_user_logout
-
-Fires when the user is logged out. The logged out user is added to `params.user`.
-
-```
-function count = 'modules/user/commands/profiles/increment_logouts_number', user_id: params.user.id
-assign result = '{}' | parse_json | hash_merge: logout_count: count
-return result
-```
+You can now freely modify the presentation layer of your session. Only overwrite the page if you need to provide extra data to the partial.
 
 ## Versioning
 
