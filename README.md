@@ -77,13 +77,18 @@ function result = 'modules/user/commands/user/delete', id: '1'
 
 #### Endpoints for the registration
 
-There are default REST handlers to display a registration form (`GET /users/new`) and create a User (`POST /users`). They are defined in `modules/user/public/views/pages/users` - this follows the [Resourceful routes naming convention](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention). You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create` hook. Example code that redirects a user to `/admin` endpoint if they have `admin_pages.view` permission:
+The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the registration functionality:
+
+| HTTP method   | slug  | page file path |  description
+|---|---||---|
+| GET  | /users/new | modules/user/public/views/pages/users/new.liquid | render a registration form with email and password |
+| POST  | /users | modules/user/public/views/pages/users/create.liquid | adds [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the registration form in case of validation errors. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create` hook |
 
 #### Assigning roles to users during registration
 
 The `modules/user/commands/user/create` will set role `superadmin` to the first User that registers. 
 
-The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` will assign a role `member` to a user without an existing role.
+The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` will assign the role `member` to a user as a default role.
 
 ### Session based authentication
 
@@ -117,7 +122,15 @@ function res = 'modules/user/commands/session/create', user_id: '1', validate_pa
 
 #### Endpoints for sign in / sign out
 
-There are default REST handlers to display a login form (`GET /sessions/new`), create (`POST /sessions`) or destroy (`DELETE /sessions`) a session defined in `modules/user/public/views/pages/sessions` - this follows the [Resourceful routes naming convention](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention). You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. Example code that redirects a user to `/admin` endpoint if they have `admin_pages.view` permission:
+The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the sign in / sign out functionality:
+
+| HTTP method   | slug  | page file path |  description
+|---|---||---|
+| GET  | /sessions/new | modules/user/public/views/pages/sessions/new.liquid | render a sign in form with inputs for user's email and password |
+| POST  | /sessions | modules/user/public/views/pages/sessions/create.liquid | creates session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook |
+| DELETE  | /sessions | modules/user/public/views/pages/sessions/delete.liquid | invalidates the current session which results in loging the user out |
+
+Example code that redirects a user to the `/admin` endpoint if they have `admin_pages.view` permission using. Defined in the `hook_user_login`:
 
 ```
 assign redirect_to = '/'
@@ -132,29 +145,97 @@ return res
 
 ### Reset password
 
+The reset password functionality consists of two resources: `password` and `authentication_link`. 
+
+#### CRUD commands 
+
+create/update given user's password:
+
+```
+function result = 'modules/user/commands/passwords/create', object: object
+```
+
+create an `authentication link` that points to the `GET /passwords/edit` endpoint, to be sent to the user's email. The authentication link will include [a temporary token that would authenticate a user based on their email only](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token):
+
+```
+function object = 'modules/user/commands/authentication_links/create', email: "john@doe.com", host: context.location.host
+```
+
+#### Endpoints for the reset password
+
+The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the reset password functionality. They are ordered based on the flow - `GET /passwords_reset` if the entry point for the flow, `POST /passwords/create` ends the flow by updating the password and redirecting the user to the sign in page.
+
+| HTTP method   | slug  | page file path |  description
+|---|---||---|
+| GET  | /passwords/reset | modules/user/public/views/pages/passwords/reset.liquid | render a reset password form |
+| POST  | /authentication_links | modules/user/public/views/pages/authentication_links/create.liquid | generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step  |
+
+| GET  | /passwords/edit | modules/user/public/views/pages/passwords/edit.liquid | user lands here by clicking a reset password link included in the email. This endpoint [authenticates the user based on the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and if successful, redirects them to the `GET /passwords/new` |
+| GET  | /passwords/new | modules/user/public/views/pages/passwords/new.liquid | renders a form which allows the user to provide their new password |
+| POST  | /passwords/create | modules/user/public/views/pages/passwords/create.liquid | overwrites the existing user's password with a new password and redirects the user to the `GET /sessions/new` endpoint so they can log in |
+
+
 ### RBAC Authorization
 
+The module provides the fundation for implemeneintg Role-Based Access Control in your application. As described in the registration section, all the user initially receive a `member` role. The first user that signs up will receive a `superadmin` role.
 
-### Built-in helpers commands/queries
+#### authorization commands 
 
-#### Query which returns the amount of all users in the system
+There are the following helper commands provided by the module to authorize the user:
 
-```
-function users_count = 'modules/user/queries/user/count'
-```
+##### can_do command 
 
-#### Query which returns currently authenticated user
-
-```
-function current_user = 'modules/user/queries/user/current'
-```
-
-#### Query which returns permissions of a given user
+It returns either `true` or `false` depending if the user has permission to the operation defined as a `do` argument. Useful to modify the UI based on the permission and do not include functionalities to which user does not have permission
 
 ```
-function permissions = 'modules/user/queries/user/get_permissions', user: user
+function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
 ```
 
+##### can_do_or_unauthorized command 
+
+If the user does not have permission, the 403 page is rendered and the flow stops. Has to use deprecated `include` functionality for the `break` liquid tag to work properly - we do not want to execute code past this point if the user has no permission
+
+
+```
+# platformos-check-disable ConvertIncludeToRender
+include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+# platformos-check-enable ConvertIncludeToRender
+```
+
+The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
+
+##### can_do_or_redirect command 
+
+If the user does not have permission, the user will be redirected to the url provided as an argument. Has to use deprecated `include` functionality for the `break` liquid tag to work properly - we do not want to execute code past this point if the user has no permission
+
+
+```
+# platformos-check-disable ConvertIncludeToRender
+include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', return_url: '/sessions/new'
+# platformos-check-enable ConvertIncludeToRender
+```
+
+The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
+
+#### Defining roles' permissions 
+
+Roles' permissions are defined in `modules/user/public/lib/queries/role_permissions/permissions.liquid` in a form of a simple JSON. You can overwrite it per your application requirements. For example, if you would like to add a new role "foo" with permissions "foo.show", "foo.manage", you can do it by extending the json with:
+
+```
+  "foo": [
+    "foo.show",
+    "site.manage"
+  ]
+```
+
+If you receive 500 error after modifying the permissions.liquid file, please check logs for the hint - most likely after the modifications it is no longer a valid JSON due to missing comma, an extra comma, or something similar. Typical errors are leaving a traililng comma. Here is an example of a modification that will raise an error:
+
+```
+  "foo": [
+    "foo.show",
+    "site.manage", <- this comma will cause an error
+  ]
+```
 
 ## Customizing the module
 
@@ -204,6 +285,26 @@ Please note that in this example we are  working with `sessions` directory, beca
 `cp modules/user/public/views/partials/sessions/new.liquid app/modules/user/public/views/partials/sessions/new.liquid`
 
 You can now freely modify the presentation layer of your session. Only overwrite the page if you need to provide extra data to the partial.
+
+## Helper queries and commands
+
+### Query which returns the amount of all users in the system
+
+```
+function users_count = 'modules/user/queries/user/count'
+```
+
+### Query which returns currently authenticated user
+
+```
+function current_user = 'modules/user/queries/user/current'
+```
+
+### Query which returns permissions of a given user
+
+```
+function permissions = 'modules/user/queries/user/get_permissions', user: user
+```
 
 ## Versioning
 
