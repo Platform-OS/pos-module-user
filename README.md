@@ -79,8 +79,8 @@ function result = 'modules/user/commands/user/delete', id: '1'
 
 The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the registration functionality:
 
-| HTTP method   | slug  | page file path |  description
-|---|---||---|
+| HTTP method   | slug  | page file path |  description |
+|---|---|---|---|
 | GET  | /users/new | modules/user/public/views/pages/users/new.liquid | render a registration form with email and password |
 | POST  | /users | modules/user/public/views/pages/users/create.liquid | adds [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the registration form in case of validation errors. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_create` hook |
 
@@ -124,8 +124,8 @@ function res = 'modules/user/commands/session/create', user_id: '1', validate_pa
 
 The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the sign in / sign out functionality:
 
-| HTTP method   | slug  | page file path |  description
-|---|---||---|
+| HTTP method   | slug  | page file path |  description |
+|---|---|---|---|
 | GET  | /sessions/new | modules/user/public/views/pages/sessions/new.liquid | render a sign in form with inputs for user's email and password |
 | POST  | /sessions | modules/user/public/views/pages/sessions/create.liquid | creates session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook |
 | DELETE  | /sessions | modules/user/public/views/pages/sessions/delete.liquid | invalidates the current session which results in loging the user out |
@@ -165,8 +165,8 @@ function object = 'modules/user/commands/authentication_links/create', email: "j
 
 The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the reset password functionality. They are ordered based on the flow - `GET /passwords_reset` if the entry point for the flow, `POST /passwords/create` ends the flow by updating the password and redirecting the user to the sign in page.
 
-| HTTP method   | slug  | page file path |  description
-|---|---||---|
+| HTTP method   | slug  | page file path |  description |
+|---|---|---|---|
 | GET  | /passwords/reset | modules/user/public/views/pages/passwords/reset.liquid | render a reset password form |
 | POST  | /authentication_links | modules/user/public/views/pages/authentication_links/create.liquid | generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step  |
 
