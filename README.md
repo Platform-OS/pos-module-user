@@ -334,6 +334,7 @@ function users_count = 'modules/user/queries/user/count'
 
 ### Query: Get Currently Authenticated User
 This query returns the currently authenticated user:
+This query returns the currently authenticated user:
 
 ```
 function current_user = 'modules/user/queries/user/current'
