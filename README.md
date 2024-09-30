@@ -1,6 +1,6 @@
 # User Module
 
-This module acts as a starting point to add authentication and RBAC authorization to your application. Before using the module for the first time, you might want to go through [User Authentication basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication) official platformOS documentation.
+This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) authorization to your application. Before using the module for the first time, we recommend reviewing the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication).
 
 This module follows [platformOS DevKit best practices](https://documentation.staging.oregon.platform-os.com/developer-guide/modules/platformos-modules) and adds [the core module](https://github.com/Platform-OS/pos-module-core) as a dependency to be able to follow patterns like [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
 
