@@ -70,6 +70,8 @@ With these CRUD commands, you can handle typical user management operations such
 
 The User module provides basic CRUD (Create, Read, Update, Delete) functionality for managing users in platformOS. You can run commands such as creating or deleting users.
 
+The User module provides basic CRUD (Create, Read, Update, Delete) functionality for managing users in platformOS. You can run commands such as creating or deleting users.
+
 You can create:
 
 ```
@@ -145,7 +147,7 @@ The following table provides [Resourceful routes](https://documentation.platform
 
 | HTTP method   | slug  | page file path |  description |
 |---|---|---|---|
-| GET  | /sessions/new | modules/user/public/views/pages/sessions/new.liquid | render a sign in form with inputs for user's email and password |
+| GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. |
 | POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. |
 | DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. |
 
@@ -283,6 +285,8 @@ slug: sign-up
 ```
 4. Modify the Liquid code:
 
+4. Modify the Liquid code:
+
 ```liquid
 {% raw %}
 {% liquid
@@ -299,6 +303,7 @@ As a result, the registration form will now be available at `/sign-up`, and the 
 
 ### Example 2: Modifying the HTML of the Sign-In Form
 If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
+If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
 
 Steps:
 1. Create the directory for the overwrite. Since we are overriding the presentation layer, we should overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages).
@@ -311,12 +316,15 @@ Steps:
 > [!NOTE] 
 > Please note that in this example, we are working with the `sessions` directory, as this is where the Sign-In functionality is located.
 Now, you can freely modify the HTML or presentation layer of the sign-in form in the copied file.
-
+> [!NOTE] 
+> Please note that in this example, we are working with the `sessions` directory, as this is where the Sign-In functionality is located.
 ## Helper Queries and Commands
 
 The module also provides several useful queries and commands to help you manage users and permissions
 
 ### Query which returns the amount of all users in the system
+
+This query returns the total number of users in the system:
 
 This query returns the total number of users in the system:
 
