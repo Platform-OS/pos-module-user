@@ -348,6 +348,8 @@ function permissions = 'modules/user/queries/user/get_permissions', user: user
 
 ## Versioning
 
+To manage versioning with Git and npm, you can follow these commands:
+
 ```
 git fetch origin --tags
 npm version major | minor | patch
