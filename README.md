@@ -322,7 +322,7 @@ Now, you can freely modify the HTML or presentation layer of the sign-in form in
 
 The module also provides several useful queries and commands to help you manage users and permissions
 
-### Query which returns the amount of all users in the system
+### Query: Count All Users
 
 This query returns the total number of users in the system:
 
