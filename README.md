@@ -278,15 +278,13 @@ Steps:
 
 3. Edit the overwrite file located in `app/modules/user/public/views/pages/users/new.liquid`. Modify the YAML section of the page to change the `slug`. (Make sure you are modifying the overwrite and not the original file—overwrites are located in the `<project root>/app/modules` directory, whereas the original files are located in the `<project root>/modules` directory.)
 
+4. Modify the Liquid code - explicitly define `slug` property to `sign-up` of the `app/modules/user/public/views/pages/users/new.liquid` [Page](https://documentation.platformos.com/developer-guide/pages/pages) to define `/sign-up` endpoint:
+
 ```yaml
 ---
 slug: sign-up
 ---
 ```
-4. Modify the Liquid code:
-
-4. Modify the Liquid code:
-
 ```liquid
 {% raw %}
 {% liquid
