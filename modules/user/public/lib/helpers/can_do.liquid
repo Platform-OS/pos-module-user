@@ -1,0 +1,30 @@
+{% comment %}
+  Checks if the requester can do domething on the given entiry.
+
+  Params:
+    - requester Object
+      The requester must has a string array field called 'permissions'
+    - entity Object
+    - do String
+    - access_callback String
+      The callback function that checks the request. By default searches that the `requester`
+      has `do` permission or not.
+{% endcomment %}
+{% liquid
+  assign permission_field_type = requester.permissions | type_of
+  unless permission_field_type == 'Array'
+    log requester, type: 'ERROR the requester does not have "permissions" array in modules/user/helpers/can_do'
+    return false
+  endunless
+
+  if access_callback
+    function can = access_callback, requester: requester, entity: entity, do: do
+    return can
+  endif
+
+  if requester.permissions contains do
+    return true
+  endif
+
+  return false
+  %}

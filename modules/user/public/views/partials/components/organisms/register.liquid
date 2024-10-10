@@ -1,0 +1,58 @@
+---
+metadata:
+  name: register form
+  params:
+    action: '/users'
+    method: 'POST'
+    redirect_to: '/'
+    registration_fields: []
+    errors:
+      email:
+        - Error message
+      password:
+        - Error message
+    values:
+      email: random@example.com
+    submit: 'Submit'
+    classes: ''
+---
+{% liquid
+  assign action = action | default: params.action
+  assign method = method | default: params.method | default: 'POST'
+  assign errors = errors | default: params.errors
+  assign redirect_to = redirect_to | default: params.redirect_to | default: '/'
+  assign registration_fields = registration_fields | default: params.registration_fields
+  assign classes = classes | default: params.classes
+  assign submit = submit | default: params.submit
+  assign default_submit = 'modules/user/passwords.register' | t
+  assign submit = submit | default: default_submit
+%}
+
+<form action="{{action}}" method="{{method}}" class="{{classes}}" data-tc="register-user">
+  {% render 'modules/core/helpers/authenticity_token', context: context %}
+
+  {% for field in registration_fields %}
+    {% liquid
+      assign default_value = values[field.name] | raw_escape_string
+      assign error_messages = '[]' | parse_json
+      assign has_error = errors[field.name]
+      assign validation = null | hash_merge: messages: error_messages
+      if has_error
+        hash_assign validation['passed'] = false
+        hash_assign validation['messages'] = errors[field.name]
+      endif
+      assign input_params = field | hash_merge: value: default_value, classes: 'w-full'
+      assign label_params = null | hash_merge: content: field.label
+      assign field_params = null | hash_merge: validation: validation, input_params: input_params, label_params: label_params, classes: 'mb-6'
+
+      theme_render_rc 'components/molecules/formfield', params: field_params
+    %}
+  {% endfor %}
+
+  {% theme_render_rc 'components/molecules/hcaptcha', object: object %}
+
+  <fieldset class="mt-5">
+    {% theme_render_rc 'components/atoms/button', content: submit, type: 'submit' %}
+  </fieldset>
+
+</form>

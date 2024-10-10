@@ -1,0 +1,83 @@
+---
+metadata:
+  name: Input
+  params:
+    variant:
+      - normal
+      - confirmation
+      - error
+    type:
+      - text
+      - textarea
+      - email
+      - password
+      - search
+      - tel
+      - date
+      - number
+      - hidden
+    name: my-input
+    placeholder: Type here
+    value: ''
+    required:
+      - false
+      - true
+    disabled:
+      - false
+      - true
+    classes: ''
+    attributes: {}
+---
+{% liquid
+  assign variant = variant | default: params.variant | default: 'normal'
+  assign type = type | default: params.type | default: 'text'
+  assign name = name | default: params.name
+  assign value = value | default: params.value | default: ''
+  assign required = required | default: params.required | default: false
+  assign disabled = disabled | default: params.disabled | default: false
+  assign placeholder = placeholder | default: params.placeholder
+  assign id = id | default: params.attributes.id | default: name
+  assign attributes = attributes | default: params.attributes
+  assign original_classes = classes | default: params.classes
+  assign classes = 'w-full py-[0.69em] px-[0.44em] inline-block border rounded-input focus:border-interactive-hover bg-input disabled:opacity-40 outline-none text-input-foreground leading-tight transition-colors ' | append: original_classes
+
+  case variant
+    when 'confirmation'
+      assign classes = classes | append: ' border-confirmation'
+    when 'error'
+      assign classes = classes | append: ' border-important'
+    else
+      assign classes = classes | append: ' border-input-border'
+  endcase
+%}
+
+{% if type == 'hcaptcha' %}
+  <script src="https://hcaptcha.com/1/api.js" async defer></script>
+  <div
+    class="{{original_classes}}"
+    {% for attribute in attributes %}
+      {{ attribute[0] }}="{{ attribute[1] }}"
+    {% endfor %}></div>
+{% else %}
+
+  {% if type == 'textarea' %}
+  <textarea
+  {% else %}
+  <input
+    type="{{type}}"
+  {% endif %}
+    name="{{name}}"
+    class="{{classes}}"
+    id="{{id}}"
+    {% if required %}required{% endif %}
+    {% if value != blank %}value="{{value}}"{% endif %}
+    {% if placeholder != blank %}placeholder="{{placeholder}}"{% endif %}
+    {% if disabled %}disabled{% endif %}
+    {% if variant == 'error' %}aria-invalid="true"{% endif %}
+    {% for attribute in attributes %}
+      {{ attribute[0] }}="{{ attribute[1] }}"
+    {% endfor %}
+  >{%- if type == 'textarea' -%}{{value | strip}}</textarea>
+  {% endif %}
+{% endif %}
+

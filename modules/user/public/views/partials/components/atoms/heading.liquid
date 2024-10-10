@@ -1,0 +1,47 @@
+---
+metadata:
+  name: Heading
+  params:
+    tag: ''
+    level:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+    classes: ''
+    content: I'm a heading
+---
+{% liquid
+  assign level = level | default: params.level | default: 2
+  assign defaultTag = 'h' | append: level
+  assign tag = tag | default: params.tag | default: defaultTag
+  assign attributes = attributes | default: params.attributes
+  assign content = content | default: params.content
+
+  assign classes = classes | default: params.classes | append: ' font-bold'
+
+
+  if level == 1
+    assign classes = classes | append: ' text-5xl'
+  elsif level == 2
+    assign classes = classes | append: ' text-3xl'
+  elsif level == 3
+    assign classes = classes | append: ' text-2xl'
+  elsif level == 4
+    assign classes = classes | append: ' text-xl'
+  elsif level == 5
+    assign classes = classes | append: ' text-xl'
+  elsif level == 6
+    assign classes = classes | append: ' text-xl'
+  endif
+%}
+<{{tag}}
+  class="{{classes}}"
+  {% for attribute in attributes %}
+  {{ attribute[0] }}="{{ attribute[1] }}"
+  {% endfor %}
+>{% print content %}</{{tag}}>
+
+

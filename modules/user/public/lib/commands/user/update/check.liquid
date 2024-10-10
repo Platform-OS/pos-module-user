@@ -1,0 +1,12 @@
+{% liquid
+  assign c = '{ "errors": {}, "valid": true }' | parse_json
+
+  if object['email']
+    function c = 'modules/core/validations/email', c: c, object: object, field_name: 'email'
+  endif
+
+  hash_assign object['valid'] = c.valid
+  hash_assign object['errors'] = c.errors
+
+  return object
+%}

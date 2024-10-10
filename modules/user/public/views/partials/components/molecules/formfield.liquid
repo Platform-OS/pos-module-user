@@ -1,0 +1,136 @@
+---
+metadata:
+  name: Formfield
+  params:
+    tag: 'fieldset'
+    classes: ''
+    validation:
+      passed:
+        - true
+        - false
+      messages: []
+    input_params:
+      name: 'text-input-with-label-example'
+      placeholder: Type here
+      type:
+        - text
+        - textarea
+        - email
+        - password
+        - search
+        - tel
+        - date
+        - number
+        - hidden
+        - select
+        - hcaptcha
+    label_params:
+      content: Text input with label
+    description_params:
+      content: This is a description
+      icon: This is the icon name
+    multiple:
+      - true
+      - false
+    options:
+      - label: Option 1
+        value: value1
+      - label: Option 2
+        value: value2
+  styleguide:
+    - tag: 'div'
+      classes: ''
+      validation:
+        passed: false
+        messages: ['This is a test error message', 'Another error message']
+      input_params:
+        name: 'text-input-with-label-example'
+        placeholder: Type here
+      label_params:
+        content: Form label
+      description_params:
+        content: This is a FormField description
+        icon: info
+
+---
+{% liquid
+  assign tag = tag | default: params.tag | default: 'fieldset'
+  assign label_params = label_params | default: params.label_params
+  assign classes = classes | default: params.classes
+  assign validation = validation | default: params.validation
+  assign input_params = input_params | default: params.input_params
+  assign attributes = '{}' | parse_json
+  assign input_attributes = input_params.attributes | default: attributes
+
+  assign id = input_attributes.id | default: input_params.name
+
+  hash_assign input_attributes['aria-describedby'] = '' | append: input_params.name | append: '-desc'
+
+  assign input_params = input_params | hash_merge: attributes: input_attributes
+  if validation.passed == false
+    hash_assign input_params['variant'] = 'error'
+  endif
+
+  assign description_params = description_params | default: params.description_params
+%}
+<{{tag}} class="flex flex-col items-start gap-1 {{classes}}">
+  <label for="{{id}}" class="leading-tight {% if input_params.type == 'checkbox' %}flex gap-2{% endif %}">
+    {% liquid
+    if input_params.type == 'checkbox'
+      theme_render_rc 'components/atoms/checkbox', params: input_params
+    endif
+    %} {{label_params.content | html_safe }}
+    {% if input_params.required %} <span class="text-important">*</span>{% endif %}
+  </label>
+
+  {% liquid
+    unless input_params.type == 'checkbox'
+      if input_params.type == 'select'
+
+        theme_render_rc 'components/molecules/select', params: input_params
+      else
+        theme_render_rc 'components/atoms/input', params: input_params
+      endif
+    endunless
+  %}
+  {% if description_params.content or validation.messages.size > 0 %}
+    <div id="{{input_params.name}}-desc" class="flex gap-2">
+
+        {% if validation.passed == true %}
+          {% assign icon_params = '{}' | parse_json | hash_merge: name: 'checkBadge' %}
+          <span class="text-confirmation">
+            {% theme_render_rc 'components/atoms/icon', params: icon_params %}
+          </span>
+        {% endif %}
+
+        {% if validation.passed == false %}
+          {% assign icon_params = '{}' | parse_json | hash_merge: name: 'warningCloud' %}
+          <span class="text-important">
+            {% theme_render_rc 'components/atoms/icon', params: icon_params %}
+          </span>
+        {% endif %}
+
+        <div class="leading-none">
+          <div class="flex">
+            {% if description_params.icon != blank %}
+              {% theme_render_rc 'components/atoms/icon', name: description_params.icon, class: 'w-4 mr-2' %}
+            {% endif %}
+            {% theme_render_rc 'components/atoms/sidenote', params: description_params %}
+          </div>
+
+          {% if validation.passed == false %}
+            <ul>
+              {% for message in validation.messages %}
+                <li class="flex items-center">
+                  {% assign description_params = '{}' | parse_json | hash_merge: content: message, classes: '!text-important' %}
+                  {% theme_render_rc 'components/atoms/sidenote', params: description_params %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </div>
+
+    </div>
+  {% endif %}
+
+</{{tag}}>

@@ -1,0 +1,23 @@
+{% comment %}
+  Redirects if the the requester does not have right to do something on the given entity.
+
+  Params:
+    - requester Object
+      The requester must has a string array field called 'permissions'
+    - entity Object
+    - do String
+    - access_callback String
+      The callback function that checks the request. By default searches that the `requester`
+      has `do` permission or not.
+    - return_url String
+      The url where to redirect if the requester does not have right to do something in the given entity.
+{% endcomment %}
+{% liquid
+  function can = 'modules/user/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
+  unless can
+    assign return_url = return_url | default: '/'
+
+    redirect_to return_url
+    break
+  endunless
+%}

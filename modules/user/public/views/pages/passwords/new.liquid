@@ -1,0 +1,8 @@
+{% liquid
+  if context.current_user
+    function _ = 'modules/user/helpers/flash', error: 'app.errors.already_logged_in'
+    redirect_to '/'
+  endif
+
+  theme_render_rc 'modules/user/passwords/new', context: context
+%}

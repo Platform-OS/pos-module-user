@@ -1,0 +1,13 @@
+{% liquid
+  assign id = id
+  assign email = email
+  assign with_token = with_token | default: false
+
+  if id == blank and email == blank
+    return null
+  endif
+
+  graphql r  = 'modules/user/user/search', id: id, email: email, limit: 1, with_token: with_token
+
+  return r.users.results.first
+%}

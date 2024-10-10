@@ -1,0 +1,22 @@
+---
+metadata:
+  name: New password
+  params:
+    context: {}
+    errors: {}
+---
+{% liquid
+  assign context = context | default: params.context
+  assign errors = errors | default: params.errors
+  assign pageTitle = 'modules/user/passwords.edit' | t
+  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
+%}
+
+<section class="container my-auto">
+  {% capture pwdResetCardContent %}
+    {% theme_render_rc 'components/organisms/new-password', action: '/passwords', context: context, errors: errors, classes: 'form--new-password' %}
+  {% endcapture %}
+
+  {% theme_render_rc 'components/atoms/card', content: pwdResetCardContent, classes: "w-full max-w-lg mx-auto" %}
+
+</section>

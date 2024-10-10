@@ -1,0 +1,20 @@
+---
+metadata:
+  name: Reset password
+  params:
+    context: {}
+    errors: []
+---
+{% liquid
+  assign context = context | default: params.context
+  assign errors = errors | default: params.errors
+  assign pageTitle = 'modules/user/passwords.reset_password_title' | t
+  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
+%}
+{% capture pwdResetCardContent %}
+  {% theme_render_rc 'components/organisms/reset-password', action: '/authentication_links', context: context, errors: errors, classes: 'form--reset-password' %}
+{% endcapture %}
+
+<section class="container my-auto">
+  {% theme_render_rc 'components/atoms/card', content: pwdResetCardContent, classes: "w-full max-w-lg mx-auto" %}
+</section>

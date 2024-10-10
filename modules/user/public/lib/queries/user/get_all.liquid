@@ -1,0 +1,14 @@
+{% comment %}
+  Loads all users.
+{% endcomment %}
+{% liquid
+  # log 1, type: 'user/list'
+  graphql users_res = 'modules/user/user/list'
+  assign users = '[]' | parse_json
+  for row in users_res.users.results
+    function user = 'modules/user/queries/user/load', id: row.id
+    assign users = users | add_to_array: user
+  endfor
+
+  return users
+%}

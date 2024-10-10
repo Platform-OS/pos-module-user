@@ -1,0 +1,28 @@
+---
+metadata:
+  parameters:
+    object:
+    - url
+    - email
+    - id
+---
+{% parse_json object %}
+  {
+    "to": {{ object.email | json }},
+    "from": {% print 'modules/user/from_email' | t | json %},
+    "subject": {% print 'modules/user/emails.passwords.reset.subject' | t | json %},
+    "partial": "modules/user/emails/passwords/reset",
+    "layout": null,
+    "data": {
+      "url": {% print object.url | json %},
+      "user": {
+        "id": {% print object.id | json %}
+      }
+    }
+  }
+{% endparse_json %}
+
+{% liquid
+  function object = 'modules/core/commands/email/send', object: object
+  return object
+%}

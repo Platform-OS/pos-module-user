@@ -1,0 +1,11 @@
+{% comment %}
+  Loads a user's roles.
+  Params:
+    - user_id: string
+      the user's id
+{% endcomment %}
+{% liquid
+  graphql user_roles = 'modules/user/user_roles/get', user_id: user_id
+
+  return user_roles.records.results.first
+%}

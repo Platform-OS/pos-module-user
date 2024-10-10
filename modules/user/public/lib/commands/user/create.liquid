@@ -1,0 +1,27 @@
+{% comment %}
+  Creates a user.
+  Params:
+    - email: string
+      the user's email address
+    - password: string
+      the user's password
+{% endcomment %}
+{% liquid
+  function object = 'modules/user/commands/user/create/build', email: email, password: password, hook_params: hook_params
+  function object = 'modules/user/commands/user/create/check', object: object
+  if object.valid
+    function object = 'modules/core/commands/execute', mutation_name: 'modules/user/user/create', object: object, selection: 'user'
+    if object.valid
+      function users_count = 'modules/user/queries/user/count'
+      if users_count == 1
+        assign roles = 'superadmin' | split: ','
+        function _user_role = 'modules/user/commands/user_roles/create', user_id: object.id, roles: roles
+      endif
+
+      assign event_payload = null | hash_merge: user_id: object.id
+      function _ = 'modules/core/commands/events/publish', type: 'user_created', object: event_payload
+    endif
+  endif
+
+  return object
+%}

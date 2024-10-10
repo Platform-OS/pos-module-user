@@ -1,0 +1,21 @@
+{% comment %}
+  Collects a user's permissions.
+  Params:
+    - user: object
+      the user object
+{% endcomment %}
+{% liquid
+  assign permissions = '[]' | parse_json
+  function role_tree = 'modules/user/queries/role_permissions/get_all'
+
+  for role in user.roles
+    # Handle if the role does not extist.
+    unless role_tree[role]
+      continue
+    endunless
+    assign permissions = permissions | concat: role_tree[role]
+  endfor
+  assign permissions = permissions | uniq
+
+  return permissions
+%}

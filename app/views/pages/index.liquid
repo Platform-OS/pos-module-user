@@ -1,0 +1,17 @@
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+%}
+{% if current_user.id %}
+  current_user: {{ current_user }}
+  <form action="/sessions" method="post">
+    {% render 'modules/user/authenticity_token', context: context %}
+    <input type="hidden" name="_method" value="delete" />
+    <button type="submit">
+      {{ 'modules/user/users.logout' | t }}
+    </button>
+  </form>
+{% else %}
+  <a href="/users/new">Register</a><br/>
+  <a href="/sessions/new">Log in</a><br/>
+  <a href="/passwords/reset">Reset password</a>
+{% endif %}

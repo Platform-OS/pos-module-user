@@ -1,0 +1,33 @@
+---
+metadata:
+  name: Login
+  params:
+    errors: []
+---
+{% liquid
+  assign errors = errors | default: params.errors
+
+  theme_render_rc 'components/molecules/pagetitle', content: 'Login', classes: 'text-center'
+%}
+
+{% capture loginCardContent %}
+  {% theme_render_rc 'components/organisms/login', action: '/sessions', register_page_url: '/sign-up' errors: errors, classes: 'form--login', email_placeholder: 'Type', submit: 'Log in' %}
+  <div class="mt-6 pt-4 border-t">
+    Don't have an account?
+    <a href="/users/new">
+      Request to join
+    </a>
+    {%# theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
+  </div>
+  <div class="pt-4">
+    Password lost?
+    <a href="/passwords/reset">
+      Reset
+    </a>
+    {%# theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
+  </div>
+{% endcapture %}
+
+<section class="container my-auto">
+  {% theme_render_rc 'components/atoms/card', content: loginCardContent, classes: "w-full max-w-lg mx-auto" %}
+</section>

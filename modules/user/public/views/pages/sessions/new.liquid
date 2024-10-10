@@ -1,0 +1,6 @@
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'sessions.create'
+
+  theme_render_rc 'modules/user/sessions/new', context: context
+%}

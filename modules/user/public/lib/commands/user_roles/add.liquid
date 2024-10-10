@@ -1,0 +1,16 @@
+{% liquid
+  function user_role = 'modules/user/queries/user_roles/get', user_id: user_id
+  if user_role
+    if user_role.roles contains role
+      assign object = user_role | hash_merge: valid: true
+    else
+      assign object = null | hash_merge: id: user_role.id, role: role
+      function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/user_roles/append_role'
+    endif
+  else
+    assign roles = '[]' | parse_json | array_add: role
+    function object = 'modules/user/commands/user_roles/create', user_id: user_id, roles: roles
+  endif
+
+  return object
+%}
