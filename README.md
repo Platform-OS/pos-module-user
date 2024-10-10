@@ -9,7 +9,28 @@ For more information,
 - learn about [how platformOS manages sessions](https://documentation.platformos.com/developer-guide/users/session),
 - and gain a high-level overview of [authentication strategies in platformOS](https://documentation.platformos.com/developer-guide/users/authentication).
 
-## Setup
+## Installation
+
+The platformOS User Module is available on the [Partner Portal Modules Marketplace](https://partners.platformos.com/marketplace/pos_modules/139).
+
+### Prerequisites
+
+Before installing the module, ensure that you have [pos-cli](https://github.com/mdyd-dev/pos-cli#overview) installed. This tool is essential for managing and deploying platformOS projects.
+
+The platformOS User Module is fully compatible with [platformOS Check](https://github.com/Platform-OS/platformos-lsp#platformos-check----a-linter-for-platformos), a linter and language server that supports any IDE with Language Server Protocol (LSP) integration. For Visual Studio Code users, you can enhance your development experience by installing the [VSCode platformOS Check Extension](https://marketplace.visualstudio.com/items?itemName=platformOS.platformos-check-vscode).
+
+### Installation Steps
+
+1. **Navigate to your project directory** where you want to install the User Module.
+
+2. **Run the installation command**:
+
+```bash
+   pos-cli modules install user
+```
+This command installs the User Module along with its dependencies ([pos-module-core()](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
+
+### Setup
 
 1. First, install the module using the [pos-cli](https://github.com/Platform-OS/pos-cli).
 2. Configure the [components](https://github.com/Platform-OS/pos-module-components) theme paths by adding the following `theme_search_paths` property to the [app/config.yml](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure/config) file:
@@ -21,7 +42,7 @@ theme_search_paths:
 3. Overwrite default views by following [overwriting a module file guide](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file).
 
 
-### Troubleshoot
+### Troubleshooting
 
 > There is an error about missing partial `Liquid error: can't find partial "components/molecules/pagetitle". url: my-application.staging.oregon.platform-os.com/users/new page: users/new`
 
