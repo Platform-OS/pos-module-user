@@ -4,7 +4,10 @@ slug: users
 ---
 {% liquid
   function current_user = 'modules/user/queries/user/current'
+
+  # platformos-check-disable UnreachableCode
   include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+  # platformos-check-enable UnreachableCode
 
   function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params
   if object.valid

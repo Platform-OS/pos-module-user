@@ -1,6 +1,7 @@
-mutation ($id: ID!, $email: String, $password: String) {
-  user: user_update(id: $id, user: { email: $email, password: $password }) {
+mutation ($id: ID!, $email: String, $password: String, $roles: [String]) {
+  user: user_update(id: $id, user: { email: $email, password: $password, properties: [{ name: "roles", value_array: $roles }] }) {
     id
     email
+    roles: property_array(name: roles)
   }
 }
