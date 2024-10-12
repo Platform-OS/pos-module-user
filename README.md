@@ -28,7 +28,7 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
 ```bash
    pos-cli modules install user
 ```
-This command installs the User Module along with its dependencies ([pos-module-core()](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
+This command installs the User Module along with its dependencies ([pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
 ### Setup
 
