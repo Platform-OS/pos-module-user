@@ -1,8 +1,9 @@
 {% parse_json data %}
 {
   {% if context.constants.USER_DEFAULT_ROLE != blank %}
-  "{{ context.constants.USER_DEFAULT_ROLE }}": [],
+  "{{ context.constants.USER_DEFAULT_ROLE }}": ["subscription.read"],
   {% endif %}
+  "admin": ["admin.view"],
   "anonymous": [],
   "authenticated": []
 }

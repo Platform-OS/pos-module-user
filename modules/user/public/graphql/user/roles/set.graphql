@@ -2,6 +2,6 @@ mutation ($id: ID!, $roles: [String]!) {
   user: user_update(id: $id, user: { properties: [{ name: "roles", value_array: $roles }] }) {
     id
     email
-    roles: property_array(name: roles)
+    roles: property_array(name: "roles")
   }
 }

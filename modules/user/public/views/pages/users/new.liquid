@@ -1,6 +1,8 @@
 {% liquid
   function current_user = 'modules/user/queries/user/current'
+  # platformos-check-disable UnreachableCode
   include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+  # platformos-check-enable UnreachableCode
 
   function registration_fields = 'modules/user/queries/registration_fields/load'
   theme_render_rc 'modules/user/users/new', context: context, registration_fields: registration_fields

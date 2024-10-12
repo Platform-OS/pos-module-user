@@ -3,7 +3,7 @@
 
   Params:
     - requester Object
-      The requester must has a string array field called 'permissions'
+      The requester must have a string array field called 'roles'
     - entity Object
     - do String
     - access_callback String
@@ -11,9 +11,9 @@
       has `do` permission or not.
 {% endcomment %}
 {% liquid
-  assign permission_field_type = requester.permissions | type_of
-  unless permission_field_type == 'Array'
-    log requester, type: 'ERROR the requester does not have "permissions" array in modules/user/helpers/can_do'
+  assign roles_type = requester.roles | type_of
+  unless roles_type == 'Array'
+    log requester, type: 'ERROR the requester does not have "roles" array in modules/user/helpers/can_do'
     return false
   endunless
 
@@ -22,9 +22,21 @@
     return can
   endif
 
-  if requester.permissions contains do
-    return true
-  endif
+  function permissions = 'modules/user/queries/role_permissions/permissions'
+  assign found_permission = false
+  for role in requester.roles
+    if permissions[role] == null
+      assign msg = 'WARNING: the following role is not defined in modules/user/queries/role_permissions/permissions: ' | append: role
+      log requester, type: msg
+    endif
+    if role == 'superadmin'
+      assign found_permission = true
+      break
+    elsif permissions[role] contains do
+      assign found_permission = true
+      break
+    endif
+  endfor
 
-  return false
+  return found_permission
   %}

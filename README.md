@@ -63,10 +63,14 @@ Add the following line of code to the newly created migration file to set the de
 ```
 {% liquid
   function result = 'modules/core/commands/variable/set', name: 'USER_DEFAULT_ROLE', value: 'member'
-  if result.valid != true
-    log result, type: 'ERROR: setup_user_default_role result'
-  endif
+  log result, type: 'setup_user_default_role result'
 %}
+```
+
+Do not forget to deploy your code, to invoke the newly created migration:
+
+```
+pos-cli deploy <env>
 ```
 
 5. (optional) Overwrite default views by following [overwriting a module file guide](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file) - this allows you to add functionality based on your project requirements, like extend the reigstration form with additional fields etc.
@@ -83,6 +87,16 @@ mutation () {
 }
 ```
 
+### Managing Module Files
+
+The default behavior of modules is that **the files are never deleted**. It is assumed that developers might not have access to all of the files, and thanks to this feature, they can still overwrite some of the module's files without breaking them. Since the User Module is fully public, it is recommended to delete files on deployment. To do this, ensure your `app/config.yml` includes the User Module and its dependencies in the list `modules_that_allow_delete_on_deploy`:
+
+``` yaml
+modules_that_allow_delete_on_deploy:
+- core
+- user
+```
+
 ### Troubleshooting
 
 > There is an error about missing partial `Liquid error: can't find partial "components/molecules/pagetitle". url: my-application.staging.oregon.platform-os.com/users/new page: users/new`
@@ -93,6 +107,15 @@ This error occurs because the [app/config.yml](/developer-guide/platformos-workf
 theme_search_paths:
   - modules/user
 ```
+
+## Example application
+
+We recommend creating a [new Instance](https://partners.platformos.com/instances/new) and deploying this module as an application to get a better understanding of the basics and the functionality this module provides. When you install the module using `pos-cli modules install user`, only the contents of the `modules/user` will be available in your project. The purpose of the `app` directory is to work as an example of how you could incorporate the user module in your application. when analyzing the code in the `app` directory, you should pay attention to:
+
+* The `app/config.yml` and `app/user.yml`, which are defined per the [Setup](#setup) instructions
+* The `app/views/page/index.liquid` - it implements the example application homepage, which displays information about the currently logged in user if available, or provides links for registration, sign in and reset password functionality for not authenticated user
+* The `app/views/pages/admin/index.liquid` - it implements the `/admin` page, which demonstrates permission checking functionality
+* The `app/modules/user/public/lib/queries/role_permissions/permissions.liquid` - it demonstrates how you should configure permissions in your application by [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwriting-a-module-file)
 
 ## Functionality provided by the user module:
 
@@ -156,6 +179,9 @@ load:
 ```
 function user = 'modules/user/queries/user/load', id: '1'
 ```
+
+> [!NOTE] 
+> Usually you will want to load the currently authenticated user, you can achieve it by providing [context.current_user.id](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-current_user) as ID
 
 update:
 
@@ -280,7 +306,7 @@ function object = 'modules/user/commands/authentication_links/create', email: "j
 
 ### RBAC Authorization
 
-The module provides the foundation for implementing **Role-Based Access Control (RBAC)** in your platformOS application. As described in the registration section, all users initially receive the **member** role. The first user that signs up will automatically receive the **superadmin** role.
+The module provides the foundation for implementing **Role-Based Access Control (RBAC)** in your platformOS application. As described in the registration section, all users initially receive the role defined by DEFAULT_USER_ROLE [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
 
 #### Authorization Commands 
 
@@ -414,10 +440,10 @@ function users_count = 'modules/user/queries/user/count'
 function current_user = 'modules/user/queries/user/current'
 ```
 
-### Query: Get Permissions of a Given User
+### Query: Get Information About User Based on ID
 
 ```
-function permissions = 'modules/user/queries/user/get_permissions', user: user
+function current_user = 'modules/user/queries/user/load', id: 1
 ```
 
 ## Versioning

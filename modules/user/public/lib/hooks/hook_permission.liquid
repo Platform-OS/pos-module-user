@@ -1,7 +1,0 @@
-{% comment %}
-  Implements hook_permission.
-{% endcomment %}
-{% liquid
-  assign permissions = '["users.manage", "users.register", "sessions.create",  "sessions.destroy"]' | parse_json
-  return permissions
-%}

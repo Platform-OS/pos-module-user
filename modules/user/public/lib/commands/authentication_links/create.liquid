@@ -4,6 +4,8 @@
 
   if object.valid
     function object = 'modules/user/commands/authentication_links/create/execute', object: object
+    assign event_payload = null | hash_merge: email: email
+    function _ = 'modules/core/commands/events/publish', type: 'authentication_link_created', object: event_payload, delay: null, max_attempts: null
   endif
 
   return object

@@ -1,6 +1,0 @@
-name: user_roles
-properties:
-  - name: user_id
-    belongs_to: user
-  - name: roles
-    type: array

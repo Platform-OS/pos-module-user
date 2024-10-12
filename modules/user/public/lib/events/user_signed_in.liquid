@@ -1,0 +1,12 @@
+---
+metadata:
+  event:
+    user_id
+---
+{% liquid
+  assign c = '{ "errors": {}, "valid": true }' | parse_json
+
+  function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'user_id'
+
+  return c
+%}
