@@ -3,8 +3,8 @@
   {% if context.constants.USER_DEFAULT_ROLE != blank %}
   "{{ context.constants.USER_DEFAULT_ROLE }}": [],
   {% endif %}
-  "anonymous": [],
-  "authenticated": []
+  "anonymous": ["sessions.create", "users.create"],
+  "authenticated": ["sessions.destroy"]
 }
 {% endparse_json %}
 

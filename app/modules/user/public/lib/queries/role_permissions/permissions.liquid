@@ -4,8 +4,8 @@
   "{{ context.constants.USER_DEFAULT_ROLE }}": ["subscription.read"],
   {% endif %}
   "admin": ["admin.view"],
-  "anonymous": [],
-  "authenticated": []
+  "anonymous": ["sessions.create"],
+  "authenticated": ["sessions.destroy"]
 }
 {% endparse_json %}
 
