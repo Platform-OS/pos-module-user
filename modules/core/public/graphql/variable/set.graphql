@@ -1,6 +1,0 @@
-mutation ($name: String!, $value: String!) {
-  variable: constant_set(name: $name, value: $value) {
-    name
-    value
-  }
-}
