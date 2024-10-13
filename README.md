@@ -1,6 +1,6 @@
 # User Module
 
-This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) authorization to your application. Before using the module for the first time, we recommend reviewing the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication).
+This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) to your application. Before using the module for the first time, we recommend reviewing the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication) and [Example Application](#example-application)
 
 This module follows the [platformOS DevKit best practices](https://documentation.staging.oregon.platform-os.com/developer-guide/modules/platformos-modules) and includes the [core module](https://github.com/Platform-OS/pos-module-core) as a dependency, enabling you to implement patterns such as [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
 
@@ -28,6 +28,7 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
 ```bash
    pos-cli modules install user
 ```
+
 This command installs the User Module along with its dependencies ([pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
 ### Setup
@@ -119,7 +120,7 @@ We recommend creating a [new Instance](https://partners.platformos.com/instances
 
 ## Functionality provided by the user module:
 
-Oncd the module is installed and you have completed the [setup](#setup), you will immediately get access to the new endpoints created by this module. For example, you can navigate to `/users/new` for the registration form or `/sessions/new` for a log in form. This chapter describes all of the functionalities provided by this module, and includes a roadmap for a potential new functionalities in the future.
+When the module is installed and you have completed the [setup](#setup) in your application, you will immediately get access to the new endpoints created by this module. For example, you can navigate to `/users/new` for the registration form or `/sessions/new` for a log in form. This chapter describes all of the functionalities provided by this module, and includes a roadmap for a potential new functionalities in the future.
 
 - [x] **[Registration](#crud-endpoints-including-registration)**:  
 Provides CRUD operations (Create, Read, Update, Delete) for user management and implements the necessary endpoints for user registration. These views are located in the `modules/user/public/views/pages/users/` directory. This handles essential user registration processes in platformOS.
@@ -197,28 +198,7 @@ function result = 'modules/user/commands/user/delete', id: '1'
 
 #### Assigning roles to users during registration
 
-The `modules/user/commands/user/create` will set role `superadmin` to the first User that registers. 
-
 The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` will assign the default role equal to the constant `DEFAULT_USER_ROLE` - see [setup](#setup).
-
-You can append role using the `append` command:
-
-```
-function result = 'modules/user/commands/user/roles/append', id: 1, role: "admin"
-```
-
-You can remove role using the `remove` command:
-
-```
-function result = 'modules/user/commands/user/roles/remove', id: 1, role: "admin"
-```
-
-You can set multiple roles at once using the set command:
-
-```
-assign roles = ['member', 'admin'] | parse_json
-function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
-```
 
 ### Session-Based Authentication
 
@@ -254,6 +234,16 @@ function res = 'modules/user/commands/session/create', email: 'email@example.com
 ```
 
 This command also triggers the `hook_user_login` hooks.
+
+#### Accessing current user
+
+To access information about the currently logged in user, we recommend you to use the following command provided by the module:
+
+```
+function user = 'modules/user/queries/user/current'
+```
+
+It is implemented in `modules/user/public/lib/queries/user/current.liquid` and if you investigate the file, you will notice that on top of loading user's information from the database, it also extends user's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in.
 
 #### Log out
 
@@ -308,6 +298,47 @@ function object = 'modules/user/commands/authentication_links/create', email: "j
 
 The module provides the foundation for implementing **Role-Based Access Control (RBAC)** in your platformOS application. As described in the registration section, all users initially receive the role defined by DEFAULT_USER_ROLE [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
 
+#### Built-in roles
+
+There are three built-in roles that are provided out of the box by the module
+
+##### anonymous role
+
+This role is artificially granted in `modules/user/public/lib/queries/user/current.liquid`. It represents an anonymous user, for which you might want to still want to check some permission. For example, only anonymous users should be able to sign in or register into the system. This is why you will see built-in permissions in `modules/user/public/lib/queries/role_permissions/permissions.liquid` for `users.register` and `sessions.create`, which are checked in [Endpoints for Sign-In](#endpoints-for-sign-in-sign-out) and [Endpoints for the registration](#endpoints-for-the-registration).
+
+A typical example that involves anonymous user is for the eCommerce website to allow anonymous users to purchase anything without registration.
+
+##### authenticated role
+
+This role is artificially granted in `modules/user/public/lib/queries/user/current.liquid`. It represents an authenticated user. The typical use case to leverage this role is to restrict certain areas from anonymous users, however not assign a proper role to the user just yet. For example, authenticated users might get access to a free content, however to be able to access paid content, they would need to create subscription, upon which the system will give them additional role like `member` or `subscriber` with additional permissions.
+
+##### superadmin
+
+Any user with `superadmin` role will get immediate access to any permission checked the [Authorization Commands](#authorization-commands)
+
+#### Role management commands
+
+The roles are stored in [User's property](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) named `roles`. 
+
+You can append role using the `append` command:
+
+```
+function result = 'modules/user/commands/user/roles/append', id: 1, role: "admin"
+```
+
+You can remove role using the `remove` command:
+
+```
+function result = 'modules/user/commands/user/roles/remove', id: 1, role: "admin"
+```
+
+You can set multiple roles at once using the set command:
+
+```
+assign roles = ['member', 'admin'] | parse_json
+function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
+```
+
 #### Authorization Commands 
 
 The module offers several helper commands to authorize users:
@@ -317,13 +348,16 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
+# platformos-check-disable CodeUnrachable
 function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
+# platformos-check-enable CodeUnrachable
 ```
+
+It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) in a clean way.
 
 ##### `can_do_or_unauthorized` command
 
 If the user does not have permission, the system renders a **403 Unauthorized** page, and the flow stops. This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
-
 
 ```
 # platformos-check-disable ConvertIncludeToRender
@@ -346,6 +380,62 @@ include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 
 
 The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
 
+###### creating your own authorization commands
+
+You can leverage the existing commands but still provide your custom authorization rules by leveraging the `access_callback` and `entity` arguments. Consider a real life complex example:
+
+```
+{% assign order = '{"buyer_id": 1, "seller_id": 2}' | parse_json %}
+function can = 'modules/user/helpers/can_do', requester: user, do: 'orders.confirm', entity: order, access_callback: 'can/orders'
+```
+
+In this example `access_callback` is set to `can/orders` - we recommend to put all of your authorization rules in one place - `app/lib/can`and name it after the [Resource](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention)
+
+The `entity` is representing the object to which you would like to check if the requester has access. In this example, it's an eCommerce order. 
+
+The example implementation of the `app/lib/can/orders.liquid` might be as follows:
+
+```
+{% liquid
+  assign order = entity
+
+  if order == blank
+    return false
+  endif
+
+  # for simplicity, there is a special orders.manage.all permission, which allows the requester to do anything with the orders.
+  # Because it leverages can_do helper, it will be always true for the superadmin.
+  function can_manage_all = 'modules/user/helpers/can_do', requester: requester, do: 'orders.manage.all'
+
+  if can_manage_all
+    return true
+  endif
+
+  # Check if the requester has a role that grants permission equal to `do`
+  function can = 'modules/user/helpers/can_do', requester: requester, do: do
+
+  if can
+    case do
+    when 'orders.confirm'
+      if requester.id == order.seller_id
+        return true
+      endif
+    when 'orders.buyer_cancel'
+      if requester.id == order.buyer_id
+        return true
+      endif
+    endcase
+  endif
+
+  return can
+%}
+```
+
+The rules can be explained as follows:
+* if the requester has access to the `orders.manage.all` permission, do not check granular permission anymore (like order.confirm in this example) - just grant access to anything related to orders.
+* otherwise, check if the requester has permission to do `do` - `orders.confirm` in this example
+* if they do, then check if the requester should have access to this particular order - just because they have `orders.confirm` permission, does not mean they should be able to confirm all orders - sellers should be able to confirm only their own orders. In this example, we store `seller_id` which should correspond to the `requester.id`, but in more complex scenario, you might need to do additional graphql queries and enrich `requester` or `order` with additional data to be able to perform authorization.
+
 #### Defining Roles' Permissions
 
 Roles and their permissions are defined in the `modules/user/public/lib/queries/role_permissions/permissions.liquid` file in a simple JSON format. You can modify this file to suit your application’s requirements. For example, if you want to add a new role, such as **foo**, with permissions **foo.show** and **foo.manage**, you can extend the JSON as follows:
@@ -366,6 +456,11 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
     "site.manage", <- this comma will cause an error
   ]
 ```
+
+##### Conventions when adding permissions to your application
+
+* Name your permissions as `<resource>.<do>` - for example `article.create`, `article.edit`, `comment.delete`
+* Use `<resource>.manage.all` for administrators/moderators - typically regular users should have permission only to the entities they create - for example if your application is a blog and it allows users to write comments, then the users should be able to edit and delete their comments. Administrators / Moderators on the other hand need permission to edit and delete all comments. We recommend creating `<resource>.manage.all` permission for this purpose and handling it as described in the [creating your own authorization commands](#creating-your-own-authorization commands) example.
 
 ## Customizing the Module
 
