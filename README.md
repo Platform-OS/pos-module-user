@@ -39,6 +39,7 @@ This command installs the User Module along with its dependencies ([pos-module-c
 
 ```yaml
 theme_search_paths:
+  - ''
   - modules/user
 ```
 
