@@ -37,11 +37,11 @@ metadata:
     assign classes = classes | append: ' text-xl'
   endif
 %}
-<{{tag}}
-  class="{{classes}}"
+<{{ tag }}
+  class="{{ classes }}"
   {% for attribute in attributes %}
   {{ attribute[0] }}="{{ attribute[1] }}"
   {% endfor %}
->{% print content %}</{{tag}}>
+>{% print content %}</{{ tag }}>
 
 

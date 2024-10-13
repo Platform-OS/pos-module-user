@@ -1,6 +1,6 @@
 {% liquid
   assign valid_for = valid_for | default: 5
-  function user = 'modules/user/queries/user/find', email: email, with_token: true, valid_for: valid_for, expires_in: expires_in
+  function user = 'modules/user/queries/user/find', email: email, with_token: true
 %}
 
 {% parse_json object %}

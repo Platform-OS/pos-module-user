@@ -4,8 +4,8 @@
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'id'
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'password'
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'password_confirmation'
-  function c = 'modules/core/validations/equal', c: c, given: object.password, expected: object.password_confirmation, field_name: 'password_confirmation', key: 'modules/user/validation.password.do_not_match', not_verbose: true
-  function c = 'modules/core/validations/password_complexity', c: c, object: object, field_name: 'password'
+  function c = 'modules/core/validations/equal', c: c, given: object.password, expected: object.password_confirmation, field_name: 'password_confirmation', key: 'modules/user/validation.password.do_not_match', not_verbose: true, message: null
+  function c = 'modules/core/validations/password_complexity', c: c, object: object, field_name: 'password', key: null
 
   hash_assign object['valid'] = c.valid
   hash_assign object['errors'] = c.errors

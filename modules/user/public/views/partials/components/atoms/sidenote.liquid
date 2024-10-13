@@ -14,7 +14,7 @@ metadata:
   assign classes = classes | default: params.classes | append: ' text-xs text-supplementary'
 %}
 <small
-  class="{{classes}}"
+  class="{{ classes }}"
   {% for attribute in attributes %}
   {{ attribute[0] }}="{{ attribute[1] }}"
   {% endfor %}

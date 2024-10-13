@@ -28,7 +28,7 @@ metadata:
   assign submit = submit | default: default_submit
 %}
 
-<form action="{{action}}" method="{{method}}" class="{{classes}}" data-tc="register-user">
+<form action="{{action}}" method="{{method}}" class="{{ classes }}" data-tc="register-user">
   {% render 'modules/core/helpers/authenticity_token', context: context %}
 
   {% for field in registration_fields %}

@@ -24,11 +24,11 @@ metadata:
     assign classes = classes | append: ' bg-panel'
   endif
 %}
-<{{tag}}
+<{{ tag }}
   {% for attribute in attributes %}
     {{ attribute[0] | html_safe }}="{{ attribute[1] | html_safe }}"
   {% endfor %}
-  class="{{classes}}"
+  class="{{ classes }}"
 >
   {% print content %}
-</{{tag}}>
+</{{ tag }}>

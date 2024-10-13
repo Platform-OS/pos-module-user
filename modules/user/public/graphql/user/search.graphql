@@ -4,9 +4,10 @@ query (
   $with_token: Boolean = false
   $valid_for: Int = 1
   $expires_in: Float = 48
+  $limit: Int = 1
 ) {
   users(
-    per_page: 1,
+    per_page: $limit,
     filter: {
       id: { value: $id }
       email: { value: $email }
