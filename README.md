@@ -75,7 +75,7 @@ Don’t forget to deploy your code to invoke the newly created migration:
 pos-cli deploy <env>
 ```
 
-5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At minimum, you would like to overwrite the [permission file](modules/user/public/lib/queries/role_permissions/permissions.liquid):
+5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At minimum, you would like to overwrite the [permission file](modules/user/public/lib/queries/role_permissions/permissions.liquid), in which you will configure [#rbac-authorization](roles permission for your application):
 
 
 ```
