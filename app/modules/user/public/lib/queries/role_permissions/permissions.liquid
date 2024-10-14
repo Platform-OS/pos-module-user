@@ -1,0 +1,12 @@
+{% parse_json data %}
+{
+  {% if context.constants.USER_DEFAULT_ROLE != blank %}
+  "{{ context.constants.USER_DEFAULT_ROLE }}": [],
+  {% endif %}
+  "admin": ["admin_pages.view", "admin.users.manage"],
+  "anonymous": ["sessions.create"],
+  "authenticated": ["sessions.destroy"]
+}
+{% endparse_json %}
+
+{% return data %}

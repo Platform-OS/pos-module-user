@@ -73,13 +73,13 @@ metadata:
 
   assign description_params = description_params | default: params.description_params
 %}
-<{{tag}} class="flex flex-col items-start gap-1 {{classes}}">
-  <label for="{{id}}" class="leading-tight {% if input_params.type == 'checkbox' %}flex gap-2{% endif %}">
+<{{ tag }} class="flex flex-col items-start gap-1 {{ classes }}">
+  <label for="{{ id }}" class="leading-tight {% if input_params.type == 'checkbox' %}flex gap-2{% endif %}">
     {% liquid
     if input_params.type == 'checkbox'
       theme_render_rc 'components/atoms/checkbox', params: input_params
     endif
-    %} {{label_params.content | html_safe }}
+    %} {{ label_params.content | html_safe }}
     {% if input_params.required %} <span class="text-important">*</span>{% endif %}
   </label>
 
@@ -94,7 +94,7 @@ metadata:
     endunless
   %}
   {% if description_params.content or validation.messages.size > 0 %}
-    <div id="{{input_params.name}}-desc" class="flex gap-2">
+    <div id="{{ input_params.name }}-desc" class="flex gap-2">
 
         {% if validation.passed == true %}
           {% assign icon_params = '{}' | parse_json | hash_merge: name: 'checkBadge' %}
@@ -133,4 +133,4 @@ metadata:
     </div>
   {% endif %}
 
-</{{tag}}>
+</{{ tag }}>

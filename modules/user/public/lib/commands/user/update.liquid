@@ -30,6 +30,9 @@
       endfor
       hash_assign object['hook_results'] = results
     endunless
+
+    assign event_payload = null | hash_merge: user_id: object.id
+    function _ = 'modules/core/commands/events/publish', type: 'user_updated', object: event_payload, delay: null, max_attempts: null
   endif
 
   return object

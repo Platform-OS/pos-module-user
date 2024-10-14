@@ -54,7 +54,7 @@ metadata:
 {% if type == 'hcaptcha' %}
   <script src="https://hcaptcha.com/1/api.js" async defer></script>
   <div
-    class="{{original_classes}}"
+    class="{{ original_classes }}"
     {% for attribute in attributes %}
       {{ attribute[0] }}="{{ attribute[1] }}"
     {% endfor %}></div>
@@ -67,7 +67,7 @@ metadata:
     type="{{type}}"
   {% endif %}
     name="{{name}}"
-    class="{{classes}}"
+    class="{{ classes }}"
     id="{{id}}"
     {% if required %}required{% endif %}
     {% if value != blank %}value="{{value}}"{% endif %}
@@ -77,7 +77,7 @@ metadata:
     {% for attribute in attributes %}
       {{ attribute[0] }}="{{ attribute[1] }}"
     {% endfor %}
-  >{%- if type == 'textarea' -%}{{value | strip}}</textarea>
+  >{%- if type == 'textarea' -%}{{ value | strip }}</textarea>
   {% endif %}
 {% endif %}
 

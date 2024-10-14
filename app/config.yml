@@ -1,3 +1,7 @@
 ---
 theme_search_paths:
+  - ''
   - modules/user
+modules_that_allow_delete_on_deploy:
+- core
+- user

@@ -1,0 +1,9 @@
+You have access to subscription.read. <a href="/">Back</a>
+
+<form action="/sessions" method="post">
+  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+  <input type="hidden" name="_method" value="delete" />
+  <button type="submit">
+    {{ 'modules/user/users.logout' | t }}
+  </button>
+</form>

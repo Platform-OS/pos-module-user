@@ -3,7 +3,7 @@ method: post
 slug: authentication_links
 ---
 {% liquid
-  function object = 'modules/user/commands/authentication_links/create', email: context.params.authentication_link.email, host: context.location.host, hcaptcha_params: context.params
+  function object = 'modules/user/commands/authentication_links/create', email: context.params.authentication_link.email, host: context.location.host, hcaptcha_params: context.params, valid_for: null
   if object.valid
     function email = 'modules/user/commands/emails/auth-link', object: object
     if email.valid

@@ -2,7 +2,8 @@
   {
     "email": {{ email | json }},
     "password": {{ password | json }},
-    "hook_params": {{ hook_params | json }}
+    "hook_params": {{ hook_params | json }},
+    "roles": [{% if context.constants.USER_DEFAULT_ROLE != blank %}{{ context.constants.USER_DEFAULT_ROLE | json }}{% endif %}]
   }
 {% endparse_json %}
 

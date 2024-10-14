@@ -1,15 +1,11 @@
 {% parse_json data %}
 {
-  "authenticated": [],
-  "member": [
-    "sessions.destroy",
-    "site.access",
-    "site.interact"
-  ],
-  "registered": [
-    "sessions.destroy",
-    "site.access"
-  ]
+  {% if context.constants.USER_DEFAULT_ROLE != blank %}
+  "{{ context.constants.USER_DEFAULT_ROLE }}": [],
+  {% endif %}
+  "anonymous": ["sessions.create", "users.register"],
+  "authenticated": ["sessions.destroy"]
 }
 {% endparse_json %}
+
 {% return data %}

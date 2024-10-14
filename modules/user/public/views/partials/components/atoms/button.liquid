@@ -89,13 +89,13 @@ metadata:
     assign classes = classes | prepend: 'h-11 px-4 py-2.5 leading-tight '
   endif
 %}
-<{{tag}}
-  class="{{classes}}"
+<{{ tag }}
+  class="{{ classes }}"
   {% for attribute in attributes %}
     {{ attribute[0] | html_safe }}="{{ attribute[1] | html_safe }}"
   {% endfor %}
   {% if href and disabled != true %}href="{{href}}"{% endif %}
   {% if tag == 'button' and disabled %}disabled{% endif %}
   {% if tag == 'button' %}type="{{type}}"{% endif %}
->{{content | html_safe}}</{{tag}}>
+>{{ content | html_safe }}</{{ tag }}>
 

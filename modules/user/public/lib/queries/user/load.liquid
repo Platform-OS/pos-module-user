@@ -3,43 +3,11 @@
   Params:
     - id: string
       the user's id
-    - current: boolean
-      load the user from context
 {% endcomment %}
 {% liquid
-  assign user_id = id
 
-  # Set current flag.
-  if id and id == context.current_user.id
-    assign current = true
-  endif
-
-  if current
-    assign user_id = context.current_user.id
-  endif
-
-  if user_id
-    graphql users = 'modules/user/user/load', id: user_id
-    assign user = users.users.results.first
-  endif
-
-  if user
-    # TODO: do we need seperate table for this?
-    assign roles = user.user_role.roles | default: '[]' | parse_json
-    if current
-      assign roles = roles | add_to_array: 'authenticated'
-    endif
-    hash_assign user['roles'] = roles
-  else
-    assign user = '{"roles": []}' | parse_json
-    if current
-      assign roles = 'anonymous' | split: ','
-      hash_assign user['roles'] = roles
-    endif
-  endif
-
-  function permissions = 'modules/user/queries/user/get_permissions', user: user
-  hash_assign user['permissions'] = permissions
+  graphql g = 'modules/user/user/load', id: id
+  assign user = g.users.results.first
 
   return user
 %}

@@ -1,6 +1,6 @@
 # User Module
 
-This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) authorization to your application. Before using the module for the first time, we recommend reviewing the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication).
+This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) to your application. Before using the module for the first time, we recommend reading the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication) and on [Example Application](#example-application).
 
 This module follows the [platformOS DevKit best practices](https://documentation.staging.oregon.platform-os.com/developer-guide/modules/platformos-modules) and includes the [core module](https://github.com/Platform-OS/pos-module-core) as a dependency, enabling you to implement patterns such as [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
 
@@ -28,19 +28,76 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
 ```bash
    pos-cli modules install user
 ```
-This command installs the User Module along with its dependencies ([pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
+
+This command installs the User Module along with its dependencies (such as [pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
 ### Setup
 
-1. First, install the module using the [pos-cli](https://github.com/Platform-OS/pos-cli).
+1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
+
 2. Configure the [components](https://github.com/Platform-OS/pos-module-components) theme paths by adding the following `theme_search_paths` property to the [app/config.yml](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure/config) file:
 
-```yml
+```yaml
 theme_search_paths:
+  - ''
   - modules/user
 ```
-3. Overwrite default views by following [overwriting a module file guide](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file).
 
+3. **Update the user configuration** in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
+
+```yaml
+properties:
+  - name: roles
+    type: array
+
+```
+
+4. (Optional) Create a [migration](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure#migrations) to set up the `USER_DEFAULT_ROLE` [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
+
+To generate a new migration, can use `pos-cli migrations generate` command. Remember to change `env` to your environment that you've used for the `pos-cli env add` command. If you don't remember it, check the `.pos` file.
+
+```
+  pos-cli migrations generate <env> setup_user_default_role
+```
+
+Add the following line of code to the newly created migration file to set the default role to `member`:
+
+```
+{% liquid
+  function result = 'modules/core/commands/variable/set', name: 'USER_DEFAULT_ROLE', value: 'member'
+  log result, type: 'setup_user_default_role result'
+%}
+```
+
+Don’t forget to deploy your code to invoke the newly created migration:
+
+```
+pos-cli deploy <env>
+```
+
+5. (Optional) Overwrite default views by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields.
+
+6. (Optional): To manually set a user's role, use the `pos-cli gui serve` GraphQL explorer to invoke the following mutation. To check the ID of any user, use `pos-cli gui serve`, then visit [Users](http://localhost:3333/users) or query the `users` GraphQL endpoint.
+
+```
+mutation () {
+  user: user_update(id: 1, user: { properties: [{ name: "roles", value_array: ["superadmin"] }] }) {
+    id
+    email
+    roles: property_array(name: roles)
+  }
+}
+```
+
+### Managing Module Files
+
+The default behavior of modules is that **the files are never deleted**. It is assumed that developers might not have access to all of the files, and thanks to this feature, they can still overwrite some of the module's files without breaking them. Since the User Module is fully public, it is recommended to delete files on deployment. To do this, ensure your `app/config.yml` includes the User Module and its dependencies in the list `modules_that_allow_delete_on_deploy`:
+
+``` yaml
+modules_that_allow_delete_on_deploy:
+- core
+- user
+```
 
 ### Troubleshooting
 
@@ -53,7 +110,18 @@ theme_search_paths:
   - modules/user
 ```
 
+## Example application
+
+We recommend creating a [new Instance](https://partners.platformos.com/instances/new) and deploying this module as an application to get a better understanding of the basics and the functionality this module provides. When you install the module using `pos-cli modules install user`, only the contents of the `modules/user` will be available in your project. The `app` directory serves as an example of how you could incorporate the User Module into your application. When analyzing the code in the `app` directory, pay attention to the following files:
+
+* **`app/config.yml`** and **`app/user.yml`**: These files are defined according to the [Setup](#setup) instructions.
+* **`app/views/page/index.liquid`**: Implements the example application homepage, displaying information about the currently logged-in user if available, or providing links for registration, sign-in, and password reset functionality for unauthenticated users.
+* **`app/views/pages/admin/index.liquid`**: Implements the `/admin` page, demonstrating permission-checking functionality.
+* **`app/modules/user/public/lib/queries/role_permissions/permissions.liquid`**: Demonstrates how to configure permissions in your application by [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwriting-a-module-file).
+
 ## Functionality provided by the user module:
+
+Once the module is installed and you have completed the [setup](#setup), you will immediately gain access to the new endpoints created by this module. For example, you can navigate to `/users/new` for the registration form or `/sessions/new` for the login form. This section describes all the functionalities provided by this module and includes a roadmap for potential future enhancements.
 
 - [x] **[Registration](#crud-endpoints-including-registration)**:  
 Provides CRUD operations (Create, Read, Update, Delete) for user management and implements the necessary endpoints for user registration. These views are located in the `modules/user/public/views/pages/users/` directory. This handles essential user registration processes in platformOS.
@@ -87,6 +155,15 @@ The **User module** is fully functional and requires no modifications to impleme
 
 With these CRUD commands, you can handle typical user management operations such as registering new users, updating user information, and managing user data through platformOS’s API.
 
+#### Endpoints for the registration
+
+The table below outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for registration functionality:
+
+| HTTP method   | slug  | page file path |  description |
+|---|---|---|---|
+| GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. |
+| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting it in the `hook_user_create`. |
+
 #### CRUD commands 
 
 The User module provides basic CRUD (Create, Read, Update, Delete) functionality for managing users in platformOS. You can run commands such as creating or deleting users.
@@ -96,7 +173,7 @@ The User module provides basic CRUD (Create, Read, Update, Delete) functionality
 You can create:
 
 ```
-function result = 'modules/user/commands/user/create', email: 'admin@example.com', password: 'password'
+function result = 'modules/user/commands/user/create', email: 'admin@example.com', password: 'password', roles: []
 ```
 
 load:
@@ -104,6 +181,10 @@ load:
 ```
 function user = 'modules/user/queries/user/load', id: '1'
 ```
+
+> [!NOTE] 
+> Usually, you will want to load the currently authenticated user. You can achieve this by providing [context.current_user.id](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-current_user) as the ID:
+
 
 update:
 
@@ -117,54 +198,15 @@ and delete:
 function result = 'modules/user/commands/user/delete', id: '1'
 ```
 
-#### Endpoints for the registration
-
-The table below contains a table with [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the registration functionality:
-
-| HTTP method   | slug  | page file path |  description |
-|---|---|---|---|
-| GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. |
-| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting it in the `hook_user_create`. |
-
 #### Assigning roles to users during registration
 
-The `modules/user/commands/user/create` will set role `superadmin` to the first User that registers. 
-
-The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` will assign the role `member` to a user as a default role.
+The `POST /users` endpoint defined in `modules/user/public/views/pages/users/create.liquid` assigns the default role specified by the constant `DEFAULT_USER_ROLE`—see [Setup](#setup) for more information.
 
 ### Session-Based Authentication
 
-#### Log in using email and password
-
-You can log the user in (which [creates a new session](https://documentation.platformos.com/developer-guide/users/session#security)) using the following command:
-
-```
-function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
-```
-
-This command also triggers the `hook_user_login` hooks.
-
-#### Log out
-
-To log out a user and destroy their session, run the following command:
-
-```
-function res = 'modules/user/commands/session/destroy'
-```
-
-This command triggers the `hook_user_logout` hooks.
-
-#### Log in without password validation 
-
-It’s possible to skip password validation and create a session while triggering the `hook_user_login` by setting the `validate_password` boolean argument to `false` when calling the `modules/user/commands/session/create` command. In this case, the `user_id` argument must be provided.
-
-```
-function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
-```
-
 #### Endpoints for Sign In / Sign Out
 
-The following table provides [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided by for the sign in / sign out functionality:
+The following table outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) for sign-in and sign-out functionality:
 
 | HTTP method   | slug  | page file path |  description |
 |---|---|---|---|
@@ -185,9 +227,60 @@ assign res = '{}' | parse_json | hash_merge: redirect_to: redirect_to
 return res
 ```
 
+#### Log in using email and password
+
+You can log the user in (which [creates a new session](https://documentation.platformos.com/developer-guide/users/session#security)) using the following command:
+
+```
+function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
+```
+
+This command also triggers the `hook_user_login` hooks.
+
+#### Accessing current user
+
+To access information about the currently logged-in user, use the following command provided by the module:
+
+```
+function user = 'modules/user/queries/user/current'
+```
+
+This command is implemented in `modules/user/public/lib/queries/user/current.liquid`. When you investigate the file, you'll notice that it not only loads the user's information from the database but also extends the user's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in.
+
+#### Log out
+
+To log out a user and destroy their session, run the following command:
+
+```
+function res = 'modules/user/commands/session/destroy'
+```
+
+This command triggers the `hook_user_logout` hooks.
+
+#### Log in without password validation 
+
+It’s possible to skip password validation and create a session while triggering the `hook_user_login` by setting the `validate_password` boolean argument to `false` when calling the `modules/user/commands/session/create` command. In this case, the `user_id` argument must be provided.
+
+```
+function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
+```
+
 ### Reset password
 
 The reset password functionality consists of two resources: `password` and `authentication_link`. 
+
+#### Endpoints for Reset Password
+
+The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
+
+| HTTP method   | slug  | page file path |  description |
+|---|---|---|---|
+| GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. |
+| POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  |
+
+| GET  | /passwords/edit | `modules/user/public/views/pages/passwords/edit.liquid` | User lands here by clicking on the reset password link in the email. This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and, if successful, redirects them to `GET /passwords/new`. |
+| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | Renders a form where the user can provide their new password. |
+| POST  | /passwords/create | `modules/user/public/views/pages/passwords/create.liquid` | Overwrites the existing user's password with the new password and redirects the user to the `GET /sessions/new` endpoint, so they can log in. |
 
 #### CRUD commands 
 
@@ -203,23 +296,50 @@ To create an `authentication link` that points to the `GET /passwords/edit` endp
 function object = 'modules/user/commands/authentication_links/create', email: "john@doe.com", host: context.location.host
 ```
 
-#### Endpoints for Reset Password
-
-The table below contains [Resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The flow begins at `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
-
-| HTTP method   | slug  | page file path |  description |
-|---|---|---|---|
-| GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. |
-| POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  |
-
-| GET  | /passwords/edit | `modules/user/public/views/pages/passwords/edit.liquid` | User lands here by clicking on the reset password link in the email. This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and, if successful, redirects them to `GET /passwords/new`. |
-| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | Renders a form where the user can provide their new password. |
-| POST  | /passwords/create | `modules/user/public/views/pages/passwords/create.liquid` | Overwrites the existing user's password with the new password and redirects the user to the `GET /sessions/new` endpoint, so they can log in. |
-
-
 ### RBAC Authorization
 
-The module provides the foundation for implementing **Role-Based Access Control (RBAC)** in your platformOS application. As described in the registration section, all users initially receive the **member** role. The first user that signs up will automatically receive the **superadmin** role.
+The module provides the foundation for implementing **Role-Based Access Control (RBAC)** in your platformOS application. As described in the registration section, all users initially receive the role defined by the `DEFAULT_USER_ROLE` [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
+
+#### Built-in roles
+
+There are three built-in roles that are provided out of the box by the module:
+
+##### Anonymous Role
+
+This role is artificially granted in `modules/user/public/lib/queries/user/current.liquid`. It represents an anonymous user, for which you might want to still want to check some permission. For example, only anonymous users should be able to sign in or register into the system. This is why you will see built-in permissions in `modules/user/public/lib/queries/role_permissions/permissions.liquid` for `users.register` and `sessions.create`, which are checked in [Endpoints for Sign-In](#endpoints-for-sign-in-sign-out) and [Endpoints for the registration](#endpoints-for-the-registration).
+
+A typical use case for the anonymous user role is on an eCommerce website, where anonymous users can purchase items without registering.
+
+##### Authenticated Role
+
+This role is artificially granted in `modules/user/public/lib/queries/user/current.liquid`.It represents an authenticated user. The typical use case for this role is to restrict access to certain areas for anonymous users, without assigning a specific role to the user yet. For example, authenticated users might access free content, but to access paid content, they would need to subscribe, after which the system would grant them an additional role like `member` or `subscriber` with extra permissions.
+
+##### Superadmin
+
+Any user with the `superadmin` role will have immediate access to any permission checked in the [Authorization Commands](#authorization-commands).
+
+#### Role management commands
+
+The roles are stored in [User's property](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) named `roles`. 
+
+You can append role using the `append` command:
+
+```
+function result = 'modules/user/commands/user/roles/append', id: 1, role: "admin"
+```
+
+You can remove role using the `remove` command:
+
+```
+function result = 'modules/user/commands/user/roles/remove', id: 1, role: "admin"
+```
+
+You can set multiple roles at once using the `set` command:
+
+```
+assign roles = ['member', 'admin'] | parse_json
+function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
+```
 
 #### Authorization Commands 
 
@@ -230,13 +350,16 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
+# platformos-check-disable CodeUnrachable
 function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
+# platformos-check-enable CodeUnrachable
 ```
+
+It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) in a clean way.
 
 ##### `can_do_or_unauthorized` command
 
 If the user does not have permission, the system renders a **403 Unauthorized** page, and the flow stops. This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
-
 
 ```
 # platformos-check-disable ConvertIncludeToRender
@@ -259,6 +382,62 @@ include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 
 
 The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
 
+###### Creating your own authorization commands
+
+You can leverage existing commands while providing custom authorization rules by using the `access_callback` and `entity` arguments. Consider the following complex real-life example:
+
+```
+{% assign order = '{"buyer_id": 1, "seller_id": 2}' | parse_json %}
+function can = 'modules/user/helpers/can_do', requester: user, do: 'orders.confirm', entity: order, access_callback: 'can/orders'
+```
+
+In this example, the `access_callback` is set to `can/orders`. We recommend placing all your authorization rules in one location: `app/lib/can`, naming the file after the relevant [Resource](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention).
+
+The `entity` represents the object for which you want to check if the requester has access. In this example, it’s an eCommerce order.
+
+The example implementation of the `app/lib/can/orders.liquid` might be as follows:
+
+```
+{% liquid
+  assign order = entity
+
+  if order == blank
+    return false
+  endif
+
+  # For simplicity, there is a special `orders.manage.all` permission that allows the requester to do anything with orders.
+  # Because it leverages the `can_do` helper, it will always return true for superadmins.
+  function can_manage_all = 'modules/user/helpers/can_do', requester: requester, do: 'orders.manage.all'
+
+  if can_manage_all
+    return true
+  endif
+
+  # Check if the requester has a role that grants permission equal to `do`
+  function can = 'modules/user/helpers/can_do', requester: requester, do: do
+
+  if can
+    case do
+    when 'orders.confirm'
+      if requester.id == order.seller_id
+        return true
+      endif
+    when 'orders.buyer_cancel'
+      if requester.id == order.buyer_id
+        return true
+      endif
+    endcase
+  endif
+
+  return can
+%}
+```
+
+The rules can be summarized as follows:
+1. If the requester has access to the `orders.manage.all` permission, do not check granular permissions (like `orders.confirm` in the example), just grant access to all actions related to orders.
+2. If the requester does not have `orders.manage.all`, check whether they have permission for the specific action represented by `do` ( like `orders.confirm` in the example).
+3. If the requester has the `do` permission, check if they should have access to that particular order. Having the `orders.confirm` permission does not imply access to confirm all orders - sellers should only be able to confirm their own orders. In this example, the `seller_id` must match the `requester.id`. In more complex scenarios, you may need to perform additional GraphQL queries to enrich the `requester` or `order` data, ensuring accurate authorization.
+
 #### Defining Roles' Permissions
 
 Roles and their permissions are defined in the `modules/user/public/lib/queries/role_permissions/permissions.liquid` file in a simple JSON format. You can modify this file to suit your application’s requirements. For example, if you want to add a new role, such as **foo**, with permissions **foo.show** and **foo.manage**, you can extend the JSON as follows:
@@ -279,6 +458,14 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
     "site.manage", <- this comma will cause an error
   ]
 ```
+
+##### Conventions when adding permissions to your application
+
+* * **Naming Convention for Permissions:** Use the format `<resource>.<do>` for naming your permissions. For example:
+  - `article.create`
+  - `article.edit`
+  - `comment.delete`
+* **Managing Permissions for Administrators/Moderators:** Use `<resource>.manage.all` for permissions granted to administrators or moderators. Regular users should typically have permission only for the entities they create. For example, in a blog application that allows users to write comments, users should be able to edit and delete their own comments.  In contrast, administrators and moderators need permission to manage all comments. We recommend creating a `<resource>.manage.all` permission for this purpose and handling it as described in the [Creating Your Own Authorization Commands](#creating-your-own-authorization-commands) example.
 
 ## Customizing the Module
 
@@ -343,26 +530,20 @@ The module also provides several useful queries and commands to help you manage 
 
 ### Query: Count All Users
 
-This query returns the total number of users in the system:
-
-This query returns the total number of users in the system:
-
 ```
 function users_count = 'modules/user/queries/user/count'
 ```
 
 ### Query: Get Currently Authenticated User
-This query returns the currently authenticated user:
-This query returns the currently authenticated user:
 
 ```
 function current_user = 'modules/user/queries/user/current'
 ```
 
-### Query: Get Permissions of a Given User
+### Query: Get Information About User Based on ID
 
 ```
-function permissions = 'modules/user/queries/user/get_permissions', user: user
+function current_user = 'modules/user/queries/user/load', id: 1
 ```
 
 ## Versioning

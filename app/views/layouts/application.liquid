@@ -1,7 +1,7 @@
 <html>
   <body>
     {% liquid
-      function flash = 'modules/core/commands/session/get', key: 'sflash'
+      function flash = 'modules/core/commands/session/get', key: 'sflash', clear: null
       if context.location.pathname != flash.from or flash.force_clear
         function _ = 'modules/core/commands/session/clear', key: 'sflash'
       endif

@@ -4,13 +4,13 @@ slug: users
 ---
 {% liquid
   function current_user = 'modules/user/queries/user/current'
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+
+  # platformos-check-disable UnreachableCode
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', redirect_url: "/"
+  # platformos-check-enable UnreachableCode
 
   function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params
   if object.valid
-    assign new_roles = 'member' | split: ','
-    function _update_user_roles = 'modules/user/commands/user_roles/create', user_id: object.id, roles: new_roles
-
     assign redirect_path = object.redirect_to | default: params.redirect_to | default: '/'
     redirect_to redirect_path
   else

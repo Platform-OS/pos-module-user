@@ -9,8 +9,11 @@
 
   unless user.errors
     assign params = '{}' | parse_json | hash_merge: user: user.user
-    function results = 'modules/core/commands/hook/fire', hook: 'user_delete', params: params
+    function results = 'modules/core/commands/hook/fire', hook: 'user_delete', params: params, merge_to_object: null
     hash_assign user['hook_results'] = results
+
+    assign event_payload = null | hash_merge: user_id: id
+    function _ = 'modules/core/commands/events/publish', type: 'user_deleted', object: event_payload, delay: null, max_attempts: null
   endunless
 
   return user

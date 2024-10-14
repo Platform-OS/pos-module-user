@@ -4,9 +4,10 @@ query (
   $with_token: Boolean = false
   $valid_for: Int = 1
   $expires_in: Float = 48
+  $limit: Int = 1
 ) {
   users(
-    per_page: 1,
+    per_page: $limit,
     filter: {
       id: { value: $id }
       email: { value: $email }
@@ -16,20 +17,8 @@ query (
       created_at
       email
       id
+      roles: property_array(name: "roles")
       token: temporary_token(valid_for: $valid_for, expires_in: $expires_in) @include(if: $with_token)
-
-      user_role: related_record(
-        table: "modules/user/user_roles"
-        join_on_property: "id"
-        foreign_property: "user_id"
-      ) {
-        id
-        created_at
-        type: table
-
-        user_id: property(name: "user_id")
-        roles: property_array(name: "roles")
-      }
     }
   }
 }

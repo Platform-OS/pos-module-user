@@ -11,7 +11,7 @@ method: post
   if object.valid
     session reset_password_session_user_id = null
 
-    function _ = 'modules/user/commands/session/create', user_id: object.id, validate_password: false
+    function _ = 'modules/user/commands/session/create', user_id: object.id, validate_password: false, email: null, password: null, hook_params: null
     redirect_to redirect_url
   else
     theme_render_rc 'modules/user/passwords/new', context: context, errors: object.errors
