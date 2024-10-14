@@ -1,0 +1,17 @@
+{% liquid
+  if token == blank or email == blank
+    return null
+  endif
+
+  function user = 'modules/user/queries/user/find', email: email
+
+  if user
+    assign authenticated = token | is_token_valid: user.id
+  endif
+
+  if user and authenticated
+    return user
+  else
+    return null
+  endif
+%}

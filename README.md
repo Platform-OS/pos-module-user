@@ -304,9 +304,7 @@ The table below contains the [resourceful routes](https://documentation.platform
 |---|---|---|---|
 | GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | app/views/partials/passwords/reset.liquid |
 | POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | app/views/partials/passwords/reset.liquid |
-
-| GET  | /passwords/edit | `modules/user/public/views/pages/passwords/edit.liquid` | User lands here by clicking on the reset password link in the email. This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and, if successful, redirects them to `GET /passwords/new`. | 
-| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | Renders a form where the user can provide their new password. | app/views/partials/passwords/new.liquid | 
+| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) using `modules/user/helpers/user_from_temporary_token` helper and, if successful, it renders a form where the user can provide their new password. | app/views/partials/passwords/new.liquid | 
 | POST  | /passwords/create | `modules/user/public/views/pages/passwords/create.liquid` | Overwrites the existing user's password with the new password and redirects the user to the `GET /sessions/new` endpoint, so they can log in. | app/views/partials/passwords/new.liquid |
 
 #### CRUD commands 
