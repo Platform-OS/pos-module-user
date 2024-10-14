@@ -1,0 +1,14 @@
+en:
+  emails:
+    from_email: noreply@platformos.com
+    passwords:
+      reset:
+        subject: Reset password
+        title: Password reset request
+        cta: Reset password
+        cta_button: Go to reset password form
+        content: It seems that you requested a password reset. To proceed use the
+          following button.
+        ignore: If it wasn’t you who requested this just ignore this message.
+
+
