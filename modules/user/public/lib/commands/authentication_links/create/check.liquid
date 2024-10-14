@@ -5,7 +5,7 @@
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'host'
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'token'
 
-  if context.constants.USER_HCAPTCHA_REQUIRED
+  if context.constants.VERIFY_HCAPTCHA == "true"
     function c = 'modules/core/validations/hcaptcha', c: c, hcaptcha_params: hcaptcha_params
   endif
 
