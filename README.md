@@ -75,16 +75,40 @@ Don’t forget to deploy your code to invoke the newly created migration:
 pos-cli deploy <env>
 ```
 
-5. (Optional) Overwrite default views by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields.
+5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At minimum, you would like to overwrite the [permission file](modules/user/public/lib/queries/role_permissions/permissions.liquid):
 
-6. (Optional): To manually set a user's role, use the `pos-cli gui serve` GraphQL explorer to invoke the following mutation. To check the ID of any user, use `pos-cli gui serve`, then visit [Users](http://localhost:3333/users) or query the `users` GraphQL endpoint.
 
 ```
-mutation () {
+mkdir -p app/modules/user/public/lib/queries/role_permissions
+cp modules/user/public/lib/queries/role_permissions/permissions.liquid app/modules/user/public/lib/queries/role_permissions/permissions.liquid
+```
+
+6. Create [superadmin](#superadmin) using  [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui)
+
+* To create a new user, use [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation.The query to create a user with email `admin@example.com` and password `password` with `superadmin` role would look as follows:
+
+```
+mutation user_create {
+  user: user_create(user: { 
+    email: "admin@example.com", 
+    password: "password", 
+    properties: [{ name: "roles", value_array: ["superadmin"] }] 
+  }) {
+      id
+      email
+      roles: property_array(name: "roles")
+    }
+  }
+```
+
+* To promote existing user to superadmin, use [user_update](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-update) mutation. To promote user with id `1` (you can check your users ID using `pos-cli gui serve` -> Users), use the following query:
+
+```
+mutation user_update {
   user: user_update(id: 1, user: { properties: [{ name: "roles", value_array: ["superadmin"] }] }) {
     id
     email
-    roles: property_array(name: roles)
+    roles: property_array(name: "roles")
   }
 }
 ```
