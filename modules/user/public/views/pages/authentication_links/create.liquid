@@ -21,11 +21,13 @@ slug: authentication_links
       redirect_to '/'
     endif
   elsif object.token == blank
-    log object, type: 'reset-password-user-not-found'
+    if context.environment == 'staging'
+      log object, type: 'DEBUG: reset-password-user-not-found'
+    endif
 
     function _ = 'modules/user/helpers/flash', notice: 'modules/user/authentication_links.created'
     redirect_to '/'
   else
-    theme_render_rc 'modules/user/passwords/reset', context: context, errors: object.errors
+    theme_render_rc 'passwords/reset', context: context, errors: object.errors
   endif
 %}

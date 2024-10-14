@@ -14,6 +14,6 @@ method: post
     function _ = 'modules/user/commands/session/create', user_id: object.id, validate_password: false, email: null, password: null, hook_params: null
     redirect_to redirect_url
   else
-    theme_render_rc 'modules/user/passwords/new', context: context, errors: object.errors
+    theme_render_rc 'passwords/new', context: context, errors: object.errors
   endif
 %}
