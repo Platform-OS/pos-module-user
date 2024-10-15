@@ -1,8 +1,15 @@
 {% liquid
-  if context.current_user
-    function _ = 'modules/user/helpers/flash', error: 'app.errors.already_logged_in'
-    redirect_to '/'
+  if context.session.reset_password_session_user_id == blank
+    function user = 'modules/user/helpers/user_from_temporary_token', token: context.params.token, email: context.params.email
+
+    if user
+      session reset_password_session_user_id = user.id
+    else
+      function _ = 'modules/user/helpers/flash', error: 'modules/user/account.reset_password.expired_link'
+      redirect_to '/sessions/new'
+      break
+    endif
   endif
 
-  theme_render_rc 'modules/user/passwords/new', context: context
+  theme_render_rc 'passwords/new', context: context
 %}

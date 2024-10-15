@@ -4,7 +4,7 @@
   "{{ context.constants.USER_DEFAULT_ROLE }}": [],
   {% endif %}
   "admin": ["admin_pages.view", "admin.users.manage"],
-  "anonymous": ["sessions.create"],
+  "anonymous": ["sessions.create", "users.register"],
   "authenticated": ["sessions.destroy"]
 }
 {% endparse_json %}

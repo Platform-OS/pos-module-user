@@ -13,6 +13,6 @@ slug: sessions
   if res.valid
     redirect_to redirect_path
   else
-    theme_render_rc 'modules/user/sessions/new', context: context, errors: res.errors
+    theme_render_rc 'sessions/new', context: context, errors: res.errors
   endif
 %}

@@ -9,7 +9,7 @@ metadata:
 {% parse_json object %}
   {
     "to": {{ object.email | json }},
-    "from": {% print 'modules/user/from_email' | t | json %},
+    "from": {% print 'modules/user/emails.from_email' | t: default: 'noreply@platformos.com' | json %},
     "subject": {% print 'modules/user/emails.passwords.reset.subject' | t | json %},
     "partial": "modules/user/emails/passwords/reset",
     "layout": null,
