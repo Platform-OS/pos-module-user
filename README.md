@@ -186,13 +186,8 @@ With these CRUD commands, you can handle typical user management operations such
 
 The table below outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for registration functionality:
 
-<<<<<<< Updated upstream
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
-|---|---|---|---|
-=======
-| HTTP method   | slug  | page file path |  description | partial rendering html |
 |---|---|---|---|---|
->>>>>>> Stashed changes
 | GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. | app/views/users/new.liquid |
 | POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting it in the `hook_user_create`. | app/views/users/new.liquid |
 
@@ -240,13 +235,8 @@ The `POST /users` endpoint defined in `modules/user/public/views/pages/users/cre
 
 The following table outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) for sign-in and sign-out functionality:
 
-<<<<<<< Updated upstream
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
-|---|---|---|---|
-=======
-| HTTP method   | slug  | page file path |  description | partial rendering html |
 |---|---|---|---|---|
->>>>>>> Stashed changes
 | GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | app/views/partials/sessions/new.liquid |
 | POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. | app/views/partials/sessions/new.liquid |
 | DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | N/A |
@@ -310,13 +300,8 @@ The reset password functionality consists of two resources: `password` and `auth
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
 
-<<<<<<< Updated upstream
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
-|---|---|---|---|
-=======
-| HTTP method   | slug  | page file path |  description | partial rendering html |
 |---|---|---|---|---|
->>>>>>> Stashed changes
 | GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | app/views/partials/passwords/reset.liquid |
 | POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | app/views/partials/passwords/reset.liquid |
 | GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) using `modules/user/helpers/user_from_temporary_token` helper and, if successful, it renders a form where the user can provide their new password. | app/views/partials/passwords/new.liquid | 
