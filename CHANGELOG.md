@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file. Dates are d
 
 * Merge `user` and `permissions` modules into one
 * Move `roles` array from a dedicated table to `user.yml` for performance and reducing complexity
-* Move permissions to a single liquid file for performance and simplicity
+* Move permissions to a single Liquid file for performance and simplicity
 
 ## [v1.0.2](https://github.com/Platform-OS/pos-module-user/compare/v1.0.1...v1.0.2)
 

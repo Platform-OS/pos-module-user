@@ -75,7 +75,7 @@ Don’t forget to deploy your code to invoke the newly created migration:
 pos-cli deploy <env>
 ```
 
-5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At minimum, you would like to overwrite the [permission file](modules/user/public/lib/queries/role_permissions/permissions.liquid), in which you will configure [#rbac-authorization](roles permission for your application):
+5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At a minimum, you should overwrite the [permissions file](modules/user/public/lib/queries/role_permissions/permissions.liquid), where you will configure [RBAC authorization](#rbac-authorization) roles and permissions for your application:
 
 
 ```
@@ -83,9 +83,9 @@ mkdir -p app/modules/user/public/lib/queries/role_permissions
 cp modules/user/public/lib/queries/role_permissions/permissions.liquid app/modules/user/public/lib/queries/role_permissions/permissions.liquid
 ```
 
-6. Create [superadmin](#superadmin) using  [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui)
+6. Create a [superadmin](#superadmin) using the [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui).
 
-* To create a new user, use [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation.The query to create a user with email `admin@example.com` and password `password` with `superadmin` role would look as follows:
+* To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password`, assigned the `superadmin` role, would look as follows:
 
 ```
 mutation user_create {
@@ -101,7 +101,7 @@ mutation user_create {
   }
 ```
 
-* To promote existing user to superadmin, use [user_update](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-update) mutation. To promote user with id `1` (you can check your users ID using `pos-cli gui serve` -> Users), use the following query:
+* To promote an existing user to superadmin, use the [user_update](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-update) mutation. The following mutation demonstrates promoting the user with ID `1`. To check the ID of any user, use `pos-cli gui serve`, then visit [Users](http://localhost:3333/users) or query the `users` GraphQL endpoint.
 
 ```
 mutation user_update {
@@ -148,7 +148,7 @@ We recommend creating a [new Instance](https://partners.platformos.com/instances
 
 Once the module is installed and you have completed the [setup](#setup), you will immediately gain access to the new endpoints created by this module. For example, you can navigate to `/users/new` for the registration form or `/sessions/new` for the login form. This section describes all the functionalities provided by this module and includes a roadmap for potential future enhancements.
 
-To provide your own html (for example for styling purposes), you can leverage the fact that all of the endpoints leverage [theme_render_rc](https://documentation.platformos.com/api-reference/liquid/platformos-tags#theme-render-rc) Liquid Tag, which means you can easily provide your own html for each endpoint by creating a partial in the `app` directory, for example `app/views/partials/users/new.liquid` for the registration endpoint. Refer to the Endpoints section for each functionality to see which partial to create for which endpoint.
+To provide your own HTML (for example, for styling purposes), you can leverage the fact that all of the endpoints use the [theme_render_rc](https://documentation.platformos.com/api-reference/liquid/platformos-tags#theme-render-rc) Liquid tag. This means you can easily provide your own HTML for each endpoint by creating a partial in the `app` directory. For example, you can create `app/views/partials/users/new.liquid` for the registration endpoint. Refer to the Endpoints section for each functionality to see which partial to create for which endpoint.
 
 - [x] **[Registration](#crud-endpoints-including-registration)**:  
 Provides CRUD operations (Create, Read, Update, Delete) for user management and implements the necessary endpoints for user registration. These views are located in the `modules/user/public/views/pages/users/` directory. This handles essential user registration processes in platformOS.
@@ -186,7 +186,7 @@ With these CRUD commands, you can handle typical user management operations such
 
 The table below outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for registration functionality:
 
-| HTTP method   | slug  | page file path |  description | partial rendering html |
+| HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|
 | GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. | app/views/users/new.liquid |
 | POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting it in the `hook_user_create`. | app/views/users/new.liquid |
@@ -235,7 +235,7 @@ The `POST /users` endpoint defined in `modules/user/public/views/pages/users/cre
 
 The following table outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) for sign-in and sign-out functionality:
 
-| HTTP method   | slug  | page file path |  description | partial rendering html |
+| HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|
 | GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | app/views/partials/sessions/new.liquid |
 | POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. | app/views/partials/sessions/new.liquid |
@@ -300,7 +300,7 @@ The reset password functionality consists of two resources: `password` and `auth
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
 
-| HTTP method   | slug  | page file path |  description | partial rendering html |
+| HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|
 | GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | app/views/partials/passwords/reset.liquid |
 | POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | app/views/partials/passwords/reset.liquid |
