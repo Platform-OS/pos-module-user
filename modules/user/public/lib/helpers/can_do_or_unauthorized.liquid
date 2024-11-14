@@ -13,6 +13,7 @@
 {% liquid
   function can = 'modules/user/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
   unless can
+    response_status 403
     try
       theme_render_rc 'components/pages/403'
     catch err
