@@ -1,0 +1,7 @@
+{% liquid
+  assign limit = limit | default: 20
+  assign page = page | to_positive_integer: 1
+
+  graphql r = 'modules/user/user/search', id: id, not_ids: not_ids, email: email, role: role, roles: roles, page: page, limit: limit, sort: sort
+  return r.users
+%}

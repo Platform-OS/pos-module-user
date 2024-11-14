@@ -1,24 +1,28 @@
 query (
   $id: ID
+  $not_ids: [ID!]
   $email: String
-  $with_token: Boolean = false
-  $valid_for: Int = 1
-  $expires_in: Float = 48
-  $limit: Int = 1
+  $limit: Int = 20
+  $page: Int = 1
+  $sort: UserSortInput = { id: { order: DESC } }
+  $role: String
+  $roles: [String!]
 ) {
   users(
-    per_page: $limit,
+    per_page: $limit
+    page: $page
     filter: {
-      id: { value: $id }
+      id: { value: $id, not_value_in: $not_ids }
       email: { value: $email }
+      role: { value: $role, value_in: $roles }
     }
+    sort: [$sort]
   ) {
     results {
-      created_at
-      email
       id
+      email
       roles: property_array(name: "roles")
-      token: temporary_token(valid_for: $valid_for, expires_in: $expires_in) @include(if: $with_token)
+      created_at
     }
   }
 }
