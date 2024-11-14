@@ -7,7 +7,7 @@
     return null
   endif
 
-  graphql r  = 'modules/user/user/search', id: id, email: email, limit: 1, with_token: with_token
+  graphql r  = 'modules/user/user/find', id: id, email: email, limit: 1, with_token: with_token
 
   return r.users.results.first
 %}
