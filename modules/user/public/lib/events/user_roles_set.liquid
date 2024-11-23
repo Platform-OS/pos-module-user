@@ -8,7 +8,7 @@ metadata:
   assign c = '{ "errors": {}, "valid": true }' | parse_json
 
   function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'user_id'
-  function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'roles'
+  function c = 'modules/core/validations/length', c: c, object: event, field_name: 'roles', minimum: 0, allow_blank: false
 
   return c
 %}
