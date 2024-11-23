@@ -1,0 +1,41 @@
+{% liquid
+  # test do not explicitly provide roles argument
+
+  assign email = 10 | random_string | append: '-user-create@example.com'
+
+  function user = 'modules/user/commands/user/create', email: email , password: email, roles: null, hook_params: null
+
+  assign roles = 'member' | split: ','
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+%}
+
+{% liquid
+  # test explicitly provide roles argument as string
+
+  assign email = 10 | random_string | append: '-user-create@example.com'
+
+  function user = 'modules/user/commands/user/create', email: email , password: email, roles: 'role 1,role 2', hook_params: null
+
+  assign roles = 'role 1,role 2' | split: ','
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+%}
+
+{% liquid
+  # test explicitly provide roles argument as array
+
+  assign email = 10 | random_string | append: '-user-create@example.com'
+
+  assign roles = 'role 1,role 2' | split: ','
+  function user = 'modules/user/commands/user/create', email: email , password: email, roles: roles, hook_params: null
+
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+%}
+
+{% liquid
+  # test roles cannot be an integer
+
+  assign email = 10 | random_string | append: '-user-create@example.com'
+
+  function user = 'modules/user/commands/user/create', email: email , password: email, roles: 25, hook_params: null
+  function contract = 'modules/tests/assertions/invalid_object', contract: contract, object: user, field_name: null
+%}

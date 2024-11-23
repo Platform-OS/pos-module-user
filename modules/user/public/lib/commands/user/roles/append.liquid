@@ -1,10 +1,10 @@
 {% liquid
   assign object = '{}' | parse_json | hash_merge: valid: true, id: id, role : role
-  function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/roles/append'
+  function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/user/roles/append', selection: 'user'
 
   if object.errors == blank
 
-    assign event_payload = null | hash_merge: id: id, role: role
+    assign event_payload = null | hash_merge: user_id: id, role: role
     function _ = 'modules/core/commands/events/publish', type: 'user_role_appended', object: event_payload, delay: null, max_attempts: null
   endif
 

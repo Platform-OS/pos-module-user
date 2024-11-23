@@ -1,0 +1,10 @@
+{% liquid
+  # test remove role
+
+  assign email = 10 | random_string | append: '-user-create@example.com'
+  function user = 'modules/user/commands/user/create', email: email , password: email, hook_params: null, roles: 'role 1,role 2,role 3'
+  function result = 'modules/user/commands/user/roles/remove', id: user.id, role: 'role 2'
+
+  assign roles = 'role 1,role 3' | split: ','
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: result.roles, expected: roles, field_name: null
+%}

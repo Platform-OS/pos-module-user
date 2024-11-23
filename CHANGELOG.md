@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v3.0.3
+
+* Fix modules/user/roles/append, modules/user/roles/remove and modules/user/roles/set commands
+* Added `tests` module as a dependency and provide some unit tests that reproduced the issue
+
+
 ## v3.0.1
 
 * Merge `user` and `permissions` modules into one

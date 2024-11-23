@@ -9,7 +9,7 @@ slug: users
   include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', redirect_url: "/"
   # platformos-check-enable UnreachableCode
 
-  function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params
+  function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params, roles: null
   if object.valid
     assign redirect_path = object.redirect_to | default: params.redirect_to | default: '/'
     redirect_to redirect_path
