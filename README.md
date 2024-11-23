@@ -362,7 +362,7 @@ function result = 'modules/user/commands/user/roles/remove', id: 1, role: "admin
 You can set multiple roles at once using the `set` command:
 
 ```
-assign roles = ['member', 'admin'] | parse_json
+assign roles = '["member", "admin"]' | parse_json
 function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
 ```
 
