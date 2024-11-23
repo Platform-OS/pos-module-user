@@ -1,0 +1,24 @@
+query (
+  $id: ID
+  $email: String
+  $with_token: Boolean = false
+  $valid_for: Int = 1
+  $expires_in: Float = 48
+  $limit: Int = 1
+) {
+  users(
+    per_page: $limit,
+    filter: {
+      id: { value: $id }
+      email: { value: $email }
+    }
+  ) {
+    results {
+      created_at
+      email
+      id
+      roles: property_array(name: "roles")
+      token: temporary_token(valid_for: $valid_for, expires_in: $expires_in) @include(if: $with_token)
+    }
+  }
+}
