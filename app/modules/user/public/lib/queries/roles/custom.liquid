@@ -1,0 +1,6 @@
+{% liquid
+    function roles = 'modules/user/queries/roles/all'
+    assign built_in_roles = 'anonymous,authenticated' | split: ','
+
+    return roles | array_subtract: built_in_roles
+%}
