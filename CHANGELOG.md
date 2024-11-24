@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v3.0.5
+
+Add `modules/user/queries/roles/custom` and `modules/user/queries/roles/all` queries to get roles based on `permissions` file
+
 ## v3.0.3
 
 * Fix modules/user/roles/append, modules/user/roles/remove and modules/user/roles/set commands

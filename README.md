@@ -366,6 +366,20 @@ assign roles = '["member", "admin"]' | parse_json
 function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
 ```
 
+#### Role management queries
+
+You can fetch all defined roles in the system by using `modules/user/queries/roles/all` query:
+
+```
+function roles = 'modules/user/queries/roles/all'
+```
+
+You can fetch all custom roles (without `authenticated` and `anonymous`) defined in the system by using `modules/user/queries/roles/custom` query:
+
+```
+function roles = 'modules/user/queries/roles/custom'
+```
+
 #### Authorization Commands 
 
 The module offers several helper commands to authorize users:
