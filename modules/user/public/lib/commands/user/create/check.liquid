@@ -4,7 +4,7 @@
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'password'
   function c = 'modules/core/validations/password_complexity', c: c, object: object, field_name: 'password', key: null
   function c = 'modules/core/validations/presence', c: c, object: object, field_name: 'email', key: 'modules/user/validation.email.required'
-  function c = 'modules/core/validations/length', c: c, object: object, field_name: 'roles', minimum: 0, allow_blank: false
+  function c = 'modules/core/validations/length', c: c, object: object, field_name: 'roles', minimum: 0, allow_blank: true
   function c = 'modules/core/validations/email', c: c, object: object, field_name: 'email', key: 'modules/user/validation.email.format'
 
   if object.email != blank

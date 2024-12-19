@@ -2,7 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-## v3.0.5
+## v3.0.7
+
+Chore: bump core module
+
+## v3.0.6
 
 Add `modules/user/queries/roles/custom` and `modules/user/queries/roles/all` queries to get roles based on `permissions` file
 
