@@ -1,0 +1,18 @@
+---
+slug: sessions/impersonations
+method: delete
+---
+{% liquid
+  if context.session.original_user_id == blank
+    redirect_to "/"
+  else
+    function admin_user = 'modules/user/queries/user/load', id: context.session.original_user_id
+    function object = 'modules/user/commands/session/impersonation/destroy', user: admin_user, current_user_id: context.current_user.id
+
+    if object.valid
+      include 'modules/core/helpers/redirect_to'
+    else
+      print "Something went wrong."
+    endif
+  endif
+%}

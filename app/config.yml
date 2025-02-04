@@ -5,3 +5,4 @@ theme_search_paths:
 modules_that_allow_delete_on_deploy:
 - core
 - user
+- tests

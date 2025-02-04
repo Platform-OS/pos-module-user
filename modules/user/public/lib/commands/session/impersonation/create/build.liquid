@@ -1,0 +1,8 @@
+{% parse_json object %}
+  {
+    "id": {{ user.id | json }},
+    "current_user_id": {{ current_user_id | json }}
+  }
+{% endparse_json %}
+
+{% return object %}

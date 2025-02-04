@@ -26,7 +26,6 @@
 
   function object = 'modules/user/commands/session/create/build', id: user_id
   function object = 'modules/user/commands/session/create/check', object: object
-
   if object.valid
     function user = 'modules/user/queries/user/load', id: object.id
     if user.id
