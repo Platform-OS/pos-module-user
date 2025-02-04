@@ -1,5 +1,5 @@
 ---
-slug: logging_as
+slug: logging-as
 method: post
 ---
 
@@ -7,10 +7,10 @@ method: post
 function current_user = 'modules/user/queries/user/current'
 include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as', requester: current_user
   session original_user_id = context.current_user.id
+
   function sign_out_original_user ='modules/user/commands/session/destroy'
   function logging_as_user = 'modules/user/commands/session/create', logging_as_admin: true , logging_as_user_id: context.params.user_id
 
   redirect_to "/"
-
 
 %}
