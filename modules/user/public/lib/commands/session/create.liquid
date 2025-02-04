@@ -12,10 +12,15 @@
       the other params that will be passed to hook_user_login
 {% endcomment %}
 {% liquid
+
+
   if validate_password == nil
     assign validate_password = true
   endif
-
+  if logging_as_admin
+    assign user_id = logging_as_user_id
+    assign validate_password = false
+  endif
   if validate_password
     function user = 'modules/user/commands/user/verify_password', email: email, password: password
     unless user.valid
@@ -23,16 +28,14 @@
     endunless
     assign user_id = user.id
   endif
-if logging_as_admin 
-  assign user_id = logging_as_user_id
-endif
-
 
   function object = 'modules/user/commands/session/create/build', id: user_id
   function object = 'modules/user/commands/session/create/check', object: object
-
+  log object
   if object.valid
+
     function user = 'modules/user/queries/user/load', id: object.id
+
     if user.id
       sign_in user_id: user.id
       assign params = '{}' | parse_json | hash_merge: user: user, hook_params: hook_params
