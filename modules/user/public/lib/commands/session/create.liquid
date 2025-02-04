@@ -23,6 +23,10 @@
     endunless
     assign user_id = user.id
   endif
+if logging_as_admin 
+  assign user_id = logging_as_user_id
+endif
+
 
   function object = 'modules/user/commands/session/create/build', id: user_id
   function object = 'modules/user/commands/session/create/check', object: object
