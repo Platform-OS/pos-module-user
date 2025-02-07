@@ -15,10 +15,7 @@
   if validate_password == nil
     assign validate_password = true
   endif
-  if logging_as_admin
-    assign user_id = logging_as_user_id
-    assign validate_password = false
-  endif
+  
   if validate_password
     function user = 'modules/user/commands/user/verify_password', email: email, password: password
     unless user.valid
