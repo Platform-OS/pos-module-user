@@ -508,7 +508,7 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
   - `article.edit`
   - `comment.delete`
 * **Managing Permissions for Administrators/Moderators:** Use `<resource>.manage.all` for permissions granted to administrators or moderators. Regular users should typically have permission only for the entities they create. For example, in a blog application that allows users to write comments, users should be able to edit and delete their own comments.  In contrast, administrators and moderators need permission to manage all comments. We recommend creating a `<resource>.manage.all` permission for this purpose and handling it as described in the [Creating Your Own Authorization Commands](#creating-your-own-authorization-commands) example.
-### Logging as antoher user
+### Logging as another user
 
 Logging as antoher user .
 
