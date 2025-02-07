@@ -514,7 +514,7 @@ Logging as antoher user .
 
 #### Endpoints for Loggin as another user
 
-The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
+The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
