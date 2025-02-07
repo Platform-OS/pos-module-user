@@ -518,8 +518,8 @@ The table below contains the [resourceful routes](https://documentation.platform
 
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
-| POST | /passwords/reset | `modules/user/public/views/pages/sessions/logging_as.liquid` |This feature allows an administrator to log in as another user's profile. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
-| POST  | /authentication_links | `modules/user/public/views/pages/sessions/logging_back.liquid`|Logging back in as the original user. | app/views/partials/components/organisms/logging_back.liquid|
+| POST | /logging-as | `modules/user/public/views/pages/sessions/logging_as.liquid` |This feature allows an administrator to log in as another user's profile. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
+| POST  | /logging-back | `modules/user/public/views/pages/sessions/logging_back.liquid`|Logging back in as the original user. | app/views/partials/components/organisms/logging_back.liquid|
 
 
 #### Endpoint description
