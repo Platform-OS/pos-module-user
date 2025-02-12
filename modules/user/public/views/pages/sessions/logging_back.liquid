@@ -10,7 +10,6 @@ endunless
 function admin_user = 'modules/user/queries/user/find', id:context.session.original_user_id
 include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as', requester: admin_user
 session original_user_id = null
-function logging_as_user = 'modules/user/commands/session/create',  validate_password: false, , logging_as_user_id: admin_user.id
-
+function logging_as_user = 'modules/user/commands/session/create',  validate_password: false, logging_as_user_id: admin_user.id
 redirect_to "/"
 %}
