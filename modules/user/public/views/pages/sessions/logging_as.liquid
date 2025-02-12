@@ -6,13 +6,8 @@ method: post
 {% liquid
 function current_user = 'modules/user/queries/user/current'
 include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as', requester: current_user
-  session original_user_id = context.current_user.id
-  function load_user = 'modules/user/queries/user/load', id: context.params.user_id
-  if load_user.roles contains "superadmin"
-  include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as_superadmin', requester: current_user
-  endif
-  function sign_out_original_user ='modules/user/commands/session/destroy'
-  function logging_as_user = 'modules/user/commands/session/create', validate_password: false, user_id: load_user.id
-  redirect_to "/"
+assign event_object = null | hash_merge: actor_id: context.current_user.id , target_id:context.params.user_id
+function _ = 'modules/core/commands/events/publish', type: 'user_logged_in_as_another_user', object: event_objects
+redirect_to "/"
 
 %}
