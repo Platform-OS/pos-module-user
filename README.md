@@ -518,25 +518,25 @@ The table below contains the [resourceful routes](https://documentation.platform
 
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
-| POST | /logging-as | `modules/user/public/views/pages/sessions/logging_as.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
-| POST  | /logging-back | `modules/user/public/views/pages/sessions/logging_back.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | app/views/partials/components/organisms/logging_back.liquid|
+| PATCH |  sessions/:user_id/impersonate | `modules/user/public/views/pages/sessions/impersonation/create.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
+| PATCH | /sessions/:user_id/relog | `modules/user/public/views/pages/sessions/relog.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | modules/community/public/views/partials/components/organisms/logging_back.liquid|
 
 
 
 #### Endpoint description
 
-/logging-as
+/sessions/:user_id/impersonate
 ```
 
 
-After checking the permissions,the endpoint saves the original user's ID in the session as original_user_id. Then, by destroying the session (session destroy), it logs out the current user and creates a new session with the other user's user_id, without password validation. Finally, the user is navigated to the homepage.
+After checking the permissions,the endpoint saves the original user's ID in the session as original_user_id. Then, by destroying the session (session destroy), it logs out the current user and creates a new session with the other user's user_id, without password validation. Finally, the user is navigated to the homepage unless they have set a different redirect path.
 
 ```
-/logging-back
+/sessions/:user_id/relog
 ```
 
 
-At the endpoint, after checking the permissions and the session, the system logs out the current user. It then logs the user back in as the user whose ID is stored in the session as original_user_id. Finally, the user is navigated to the homepage.
+At the endpoint, after checking the permissions and the session, the system logs out the current user. It then logs the user back in as the user whose ID is stored in the session as original_user_id.Finally, the user is navigated to the homepage unless they have set a different redirect path.
 
 ```
 
