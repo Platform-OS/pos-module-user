@@ -1,16 +1,15 @@
 ---
 metadata:
   event:
-    actor_id
-    target_id
-    type
+    login_as_id
+    original_id
+    
 ---
 {% liquid
   assign c = '{ "errors": {}, "valid": true }' | parse_json
 
   function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'actor_id '
   function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'target_id '
-  function c = 'modules/core/validations/presence', c: c, object: event, field_name: 'type  '
 
 
   return c
