@@ -3,12 +3,12 @@ session original_user_id = params.actor_id
 function object = 'modules/user/commands/session/create/build', id: params.user.id
 function object = 'modules/user/commands/session/create/check', object: object
   if object.valid
-    if user.id
-      sign_in user_id: user.id
+    if params.user.id
+      sign_in user_id: params.user.id
       assign params = '{}' | parse_json | hash_merge: user: user, hook_params: hook_params
       function results = 'modules/core/commands/hook/fire', hook: 'user_login', params: params, merge_to_object: true
       hash_assign user['hook_results'] = results
-      assign event_object = null | hash_merge: actor_id: params.actor_id , target_id:params.userid
+      assign event_object = null | hash_merge: actor_id: params.actor_id , target_id:params.user.id
       function _ = 'modules/core/commands/events/publish', type: 'impersonation_started', object: event_objects
     endif
   endif
