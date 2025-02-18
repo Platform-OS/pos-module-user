@@ -1,8 +1,0 @@
-{% liquid 
-  session original_user_id = event.actor_id
-  function load_user = 'modules/user/queries/user/load', id: event.target_id
-  if load_user.roles contains "superadmin"
-    include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as_superadmin', requester: current_user
-  endif
-  function logging_as_user = 'modules/user/commands/session/create', validate_password: false, user_id: load_user.id
-%}
