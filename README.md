@@ -518,7 +518,7 @@ The table below contains the [resourceful routes](https://documentation.platform
 
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
-| PATCH |  sessions/:user_id/impersonate | `modules/user/public/views/pages/sessions/impersonation/create.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
+| PATCH |  sessions/:user_id/impersonate | `modules/user/public/views/pages/sessions/impersonation.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
 | PATCH | /sessions/:user_id/relog | `modules/user/public/views/pages/sessions/relog.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | modules/community/public/views/partials/components/organisms/logging_back.liquid|
 
 
