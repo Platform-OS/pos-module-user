@@ -16,7 +16,7 @@ function object = 'modules/user/commands/session/create/check', object: object
   assign redirect_path = results.hook_results.redirect_to | default: params.redirect_to | default: '/'
   hash_assign user['redirect_path'] = redirect_path
 
-  return object
+  return user
      %}
 
 
