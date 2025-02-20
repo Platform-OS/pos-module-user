@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v3.0.9
+
+Added `redirect_anonymous_to_login` and `anonymous_return_to` parameters to `can_do_or_unauthorized` command
+
 ## v3.0.7
 
 Chore: bump core module
