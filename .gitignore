@@ -1,5 +1,3 @@
 node_modules
 .pos
 tmp
-modules/core
-modules/tests
