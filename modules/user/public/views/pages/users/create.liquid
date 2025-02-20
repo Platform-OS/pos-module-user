@@ -11,10 +11,10 @@ slug: users
 
   function object = 'modules/user/commands/user/create', email: params.email, password: params.password, hook_params: params, roles: null
   if object.valid
-    assign redirect_path = object.redirect_to | default: params.redirect_to | default: '/'
-    redirect_to redirect_path
+    function _ = 'modules/user/commands/session/create', user_id: object.id, validate_password: false, email: null, password: null, hook_params: null
+    include 'modules/core/helpers/redirect_to'
   else
-    assign values = object | default: null | hash_merge: password: '', authenticity_token: ''
+    assign values = object | default: null | hash_merge: password: ''
 
     function registration_fields = 'modules/user/queries/registration_fields/load'
 
