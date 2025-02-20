@@ -189,7 +189,7 @@ The table below outlines the [resourceful routes](https://documentation.platform
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
 | GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. | app/views/users/new.liquid |
-| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting it in the `hook_user_create`. | app/views/users/new.liquid |
+| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database and logs the user in or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | app/views/users/new.liquid |
 
 #### CRUD commands 
 
@@ -238,7 +238,7 @@ The following table outlines the [resourceful routes](https://documentation.plat
 | HTTP method   | slug  | page file path |  description | partial rendering HTML |
 |---|---|---|---|---|
 | GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | app/views/partials/sessions/new.liquid |
-| POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or you can set `redirect_to` in `hook_user_login` hook. | app/views/partials/sessions/new.liquid |
+| POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | app/views/partials/sessions/new.liquid |
 | DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | N/A |
 
 Example: You can define a `hook_user_login` that redirects a user to `/admin` if they have the `admin_pages.view` permission. 
