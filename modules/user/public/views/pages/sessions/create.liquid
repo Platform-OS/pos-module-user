@@ -8,10 +8,10 @@ slug: sessions
   include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'sessions.create', return_url: '/'
   # platformos-check-enable UnreachableCode
 
-  function res = 'modules/user/commands/session/create', email: params.email, password: params.password, hook_params: params, validate_password: true
-  assign redirect_path = res.hook_results.redirect_to | default: params.redirect_to | default: '/'
+  function res = 'modules/user/commands/session/create', email: context.params.email, password: context.params.password, hook_params: context.params, validate_password: true
+
   if res.valid
-    redirect_to redirect_path
+    include 'modules/core/helpers/redirect_to'
   else
     theme_render_rc 'sessions/new', context: context, errors: res.errors
   endif

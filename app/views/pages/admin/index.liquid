@@ -1,7 +1,7 @@
 {% liquid
   function current_user = 'modules/user/queries/user/current'
   # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'admin.read'
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'admin.read', redirect_anonymous_to_login: true
   # platformos-check-enable UnreachableCode
 
   render 'admin/home/index'

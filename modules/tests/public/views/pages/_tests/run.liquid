@@ -1,0 +1,10 @@
+---
+layout: modules/tests/test
+---
+{% liquid
+  if context.environment == 'staging' or context.environment == 'development'
+    # platformos-check-disable ConvertIncludeToRender
+    include 'modules/tests/commands/run', format: context.params.formatter
+    # platformos-check-enable ConvertIncludeToRender
+  endif
+%}

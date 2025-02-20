@@ -398,11 +398,13 @@ It can also accept additional `entity` and `access_callback` arguments, which al
 
 ##### `can_do_or_unauthorized` command
 
-If the user does not have permission, the system renders a **403 Unauthorized** page, and the flow stops. This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
+If the user does not have permission, the system renders a **403 Unauthorized** page, and the flow stops. Optionally, it accepts `redirect_anonymous_to_login` (boolean) parameter - if set to true, if the user is unauthenticated, instead of rendering 403, it will redirect the user to /sessions/new endpoint and upon login redirect back to `anonymous_return_to` parameter (defaults to current page - context.location.href). 
+
+This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 ```
 # platformos-check-disable ConvertIncludeToRender
-include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
+include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register', redirect_anonymous_to_login: true
 # platformos-check-enable ConvertIncludeToRender
 ```
 
