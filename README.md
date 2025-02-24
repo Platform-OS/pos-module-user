@@ -158,6 +158,9 @@ This feature enables **Sign In** and **Sign Out** forms, providing session-based
  Enables users to reset their password through defined endpoints in the `modules/user/public/views/pages/passwords/` directory. Note that on the staging environment, [email notifications require additional configuration to send email](https://documentation.platformos.com/get-started/build-your-first-app/sending-email-notifications#enabling-emails-on-the-staging-instance).
 - [x] **[RBAC Authorization](#rbac-authorization)**:
 Implements Role-Based Access Control (RBAC), allowing fine-grained authorization management based on user roles. This lets you define who can access specific parts of your platform based on assigned roles.
+- [x] **[Logging as another user](#loggin-as)**:
+This feature allows logging in as another user, providing access to all of their functionalities and personal records.And the logout process also includes returning to the original profile using session-based authentication.It is also handled so that only another superadmin can log in to the superadmin profile.
+
 
 TODO (Upcoming Features)
 
@@ -507,6 +510,38 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
   - `article.edit`
   - `comment.delete`
 * **Managing Permissions for Administrators/Moderators:** Use `<resource>.manage.all` for permissions granted to administrators or moderators. Regular users should typically have permission only for the entities they create. For example, in a blog application that allows users to write comments, users should be able to edit and delete their own comments.  In contrast, administrators and moderators need permission to manage all comments. We recommend creating a `<resource>.manage.all` permission for this purpose and handling it as described in the [Creating Your Own Authorization Commands](#creating-your-own-authorization-commands) example.
+### Logging as another user
+
+Logging as antoher user .
+
+#### Endpoints for Loggin as another user
+
+The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
+
+| HTTP method   | slug  | page file path |  description | partial rendering HTML |
+|---|---|---|---|---|
+| PATCH |  sessions/:user_id/impersonate | `modules/user/public/views/pages/sessions/impersonation.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the session. |modules/community/public/views/partials/admin/users/users/edit.liquid |
+| PATCH | /sessions/:user_id/relog | `modules/user/public/views/pages/sessions/relog.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | modules/community/public/views/partials/components/organisms/logging_back.liquid|
+
+
+
+#### Endpoint description
+
+/sessions/:user_id/impersonate
+```
+
+
+After checking the permissions,the endpoint saves the original user's ID in the session as original_user_id. Then, by destroying the session (session destroy), it logs out the current user and creates a new session with the other user's user_id, without password validation. Finally, the user is navigated to the homepage unless they have set a different redirect path.
+
+```
+/sessions/:user_id/relog
+```
+
+
+At the endpoint, after checking the permissions and the session, the system logs out the current user. It then logs the user back in as the user whose ID is stored in the session as original_user_id.Finally, the user is navigated to the homepage unless they have set a different redirect path.
+
+```
+
 
 ## Customizing the Module
 

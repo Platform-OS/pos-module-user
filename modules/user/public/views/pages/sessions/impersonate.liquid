@@ -1,0 +1,18 @@
+---
+slug: sessions/:user_id/impersonate
+method: post
+---
+
+{% liquid
+function current_user = 'modules/user/queries/user/current'
+include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as', requester: current_user
+function load_user = 'modules/user/queries/user/load', id: context.params.user_id
+  if load_user.roles contains "superadmin"
+    include 'modules/user/helpers/can_do_or_unauthorized', do: 'users.logging_as_superadmin', requester: current_user
+  endif
+  assign params =  null | hash_merge: actor_id: context.current_user.id , user: load_user
+  function logging_as_user = 'modules/user/commands/session/impersonation/create', params: params
+
+redirect_to logging_as_user.redirect_path
+
+%}
