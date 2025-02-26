@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v3.1.0
+
+* Feature: add impersonation feature
+
 ## v3.0.10
 
 * Fix: redirect user to `session.return_to` after sign up, automatically log user in by default
