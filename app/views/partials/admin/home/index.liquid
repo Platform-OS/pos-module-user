@@ -1,5 +1,15 @@
 You have access to admin.read. <a href="/">Back</a>
 
+<form method="post" onsubmit="triggerLogIn(event)" id="logInAs">
+  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+  <select data-user-id>
+    {% for user in users.results %}
+      <option value="{{ user.id }}">{{ user.email }}</option>
+    {% endfor %}
+  </select>
+  <button type="submit">Impersonate</button>
+</form>
+
 <form action="/sessions" method="post">
   <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
   <input type="hidden" name="_method" value="delete" />
@@ -7,3 +17,13 @@ You have access to admin.read. <a href="/">Back</a>
     {{ 'modules/user/users.logout' | t }}
   </button>
 </form>
+
+<script>
+  function triggerLogIn(event) {
+    event.preventDefault();
+    var form = document.getElementById('logInAs');
+    var selectedId = form.querySelector('select[data-user-id]').value;
+    form.action = '/sessions/impersonations/' + selectedId;
+    form.submit();
+  }
+</script>
