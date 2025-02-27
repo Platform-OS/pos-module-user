@@ -1,0 +1,21 @@
+OAuth2 management. <a href="/">Back</a><br/>
+
+{% liquid
+  function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
+  log available_providers, type: 'DEBUG PROVIDERS'
+%}
+
+<div>OAuth2 providers:</div>
+{% for provider in available_providers %}
+  {% log provider, type: 'DEBUG' %}
+  {% assign url = provider[1].auth_url | append: "?scope=" | append: provider[1].scopes | append: "&client_id=" | append: provider[1].client_id %}
+    <a href="{{ url }}">{{ provider[1].name }}</a>
+{% endfor %}
+
+<form action="/sessions" method="post">
+  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+  <input type="hidden" name="_method" value="delete" />
+  <button type="submit">
+    {{ "modules/user/users.logout" | t }}
+  </button>
+</form>

@@ -23,6 +23,7 @@
   endif
 
   function permissions = 'modules/user/queries/role_permissions/permissions'
+  log permissions, type: 'DEBUG'
   assign found_permission = false
   for role in requester.roles
     if permissions[role] == null
