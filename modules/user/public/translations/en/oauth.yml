@@ -7,3 +7,4 @@ en:
     unassigned_provider: 'Successfully unassigned OAuth 2 provider.'
     failed_to_create_account: 'Could not create a new account. Please try again later.'
     invalid_request: 'Invalid request.'
+    unassign_provider: 'Unassign'
