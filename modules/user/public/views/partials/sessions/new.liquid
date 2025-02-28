@@ -6,7 +6,7 @@ metadata:
 ---
 {% liquid
   assign errors = errors | default: params.errors
-  function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
+  function available_providers = 'modules/user/helpers/get_available_oauth_providers'
 
   theme_render_rc 'components/molecules/pagetitle', content: 'Login', classes: 'text-center'
 %}
@@ -19,7 +19,7 @@ metadata:
       Request to join
     </a>
     <br/>
-    or sign in with OAuth2
+    or sign in with OAuth
     <br/>
     {% for provider in available_providers %}
       {% log provider, type: 'DEBUG' %}

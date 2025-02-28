@@ -1,12 +1,12 @@
-OAuth2 management. <a href="/">Back</a><br/>
+OAuth management. <a href="/">Back</a><br/>
 
 {% liquid
-  function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
+  function available_providers = 'modules/user/helpers/get_available_oauth_providers'
   log available_providers, type: 'DEBUG PROVIDERS'
-  function assigned_providers = 'modules/user/helpers/get_assigned_oauth2_providers'
+  function assigned_providers = 'modules/user/helpers/get_assigned_oauth_providers'
 %}
 
-<div>OAuth2 providers:</div>
+<div>OAuth providers:</div>
 {% for provider in available_providers %}
   {% if assigned_providers contains provider[0] %}
     {{ provider[1].name }} - in use

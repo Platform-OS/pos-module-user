@@ -9,7 +9,7 @@ slug: oauth/:provider/start
       return
     endif
   
-    function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
+    function available_providers = 'modules/user/helpers/get_available_oauth_providers'
     assign provider = context.params.provider | upcase
     assign selected_provider = available_providers[provider]
     
