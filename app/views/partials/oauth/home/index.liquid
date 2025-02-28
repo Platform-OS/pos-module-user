@@ -3,13 +3,18 @@ OAuth2 management. <a href="/">Back</a><br/>
 {% liquid
   function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
   log available_providers, type: 'DEBUG PROVIDERS'
+  function assigned_providers = 'modules/user/helpers/get_assigned_oauth2_providers'
 %}
 
 <div>OAuth2 providers:</div>
 {% for provider in available_providers %}
+  {% if assigned_providers contains provider[0] %}
+    {{ provider[1].name }} - in use
+  {% else %}
   {% log provider, type: 'DEBUG' %}
-  {% assign url = provider[1].auth_url | append: "?scope=" | append: provider[1].scopes | append: "&client_id=" | append: provider[1].client_id %}
+  {% assign url = "/oauth/" | append: provider[0] | append: '/start'%}
     <a href="{{ url }}">{{ provider[1].name }}</a>
+  {% endif %}
 {% endfor %}
 
 <form action="/sessions" method="post">

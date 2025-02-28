@@ -1,0 +1,30 @@
+---
+method: get
+slug: oauth/:provider/start
+---
+
+{% liquid
+    if context.params.provider == blank
+      redirect_to '/'
+      return
+    endif
+  
+    function available_providers = 'modules/user/helpers/get_available_oauth2_providers'
+    assign provider = context.params.provider | upcase
+    assign selected_provider = available_providers[provider]
+    
+    if selected_provider == blank
+      redirect_to '/'
+      return
+    endif
+    
+    assign data = "{}" | parse_json
+    hash_assign data['scope'] = selected_provider.scopes
+    hash_assign data['client_id'] = selected_provider.client_id
+    session state = '' | uuid
+    hash_assign data["state"] = context.session.state
+    assign querified_data = data | querify
+
+    assign url = selected_provider.auth_url | append: '?' | append: querified_data
+    redirect_to url
+%}

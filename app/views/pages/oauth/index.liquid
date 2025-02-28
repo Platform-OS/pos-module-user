@@ -1,7 +1,7 @@
 {% liquid
     function current_user = 'modules/user/queries/user/current'
     include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'oauth.manage', redirect_anonymous_to_login: true
-  
+    log 'test', type: 'DEBUG'
     render 'oauth/home/index'
   %}
   

@@ -1,0 +1,19 @@
+mutation api_call(
+  $api_template: String!
+  $data: HashObject!
+  $timeout: Int = 60
+) {
+  api_call_send(
+    data: $data
+    template: { name: $api_template }
+    options: { timeout: $timeout }
+  ) {
+    response {
+      status
+      body
+    }
+    errors {
+      message
+    }
+  }
+}

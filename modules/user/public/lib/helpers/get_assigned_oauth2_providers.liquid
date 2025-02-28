@@ -1,0 +1,13 @@
+{% liquid
+    function current_user = 'modules/user/queries/user/current'
+    assign object = '[]' | parse_json
+    graphql g = 'modules/user/oauth/find_by_user_id', user_id: current_user.id
+
+    for provider_assignment in g.records.results
+        log provider_assignment, type: 'T'
+        assign object = object | array_add: provider_assignment.provider
+        log object, type: 'T'
+    endfor
+
+    return object
+%}
