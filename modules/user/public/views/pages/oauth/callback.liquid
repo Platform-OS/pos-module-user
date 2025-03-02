@@ -22,6 +22,7 @@ slug: oauth/:provider/callback
   if current_user.id != blank
     graphql g = "modules/user/oauth/find_by_user_id", provider: provider, user_id: current_user.id
     if g.records.total_entries > 0
+      log "E", type: "ERROR"
       function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.provider_already_assigned"
       redirect_to "/"
     endif
@@ -49,6 +50,9 @@ slug: oauth/:provider/callback
   if g.records.total_entries > 0
     if current_user.id != null
       function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.sub_already_assigned"
+      log "S", type: "ERROR"
+      log provider, type: "E"
+      log user_sub, type: "E"
       redirect_to "/"
     else
       assign found_user_id = g.records.results[0].user_id

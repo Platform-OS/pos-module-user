@@ -20,7 +20,7 @@ OAuth management. <a href="/">Back</a><br/>
   {% else %}
   {% log provider, type: 'DEBUG' %}
   {% assign url = "/oauth/" | append: provider[0] | append: '/start' %}
-    <a href="{{ url }}">{{ provider[1].name }}</a>
+    <a href="{{ url }}">{{ provider[1].name }}</a><br />
   {% endif %}
 {% endfor %}
 

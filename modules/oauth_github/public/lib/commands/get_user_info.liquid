@@ -13,7 +13,7 @@ assign access_token = token_body.access_token
 assign result = "{}" | parse_json
 hash_assign result["valid"] = false
 
-if access_token
+if access_token == null
     return result
 endif
 
