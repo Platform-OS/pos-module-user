@@ -3,32 +3,22 @@
     assign keys = context.constants | hash_keys
     for item in keys
       assign starts_with = item | start_with: "OAUTH2_"
-      assign ends_with = item | end_with: "_ENABLED"
-      if starts_with and ends_with and context.constants[item]
-        assign provider = item | replace: "OAUTH2_", ""
-        assign provider = provider | replace: "_ENABLED", ""
+      assign ends_with = item | end_with: "_PROVIDER"
+      if starts_with and ends_with and context.constants[item] != null
+        assign provider_id = item | replace: "OAUTH2_", "" | replace: "_PROVIDER", "" | upcase
   
-        assign name_key = "OAUTH2_" | append: provider | append: "_NAME"
-        assign auth_url_key = "OAUTH2_" | append: provider | append: "_AUTH_URL"
-        assign client_id_key = "OAUTH2_" | append: provider | append: "_CLIENT_ID"
-        assign secret_value_key = "OAUTH2_" | append: provider | append: "_SECRET_VALUE"
-        assign scopes_key = "OAUTH2_" | append: provider | append: "_SCOPES"
-        assign token_url_key = "OAUTH2_" | append: provider | append: "_TOKEN_URL"
-        assign user_url_key = "OAUTH2_" | append: provider | append: "_USER_URL"
-        log token_url_key, type: 'DEBUG'
-        log context.constants[token_url_key], type: 'DEBUG'
+        assign provider_key = "OAUTH2_" | append: provider_id | append: "_PROVIDER"
+        assign name_key = "OAUTH2_" | append: provider_id | append: "_NAME"
+        assign client_id_key = "OAUTH2_" | append: provider_id | append: "_CLIENT_ID"
+        assign secret_value_key = "OAUTH2_" | append: provider_id | append: "_SECRET_VALUE"
+
         assign provider_data = "{}" | parse_json
+        hash_assign provider_data['key'] = context.constants[provider_key]
         hash_assign provider_data['name'] = context.constants[name_key]
-        hash_assign provider_data['auth_url'] = context.constants[auth_url_key]
         hash_assign provider_data['client_id'] = context.constants[client_id_key]
         hash_assign provider_data['secret_value'] = context.constants[secret_value_key]
-        hash_assign provider_data['scopes'] = context.constants[scopes_key]
-        hash_assign provider_data['token_url'] = context.constants[token_url_key]
-        hash_assign provider_data['user_url'] = context.constants[user_url_key]
 
-        log provider_data, type: 'DEBUG'
-  
-        hash_assign available_providers[provider] = provider_data
+        hash_assign available_providers[provider_id] = provider_data
       endif 
     endfor
 

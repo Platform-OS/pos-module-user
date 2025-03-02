@@ -8,3 +8,4 @@ en:
     failed_to_create_account: 'Could not create a new account. Please try again later.'
     invalid_request: 'Invalid request.'
     unassign_provider: 'Unassign'
+    user_info_error: 'Could not fetch user info from OAuth 2 provider. Please try again later.'
