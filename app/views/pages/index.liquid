@@ -2,15 +2,27 @@
   function current_user = 'modules/user/queries/user/current'
 %}
 {% if current_user.id %}
-  current_user: {{ current_user }}
-  <form action="/sessions" method="post">
-    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-    <input type="hidden" name="_method" value="delete" />
-    <button type="submit">
-      {{ 'modules/user/users.logout' | t }}
-    </button>
-  </form>
-  <a href="/subscription">Subscription area</a><br/>
+  {% if context.session.original_user_id == blank %}
+    current_user: {{ current_user }}
+    <form action="/sessions" method="post">
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+      <input type="hidden" name="_method" value="delete" />
+      <button type="submit">
+        {{ 'modules/user/users.logout' | t }}
+      </button>
+    </form>
+  {% else %}
+    impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+    <form action="/sessions/impersonations" method="post">
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+      <input type="hidden" name="_method" value="delete" />
+      <input type="hidden" name="redirect_to" value="/admin" />
+      <button type="submit">
+        Log back in as original user
+      </button>
+    </form>
+  {% endif %}
+  <a href="/subscription">Subscrioption area</a><br/>
   <a href="/admin">Admin</a><br/>
   <a href="/oauth">OAuth settings</a><br/>
 {% else %}
