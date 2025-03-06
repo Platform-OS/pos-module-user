@@ -4,7 +4,6 @@ method: delete
 ---
 {% liquid
   function current_user = 'modules/user/queries/user/current'
-  # platformos-check-disable UnreachableCode
 
   if context.params.provider == blank or current_user.id == blank
     redirect_to '/'

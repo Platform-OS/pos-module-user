@@ -1,0 +1,13 @@
+mutation ($headers: HashObject, $body: String){
+  api_call_send(
+    api_call: {
+      url: "https://github.com/login/oauth/access_token"
+      method: "POST"
+      body: $body
+      headers: $headers
+    }) {
+    response { 
+      body
+    }
+  }
+}

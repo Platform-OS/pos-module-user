@@ -3,11 +3,13 @@ method: get
 slug: oauth/:provider/callback
 ---
 {% liquid
+  # platformos-check-disable ConvertIncludeToRender
+
   function current_user = "modules/user/queries/user/current"
   assign state = context.session.state
   if context.params.code == blank or context.params.provider == blank or context.params.state != state
-    function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.invalid_request"
-    redirect_to "/"
+    include 'modules/core/helpers/redirect_to', error: "modules/user/oauth.invalid_request"
+    return
   endif
 
   function available_providers = "modules/user/helpers/get_available_oauth_providers"
@@ -15,27 +17,27 @@ slug: oauth/:provider/callback
   assign selected_provider = available_providers[provider]
   
   if selected_provider == blank
-    redirect_to "/"
+    include 'modules/core/helpers/redirect_to'
+    return
   endif
 
   # check if user already has a given provider
   if current_user.id != blank
     graphql g = "modules/user/oauth/find_by_user_id", provider: provider, user_id: current_user.id
     if g.records.total_entries > 0
-      log "E", type: "ERROR"
-      function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.provider_already_assigned"
-      redirect_to "/"
+      log "Provider already assigned", type: "ERROR"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.provider_already_assigned"
+      return
     endif
   endif
 
   # fetch user info using the appropriate module
   assign command_path = "modules/oauth_" | append: selected_provider.key | append: "/commands/get_user_info"
-  log command_path, type: "DEBUG"
   function user_info = command_path, provider: selected_provider, code: context.params.code
   
   if user_info.valid == false
-    function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.user_info_error"
-    redirect_to "/"
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.user_info_error"
+    return
   endif
 
   assign user_sub = user_info.sub | json
@@ -49,11 +51,9 @@ slug: oauth/:provider/callback
   assign create_provider_assignment = true
   if g.records.total_entries > 0
     if current_user.id != null
-      function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.sub_already_assigned"
-      log "S", type: "ERROR"
-      log provider, type: "E"
-      log user_sub, type: "E"
-      redirect_to "/"
+      log "Sub already assigned", type: "ERROR"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.sub_already_assigned"
+      return
     else
       assign found_user_id = g.records.results[0].user_id
       assign create_provider_assignment = false
@@ -62,16 +62,12 @@ slug: oauth/:provider/callback
 
   # check if user account should be created
   if current_user.id == null and found_user_id == null
-    assign password = 30 | random_string
-    assign full_name = user_first_name | append: " " | append: user_last_name
-    assign object = "{}" | parse_json | hash_merge: email: user_email
-    assign object = object | hash_merge: firstName: user_first_name, lastName: user_last_name, fullName: full_name
-    
-    function new_user = "modules/user/commands/user/create", email: user_email , password: password, hook_params: object
+    function new_user = "modules/user/commands/oauth/create_user", user_first_name: user_first_name, user_last_name: user_last_name, user_email: user_email
+      
     if new_user.valid == false
-      function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.failed_to_create_account"
       log new_user.errors, type: "ERROR"
-      redirect_to "/"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.failed_to_create_account"
+      return
     endif
     assign found_user_id = new_user.id
   endif
@@ -81,13 +77,11 @@ slug: oauth/:provider/callback
     graphql g = "modules/user/oauth/create", sub: user_sub, provider: provider, user_id: found_user_id
   endif
   
-  #sign in as user
+  # sign in as user
   if current_user.id == blank
-    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false
-    function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.signed_in"
+    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false    
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.signed_in"
   else
-    function _ = "modules/user/helpers/flash", notice: "modules/user/oauth.assigned_provider"
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.assigned_provider"
   endif
-
-  redirect_to "/"
 %}

@@ -22,9 +22,13 @@ metadata:
     or sign in with OAuth
     <br/>
     {% for provider in available_providers %}
-      {% log provider, type: 'DEBUG' %}
-      {% assign url = "/oauth/" | append: provider[0] | append: "/start" %}
-        <a href="{{ url }}">{{ provider[1].name }}</a><br/>
+      <form action="/oauth/{{ provider[0] }}/start" method="post">
+        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+        <input type="hidden" name="_method" value="post" />
+        <button type="submit">
+          {{ provider[1].name }}
+        </button>
+      </form>
     {% endfor %}
 
     {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}

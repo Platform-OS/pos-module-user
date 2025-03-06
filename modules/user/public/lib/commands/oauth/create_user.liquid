@@ -1,0 +1,9 @@
+{% liquid
+    assign password = 30 | random_string
+    assign full_name = user_first_name | append: " " | append: user_last_name
+    assign object = "{}" | parse_json | hash_merge: email: user_email
+    assign object = object | hash_merge: firstName: user_first_name, lastName: user_last_name, fullName: full_name
+    # extract
+    function new_user = "modules/user/commands/user/create", email: user_email, password: password, hook_params: object
+    return new_user
+%}

@@ -1,42 +1,37 @@
 {% liquid
-  if url == blank and context.session.return_to != blank
-    assign url = context.session.return_to
-    session return_to = null
-  endif
-
-  if context.params.return_to != blank or context.params.redirect_to != blank and url == blank
-    assign url = context.params.return_to | default: context.params.redirect_to | url_decode
-    assign not_start_with_slash = url | matches: '^(?!\/)(.+)'
-
-    # for security reasons, we do not allow redirecting to external URLs based on unsafe user input
-    assign wrong_url = url | matches: '^\/\/'
-    if not_start_with_slash or wrong_url
-      assign url = '/'
+  unless url
+    if context.session.return_to
+      assign url = context.session.return_to
+      session return_to = null
     endif
-  else
-    assign default = default | default: '/'
-    assign url = url | default: default
+  endunless
+
+  if context.params.return_to
+    assign url = context.params.return_to
   endif
 
-  # platformos-check-disable ConvertIncludeToRender
-  include 'modules/core/helpers/flash/publish', notice: notice, error: error, info: info
-  # platformos-check-enable ConvertIncludeToRender
+  assign url = url | url_decode | default: default_url | default: '/'
 
-  if format == 'json'
-    assign response_json = null | hash_merge: type: 'redirect', url: url
-    if object.valid
-      echo response_json
-    else
-      response_status 422
-      assign res = '{ "errors": {} }' | parse_json
-      hash_assign res['errors'] = response_json.errors
-
-      echo res
-    endif
-
-  else
-    redirect_to url
+  assign not_start_with_slash = url | matches: '^(?!\/)(.+)'
+  assign wrong_url = url | matches: '^\/\/'
+  if not_start_with_slash or wrong_url
+    assign url = '/'
   endif
 
+  if error
+    assign message = error | t: default: error
+    assign severity = 'error'
+  elsif notice
+    assign message = notice | t: default: notice
+    assign severity = 'success'
+  elsif info
+    assign message = info | t: default: info
+    assign severity = 'info'
+  endif
+  assign flash = null | hash_merge: message: message, severity: severity, from: context.location.pathname, force_clear: force_clear
+
+  function _ = 'modules/core/commands/session/set', key: 'sflash', value: flash
+
+  redirect_to url
   break
 %}
