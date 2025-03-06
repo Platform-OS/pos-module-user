@@ -21,7 +21,6 @@ assign request_data = "{}" | parse_json
 hash_assign request_data["access_token"] = access_token
 
 function user_info = "modules/oauth_github/queries/get_user_info", data: request_data
-log user_info, type: "D"
 if user_info.email == null
     function user_emails = "modules/oauth_github/queries/get_user_email", data: request_data
     for email in user_emails

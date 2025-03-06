@@ -14,7 +14,6 @@
       has `do` permission or not.
 {% endcomment %}
 {% liquid
-  log do, type: 'DEBUG'
   function can = 'modules/user/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
   unless can
     if requester.roles contains 'anonymous' and redirect_anonymous_to_login
