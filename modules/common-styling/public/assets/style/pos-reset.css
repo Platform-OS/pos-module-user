@@ -1,0 +1,81 @@
+/*
+  resets default browser styling and fixes some browser-specific issues
+  based on https://elad2412.github.io/the-new-css-reset/
+*/
+
+
+
+@layer common-styling {
+
+  :where(.pos-app) *:where(:not(html, iframe, canvas, img, svg, video, audio, input):not(svg *, symbol *)) {
+    all: unset;
+    display: revert;
+  }
+
+  :where(.pos-app) *,
+  :where(.pos-app) *::before,
+  :where(.pos-app) *::after {
+    box-sizing: border-box;
+  }
+
+  :where(.pos-app) a,
+  :where(.pos-app) button {
+    cursor: revert;
+  }
+
+  :where(.pos-app) label {
+    cursor: pointer;
+  }
+
+  :where(.pos-app) ol, :where(.pos-app) ul, :where(.pos-app) menu {
+    list-style: none;
+  }
+
+  :where(.pos-app) img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  :where(.pos-app) table {
+    border-collapse: collapse;
+  }
+
+  :where(.pos-app) input, :where(.pos-app) textarea {
+    -webkit-user-select: auto;
+  }
+
+  :where(.pos-app) textarea {
+    white-space: revert;
+  }
+
+  :where(.pos-app) meter {
+    -webkit-appearance: revert;
+    appearance: revert;
+  }
+
+  :where(.pos-app) ::placeholder {
+    color: unset;
+  }
+
+  :where(.pos-app) :where([hidden]) {
+    display: none;
+  }
+
+  :where(.pos-app) :where([contenteditable]:not([contenteditable="false"])) {
+    -moz-user-modify: read-write;
+    -webkit-user-modify: read-write;
+    overflow-wrap: break-word;
+    -webkit-line-break: after-white-space;
+    -webkit-user-select: auto;
+  }
+
+  :where(.pos-app) :where([draggable="true"]) {
+    -webkit-user-drag: element;
+  }
+
+  :where(.pos-app) q:before,
+  :where(.pos-app) q:after {
+    display: none;
+  }
+
+}

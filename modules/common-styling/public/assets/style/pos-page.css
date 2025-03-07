@@ -1,0 +1,35 @@
+/*
+  defines global page structure and looks
+
+  page background and font
+*/
+
+
+
+@layer common-styling {
+
+  /* page background and font
+  ============================================================================ */
+
+  .pos-app body {
+    min-height: 100%;
+    min-height: 100dvh;
+    padding: var(--pos-padding-page);
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--pos-color-content-background);
+
+    text-rendering: optimizeLegibility;
+    text-wrap: balance;
+    font-family: var(--pos-font-default);
+    color: var(--pos-color-content-foreground);
+  }
+
+  .pos-app ::selection {
+    background-color: var(--pos-color-selection-background);
+
+    color: var(--pos-color-selection-foreground);
+  }
+
+}

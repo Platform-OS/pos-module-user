@@ -6,16 +6,57 @@ metadata:
     errors: []
     registration_fields: []
 ---
+
 {% liquid
   assign values = values | default: params.values
   assign errors = errors | default: params.errors
   assign values = values | default: params.values
   assign registration_fields = registration_fields | default: params.registration_fields
-  assign pageTitle = 'modules/user/users.new.create_account' | t
-  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
 %}
+{% capture registerCardContentOld %}
+  {% theme_render_rc 'components/organisms/register', action: '', errors: errors, values: values, registration_fields: registration_fields, submit: 'SIGN UP', classes: 'form--register' %}
+{% endcapture %}
+
 {% capture registerCardContent %}
-  {% theme_render_rc 'components/organisms/register', action: '/users', errors: errors, values: values, registration_fields: registration_fields, submit: 'SIGN UP', classes: 'form--register' %}
+
+{% liquid
+  assign action = action | default: params.action
+  assign method = method | default: params.method | default: 'POST'
+  assign errors = errors | default: params.errors
+  assign redirect_to = redirect_to | default: params.redirect_to | default: '/'
+  assign registration_fields = registration_fields | default: params.registration_fields
+  assign classes = classes | default: params.classes
+%}
+
+<h1 class="pos-heading-2">{{ 'modules/user/users.new.create_account' | t }}</h1>
+
+<form action="/users" method="POST" class="pos-form">
+  {% render 'modules/core/helpers/authenticity_token', context: context %}
+
+  {% for field in registration_fields %}
+    {% liquid
+      assign default_value = values[field.name] | raw_escape_string
+      assign error_messages = '[]' | parse_json
+      assign has_error = errors[field.name]
+      assign validation = null | hash_merge: messages: error_messages
+      if has_error
+        hash_assign validation['passed'] = false
+        hash_assign validation['messages'] = errors[field.name]
+      endif
+      assign input_params = field | hash_merge: value: default_value, classes: 'w-full'
+      assign label_params = null | hash_merge: content: field.label
+      assign field_params = null | hash_merge: validation: validation, input_params: input_params, label_params: label_params, classes: 'mb-6'
+
+      theme_render_rc 'components/molecules/formfield', params: field_params
+    %}
+  {% endfor %}
+
+  {% theme_render_rc 'components/molecules/hcaptcha', object: object %}
+
+  <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.register' | t }}</button>
+
+</form>
+
 {% endcapture %}
 
 <section class="container my-auto">

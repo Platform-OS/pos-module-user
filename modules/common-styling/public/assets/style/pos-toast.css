@@ -1,0 +1,136 @@
+/*
+  toast messages
+
+  container
+  message
+  variants
+  close button
+*/
+
+
+
+@layer common-styling {
+
+  /* container
+  ============================================================================ */
+  .pos-toasts {
+    width: 300px;
+    position: fixed;
+    inset-block-end: var(--pos-padding-page);
+    inset-inline-start: var(--pos-padding-page);
+    display: flex;
+    flex-direction: column;
+    gap: var(--pos-gap-navigation);
+  }
+
+  .pos-toast * {
+    box-sizing: border-box;
+  }
+
+
+  /* message
+  ============================================================================ */
+  .pos-toast {
+    padding: calc(var(--pos-padding-panel) / 2) var(--pos-padding-panel);
+    display: flex;
+    justify-content: space-between;
+
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--pos-color-content-background);
+    border-radius: var(--pos-radius-panel);
+    background-color: var(--pos-color-content-background);
+
+    text-box-trim: trim-both;
+  }
+
+  .pos-toast-loading {
+    overflow: hidden;
+
+    animation-name: pos-toast-in;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes pos-toast-in {
+    from {
+      max-height: 0;
+    }
+    to {
+      max-height: 400px;
+    }
+  }
+
+  .pos-toast-unloading {
+    animation-name: pos-toast-out;
+    animation-duration: .4s;
+    animation-timing-function: ease-in-out;
+  }
+
+  @keyframes pos-toast-out {
+    0% {
+      max-height: 400px;
+
+      translate: 0 0;
+    }
+
+    100% {
+      max-height: 0;
+
+      translate: -400px 0;
+    }
+  }
+
+
+  /* variants
+  ============================================================================ */
+  .pos-toast-success .pos-toast {
+    border-color: var(--pos-color-confirmation);
+    background-color: var(--pos-color-confirmation-disabled);
+  }
+
+  .pos-toast-error .pos-toast {
+    border-color: var(--pos-color-important);
+    background-color: var(--pos-color-important-disabled);
+  }
+
+  .pos-toast-info .pos-toast {
+    border-color: var(--pos-color-warning);
+    background-color: var(--pos-color-warning-disabled);
+  }
+
+
+  /* close button
+  ============================================================================ */
+  .pos-toast-close {
+    margin-inline-end: calc(var(--pos-padding-panel) / -2);
+    padding: 0 .5em;
+    align-self: start;
+
+    cursor: pointer;
+
+    transition: color .1s linear
+  }
+
+    .pos-toast-close .label {
+      position: absolute;
+      left: -100vw;
+    }
+
+  .pos-toast-success .pos-toast-close {
+    color: var(--pos-color-confirmation);
+  }
+
+  .pos-toast-error .pos-toast-close {
+    color: var(--pos-color-important);
+  }
+
+  .pos-toast-info .pos-toast-close {
+    color: var(--pos-color-warning);
+  }
+
+  .pos-toast-close:hover {
+    color: var(--pos-color-content-foreground);
+  }
+
+}

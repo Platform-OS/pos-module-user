@@ -58,8 +58,8 @@
 }
 
   .app-user-intro-nav a {
-    height: var(--pos-height-input);
-    padding-inline: var(--pos-padding-input);
+    height: var(--pos-height-button);
+    padding-inline: calc(var(--pos-padding-button) * 2);
     display: flex;
     position: relative;
     align-items: center;
