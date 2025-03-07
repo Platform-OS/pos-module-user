@@ -1,0 +1,11 @@
+mutation ($headers: HashObject) {
+  api_call_send(api_call: {
+    url: "https://api.github.com/user/emails"
+    method: "GET"
+    headers: $headers
+  }) {
+    response { 
+    	body
+    }
+  }
+}
