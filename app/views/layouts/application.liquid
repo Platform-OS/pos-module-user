@@ -1,5 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html class="pos-app">
+  <head>
+
+    <meta charset="utf-8">
+      {% comment %} default platformOS provided styles {% endcomment %}
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-reset.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-config.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-button.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-typography.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-toast.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-avatar.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-forms.css' | asset_url }}">
+      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-page.css' | asset_url }}">
+      {% comment %} custom styles specific for this app, some overwrite the defaults {% endcomment %}
+      <link rel="stylesheet" href="{{ 'style/app.css' | asset_url }}">
+
+      <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=yes">
+
+  </head>
   <body>
+
     {% liquid
       function flash = 'modules/core/commands/session/get', key: 'sflash', clear: null
       if context.location.pathname != flash.from or flash.force_clear
@@ -10,6 +30,10 @@
       flash: {{ flash.message }}
       <hr/>
     {% endif %}
+
+
+
     {{ content_for_layout }}
+
   </body>
 </html>

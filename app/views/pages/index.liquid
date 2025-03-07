@@ -1,7 +1,9 @@
 {% liquid
   function current_user = 'modules/user/queries/user/current'
 %}
+
 {% if current_user.id %}
+
   {% if context.session.original_user_id == blank %}
     current_user: {{ current_user }}
     <form action="/sessions" method="post">
@@ -24,8 +26,29 @@
   {% endif %}
   <a href="/subscription">Subscrioption area</a><br/>
   <a href="/admin">Admin</a><br/>
+
 {% else %}
-  <a href="/users/new">Register</a><br/>
-  <a href="/sessions/new">Log in</a><br/>
-  <a href="/passwords/reset">Reset password</a>
+
+  <main class="app-user-intro">
+
+    <section class="app-user-intro-content">
+      <h2 class="pos-heading-2">
+        <img src="{{ 'images/pos-sign.svg' | asset_url }}" width="28" height="25" loading="eager" alt="">
+        Example platformOS user management application
+      </h2>
+      <nav>
+        <ul class="app-user-intro-nav">
+          <li><a href="/users/new">Register</a></li>
+          <li><a href="/sessions/new">Log in</a></li>
+          <li><a href="/passwords/reset">Reset password</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <footer class="app-user-intro-footer">
+      Powered by <a href="https://platformos.com">platformOS</a>
+    </footer>
+  
+  </main>
+
 {% endif %}
