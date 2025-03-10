@@ -116,3 +116,12 @@
   text-align: center;
   color: var(--pos-color-content-supplementary);
 }
+
+
+
+/* user forms
+============================================================================ */
+.pos-user-content {
+  margin-block: auto;
+  align-self: center;
+}

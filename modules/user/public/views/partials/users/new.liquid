@@ -10,56 +10,54 @@ metadata:
 {% liquid
   assign values = values | default: params.values
   assign errors = errors | default: params.errors
-  assign values = values | default: params.values
   assign registration_fields = registration_fields | default: params.registration_fields
 %}
-{% capture registerCardContentOld %}
-  {% theme_render_rc 'components/organisms/register', action: '', errors: errors, values: values, registration_fields: registration_fields, submit: 'SIGN UP', classes: 'form--register' %}
-{% endcapture %}
-
-{% capture registerCardContent %}
 
 {% liquid
-  assign action = action | default: params.action
-  assign method = method | default: params.method | default: 'POST'
-  assign errors = errors | default: params.errors
   assign redirect_to = redirect_to | default: params.redirect_to | default: '/'
-  assign registration_fields = registration_fields | default: params.registration_fields
-  assign classes = classes | default: params.classes
 %}
 
-<h1 class="pos-heading-2">{{ 'modules/user/users.new.create_account' | t }}</h1>
+<section class="pos-user-content">
 
-<form action="/users" method="POST" class="pos-form">
-  {% render 'modules/core/helpers/authenticity_token', context: context %}
+  <h1 class="pos-heading-2">{{ 'modules/user/users.new.create_account' | t }}</h1>
 
-  {% for field in registration_fields %}
-    {% liquid
-      assign default_value = values[field.name] | raw_escape_string
-      assign error_messages = '[]' | parse_json
-      assign has_error = errors[field.name]
-      assign validation = null | hash_merge: messages: error_messages
-      if has_error
-        hash_assign validation['passed'] = false
-        hash_assign validation['messages'] = errors[field.name]
-      endif
-      assign input_params = field | hash_merge: value: default_value, classes: 'w-full'
-      assign label_params = null | hash_merge: content: field.label
-      assign field_params = null | hash_merge: validation: validation, input_params: input_params, label_params: label_params, classes: 'mb-6'
+  <form action="/users" method="POST" class="pos-form pos-form-simple">
+    {% render 'modules/core/helpers/authenticity_token', context: context %}
 
-      theme_render_rc 'components/molecules/formfield', params: field_params
-    %}
-  {% endfor %}
+    <fieldset class="pos-form-required">
+      <label for="pos-user-email">Email</label>
+      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com">
+    </fieldset>
 
-  {% theme_render_rc 'components/molecules/hcaptcha', object: object %}
+    <fieldset class="pos-form-required">
+      <label for="pos-user-password">Password</label>
+      <input type="password" name="password" id="pos-user-password" value="{{ values.password }}" required placeholder="••••••••">
+    </fieldset>
 
-  <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.register' | t }}</button>
+    {% comment %} {% for field in registration_fields %}
+      {% liquid
+        assign default_value = values[field.name] | raw_escape_string
+        assign error_messages = '[]' | parse_json
+        assign has_error = errors[field.name]
+        assign validation = null | hash_merge: messages: error_messages
+        if has_error
+          hash_assign validation['passed'] = false
+          hash_assign validation['messages'] = errors[field.name]
+        endif
+        assign input_params = field | hash_merge: value: default_value
+        assign label_params = null | hash_merge: content: field.label
+        assign field_params = null | hash_merge: validation: validation, input_params: input_params, label_params: label_params
 
-</form>
+        theme_render_rc 'components/molecules/formfield', params: field_params
+      %}
+    {% endfor %} {% endcomment %}
 
-{% endcapture %}
+    {% theme_render_rc 'components/molecules/hcaptcha', object: object %}
 
-<section class="container my-auto">
-  {% theme_render_rc 'components/atoms/card', content: registerCardContent, classes: "w-full max-w-lg mx-auto" %}
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.register' | t }}</button>
+
+  </form>
+
+  {{ 'modules/user/users.new.already_have_account' | t }}
+
 </section>
-

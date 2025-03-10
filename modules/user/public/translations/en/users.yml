@@ -2,4 +2,5 @@ en:
   users:
     new:
       create_account: Create an Account
+      already_have_account: Already have an account? <a href="/sessions/new">Sign in</a>
     logout: Log out

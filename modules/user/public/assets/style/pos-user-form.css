@@ -1,0 +1,24 @@
+/*
+  styling for the user forms
+
+  form
+*/
+
+
+
+/* page background and font
+============================================================================ */
+.pos-user-content {
+  max-width: 300px;
+}
+
+.pos-user-content .pos-heading-2 {
+  margin-bottom: var(--pos-gap-title-content);
+}
+
+.pos-user-content .pos-form {
+  margin-block-end: var(--pos-gap-content-footer);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-gap-input-input);
+}

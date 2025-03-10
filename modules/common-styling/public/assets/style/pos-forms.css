@@ -17,16 +17,29 @@
 
   }
 
-
+  
   /* form paragraphs/fieldsets
   ============================================================================ */
-  .pos-form fieldset + fieldset,
+  .pos-form fieldset,
   .pos-form-fieldset {
     all: unset;
     display: revert;
+  }
 
+  .pos-form fieldset + fieldset,
+  .pos-form-fieldset + .pos-form-fieldset {
     margin-top: var(--pos-gap-navigation);
   }
+
+  .pos-form-simple fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
+  }
+
+
+  /* labels
+  ============================================================================ */
 
 
   /* text inputs

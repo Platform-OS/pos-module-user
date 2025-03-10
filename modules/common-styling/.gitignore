@@ -1,0 +1,14 @@
+node_modules
+.pos
+tmp
+test/pictures/
+test/screenshots
+test/reports/video/
+seed/data.csv
+seed/models.csv
+test-report.html
+test-report.json
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
