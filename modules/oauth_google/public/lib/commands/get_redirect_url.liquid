@@ -1,0 +1,14 @@
+{% liquid 
+assign data = "{}" | parse_json
+hash_assign data['scope'] = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile openid"
+hash_assign data['client_id'] = provider.client_id
+hash_assign data["state"] = state
+assign location = "https://" | append: context.location.host | append: '/oauth/google/callback'
+log location, type: "LOCATION"
+hash_assign data["redirect_uri"] = location
+hash_assign data["response_type"] = "code"
+
+assign querified_data = data | querify
+assign url = "https://accounts.google.com/o/oauth2/v2/auth?" | append: querified_data
+return url
+%}

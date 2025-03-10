@@ -1,0 +1,11 @@
+mutation ($headers: HashObject) {
+  api_call_send(api_call: {
+    url: "https://www.googleapis.com/userinfo/v2/me"
+    method: "GET"
+    headers: $headers
+  }) {
+    response { 
+    	body
+    }
+  }
+}

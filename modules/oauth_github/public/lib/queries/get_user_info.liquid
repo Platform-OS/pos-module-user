@@ -1,0 +1,11 @@
+{% liquid
+    assign headers = "{}" | parse_json
+    hash_assign headers["Accept"] = "application/json"
+    assign bearer = "Bearer " | append: data.access_token
+    hash_assign headers["Authorization"] = bearer
+  
+    graphql r  = 'modules/oauth_github/get_user_info', body: body, headers: headers
+    assign result = r.api_call_send.response.body | parse_json
+    return result
+  %}
+  

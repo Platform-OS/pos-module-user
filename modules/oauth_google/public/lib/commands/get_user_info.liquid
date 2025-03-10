@@ -1,0 +1,33 @@
+{% liquid
+# fetch token and get user data
+assign get_token_request = "{}" | parse_json
+hash_assign get_token_request["client_id"] = provider.client_id
+hash_assign get_token_request["client_secret"] = provider.secret_value
+hash_assign get_token_request["code"] = context.params.code
+
+# get access token
+function access_token = "modules/oauth_google/queries/get_token", data: get_token_request
+assign access_token = access_token.access_token
+
+assign result = "{}" | parse_json
+hash_assign result["valid"] = false
+
+if access_token == null
+    return result
+endif
+
+# get user info
+assign request_data = "{}" | parse_json
+hash_assign request_data["access_token"] = access_token
+
+function user_info = "modules/oauth_google/queries/get_user_info", data: request_data
+hash_assign result["first_name"] = user_info.given_name
+hash_assign result["last_name"] = user_info.family_name
+hash_assign result["sub"] = user_info.id
+hash_assign result["email"] = user_info.email
+if result.sub != null and result["email"] != null
+    hash_assign result["valid"] = true
+endif
+
+return result
+%}

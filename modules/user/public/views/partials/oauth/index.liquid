@@ -1,0 +1,36 @@
+OAuth management. <a href="/">Back</a><br/>
+
+{% liquid
+  function available_providers = 'modules/user/helpers/get_available_oauth_providers'
+  function assigned_providers = 'modules/user/helpers/get_assigned_oauth_providers'
+%}
+
+<div>OAuth providers:</div>
+{% for provider in available_providers %}
+  {% if assigned_providers contains provider[0] %}
+    {{ provider[1].name }} - in use
+    <form action="/oauth/{{ provider[0] }}/unassign" method="post">
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+      <input type="hidden" name="_method" value="delete" />
+      <button type="submit">
+        {{ 'modules/user/oauth.unassign_provider' | t }}
+      </button>
+    </form>
+  {% else %}
+    <form action="/oauth/{{ provider[0] }}/start" method="post">
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+      <input type="hidden" name="_method" value="post" />
+      <button type="submit">
+        {{ provider[1].name }}
+      </button>
+    </form>
+  {% endif %}
+{% endfor %}
+
+<form action="/sessions" method="post">
+  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+  <input type="hidden" name="_method" value="delete" />
+  <button type="submit">
+    {{ "modules/user/users.logout" | t }}
+  </button>
+</form>

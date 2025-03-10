@@ -6,6 +6,7 @@ metadata:
 ---
 {% liquid
   assign errors = errors | default: params.errors
+  function available_providers = 'modules/user/helpers/get_available_oauth_providers'
 
   theme_render_rc 'components/molecules/pagetitle', content: 'Login', classes: 'text-center'
 %}
@@ -17,6 +18,19 @@ metadata:
     <a href="/users/new">
       Request to join
     </a>
+    <br/>
+    or sign in with OAuth
+    <br/>
+    {% for provider in available_providers %}
+      <form action="/oauth/{{ provider[0] }}/start" method="post">
+        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+        <input type="hidden" name="_method" value="post" />
+        <button type="submit">
+          {{ provider[1].name }}
+        </button>
+      </form>
+    {% endfor %}
+
     {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
   </div>
   <div class="pt-4">
