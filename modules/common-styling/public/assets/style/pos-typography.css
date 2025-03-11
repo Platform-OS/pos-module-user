@@ -26,6 +26,10 @@
   }
 
   a:focus-visible {
+    border-radius: var(--pos-radius-button);
+    background-color: color-mix(in srgb, var(--pos-color-focused) 10%, transparent 90%);
+    box-shadow: 0 0 6px 1px var(--pos-color-focused);
+
     color: var(--pos-color-interactive-hover);
   }
 

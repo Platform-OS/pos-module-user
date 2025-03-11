@@ -1,0 +1,13 @@
+{% if context.constants.VERIFY_HCAPTCHA == "true" %}
+    <fieldset>
+      <script src="https://hcaptcha.com/1/api.js" async defer></script>
+      <div class='h-captcha' data-sitekey="{{ context.hcaptcha_site_key }}"></div>
+  
+      {% #render 'theme/simple/field_error', errors: object.errors.hcaptcha %}
+    </fieldset>
+  {% elsif context.environment == 'staging' %}
+    <!-- <fieldset> -->
+    <!--   <div>hCaptcha has been disabled on staging environments</div> -->
+    <!-- </fieldset> -->
+  {% endif %}
+  

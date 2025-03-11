@@ -4,13 +4,11 @@ metadata:
   params:
     values: {}
     errors: []
-    registration_fields: []
 ---
 
 {% liquid
   assign values = values | default: params.values
   assign errors = errors | default: params.errors
-  assign registration_fields = registration_fields | default: params.registration_fields
 %}
 
 {% liquid
@@ -24,35 +22,25 @@ metadata:
   <form action="/users" method="POST" class="pos-form pos-form-simple">
     {% render 'modules/core/helpers/authenticity_token', context: context %}
 
-    <fieldset class="pos-form-required">
+    <fieldset>
       <label for="pos-user-email">Email</label>
-      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com">
+      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
     </fieldset>
 
-    <fieldset class="pos-form-required">
+    <fieldset>
       <label for="pos-user-password">Password</label>
-      <input type="password" name="password" id="pos-user-password" value="{{ values.password }}" required placeholder="••••••••">
+      <input type="password" name="password" id="pos-user-password" value="{{ values.password }}" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% if errors['email'] %}
+        <ul id="pos-user-password-error">
+          {% for error in errors['password'] %}
+            <li class="pos-form-error">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </fieldset>
 
-    {% comment %} {% for field in registration_fields %}
-      {% liquid
-        assign default_value = values[field.name] | raw_escape_string
-        assign error_messages = '[]' | parse_json
-        assign has_error = errors[field.name]
-        assign validation = null | hash_merge: messages: error_messages
-        if has_error
-          hash_assign validation['passed'] = false
-          hash_assign validation['messages'] = errors[field.name]
-        endif
-        assign input_params = field | hash_merge: value: default_value
-        assign label_params = null | hash_merge: content: field.label
-        assign field_params = null | hash_merge: validation: validation, input_params: input_params, label_params: label_params
-
-        theme_render_rc 'components/molecules/formfield', params: field_params
-      %}
-    {% endfor %} {% endcomment %}
-
-    {% theme_render_rc 'components/molecules/hcaptcha', object: object %}
+    {% render 'modules/common-styling/forms/hcaptcha' %}
 
     <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.register' | t }}</button>
 

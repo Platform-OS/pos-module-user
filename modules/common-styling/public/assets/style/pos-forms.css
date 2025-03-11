@@ -40,6 +40,16 @@
 
   /* labels
   ============================================================================ */
+  .pos-form-simple fieldset label {
+    margin-inline-start: -.1em;
+    align-self: start;
+  }
+
+  .pos-form :has([required]) label:after {
+    color: var(--pos-color-important);
+
+    content: " *";
+  }
 
 
   /* text inputs
@@ -70,7 +80,7 @@
     
     color: var(--pos-color-input-default-foreground);
 
-    transition: all .2s linear;
+    transition: all .1s linear;
   }
 
   .pos-form [type="text"]:hover:not(:focus),
@@ -112,12 +122,42 @@
     box-shadow: 0 0 0 2px var(--pos-color-focused);
   }
 
+  .pos-form [type="text"]::placeholder,
+  .pos-form-input[type="text"]::placeholder,
+  .pos-form [type="email"]::placeholder,
+  .pos-form-input[type="email"]::placeholder,
+  .pos-form [type="password"]::placeholder,
+  .pos-form-input[type="password"]::placeholder,
+  .pos-form [type="url"]::placeholder,
+  .pos-form-input[type="url"]::placeholder {
+    color: var(--pos-color-input-placeholder);
+  }
+
 
   /* textareas
   ============================================================================ */
   .pos-form textarea {
     all: unset;
     display: revert;
+  }
+
+
+  /* errors
+  ============================================================================ */
+  .pos-form [type="text"][aria-invalid="true"],
+  .pos-form-input[type="text"][aria-invalid="true"],
+  .pos-form [type="email"][aria-invalid="true"],
+  .pos-form-input[type="email"][aria-invalid="true"],
+  .pos-form [type="password"][aria-invalid="true"],
+  .pos-form-input[type="password"][aria-invalid="true"],
+  .pos-form [type="url"][aria-invalid="true"],
+  .pos-form-input[type="url"][aria-invalid="true"] {
+    border-color: var(--pos-color-important);
+  }
+
+  .pos-form-error {
+    text-wrap: pretty;
+    color: var(--pos-color-important);
   }
 
 }
