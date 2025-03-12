@@ -1,0 +1,11 @@
+mutation ($headers: HashObject) {
+  api_call_send(api_call: {
+    url: "https://graph.facebook.com/me?fields=email,first_name,last_name"
+    method: "GET"
+    headers: $headers
+  }) {
+    response { 
+    	body
+    }
+  }
+}
