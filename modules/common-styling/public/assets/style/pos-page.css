@@ -21,7 +21,6 @@
     background-color: var(--pos-color-content-background);
 
     text-rendering: optimizeLegibility;
-    text-wrap: balance;
     font-family: var(--pos-font-default);
     color: var(--pos-color-content-foreground);
   }

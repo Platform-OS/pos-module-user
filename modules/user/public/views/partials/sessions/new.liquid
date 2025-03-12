@@ -6,28 +6,35 @@ metadata:
 ---
 {% liquid
   assign errors = errors | default: params.errors
-
-  theme_render_rc 'components/molecules/pagetitle', content: 'Login', classes: 'text-center'
 %}
 
-{% capture loginCardContent %}
-  {% theme_render_rc 'components/organisms/login', action: '/sessions', register_page_url: '/sign-up' errors: errors, classes: 'form--login', email_placeholder: 'Type', submit: 'Log in' %}
-  <div class="mt-6 pt-4 border-t">
-    Don't have an account?
-    <a href="/users/new">
-      Request to join
-    </a>
-    {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
-  </div>
-  <div class="pt-4">
-    Password lost?
-    <a href="/passwords/reset">
-      Reset
-    </a>
-    {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
-  </div>
-{% endcapture %}
+<section class="pos-user-content">
 
-<section class="container my-auto">
-  {% theme_render_rc 'components/atoms/card', content: loginCardContent, classes: "w-full max-w-lg mx-auto" %}
+  <h1 class="pos-heading-2">{{ 'modules/user/sessions.new.login' | t }}</h1>
+
+  <form action="/sessions" method="POST" class="pos-form pos-form-simple">
+
+    {% render 'modules/core/helpers/authenticity_token', context: context %}
+
+    <fieldset>
+      <label for="pos-user-email">Email</label>
+      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+    </fieldset>
+
+    <fieldset>
+      <div class="pos-user-label-password">
+        <label for="pos-user-password">Password</label>
+        <a href="/passwords/reset">Forgot password?</a>
+      </div>
+      <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
+    </fieldset>
+
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/sessions.new.login' | t }}</button>
+
+  </form>
+
+  Don't have an account? <a href="/users/new">Request to join</a>
+
 </section>

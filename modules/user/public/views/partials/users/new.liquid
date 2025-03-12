@@ -11,10 +11,6 @@ metadata:
   assign errors = errors | default: params.errors
 %}
 
-{% liquid
-  assign redirect_to = redirect_to | default: params.redirect_to | default: '/'
-%}
-
 <section class="pos-user-content">
 
   <h1 class="pos-heading-2">{{ 'modules/user/users.new.create_account' | t }}</h1>
@@ -30,7 +26,7 @@ metadata:
 
     <fieldset>
       <label for="pos-user-password">Password</label>
-      <input type="password" name="password" id="pos-user-password" value="{{ values.password }}" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
       {% if errors['email'] %}
         <ul id="pos-user-password-error">
           {% for error in errors['password'] %}

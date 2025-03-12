@@ -202,9 +202,9 @@
   /* general content text */
   --pos-color-dark-content-foreground: #374151;
   /* sidenotes, metadata, table headers */
-  --pos-color-dark-content-supplementary: #6b7280;
+  --pos-color-dark-content-foreground-supplementary: #6b7280;
   /* prominent text used to highlight important information */
-  --pos-color-dark-content-prominent: #141414;
+  --pos-color-dark-content-foreground-prominent: #141414;
   /* background color user under the content when the colors are inverted */
   --pos-color-dark-content-inverted-background: var(--pos-color-dark-content-foreground);
   /* content text when placed on an inverted contrasty background */
@@ -356,8 +356,8 @@
   --pos-color-page-background: var(--pos-color-light-page-background);
   --pos-color-content-background: var(--pos-color-light-content-background);
   --pos-color-content-foreground: var(--pos-color-light-content-foreground);
-  --pos-color-content-supplementary: var(--pos-color-light-content-supplementary);
-  --pos-color-content-prominent: var(--pos-color-light-content-prominent);
+  --pos-color-content-foreground-supplementary: var(--pos-color-light-content-foreground-supplementary);
+  --pos-color-content-foreground-prominent: var(--pos-color-light-content-foreground-prominent);
   --pos-color-content-inverted-background: var(--pos-color-light-content-inverted-background);
   --pos-color-content-inverted-foreground: var(--pos-color-light-content-inverted-foreground);
   --pos-color-frame: var(--pos-color-light-frame);
@@ -447,8 +447,8 @@
   --pos-color-page-background: var(--pos-color-dark-page-background);
   --pos-color-content-background: var(--pos-color-dark-content-background);
   --pos-color-content-foreground: var(--pos-color-dark-content-foreground);
-  --pos-color-content-supplementary: var(--pos-color-dark-content-supplementary);
-  --pos-color-content-prominent: var(--pos-color-dark-content-prominent);
+  --pos-color-content-foreground-supplementary: var(--pos-color-dark-content-foreground-supplementary);
+  --pos-color-content-foreground-prominent: var(--pos-color-dark-content-foreground-prominent);
   --pos-color-content-inverted-background: var(--pos-color-dark-content-inverted-background);
   --pos-color-content-inverted-foreground: var(--pos-color-dark-content-inverted-foreground);
   --pos-color-frame: var(--pos-color-dark-frame);
@@ -539,8 +539,8 @@
     --pos-color-page-background: var(--pos-color-dark-page-background);
     --pos-color-content-background: var(--pos-color-dark-content-background);
     --pos-color-content-foreground: var(--pos-color-dark-content-foreground);
-    --pos-color-content-supplementary: var(--pos-color-dark-content-supplementary);
-    --pos-color-content-prominent: var(--pos-color-dark-content-prominent);
+    --pos-color-content-foreground-supplementary: var(--pos-color-dark-content-foreground-supplementary);
+    --pos-color-content-foreground-prominent: var(--pos-color-dark-content-foreground-prominent);
     --pos-color-content-inverted-background: var(--pos-color-dark-content-inverted-background);
     --pos-color-content-inverted-foreground: var(--pos-color-dark-content-inverted-foreground);
     --pos-color-frame: var(--pos-color-dark-frame);

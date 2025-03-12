@@ -9,11 +9,12 @@
 /* page background and font
 ============================================================================ */
 .pos-user-content {
-  max-width: 300px;
+  width: 100%;
+  max-width: 350px;
 }
 
-.pos-user-content .pos-heading-2 {
-  margin-bottom: var(--pos-gap-title-content);
+.pos-user-content form {
+  margin-top: var(--pos-gap-title-content);
 }
 
 .pos-user-content .pos-form {
@@ -22,3 +23,12 @@
   flex-direction: column;
   gap: var(--pos-gap-input-input);
 }
+
+.pos-user-label-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+  .pos-user-label-password a:not(:hover):not(:active) {
+    color: var(--pos-color-content-foreground-supplementary);
+  }

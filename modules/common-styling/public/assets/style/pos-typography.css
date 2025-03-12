@@ -41,6 +41,7 @@
   }
 
   .pos-heading-2 {
+    margin-inline-start: -.1ex;
     display: block;
 
     font-family: var(--pos-font-heading);
