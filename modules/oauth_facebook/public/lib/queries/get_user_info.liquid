@@ -6,7 +6,6 @@
   
     graphql r  = 'modules/oauth_facebook/get_user_info', headers: headers
     assign result = r.api_call_send.response.body | parse_json
-    log result, type: "DEBUG"
     return result
   %}
   
