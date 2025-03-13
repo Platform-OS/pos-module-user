@@ -125,3 +125,18 @@
   margin-block: auto;
   align-self: center;
 }
+
+
+
+/* logged in user area
+============================================================================ */
+.app-user-page {
+  padding: var(--pos-padding-page);
+}
+
+.app-user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: var(--pos-gap-section-elements);
+}

@@ -50,6 +50,15 @@
     font-weight: 500;
   }
 
+  .pos-heading-3 {
+    margin-inline-start: -.05ex;
+    display: block;
+
+    font-family: var(--pos-font-heading);
+    font-size: 1.5rem;
+    font-weight: 400;
+  }
+
 
   /* sidenotes
   ============================================================================ */

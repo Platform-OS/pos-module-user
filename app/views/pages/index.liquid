@@ -5,27 +5,38 @@
 {% if current_user.id %}
 
   {% if context.session.original_user_id == blank %}
-    current_user: {{ current_user }}
-    <form action="/sessions" method="post">
-      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-      <input type="hidden" name="_method" value="delete" />
-      <button type="submit">
-        {{ 'modules/user/users.logout' | t }}
-      </button>
-    </form>
-  {% else %}
-    impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
-    <form action="/sessions/impersonations" method="post">
-      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-      <input type="hidden" name="_method" value="delete" />
-      <input type="hidden" name="redirect_to" value="/admin" />
-      <button type="submit">
-        Log back in as original user
-      </button>
-    </form>
-  {% endif %}
-  <a href="/subscription">Subscrioption area</a><br/>
-  <a href="/admin">Admin</a><br/>
+    <main class="app-user-page">
+
+      <section class="app-user-info pos-card pos-card-highlighted">
+        <div>
+          <h1 class="pos-heading-3">Current user</h1>
+          {{ current_user }}
+        </div>
+        <form action="/sessions" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="pos-button">
+            {{ 'modules/user/users.logout' | t }}
+          </button>
+        </form>
+      </section>
+
+
+    {% else %}
+      impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+      <form action="/sessions/impersonations" method="post">
+        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+        <input type="hidden" name="_method" value="delete" />
+        <input type="hidden" name="redirect_to" value="/admin" />
+        <button type="submit">
+          Log back in as original user
+        </button>
+      </form>
+    {% endif %}
+    <a href="/subscription">Subscrioption area</a><br/>
+    <a href="/admin">Admin</a><br/>
+
+  </main>
 
 {% else %}
 
@@ -40,7 +51,6 @@
         <ul class="app-user-intro-nav">
           <li><a href="/users/new">Register</a></li>
           <li><a href="/sessions/new">Log in</a></li>
-          {% comment %} <li><a href="/passwords/reset">Reset password</a></li> {% endcomment %}
         </ul>
       </nav>
     </section>

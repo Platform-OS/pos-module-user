@@ -39,6 +39,7 @@ This command installs the Common Styling Module and updates or creates the `app/
 <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-avatar.css' | asset_url }}">
 <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-forms.css' | asset_url }}">
 <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-page.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-card.css' | asset_url }}">
 ```
 
 3. **Optionally, import the following CSS reset**. It's not recommended to use in on an existing app probably, but you can safely use it on a fresh one. To use it just place the following CSS reference on top and use a `pos-app` class anywhere on your main content container.

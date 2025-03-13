@@ -1,0 +1,26 @@
+/*
+  card component
+
+  basic
+  highlighted
+*/
+
+
+@layer common-styling {
+
+  /* basic
+  ============================================================================ */
+  .pos-card {
+    padding: var(--pos-padding-card);
+
+    border-radius: var(--pos-radius-card);
+  }
+
+
+  /* highlighted
+  ============================================================================ */
+  .pos-card.pos-card-highlighted {
+    background-color: var(--pos-color-highlight-background);
+  }
+
+}
