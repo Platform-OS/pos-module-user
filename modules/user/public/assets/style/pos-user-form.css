@@ -13,6 +13,10 @@
   max-width: 350px;
 }
 
+.pos-user-content .pos-heading-2 {
+  margin-block-end: calc(var(--pos-gap-text-text) / 3);
+}
+
 .pos-user-content form {
   margin-top: var(--pos-gap-title-content);
 }

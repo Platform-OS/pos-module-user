@@ -2,6 +2,6 @@
   "name": "platformOS common styling",
   "machine_name": "common-styling",
   "type": "module",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "dependencies": {}
 }

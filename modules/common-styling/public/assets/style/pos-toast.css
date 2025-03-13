@@ -20,7 +20,7 @@
     inset-inline-start: var(--pos-padding-page);
     display: flex;
     flex-direction: column;
-    gap: var(--pos-gap-navigation);
+    gap: var(--pos-gap-card-card);
   }
 
   .pos-toast * {
@@ -31,7 +31,7 @@
   /* message
   ============================================================================ */
   .pos-toast {
-    padding: calc(var(--pos-padding-panel) / 2) var(--pos-padding-panel);
+    padding: calc(var(--pos-padding-cell) / 2) var(--pos-padding-cell);
     display: flex;
     justify-content: space-between;
 
@@ -48,7 +48,7 @@
     overflow: hidden;
 
     animation-name: pos-toast-in;
-    animation-duration: 1s;
+    animation-duration: .6s;
     animation-timing-function: ease-in-out;
   }
 
@@ -63,7 +63,7 @@
 
   .pos-toast-unloading {
     animation-name: pos-toast-out;
-    animation-duration: .4s;
+    animation-duration: .3s;
     animation-timing-function: ease-in-out;
   }
 
@@ -103,7 +103,7 @@
   /* close button
   ============================================================================ */
   .pos-toast-close {
-    margin-inline-end: calc(var(--pos-padding-panel) / -2);
+    margin-inline-end: calc(var(--pos-padding-cell) / -2);
     padding: 0 .5em;
     align-self: start;
 
