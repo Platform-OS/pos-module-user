@@ -21,7 +21,7 @@ slug: oauth/:provider/start
     
     session state = '' | uuid
 
-    assign command_path = "modules/oauth_" | append: selected_provider.key | append: "/commands/get_redirect_url"
+    assign command_path = "modules/oauth_" | append: selected_provider.key | append: "/helpers/get_redirect_url"
     function url = command_path, provider: selected_provider, state: context.session.state
     redirect_to url
 %}

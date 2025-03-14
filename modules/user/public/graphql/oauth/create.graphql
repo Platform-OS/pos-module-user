@@ -10,8 +10,8 @@ mutation ($user_id: String!, $provider: String!, $sub: String!) {
     }
   ) {
     id
-    createdAt: created_at
-    updatedAt: updated_at
+    create_at: created_at
+    updated_at: updated_at
     table
 
     user_id: property(name: "user_id")
