@@ -160,6 +160,8 @@ This feature enables **Sign In** and **Sign Out** forms, providing session-based
 Implements Role-Based Access Control (RBAC), allowing fine-grained authorization management based on user roles. This lets you define who can access specific parts of your platform based on assigned roles.
 - [x] **[Impersonation - logging as another user](#impersonation)**:
 This feature allows logging in as another user, providing access to all of their functionalities. It comes with a dedicated logout process which logs user back to their original profile. It includes security consideration that only superadmin can impersonate another superadmin user.
+- [x] **[OAuth Module Integration](#oauth)**:  
+This feature allows users to authenticate using external identity providers (such as Google, Facebook, or GitHub).
 
 TODO (Upcoming Features)
 
@@ -171,8 +173,6 @@ TODO (Upcoming Features)
 Adds a feature flag to enforce **mandatory email verification**, ensuring users validate their email addresses before gaining full access to the platform.
 - [ ] **Mandatory SMS Verification (Feature Flag)**:  
 Similar to email verification, this feature flag will enforce **mandatory SMS verification** during the registration process to improve account security.
-- [ ] **OAuth Module Integration**:  
-Implementing and integrating a module for **OAuth** will allow users to authenticate using external identity providers (such as Google, Facebook, or GitHub).
 - [ ] **[JWT Authentication](https://documentation.platformos.com/api-reference/graphql/common/objects/authenticate)**:  
 Enables **JWT (JSON Web Token) authentication**, allowing for secure, stateless authentication through token-based authentication mechanisms.
 - [ ] **Built-in CAPTCHA Protection**:  
@@ -513,6 +513,40 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
 ### Impersonation
 
 This functionality allows a user with `users.impersonate` permission to log in as another user (unless they are superadmin - in which scenario `users.impersonate_superadmin` permission is needed). It comes with a dedicated logout process which logs the user back to their original profile.
+
+### OAuth
+
+This feature allows users to authenticate using external identity providers: Google, Facebook and/or GitHub.
+
+#### Configuration
+`{name}` can be set to any string identifying an OAuth2 integration.
+
+To configure a selected module, please set the following constants:
+
+| Constant | Value |
+| - | - |
+| OAUTH2_{name}_PROVIDER | This value must match one OAuth2 module. Available values: `github`, `facebook`, `google` |
+| OAUTH2_{name}_NAME | Display name that will be visible to all users. |
+| OAUTH2_{name}_CLIENT_ID | Client ID of the OAuth 2 application. |
+| OAUTH2_{name}_SECRET_VALUE| Client ID of the OAuth 2 application. |
+
+and add the corresponding module (oauth_github, oauth_facebook, oauth_google) to the project modules.
+
+#### Custom OAUTH2 provider
+
+To implement a custom OAUTH2 provider, you must provide two helper methods:
+
+`get_redirect_url` - which generates a redirect URL to begin the OAUTH2 flow.
+
+`get_user_info` - which returns a dictionary:
+
+| Key | Value |
+| - | - |
+| sub | User's id in the external system |
+| first_name | User's first name. |
+| last_name | User's last name. |
+| email | User's email. |
+| valid | A boolean indicating whether the flow was successful or not. |
 
 #### Endpoints for Loggin as another user
 
