@@ -532,7 +532,7 @@ To configure a selected module, please set the following constants:
 
 and add the corresponding module (oauth_github, oauth_facebook, oauth_google) to the project modules.
 
-#### Custom OAUTH2 provider
+#### Custom OAuth2 provider
 
 To implement a custom OAuth2 provider, you must provide two helper methods:
 
