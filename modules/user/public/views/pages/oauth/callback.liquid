@@ -8,7 +8,7 @@ slug: oauth/:provider/callback
   function current_user = "modules/user/queries/user/current"
   assign state = context.session.state
   if context.params.code == blank or context.params.provider == blank or context.params.state != state
-    include 'modules/core/helpers/redirect_to', error: "modules/user/oauth.invalid_request"
+    include 'modules/core/helpers/redirect_to', error: "modules/user/oauth.app.invalid_request"
     return
   endif
 
@@ -26,7 +26,7 @@ slug: oauth/:provider/callback
     graphql g = "modules/user/oauth/find_by_user_id", provider: provider, user_id: current_user.id
     if g.records.total_entries > 0
       log "Provider already assigned", type: "ERROR"
-      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.provider_already_assigned"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.provider_already_assigned"
       return
     endif
   endif
@@ -36,7 +36,7 @@ slug: oauth/:provider/callback
   function user_info = command_path, provider: selected_provider, code: context.params.code
 
   if user_info.valid == false
-    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.user_info_error"
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.user_info_error"
     return
   endif
 
@@ -52,7 +52,7 @@ slug: oauth/:provider/callback
   if g.records.total_entries > 0
     if current_user.id != null
       log "Sub already assigned", type: "ERROR"
-      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.sub_already_assigned"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.sub_already_assigned"
       return
     else
       assign found_user_id = g.records.results[0].user_id
@@ -66,7 +66,7 @@ slug: oauth/:provider/callback
       
     if new_user.valid == false
       log new_user.errors, type: "ERROR"
-      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.failed_to_create_account"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.failed_to_create_account"
       return
     endif
     assign found_user_id = new_user.id
@@ -80,8 +80,8 @@ slug: oauth/:provider/callback
   # sign in as user
   if current_user.id == blank
     function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false    
-    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.signed_in"
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.signed_in"
   else
-    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.assigned_provider"
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.assigned_provider"
   endif
 %}

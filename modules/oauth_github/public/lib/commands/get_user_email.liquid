@@ -1,0 +1,11 @@
+{% liquid
+  assign bearer = "Bearer " | append: data.access_token
+  function object = 'modules/oauth_github/commands/get_user_email/build', object: bearer
+  function object = 'modules/oauth_github/commands/get_user_email/check', object: object
+
+  if object.valid
+    graphql r  = 'modules/oauth_github/get_user_email', headers: object
+    assign result = r.api_call_send.response.body | parse_json
+    return result
+  endif
+%}

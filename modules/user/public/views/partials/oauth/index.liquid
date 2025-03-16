@@ -13,7 +13,7 @@ OAuth management. <a href="/">Back</a><br/>
       <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
       <input type="hidden" name="_method" value="delete" />
       <button type="submit">
-        {{ 'modules/user/oauth.unassign_provider' | t }}
+        {{ 'modules/user/oauth.app.unassign_provider' | t }}
       </button>
     </form>
   {% else %}

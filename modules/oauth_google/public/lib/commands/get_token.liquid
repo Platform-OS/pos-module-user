@@ -1,0 +1,15 @@
+{% liquid
+  assign location = "https://" | append: context.location.host | append: '/oauth/google/callback'
+  function object = 'modules/oauth_google/commands/get_token/build', object: data, location: location
+  function object = 'modules/oauth_google/commands/get_token/check', object: object
+
+  if object.valid
+    assign query = object | querify
+    assign headers = "{}" | parse_json
+    hash_assign headers["Accept"] = "application/json"
+    graphql r  = "modules/oauth_google/get_token", body: query, headers: headers
+    assign result = r.api_call_send.response.body | parse_json
+    return result
+  endif
+%}
+  
