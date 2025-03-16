@@ -534,7 +534,7 @@ and add the corresponding module (oauth_github, oauth_facebook, oauth_google) to
 
 #### Custom OAUTH2 provider
 
-To implement a custom OAUTH2 provider, you must provide two helper methods:
+To implement a custom OAuth2 provider, you must provide two helper methods:
 
 `get_redirect_url` - which generates a redirect URL to begin the OAUTH2 flow.
 
