@@ -160,7 +160,7 @@ This feature enables **Sign In** and **Sign Out** forms, providing session-based
 Implements Role-Based Access Control (RBAC), allowing fine-grained authorization management based on user roles. This lets you define who can access specific parts of your platform based on assigned roles.
 - [x] **[Impersonation - logging as another user](#impersonation)**:
 This feature allows logging in as another user, providing access to all of their functionalities. It comes with a dedicated logout process which logs user back to their original profile. It includes security consideration that only superadmin can impersonate another superadmin user.
-- [x] **[OAuth Module Integration](#oauth)**:  
+- [x] **[OAuth Module Integration](#oauth2)**:  
 This feature allows users to authenticate using external identity providers (such as Google, Facebook, or GitHub).
 
 TODO (Upcoming Features)
@@ -514,7 +514,7 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
 
 This functionality allows a user with `users.impersonate` permission to log in as another user (unless they are superadmin - in which scenario `users.impersonate_superadmin` permission is needed). It comes with a dedicated logout process which logs the user back to their original profile.
 
-### OAuth
+### OAuth2
 
 This feature allows users to authenticate using external identity providers: Google, Facebook and/or GitHub.
 
