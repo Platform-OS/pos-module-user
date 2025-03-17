@@ -20,7 +20,7 @@ slug: oauth/:provider/callback
     include 'modules/core/helpers/redirect_to'
     return
   endif
-
+  
   # check if user already has a given provider
   if current_user.id != blank
     graphql g = "modules/user/oauth/find_by_user_id", provider: provider, user_id: current_user.id
@@ -44,7 +44,7 @@ slug: oauth/:provider/callback
   assign user_email = user_info.email
   assign user_first_name = user_info.first_name
   assign user_last_name = user_info.last_name
-
+  
   # check if sub is already registered to an existing user
   graphql g = "modules/user/oauth/find_by_sub", provider: provider, sub: user_sub
   assign found_user_id = current_user.id
@@ -63,15 +63,14 @@ slug: oauth/:provider/callback
   # check if user account should be created
   if current_user.id == null and found_user_id == null
     function new_user = "modules/user/commands/oauth/create_user", user_first_name: user_first_name, user_last_name: user_last_name, user_email: user_email
-      
-    if new_user.valid == false
+    if new_user == null or new_user.valid == false
       log new_user.errors, type: "ERROR"
       include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.failed_to_create_account"
       return
     endif
     assign found_user_id = new_user.id
   endif
-
+  
   # create a connection between user and provider
   if create_provider_assignment
     graphql g = "modules/user/oauth/create", sub: user_sub, provider: provider, user_id: found_user_id
