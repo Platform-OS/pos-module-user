@@ -153,6 +153,12 @@
   border-radius: var(--pos-radius-panel);
 }
 
+  /* roles */
+  .app-user-info-list dd:has(.pos-tags-list) {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .app-user-info-list dt,
   .app-user-info-list dd {
     padding-block: calc(var(--pos-padding-cell) / 2);
