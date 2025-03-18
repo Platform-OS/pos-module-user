@@ -131,12 +131,44 @@
 /* logged in user area
 ============================================================================ */
 .app-user-page {
+  width: 1000px;
   padding: var(--pos-padding-page);
+
+  align-self: center;
 }
 
-.app-user-info {
+.app-user-info header {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   gap: var(--pos-gap-section-elements);
 }
+
+.app-user-info-list {
+  width: 100%;
+  margin-block-start: var(--pos-gap-section-elements);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+
+  border-radius: var(--pos-radius-panel);
+}
+
+  .app-user-info-list dt,
+  .app-user-info-list dd {
+    padding-block: calc(var(--pos-padding-cell) / 2);
+  }
+
+  .app-user-info-list dt:not(:first-of-type),
+  .app-user-info-list dd:not(:first-of-type) {
+    border-block-start: 1px solid var(--pos-color-frame);
+  }
+
+  .app-user-info-list dt {
+    padding-inline-end: var(--pos-padding-cell);
+  }
+
+  .app-user-info-list dd {
+    padding-inline-start: var(--pos-padding-cell);
+
+    font-weight: 500;
+  }

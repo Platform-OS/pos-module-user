@@ -215,6 +215,10 @@
   --pos-color-dark-highlight-background: #eff2f6;
   /* highlighted elements text and icons */
   --pos-color-dark-highlight-foreground: var(--pos-color-dark-content-foreground);
+  /* background of sections of the page that needs to really stand out, like call to actions */
+  --pos-color-dark-standout-background: #fff;
+  /* text and icons placed on the sections that needs to really stand out */
+  --pos-color-dark-standout-foreground: var(--pos-color-dark-content-foreground);
 
 
 
@@ -363,6 +367,8 @@
   --pos-color-frame: var(--pos-color-light-frame);
   --pos-color-highlight-background: var(--pos-color-light-highlight-background);
   --pos-color-highlight-foreground: var(--pos-color-light-content-foreground);
+  --pos-color-standout-background: var(--pos-color-light-standout-background);
+  --pos-color-standout-foreground: var(--pos-color-light-standout-foreground);
 
 
   /* interactive elements */
@@ -454,6 +460,8 @@
   --pos-color-frame: var(--pos-color-dark-frame);
   --pos-color-highlight-background: var(--pos-color-dark-highlight-background);
   --pos-color-highlight-foreground: var(--pos-color-dark-content-foreground);
+  --pos-color-standout-background: var(--pos-color-dark-standout-background);
+  --pos-color-standout-foreground: var(--pos-color-dark-standout-foreground);
 
 
   /* interactive elements */
@@ -771,7 +779,7 @@
   /* border radius for an input */
   --pos-radius-input: 0;
   /* border radius for a tag */
-  --pos-radius-tag: 40px;
+  --pos-radius-tag: 4px;
 
 }
 
