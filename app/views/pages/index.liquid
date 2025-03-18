@@ -41,6 +41,17 @@
         </dl>
       </section>
 
+      <section class="pos-user-code">
+        <code><pre>
+{%- raw -%}
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+  {{ current_user }}
+%}
+{% endraw %}</pre></code>
+        <p>{{ current_user }}</p>
+      </section>
+
 
     {% else %}
       impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})

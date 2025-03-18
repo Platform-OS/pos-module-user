@@ -178,3 +178,29 @@
 
     font-weight: 500;
   }
+
+.pos-user-code {
+  margin-block-start: var(--pos-gap-section-section);
+
+  background-color: var(--pos-color-highlight-background);
+  border-radius: var(--pos-radius-panel);
+
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+  .pos-user-code p {
+    padding: var(--pos-padding-card);
+  }
+
+  .pos-user-code pre {
+    font-family: monospace;
+    font-size: 1rem;
+  }
+
+  .pos-user-code code:has(pre) {
+    padding: var(--pos-padding-card);
+    display: block;
+
+    border-block-end: 1px solid var(--pos-color-page-background);
+  }
