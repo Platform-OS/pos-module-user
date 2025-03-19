@@ -21,7 +21,7 @@ metadata:
     {% render 'modules/core/helpers/authenticity_token', context: context %}
 
     <fieldset>
-      <label for="pos-user-email">Email</label>
+      <label for="pos-user-email">{{ 'modules/user/passwords.email' | t }}</label>
       <input type="email" name="authentication_link[email]" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
       {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
     </fieldset>
@@ -32,6 +32,6 @@ metadata:
 
   </form>
 
-  <span class="pos-supplementary">You've remembered the password? <a href="/users/new">Sign in</a></span>
+  <span class="pos-supplementary">{{ 'modules/user/passwords.remembered_password' | t }} <a href="/sessions/new">{{ 'modules/user/sessions.new.login' | t }}</a></span>
 
 </section>

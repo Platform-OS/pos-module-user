@@ -17,15 +17,15 @@ metadata:
     {% render 'modules/core/helpers/authenticity_token', context: context %}
 
     <fieldset>
-      <label for="pos-user-email">Email</label>
+      <label for="pos-user-email">{{ 'modules/user/passwords.email' | t }}</label>
       <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
       {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
     </fieldset>
 
     <fieldset>
       <div class="pos-user-label-password">
-        <label for="pos-user-password">Password</label>
-        <a href="/passwords/reset">Forgot password?</a>
+        <label for="pos-user-password">{{ 'modules/user/passwords.password' | t }}</label>
+        <a href="/passwords/reset">{{ 'modules/user/passwords.forgot' | t }}</a>
       </div>
       <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
       {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
@@ -35,6 +35,6 @@ metadata:
 
   </form>
 
-  <span class="pos-supplementary">Don't have an account? <a href="/users/new">Request to join</a></span>
+  <span class="pos-supplementary">{{ 'modules/user/sessions.new.dont_have_account' | t }} <a href="/users/new">{{ 'modules/user/sessions.new.request_to_join' | t }}</a></span>
 
 </section>
