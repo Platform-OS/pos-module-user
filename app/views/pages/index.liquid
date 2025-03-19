@@ -59,15 +59,18 @@
 
 
     {% else %}
-      impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
-      <form action="/sessions/impersonations" method="post">
-        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-        <input type="hidden" name="_method" value="delete" />
-        <input type="hidden" name="redirect_to" value="/admin" />
-        <button type="submit">
-          Log back in as original user
-        </button>
-      </form>
+      <main class="app-user-page">
+        impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+        <form action="/sessions/impersonations" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="redirect_to" value="/admin">
+          <button type="submit" class="pos-button">
+            Log back in as original user
+          </button>
+        </form>
+      </main>
+
     {% endif %}
 
   </main>
