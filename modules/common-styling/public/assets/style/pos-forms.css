@@ -5,6 +5,8 @@
   form paragraphs/fieldsets
   text inputs
   textareas
+  selects
+  errors
 */
 
 
@@ -139,6 +141,23 @@
   .pos-form textarea {
     all: unset;
     display: revert;
+  }
+
+
+  /* selects
+  ============================================================================ */
+  .pos-form select,
+  .pos-form-select {
+    all: revert;
+
+    height: var(--pos-height-input);
+    padding-inline: var(--pos-padding-input);
+
+    background-color: var(--pos-color-input-default-background);
+    border-width: var(--pos-border-input);
+    border-style: solid;
+    border-color: var(--pos-color-input-default-border);
+    border-radius: var(--pos-radius-input);
   }
 
 

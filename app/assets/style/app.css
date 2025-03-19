@@ -2,6 +2,7 @@
   styling for the example user management application
 
   page background and font
+  commons
   intro page
   main header
   people list
@@ -17,6 +18,24 @@
   padding: 0;
 
   background-color: var(--pos-color-page-background);
+}
+
+
+
+/* commons
+============================================================================ */
+code {
+  padding-inline: 2px;
+
+  border-radius: 4px;
+  background-color: var(--pos-color-highlight-background);
+
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+p + p {
+  margin-block-start: 1em;
 }
 
 
@@ -135,6 +154,13 @@
   padding: var(--pos-padding-page);
 
   align-self: center;
+}
+
+.app-user-page nav {
+  padding-block: var(--pos-padding-page);
+  display: flex;
+  gap: var(--pos-gap-button-button);
+  justify-content: end;
 }
 
 .app-user-info header {

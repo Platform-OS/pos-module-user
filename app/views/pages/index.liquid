@@ -7,6 +7,11 @@
   {% if context.session.original_user_id == blank %}
     <main class="app-user-page">
 
+      <nav class="app-user-navigation">
+        <a href="/subscription">Subscription area</a>
+        <a href="/admin">Admin</a>
+      </nav>
+
       <section class="app-user-info pos-card pos-card-highlighted">
         <header>
           <h1 class="pos-heading-3">Current user</h1>
@@ -64,9 +69,6 @@
         </button>
       </form>
     {% endif %}
-
-    <a href="/subscription">Subscrioption area</a><br/>
-    <a href="/admin">Admin</a><br/>
 
   </main>
 
