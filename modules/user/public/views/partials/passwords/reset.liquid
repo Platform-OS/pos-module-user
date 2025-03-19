@@ -18,7 +18,7 @@ metadata:
 
   <form action="/authentication_links" method="POST" class="pos-form pos-form-simple">
 
-    {% render 'modules/core/helpers/authenticity_token', context: context %}
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
 
     <fieldset>
       <label for="pos-user-email">{{ 'modules/user/passwords.email' | t }}</label>
