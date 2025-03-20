@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "_pos_session",
+      "value": "7da37b3b6bfb831f146bf1513502aab6",
+      "domain": "dg-styleseeker.staging.oregon.platform-os.com",
+      "path": "/",
+      "expires": 1743689211.225947,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "CSRF-TOKEN",
+      "value": "nDeq_-GwVtXwUt7RsBRkls6zGVxqUqHfzDMS1AIip2cTkswc5UbrPalERPm1PE1_sedBLxoEQDgpQoulMrQIYQ",
+      "domain": "dg-styleseeker.staging.oregon.platform-os.com",
+      "path": "/",
+      "expires": -1,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": []
+}
