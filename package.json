@@ -1,0 +1,26 @@
+{  "scripts": {
+    "build": "npx cross-env NODE_ENV=production webpack-cli",
+    "build:dev": "npx cross-env NODE_ENV=development webpack-cli",
+    "ci:build": "docker run -it -u $(id -u ${USER}):$(id -g ${USER}) --rm -v $PWD:/app -w /app node:12-alpine npm ci && npm run build",
+    "ci:test": "docker run -it -e MPKIT_URL=$MPKIT_URL -u $(id -u ${USER}):$(id -g ${USER}) --rm -v $PWD:/app -w /app platformos/testcafe \"npm run test\"",
+    "ci:test:publish": "echo publishing test; sh scripts/upload-test-report.sh",
+    "ci:test:unit": "sh ./scripts/run-unit-tests.sh",
+    "clean:dev": "pos-cli data clean dev --auto-confirm --include-schema",
+    "clean:assets": "npx rimraf app/assets/{js,css}/*",
+    "deploy": "npm run build && CI=true pos-cli deploy",
+    "deploy:dev": "npm run build:dev && pos-cli deploy dev",
+    "dev-gui": "pos-cli gui serve dev",
+    "dev-sync": "pos-cli sync dev --livereload",
+    "dev-watch": "npx cross-env NODE_ENV=development webpack-cli -w",
+    "predeploy": "npm run clean:assets",
+    "start": "npx concurrently --kill-others-on-fail npm:dev-*",
+    "pw-tests": "playwright test tests --project=test",
+    "admin-panel-pw-tests": "playwright test tests --project=admin-panel",
+    "visual-tests": "playwright test --project=visual-tests",
+    "eslint": "eslint src/js --ext .js"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.10"
+  }
+}
