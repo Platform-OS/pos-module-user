@@ -22,6 +22,7 @@
       include 'modules/core/helpers/redirect_to', url: '/sessions/new', info: info
     else
       response_status 403
+      theme_render_rc 'components/pages/403'
       break
     endif
   endunless
