@@ -4,12 +4,10 @@ on:
     branches: [ master ] 
     paths-ignore:
       - ".github/**"
-      - "tests/**"
   pull_request:
     branches: [ master ] 
     paths-ignore:
       - ".github/**"
-      - "tests/**"
   workflow_dispatch:
 
 jobs:
