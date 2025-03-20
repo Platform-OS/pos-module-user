@@ -1,3 +1,13 @@
-node_modules
 .pos
+.vscode/
+node_modules
+/node_modules/
+/playwright-report/ 
+/test-results/
+seed/data.csv
+seed/models.csv
 tmp
+tests/screenshots
+tests/.auth/
+test-report.html
+test-report.json
