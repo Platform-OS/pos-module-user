@@ -1,0 +1,140 @@
+name: E2E tests
+on:
+  push:
+    branches: [ master ] 
+    paths-ignore:
+      - ".github/**"
+      - "tests/**"
+  pull_request:
+    branches: [ master ] 
+    paths-ignore:
+      - ".github/**"
+      - "tests/**"
+  workflow_dispatch:
+
+jobs:
+  pre_job:
+    # continue-on-error: true # Uncomment once integration is finished
+    runs-on: ubuntu-latest
+    # Map a step output to a job output
+    outputs:
+      should_skip: ${{ steps.skip_check.outputs.should_skip }}
+    steps:
+      - id: skip_check
+        uses: fkirc/skip-duplicate-actions@master
+        with:
+          github_token: ${{ github.token }}
+          paths_ignore: '["**/README.md"]'
+          do_not_skip: '["push"]'
+
+  reserve-ci-instance:
+    needs: pre_job
+    if: ${{ needs.pre_job.outputs.should_skip != 'true' }}
+    runs-on: ubuntu-latest
+    container: alpine:3.20
+    outputs:
+      mpkit-url: ${{ steps.reserve.outputs.mpkit-url }}
+      report-path: ${{ steps.reserve.outputs.report-path }}
+    steps:
+      - name: Get ci-instance-url
+        id: reserve
+        uses: Platform-OS/ci-repository-reserve-instance-url@0.0.9
+        with:
+          repository-url: ${{ vars.CI_REPOSITORY_URL }}
+          method: reserve
+          pos-ci-repo-token: ${{ secrets.POS_CI_REPO_ACCESS_TOKEN }}
+
+  deploy:
+    needs: ["reserve-ci-instance"]
+    runs-on: ubuntu-latest
+    container: platformos/playwright:5.1.5-1.47.2
+    strategy:
+      matrix:
+        node-version: [20.x]
+    timeout-minutes: 5
+    env:
+      CI: true
+      MPKIT_EMAIL: ${{ secrets.MPKIT_EMAIL }}
+      MPKIT_TOKEN: ${{ secrets.QA0_ACCESS_TOKEN }}
+      MPKIT_URL: ${{ needs.reserve-ci-instance.outputs.mpkit-url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Build
+        shell: sh
+        run: |
+          set -eu
+          npm ci
+          npm run build
+
+      - name: Deploy
+        timeout-minutes: 6
+        shell: sh
+        run: |
+          set -eu
+          ./tests/data/seed/seed.sh
+
+  test:
+    needs: ["reserve-ci-instance", "deploy"]
+    runs-on: ubuntu-latest
+    container: platformos/playwright:5.1.5-1.47.2
+    timeout-minutes: 15
+    env:
+      CI: true
+      E2E_TEST_PASSWORD: ${{ secrets.E2E_TEST_PASSWORD }}
+      MPKIT_EMAIL: ${{ secrets.MPKIT_EMAIL }}
+      MPKIT_TOKEN: ${{ secrets.MPKIT_TOKEN }}
+      MPKIT_URL: ${{ needs.reserve-ci-instance.outputs.mpkit-url }}
+      HTML_ATTACHMENTS_BASE_URL: ${{ vars.HTML_ATTACHMENTS_BASE_URL }}
+      TEST_REPORT_MPKIT_URL: ${{ vars.TEST_REPORT_MPKIT_URL }}
+      TEST_REPORT_MPKIT_TOKEN: ${{ secrets.TEST_REPORT_MPKIT_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install test dependencies
+        shell: sh
+        run: |
+          set -eu
+          npm install
+      - uses: Platform-OS/gh-action-run-pw-test@dev
+        name: Run Admin Panel Playwright tests
+        if: success() || failure()
+        with:
+          test-name: admin-panel-pw-tests
+        env:
+          HOME: /root
+          E2E_TEST_PASSWORD: ${{ env.E2E_TEST_PASSWORD }}
+          MPKIT_EMAIL: ${{ env.MPKIT_EMAIL }}
+          HTML_ATTACHMENTS_BASE_URL: ${{ env.HTML_ATTACHMENTS_BASE_URL }}
+          TEST_REPORT_MPKIT_URL: ${{ env.TEST_REPORT_MPKIT_URL }}
+          TEST_REPORT_MPKIT_TOKEN: ${{ env.TEST_REPORT_MPKIT_TOKEN }}
+
+      - uses: Platform-OS/gh-action-run-pw-test@dev
+        name: Run Playwright tests
+        if: success() || failure()
+        with:
+          test-name: pw-tests
+        env:
+          HOME: /root
+          E2E_TEST_PASSWORD: ${{ env.E2E_TEST_PASSWORD }}
+          MPKIT_EMAIL: ${{ env.MPKIT_EMAIL }}
+          HTML_ATTACHMENTS_BASE_URL: ${{ env.HTML_ATTACHMENTS_BASE_URL }}
+          TEST_REPORT_MPKIT_URL: ${{ env.TEST_REPORT_MPKIT_URL }}
+          TEST_REPORT_MPKIT_TOKEN: ${{ env.TEST_REPORT_MPKIT_TOKEN }}
+
+  cleanup:
+    if: ${{ always() }}
+    needs: ["reserve-ci-instance", "deploy", "test"]
+    runs-on: ubuntu-latest
+    container: alpine:3.20
+    steps:
+      - name: release ci-instance-url
+        uses: Platform-OS/ci-repository-reserve-instance-url@0.0.9
+        with:
+          method: release
+          repository-url: ${{ vars.CI_REPOSITORY_URL }}
+          pos-ci-repo-token: ${{ secrets.POS_CI_REPO_ACCESS_TOKEN }}
