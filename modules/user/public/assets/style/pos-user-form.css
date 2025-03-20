@@ -1,0 +1,38 @@
+/*
+  styling for the user forms
+
+  form
+*/
+
+
+
+/* page background and font
+============================================================================ */
+.pos-user-content {
+  width: 100%;
+  max-width: 350px;
+}
+
+.pos-user-content .pos-heading-2 {
+  margin-block-end: calc(var(--pos-gap-text-text) / 3);
+}
+
+.pos-user-content form {
+  margin-top: var(--pos-gap-title-content);
+}
+
+.pos-user-content .pos-form {
+  margin-block-end: var(--pos-gap-content-footer);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pos-gap-input-input);
+}
+
+.pos-user-label-password {
+  display: flex;
+  justify-content: space-between;
+}
+
+  .pos-user-label-password a:not(:hover):not(:active) {
+    color: var(--pos-color-content-foreground-supplementary);
+  }

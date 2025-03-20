@@ -8,13 +8,30 @@ metadata:
 {% liquid
   assign context = context | default: params.context
   assign errors = errors | default: params.errors
-  assign pageTitle = 'modules/user/passwords.reset_password_title' | t
-  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
 %}
-{% capture pwdResetCardContent %}
-  {% theme_render_rc 'components/organisms/reset-password', action: '/authentication_links', context: context, errors: errors, classes: 'form--reset-password' %}
-{% endcapture %}
 
-<section class="container my-auto">
-  {% theme_render_rc 'components/atoms/card', content: pwdResetCardContent, classes: "w-full max-w-lg mx-auto" %}
+<section class="pos-user-content">
+
+  <h1 class="pos-heading-2">{{ 'modules/user/passwords.reset_password_title' | t }}</h1>
+
+  <p>{{ 'modules/user/passwords.email_desc' | t }}</p>
+
+  <form action="/authentication_links" method="POST" class="pos-form pos-form-simple">
+
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+
+    <fieldset>
+      <label for="pos-user-email">{{ 'modules/user/passwords.email' | t }}</label>
+      <input type="email" name="authentication_link[email]" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+    </fieldset>
+
+    {% render 'modules/common-styling/forms/hcaptcha' %}
+
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.reset_password' | t }}</button>
+
+  </form>
+
+  <span class="pos-supplementary">{{ 'modules/user/passwords.remembered_password' | t }} <a href="/sessions/new">{{ 'modules/user/sessions.new.login' | t }}</a></span>
+
 </section>
