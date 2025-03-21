@@ -1,9 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { HomePage } from './pages/home';
+import { AdminHomePage } from './pages/admin/home';
+import { LogInPage } from './pages/login';
 import { PasswordResetPage } from './pages/passwordReset';
 import { RegistrationPage } from './pages/registration';
+import { SubscriptionPage } from './pages/subscription';
 import { TestMailBox } from './pages/testMailBox';
-import { LogInPage } from './pages/login';
 import { users } from './data/users';
 
 const PASSWORD = process.env.E2E_TEST_PASSWORD;
@@ -11,6 +13,29 @@ const URL = process.env.MPKIT_URL;
 if (!PASSWORD) {
   throw new Error('E2E_TEST_PASSWORD environment variable is not set');
 }
+
+test.describe('Unauthorized access tests', () => {
+  test(`user can't access admin panel`, async ({ browser }) => {
+    const context = await browser.newContext({ storageState: `tests/.auth/${users.test1.email}.json` });
+    const page = await context.newPage();
+    const adminHomePage = new AdminHomePage(page);
+
+    await adminHomePage.goto();
+    await expect(adminHomePage.elementWithText(`You don't have access to this page`)).toBeVisible();
+  });
+
+  test(`user can't access subscription area`, async ({ browser }) => {
+    const context = await browser.newContext({ storageState: `tests/.auth/${users.test1.email}.json` });
+    const page = await context.newPage();
+    const homePage = new HomePage(page);
+    const subscriptionPage = new SubscriptionPage(page);
+
+    await homePage.goto();
+    await homePage.linkWithText('Subscription area').click();
+
+    await expect(subscriptionPage.elementWithText(`You don't have access to this page`)).toBeVisible();
+  });
+})
 
 test.describe('Testing registration', () => {
   test('register new user', async ({ page }) => {
