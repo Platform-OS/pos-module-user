@@ -55,22 +55,6 @@ export default defineConfig({
       fullyParallel: false,
     },
     {
-      name: 'visual-tests',
-      testMatch: /visual\.spec\.ts/,
-      use: {
-        ...devices['Desktop Chrome'],
-        screenshot: 'on',
-        trace: 'retain-on-failure',
-      },
-      dependencies: ['admin-setup',],
-    },
-    {
-      name: 'alltests',
-      use: { ...devices['Desktop Chrome'] },
-      dependencies: ['setup',],
-      testIgnore: [/prepare-env\.spec\.ts/, /example\.spec\.ts/],
-    },
-    {
       name: 'test',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup',],
