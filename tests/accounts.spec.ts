@@ -46,7 +46,7 @@ test.describe('Testing registration', () => {
     await registrationPage.registerUser(users.newUser, PASSWORD);
 
     await expect(homePage.headingWithText('Current user')).toBeVisible();
-    await expect(homePage.elementWithText(users.newUser.email)).toBeVisible();
+    await expect(homePage.elementWithText(users.newUser.email).first()).toBeVisible();
   });
 
   test('validate error messages for empty fields', async ({ page }) => {
