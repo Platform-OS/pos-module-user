@@ -37,6 +37,6 @@ test.describe('Testing Admin Panel', () => {
 
     await expect(adminHomePage.elementWithText('impersonating')).toBeVisible();
     await expect(adminHomePage.elementWithText('email":"test3@example.com')).toBeVisible();
-    await expect(adminHomePage.buttonWithText('Log back in as original user'));
+    await expect(adminHomePage.buttonWithText('Log back in as original user')).toBeVisible();
   });
 });
