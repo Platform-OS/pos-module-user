@@ -26,24 +26,17 @@ test.describe('Testing Admin Panel', () => {
     await expect(subscriptionPage.elementWithText('If you are seeing this page, you have been granted permissions subscription.read.')).toBeVisible();
   });
 
-  test('admin impersonate tests', async ({ browser }) => {
-    await test.step('admin can impersonate another user', async () => {
-      const context = await browser.newContext({ storageState: `tests/.auth/${users.superadmin.email}.json` });
-      const page = await context.newPage();
-      const adminHomePage = new AdminHomePage(page);
-  
-      await adminHomePage.goto();;
-      await adminHomePage.usersSelect.selectOption('test3@example.com');
-      await adminHomePage.buttonWithText('Impersonate').click();
-    });
+  test('admin can impersonate another user', async ({ browser }) => {
+    const context = await browser.newContext({ storageState: `tests/.auth/${users.superadmin.email}.json` });
+    const page = await context.newPage();
+    const adminHomePage = new AdminHomePage(page);
 
-    await test.step('impersonated user has authenticated role', async () => {
-      const context = await browser.newContext({ storageState: `tests/.auth/${users.test3.email}.json` });
-      const page = await context.newPage();
-      const homePage = new HomePage(page);
-  
-      await homePage.goto();
-      await expect(homePage.elementWithText('"roles":["member","authenticated"]}')).toBeVisible();
-    });
+    await adminHomePage.goto();
+    await adminHomePage.usersSelect.selectOption('test3@example.com');
+    await adminHomePage.buttonWithText('Impersonate').click();
+
+    await expect(adminHomePage.elementWithText('impersonating')).toBeVisible();
+    await expect(adminHomePage.elementWithText('email":"test3@example.com')).toBeVisible();
+    await expect(adminHomePage.buttonWithText('Log back in as original user'));
   });
 });
