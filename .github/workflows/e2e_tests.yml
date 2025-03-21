@@ -74,6 +74,7 @@ jobs:
         run: |
           set -eu
           chmod +x ./tests/data/seed/seed.sh
+          ./tests/data/seed/seed.sh
 
   test:
     needs: ["reserve-ci-instance", "deploy"]
