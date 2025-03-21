@@ -29,21 +29,13 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
    pos-cli modules install user
 ```
 
-This command installs the User Module along with its dependencies (such as [pos-module-core](https://github.com/Platform-OS/pos-module-core)) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
+This command installs the User Module along with its dependencies (such as [pos-module-core](https://github.com/Platform-OS/pos-module-core) and [pos-module-common-styling](https://github.com/Platform-OS/pos-module-common-styling) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
 ### Setup
 
 1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
 
-2. Configure the [components](https://github.com/Platform-OS/pos-module-components) theme paths by adding the following `theme_search_paths` property to the [app/config.yml](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure/config) file:
-
-```yaml
-theme_search_paths:
-  - ''
-  - modules/user
-```
-
-3. **Update the user configuration** in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
+2. **Update the user configuration** in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
 
 ```yaml
 properties:
@@ -51,6 +43,15 @@ properties:
     type: array
 
 ```
+
+3. Configure the [common-styling](https://github.com/Platform-OS/pos-module-common-styling) to include default styles. It is recommended that you familiarize with the common-styling module by reading its README file. At ensures that your [Layout](https://documentation.platformos.com/developer-guide/pages/layouts) includes:
+
+a) `pos-app` class in the root `html` tag
+b) css files from the common-styling module in the head section
+c) js code to create a global `pos` namespace in the head section
+d) liquid code which displays built-in notifications after `{{ content_for_layout }}` in the body section
+
+Navigate to [app/views/layouts/application.liquid](https://github.com/Platform-OS/pos-module-user/blob/master/app/views/layouts/application.liquid) to see a complete example of a layout file with the common-styling and user module stylesheets and js code included. 
 
 4. (Optional) Create a [migration](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure#migrations) to set up the `USER_DEFAULT_ROLE` [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
 
