@@ -1,0 +1,182 @@
+/*
+  styling for forms and inputs
+
+  general form
+  form paragraphs/fieldsets
+  text inputs
+  textareas
+  selects
+  errors
+*/
+
+
+
+@layer common-styling {
+
+  /* page background and font
+  ============================================================================ */
+  .pos-form {
+
+  }
+
+  
+  /* form paragraphs/fieldsets
+  ============================================================================ */
+  .pos-form fieldset,
+  .pos-form-fieldset {
+    all: unset;
+    display: revert;
+  }
+
+  .pos-form fieldset + fieldset,
+  .pos-form-fieldset + .pos-form-fieldset {
+    margin-top: var(--pos-gap-navigation);
+  }
+
+  .pos-form-simple fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: .2em;
+  }
+
+
+  /* labels
+  ============================================================================ */
+  .pos-form-simple fieldset label {
+    margin-inline-start: -.1em;
+    align-self: start;
+  }
+
+  .pos-form :has([required]) label:after {
+    color: var(--pos-color-important);
+
+    content: " *";
+  }
+
+
+  /* text inputs
+  ============================================================================ */
+  .pos-form-input {
+    all: unset;
+    display: revert;
+  }
+
+  .pos-form [type="text"],
+  .pos-form-input[type="text"],
+  .pos-form [type="email"],
+  .pos-form-input[type="email"],
+  .pos-form [type="password"],
+  .pos-form-input[type="password"],
+  .pos-form [type="url"],
+  .pos-form-input[type="url"] {
+    height: var(--pos-height-input);
+    padding-inline: var(--pos-padding-input);
+
+    border-radius: var(--pos-radius-input);
+    border-width: var(--pos-border-input);
+    border-style: solid;
+    border-color: var(--pos-color-input-default-border);
+    border-radius: var(--pos-radius-input);
+    outline: none;
+    background-color: var(--pos-color-input-default-background);
+    
+    color: var(--pos-color-input-default-foreground);
+
+    transition: all .1s linear;
+  }
+
+  .pos-form [type="text"]:hover:not(:focus),
+  .pos-form-input[type="text"]:hover:not(:focus),
+  .pos-form [type="email"]:hover:not(:focus),
+  .pos-form-input[type="email"]:hover:not(:focus),
+  .pos-form [type="password"]:hover:not(:focus),
+  .pos-form-input[type="password"]:hover:not(:focus),
+  .pos-form [type="url"]:hover:not(:focus),
+  .pos-form-input[type="url"]:hover:not(:focus) {
+    background-color: var(--pos-color-input-default-hover-background);
+    border-color: var(--pos-color-input-default-hover-border);
+
+    color: var(--pos-color-input-default-hover-foreground);
+  }
+
+  .pos-form [type="text"]:focus,
+  .pos-form-input[type="text"]:focus,
+  .pos-form [type="email"]:focus,
+  .pos-form-input[type="email"]:focus,
+  .pos-form [type="password"]:focus,
+  .pos-form-input[type="password"]:focus,
+  .pos-form [type="url"]:focus,
+  .pos-form-input[type="url"]:focus {
+    background-color: var(--pos-color-input-default-focus-background);
+    border-color: var(--pos-color-input-default-focus-border);
+
+    color: var(--pos-color-input-default-focus-foreground);
+  }
+
+  .pos-form [type="text"]:focus-visible,
+  .pos-form-input[type="text"]:focus-visible,
+  .pos-form [type="email"]:focus-visible,
+  .pos-form-input[type="email"]:focus-visible,
+  .pos-form [type="password"]:focus-visible,
+  .pos-form-input[type="password"]:focus-visible,
+  .pos-form [type="url"]:focus-visible,
+  .pos-form-input[type="url"]:focus-visible {
+    box-shadow: 0 0 0 2px var(--pos-color-focused);
+  }
+
+  .pos-form [type="text"]::placeholder,
+  .pos-form-input[type="text"]::placeholder,
+  .pos-form [type="email"]::placeholder,
+  .pos-form-input[type="email"]::placeholder,
+  .pos-form [type="password"]::placeholder,
+  .pos-form-input[type="password"]::placeholder,
+  .pos-form [type="url"]::placeholder,
+  .pos-form-input[type="url"]::placeholder {
+    color: var(--pos-color-input-placeholder);
+  }
+
+
+  /* textareas
+  ============================================================================ */
+  .pos-form textarea {
+    all: unset;
+    display: revert;
+  }
+
+
+  /* selects
+  ============================================================================ */
+  .pos-form select,
+  .pos-form-select {
+    all: revert;
+
+    height: var(--pos-height-input);
+    padding-inline: var(--pos-padding-input);
+
+    background-color: var(--pos-color-input-default-background);
+    border-width: var(--pos-border-input);
+    border-style: solid;
+    border-color: var(--pos-color-input-default-border);
+    border-radius: var(--pos-radius-input);
+  }
+
+
+  /* errors
+  ============================================================================ */
+  .pos-form [type="text"][aria-invalid="true"],
+  .pos-form-input[type="text"][aria-invalid="true"],
+  .pos-form [type="email"][aria-invalid="true"],
+  .pos-form-input[type="email"][aria-invalid="true"],
+  .pos-form [type="password"][aria-invalid="true"],
+  .pos-form-input[type="password"][aria-invalid="true"],
+  .pos-form [type="url"][aria-invalid="true"],
+  .pos-form-input[type="url"][aria-invalid="true"] {
+    border-color: var(--pos-color-important);
+  }
+
+  .pos-form-error {
+    text-wrap: pretty;
+    color: var(--pos-color-important);
+  }
+
+}

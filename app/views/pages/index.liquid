@@ -1,32 +1,101 @@
 {% liquid
   function current_user = 'modules/user/queries/user/current'
 %}
+
 {% if current_user.id %}
+
   {% if context.session.original_user_id == blank %}
-    current_user: {{ current_user }}
-    <form action="/sessions" method="post">
-      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-      <input type="hidden" name="_method" value="delete" />
-      <button type="submit">
-        {{ 'modules/user/users.logout' | t }}
-      </button>
-    </form>
-  {% else %}
-    impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
-    <form action="/sessions/impersonations" method="post">
-      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-      <input type="hidden" name="_method" value="delete" />
-      <input type="hidden" name="redirect_to" value="/admin" />
-      <button type="submit">
-        Log back in as original user
-      </button>
-    </form>
-  {% endif %}
-  <a href="/subscription">Subscription area</a><br/>
-  <a href="/admin">Admin</a><br/>
-  <a href="/oauth">OAuth settings</a><br/>
+    <main class="app-user-page">
+
+      <nav class="app-user-navigation">
+        <a href="/subscription">Subscription area</a>
+        <a href="/admin">Admin</a>
+      </nav>
+
+      <section class="app-user-info pos-card pos-card-highlighted">
+        <header>
+          <h1 class="pos-heading-3">Current user</h1>
+          <form action="/sessions" method="post">
+            <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="pos-button">
+              {{ 'modules/user/users.logout' | t }}
+            </button>
+          </form>
+        </header>
+        <dl class="app-user-info-list">
+          <dt>id</dt>
+          <dd>{{ current_user.id }} </dd>
+          {% for info in current_user %}
+            {% if info[0] != 'id' %}
+              <dt>{{ info[0] }}</dt>
+              <dd>
+                {% if info[0] == 'roles' %}
+                  <ul class="pos-tags-list">
+                    {% for role in info[1] %}
+                      <li class="pos-tag">{{ role }}</li>
+                    {% endfor %}
+                  </ul>
+                  <a href="https://github.com/Platform-OS/pos-module-user?tab=readme-ov-file#setup">How to promote user to superadmin?</a>
+                {% else %}
+                  {{ info[1] }}
+                {% endif %}
+              </dd>
+            {% endif %}
+          {% endfor %}
+        </dl>
+      </section>
+
+      <section class="pos-user-code">
+        <code><pre>
+{%- raw -%}
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+  {{ current_user }}
+%}
+{% endraw %}</pre></code>
+        <p>{{ current_user }}</p>
+      </section>
+
+
+    {% else %}
+      <main class="app-user-page">
+        impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+        <form action="/sessions/impersonations" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="redirect_to" value="/admin">
+          <button type="submit" class="pos-button">
+            Log back in as original user
+          </button>
+        </form>
+      </main>
+
+    {% endif %}
+
+  </main>
+
 {% else %}
-  <a href="/users/new">Register</a><br/>
-  <a href="/sessions/new">Log in</a><br/>
-  <a href="/passwords/reset">Reset password</a>
+
+  <main class="app-user-intro">
+
+    <section class="app-user-intro-content">
+      <h2 class="pos-heading-2">
+        <img src="{{ 'images/pos-sign.svg' | asset_url }}" width="28" height="25" loading="eager" alt="">
+        Example platformOS user management application
+      </h2>
+      <nav>
+        <ul class="app-user-intro-nav">
+          <li><a href="/users/new">Register</a></li>
+          <li><a href="/sessions/new">Log in</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <footer class="app-user-intro-footer">
+      Powered by <a href="https://platformos.com">platformOS</a>
+    </footer>
+  
+  </main>
+
 {% endif %}

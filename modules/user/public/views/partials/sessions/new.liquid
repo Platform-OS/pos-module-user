@@ -6,42 +6,35 @@ metadata:
 ---
 {% liquid
   assign errors = errors | default: params.errors
-  function available_providers = 'modules/user/helpers/get_available_oauth_providers'
-
-  theme_render_rc 'components/molecules/pagetitle', content: 'Login', classes: 'text-center'
 %}
 
-{% capture loginCardContent %}
-  {% theme_render_rc 'components/organisms/login', action: '/sessions', register_page_url: '/sign-up' errors: errors, classes: 'form--login', email_placeholder: 'Type', submit: 'Log in' %}
-  <div class="mt-6 pt-4 border-t">
-    Don't have an account?
-    <a href="/users/new">
-      Request to join
-    </a>
-    <br/>
-    or sign in with OAuth
-    <br/>
-    {% for provider in available_providers %}
-      <form action="/oauth/{{ provider[0] }}/start" method="post">
-        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-        <input type="hidden" name="_method" value="post" />
-        <button type="submit">
-          {{ provider[1].name }}
-        </button>
-      </form>
-    {% endfor %}
+<section class="pos-user-content">
 
-    {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
-  </div>
-  <div class="pt-4">
-    Password lost?
-    <a href="/passwords/reset">
-      Reset
-    </a>
-    {% # theme_render_rc 'components/atoms/button', content: 'Register', href: '/users/new', tag: 'a' %}
-  </div>
-{% endcapture %}
+  <h1 class="pos-heading-2">{{ 'modules/user/sessions.new.login' | t }}</h1>
 
-<section class="container my-auto">
-  {% theme_render_rc 'components/atoms/card', content: loginCardContent, classes: "w-full max-w-lg mx-auto" %}
+  <form action="/sessions" method="POST" class="pos-form pos-form-simple">
+
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+
+    <fieldset>
+      <label for="pos-user-email">{{ 'modules/user/passwords.email' | t }}</label>
+      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+    </fieldset>
+
+    <fieldset>
+      <div class="pos-user-label-password">
+        <label for="pos-user-password">{{ 'modules/user/passwords.password' | t }}</label>
+        <a href="/passwords/reset">{{ 'modules/user/passwords.forgot' | t }}</a>
+      </div>
+      <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
+    </fieldset>
+
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/sessions.new.login' | t }}</button>
+
+  </form>
+
+  <span class="pos-supplementary">{{ 'modules/user/sessions.new.dont_have_account' | t }} <a href="/users/new">{{ 'modules/user/sessions.new.request_to_join' | t }}</a></span>
+
 </section>

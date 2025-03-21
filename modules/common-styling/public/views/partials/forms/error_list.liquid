@@ -1,0 +1,7 @@
+{% if errors %}
+  <ul id="pos-form-{{ name }}-error">
+    {% for error in errors %}
+      <li class="pos-form-error">{{ error }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

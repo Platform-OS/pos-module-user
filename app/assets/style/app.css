@@ -1,0 +1,232 @@
+/*
+  styling for the example user management application
+
+  page background and font
+  commons
+  intro page
+  main header
+  people list
+  empty list information
+*/
+
+
+
+/* page background and font
+============================================================================ */
+.pos-app body {
+  min-height: 100vh;
+  padding: 0;
+
+  background-color: var(--pos-color-page-background);
+}
+
+
+
+/* commons
+============================================================================ */
+code {
+  padding-inline: 2px;
+
+  border-radius: 4px;
+  background-color: var(--pos-color-highlight-background);
+
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+p + p {
+  margin-block-start: 1em;
+}
+
+
+
+/* intro page
+============================================================================ */
+.app-user-intro {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-content: center;
+  grid-row: 1 / 3;
+
+  text-align: center;
+}
+
+/* heading */
+.app-user-intro .pos-heading-2 {
+  margin-block-end: var(--pos-padding-page);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pos-gap-button-button);
+}
+
+  .app-user-intro .pos-heading-2 img {
+    width: 3rem;
+    height: auto;
+  }
+
+  /* navigation */
+.app-user-intro-nav {
+  display: flex;
+  position: relative;
+  justify-content: center;
+
+  font-weight: 500;
+}
+
+  .app-user-intro-nav a {
+    height: var(--pos-height-button);
+    padding-inline: calc(var(--pos-padding-button) * 2);
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-user-intro-nav a:hover,
+  .app-user-intro-nav a:active {
+    color: inherit;
+  }
+
+  .app-user-intro-nav li:hover,
+  .app-user-intro-nav li:has(a:focus-visible) {
+    anchor-name: --app-user-intro-nav-active;
+  }
+
+  .app-user-intro-nav:before {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    z-index: -1;
+
+    border-radius: var(--pos-radius-button);
+    background-color: transparent;
+
+    transition: all .2s ease-in-out;
+
+    content: '';
+  }
+
+  .app-user-intro-nav:has(li:hover):before,
+  .app-user-intro-nav:has(a:focus-visible):before {
+    background-color: var(--pos-color-highlight-background);
+  }
+
+  @supports (anchor-name: --app-user-intro-nav-active) {
+    .app-user-intro-nav:before {
+      width: anchor-size(width);
+      height: anchor-size(height);
+      position-anchor: --app-user-intro-nav-active;
+      inset-inline-start: anchor(start);
+    }
+  }
+
+  .app-user-intro-nav:has(a:active):before {
+    scale: .96;
+  }
+
+/* footer */
+.app-user-intro-footer {
+  margin-block-start: auto;
+  padding: var(--pos-padding-page);
+
+  text-align: center;
+  color: var(--pos-color-content-supplementary);
+}
+
+
+
+/* user forms
+============================================================================ */
+.pos-user-content {
+  margin-block: auto;
+  align-self: center;
+}
+
+
+
+/* logged in user area
+============================================================================ */
+.app-user-page {
+  width: 1000px;
+  padding: var(--pos-padding-page);
+
+  align-self: center;
+}
+
+.app-user-page nav {
+  padding-block: var(--pos-padding-page);
+  display: flex;
+  gap: var(--pos-gap-button-button);
+  justify-content: end;
+}
+
+.app-user-info header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--pos-gap-section-elements);
+}
+
+.app-user-info-list {
+  width: 100%;
+  margin-block-start: var(--pos-gap-section-elements);
+  display: grid;
+  grid-template-columns: min-content 1fr;
+
+  border-radius: var(--pos-radius-panel);
+}
+
+  /* roles */
+  .app-user-info-list dd:has(.pos-tags-list) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .app-user-info-list dt,
+  .app-user-info-list dd {
+    padding-block: calc(var(--pos-padding-cell) / 2);
+  }
+
+  .app-user-info-list dt:not(:first-of-type),
+  .app-user-info-list dd:not(:first-of-type) {
+    border-block-start: 1px solid var(--pos-color-frame);
+  }
+
+  .app-user-info-list dt {
+    padding-inline-end: var(--pos-padding-cell);
+  }
+
+  .app-user-info-list dd {
+    padding-inline-start: var(--pos-padding-cell);
+
+    font-weight: 500;
+  }
+
+.pos-user-code {
+  margin-block-start: var(--pos-gap-section-section);
+
+  background-color: var(--pos-color-highlight-background);
+  border-radius: var(--pos-radius-panel);
+
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+  .pos-user-code p {
+    padding: var(--pos-padding-card);
+  }
+
+  .pos-user-code pre {
+    font-family: monospace;
+    font-size: 1rem;
+  }
+
+  .pos-user-code code:has(pre) {
+    padding: var(--pos-padding-card);
+    display: block;
+
+    border-block-end: 1px solid var(--pos-color-page-background);
+  }

@@ -3,7 +3,7 @@ en:
     email:
       required: Please provide your email address
       format: The email doesn't look right, please check again
-    user_exists: It seems you already have a registered account. Please check the email field again or <a href="/sessions/new">sign in</a> with your credentials.
+    user_exists: It seems you already have a registered account. Please check the email field again or <a href="/sessions/new">log in</a> with your credentials.
     taken: already taken
     not_uniq: not unique
     invalid_email_or_password: Invalid email or password

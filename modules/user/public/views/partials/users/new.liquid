@@ -4,21 +4,44 @@ metadata:
   params:
     values: {}
     errors: []
-    registration_fields: []
 ---
+
 {% liquid
   assign values = values | default: params.values
   assign errors = errors | default: params.errors
-  assign values = values | default: params.values
-  assign registration_fields = registration_fields | default: params.registration_fields
-  assign pageTitle = 'modules/user/users.new.create_account' | t
-  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
 %}
-{% capture registerCardContent %}
-  {% theme_render_rc 'components/organisms/register', action: '/users', errors: errors, values: values, registration_fields: registration_fields, submit: 'SIGN UP', classes: 'form--register' %}
-{% endcapture %}
 
-<section class="container my-auto">
-  {% theme_render_rc 'components/atoms/card', content: registerCardContent, classes: "w-full max-w-lg mx-auto" %}
+<section class="pos-user-content">
+
+  <h1 class="pos-heading-2">{{ 'modules/user/users.new.create_account' | t }}</h1>
+
+  <form action="/users" method="POST" class="pos-form pos-form-simple">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+
+    <fieldset>
+      <label for="pos-user-email">Email</label>
+      <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+    </fieldset>
+
+    <fieldset>
+      <label for="pos-user-password">Password</label>
+      <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% if errors['email'] %}
+        <ul id="pos-user-password-error">
+          {% for error in errors['password'] %}
+            <li class="pos-form-error">{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </fieldset>
+
+    {% render 'modules/common-styling/forms/hcaptcha' %}
+
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.register' | t }}</button>
+
+  </form>
+
+  <span class="pos-supplementary">{{ 'modules/user/users.new.already_have_account' | t }}</span>
+
 </section>
-
