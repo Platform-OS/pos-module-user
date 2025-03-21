@@ -1,0 +1,39 @@
+/*
+  tag / chip component
+
+  tag list
+  basic
+  clickable
+*/
+
+
+@layer common-styling {
+
+    /* tag list
+    ============================================================================ */
+    .pos-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--pos-gap-tag-tag);
+    }
+
+    /* basic
+    ============================================================================ */
+    .pos-tag {
+      padding: .33em 1rem;
+  
+      border-radius: var(--pos-radius-tag);
+      background-color: var(--pos-color-page-background);
+
+      text-transform: uppercase;
+      font-size: .75rem;
+    }
+  
+  
+    /* clickable
+    ============================================================================ */
+    .pos-card.pos-card-highlighted {
+      background-color: var(--pos-color-highlight-background);
+    }
+  
+  }

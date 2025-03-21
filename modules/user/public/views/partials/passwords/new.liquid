@@ -8,15 +8,31 @@ metadata:
 {% liquid
   assign context = context | default: params.context
   assign errors = errors | default: params.errors
-  assign pageTitle = 'modules/user/passwords.edit' | t
-  theme_render_rc 'components/molecules/pagetitle', content: pageTitle, classes: 'text-center'
 %}
 
-<section class="container my-auto">
-  {% capture pwdResetCardContent %}
-    {% theme_render_rc 'components/organisms/new-password', action: '/passwords', context: context, errors: errors, classes: 'form--new-password' %}
-  {% endcapture %}
+<section class="pos-user-content">
 
-  {% theme_render_rc 'components/atoms/card', content: pwdResetCardContent, classes: "w-full max-w-lg mx-auto" %}
+  <h1 class="pos-heading-2">{{ 'modules/user/passwords.edit' | t }}</h1>
+
+  <form action="/passwords" method="POST" class="pos-form pos-form-simple">
+
+    {% render 'modules/core/helpers/authenticity_token', context: context %}
+
+    <fieldset>
+      <label for="pos-user-password">{{ 'modules/user/passwords.new_password' | t }}</label>
+      <input type="password" name="password[password]" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
+    </fieldset>
+
+    <fieldset>
+      <label for="pos-user-password">{{ 'modules/user/passwords.confirm_new_password' | t }}</label>
+      <input type="password" name="password[password_confirmation]" id="pos-user-password_confirmation" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password_confirmation', errors: errors['password_confirmation'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'password_confirmation', errors: errors['password_confirmation'] %}
+    </fieldset>
+
+    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.password_update' | t }}</button>
+
+  </form>
 
 </section>
+

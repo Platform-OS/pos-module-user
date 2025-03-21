@@ -1,9 +1,10 @@
-You have access to subscription.read. <a href="/">Back</a>
+<main class="app-user-intro">
 
-<form action="/sessions" method="post">
-  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-  <input type="hidden" name="_method" value="delete" />
-  <button type="submit">
-    {{ 'modules/user/users.logout' | t }}
-  </button>
-</form>
+  <section>
+    <p class="pos-supplementary">If you are seeing this page, you have been granted permissions <code>subscription.read</code>.</p>
+    <p>Check <code>app\views\pages\subscription\index.liquid</code> to see the code behind.</p>
+
+    <p><a href="/" class="pos-button pos-button-primary">Back</a></p>
+  </section>
+
+</main>

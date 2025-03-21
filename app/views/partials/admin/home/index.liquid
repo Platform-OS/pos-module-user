@@ -1,29 +1,25 @@
-You have access to admin.read. <a href="/">Back</a>
+<main class="app-user-intro">
 
-<form method="post" onsubmit="triggerLogIn(event)" id="logInAs">
-  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-  <select data-user-id>
-    {% for user in users.results %}
-      <option value="{{ user.id }}">{{ user.email }}</option>
-    {% endfor %}
-  </select>
-  <button type="submit">Impersonate</button>
-</form>
+<section>
+  <p class="pos-supplementary">
+    If you are seeing this page, you have been granted permissions <code>admin.read</code>.
+  </p>
 
-<form action="/sessions" method="post">
-  <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-  <input type="hidden" name="_method" value="delete" />
-  <button type="submit">
-    {{ 'modules/user/users.logout' | t }}
-  </button>
-</form>
+  <form method="post" action="/sessions/impersonations" class="pos-form">
+    <fieldset>
+      <label for="user_id">Impersonate any other user</label>
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+      <select name="user_id" id="user_id">
+        {% for user in users.results %}
+          <option value="{{ user.id }}">{{ user.email }}</option>
+        {% endfor %}
+      </select>
+      <button type="submit" class="pos-button pos-button-primary">Impersonate</button>
+    </fieldset>
+  </form>
 
-<script>
-  function triggerLogIn(event) {
-    event.preventDefault();
-    var form = document.getElementById('logInAs');
-    var selectedId = form.querySelector('select[data-user-id]').value;
-    form.action = '/sessions/impersonations/' + selectedId;
-    form.submit();
-  }
-</script>
+  <p><br><a href="/" class="pos-button pos-button-primary">Back</a></p>
+
+</section>
+
+</main>

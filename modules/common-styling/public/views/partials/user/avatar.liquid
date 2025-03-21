@@ -1,0 +1,39 @@
+{% liquid
+  assign size = size | default: params.size | default: 'md'
+  assign class = class | default: params.class
+  assign name = name | default: params.name
+  assign imageSrc = imageSrc | default: params.imageSrc
+
+  assign names = name | split: " "
+
+  case size
+    when 'xs'
+      assign dimensions = 20
+    when 'sm'
+      assign dimensions = 24
+    when 'md'
+      assign dimensions = 32
+    when 'lg'
+      assign dimensions = 48
+    when 'xl'
+      assign dimensions = 94
+    when '2xl'
+      assign dimensions = 160
+    when '3xl'
+      assign dimensions = 192
+  endcase
+%}
+
+{% if imageSrc == blank %}
+
+  <div class="pos-avatar pos-avatar-{{ size }} {{ class }}">
+      {{ names[0] | slice: 0 }}{{ names[1] | slice: 0 }}
+  </div>
+
+{% else %}
+
+  <div class="pos-avatar pos-avatar-{{ size }} {{ class }}">
+    <img src="{{ imageSrc }}" width="{{ dimensions }}" height="{{ dimensions }}" loading="lazy" alt="">
+  </div>
+
+{% endif %}
