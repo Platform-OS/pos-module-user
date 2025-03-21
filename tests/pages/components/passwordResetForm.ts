@@ -10,8 +10,8 @@ export class PasswordResetForm extends Form {
     super(page);
     this.page = page;
     this.nameToLocatorMapping = {
-      password: { type: 'textbox', locator: '#password\\[password\\]' },
-      passwordConfirmation: { type: 'textbox', locator: '#password\\[password_confirmation\\]' }
+      password: { type: 'textbox', locator: '#pos-user-password' },
+      passwordConfirmation: { type: 'textbox', locator: '#pos-user-password_confirmation' }
     };
     this.validationMessage = (text: string) => this.textInputField(text).evaluate((input) => (input as HTMLInputElement).validationMessage);
   };
