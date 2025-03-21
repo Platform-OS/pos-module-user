@@ -1,0 +1,48 @@
+{% liquid
+    function available_providers = 'modules/user/helpers/get_available_oauth_providers'
+    function assigned_providers = 'modules/user/helpers/get_assigned_oauth_providers'
+  %}
+  
+  <header>
+    <h1 class="pos-heading-3">OAuth 2</h1>
+  </header>
+
+  {% if available_providers.size == 0 %} 
+    {{ 'modules/user/oauth.app.no_providers_available' | t }}
+  {% endif %}
+
+  <section class="pos-social-listing">
+    {% for provider in available_providers %}
+      {% if assigned_providers contains provider[0] %}
+        <form class="pos-form-simple" action="/oauth/{{ provider[0] }}/unassign" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="delete" />
+          <button type="submit" class="pos-button pos-button-primary pos-button-social">
+            {% liquid
+              assign icon = "modules/oauth_" | append: provider[1].key | append: "/img/icon.svg"
+              assign text = "modules/oauth_" | append: provider[1].key | append: "/module.button.disconnect"
+            %}
+            <span class="pos-button-social">
+              <span class="pos-button-social-icon"><img loading="eager" width="32" height="32" src="{{ icon | asset_url }}" /></span>
+              <span class="pos-button-social-text">{{ text | t }}</span>
+            </span>
+          </button>
+        </form>
+      {% else %}
+        <form class="pos-form-simple" action="/oauth/{{ provider[0] }}/start" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="post" />
+          <button type="submit" class="pos-button pos-button-primary pos-button-social">
+            {% liquid
+              assign icon = "modules/oauth_" | append: provider[1].key | append: "/img/icon.svg"
+              assign text = "modules/oauth_" | append: provider[1].key | append: "/module.button.continue"
+            %}
+            <span class="pos-button-social">
+              <span class="pos-button-social-icon"><img loading="eager" width="32" height="32" src="{{ icon | asset_url }}" /></span>
+              <span class="pos-button-social-text">{{ text | t }}</span>
+            </span>
+          </button>
+        </form>
+      {% endif %}
+    {% endfor %}
+  </section>

@@ -1,6 +1,7 @@
 en:
   oauth:
     app:
+      no_providers_available: 'There are no providers available'
       provider_already_assigned: 'Selected provider is already in use.'
       sub_already_assigned: 'External account is already connected to a different user.'
       signed_in: 'Successfully signed in using OAuth 2.'
