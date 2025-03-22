@@ -1,0 +1,21 @@
+---
+slug: oauth/:provider/unassign
+method: delete
+---
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+
+  if context.params.provider == blank or current_user.id == blank
+    redirect_to '/'
+  endif
+
+  assign provider = context.params.provider | upcase
+
+  graphql g = 'modules/user/oauth/find_by_user_id', provider: provider, user_id: current_user.id
+  if g.records.total_entries > 0
+    graphql g = 'modules/user/oauth/delete', id: g.records.results[0].id
+  endif
+
+  function _ = 'modules/user/helpers/flash', notice: 'modules/user/oauth.app.unassigned_provider'
+  redirect_to '/'
+%}

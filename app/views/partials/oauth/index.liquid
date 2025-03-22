@@ -1,0 +1,62 @@
+{% liquid
+  function current_user = 'modules/user/queries/user/current'
+%}
+
+{% if current_user.id %}
+
+  {% if context.session.original_user_id == blank %}
+    <main class="app-user-page">
+
+      <nav class="app-user-navigation">
+        <a href="/">Home</a>
+        <a href="/subscription">Subscription area</a>
+        <a href="/admin">Admin</a>
+        <a href="/oauth">OAuth 2</a>
+      </nav>
+
+      <section class="pos-card pos-card-highlighted">
+
+        {% render 'modules/user/oauth/listing' %}
+
+      </section>
+    </main>
+
+  {% else %}
+    <main class="app-user-page">
+      impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+      <form action="/sessions/impersonations" method="post">
+        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+        <input type="hidden" name="_method" value="delete">
+        <input type="hidden" name="redirect_to" value="/admin">
+        <button type="submit" class="pos-button">
+          Log back in as original user
+        </button>
+      </form>
+    </main>
+
+  {% endif %}
+
+{% else %}
+
+  <main class="app-user-intro">
+
+    <section class="app-user-intro-content">
+      <h2 class="pos-heading-2">
+        <img src="{{ 'images/pos-sign.svg' | asset_url }}" width="28" height="25" loading="eager" alt="">
+        Example platformOS user management application
+      </h2>
+      <nav>
+        <ul class="app-user-intro-nav">
+          <li><a href="/users/new">Register</a></li>
+          <li><a href="/sessions/new">Log in</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <footer class="app-user-intro-footer">
+      Powered by <a href="https://platformos.com">platformOS</a>
+    </footer>
+  
+  </main>
+
+{% endif %}

@@ -1,0 +1,27 @@
+---
+method: post
+slug: oauth/:provider/start
+---
+
+{% liquid
+    if context.params.provider == blank
+      log "Provider not provided", type: "ERROR"
+      redirect_to '/'
+    endif
+  
+    function available_providers = 'modules/user/helpers/get_available_oauth_providers'
+    assign provider = context.params.provider | upcase
+    assign selected_provider = available_providers[provider]
+    
+    if selected_provider == blank
+      assign error = "Provider does not exist: " | append: provider
+      log error, type: "ERROR"
+      redirect_to '/'
+    endif
+    
+    session state = '' | uuid
+
+    assign command_path = "modules/oauth_" | append: selected_provider.key | append: "/helpers/get_redirect_url"
+    function url = command_path, provider: selected_provider, state: context.session.state
+    redirect_to url
+%}

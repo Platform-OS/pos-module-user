@@ -1,0 +1,5 @@
+en:
+  module:
+    button:
+      continue: Continue with GitHub
+      disconnect: Disconnect from GitHub

@@ -1,0 +1,6 @@
+{
+  "name": "pos-module-oauth-github",
+  "machine_name": "oauth_github",
+  "type": "module",
+  "version": "0.0.7-beta"
+}

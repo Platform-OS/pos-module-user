@@ -1,0 +1,11 @@
+{% liquid 
+assign data = "{}" | parse_json
+hash_assign data['scope'] = "user:email"
+hash_assign data['client_id'] = provider.client_id
+hash_assign data["state"] = state
+
+assign querified_data = data | querify
+assign url = "https://github.com/login/oauth/authorize?" | append: querified_data
+
+return url
+%}

@@ -1,0 +1,8 @@
+name: oauth
+properties:
+  - name: user_id
+    type: string
+  - name: provider
+    type: string
+  - name: sub
+    type: string

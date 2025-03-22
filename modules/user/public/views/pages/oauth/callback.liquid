@@ -1,0 +1,86 @@
+---
+method: get
+slug: oauth/:provider/callback
+---
+{% liquid
+  # platformos-check-disable ConvertIncludeToRender
+
+  function current_user = "modules/user/queries/user/current"
+  assign state = context.session.state
+  if context.params.code == blank or context.params.provider == blank or context.params.state != state
+    include 'modules/core/helpers/redirect_to', error: "modules/user/oauth.app.invalid_request"
+    return
+  endif
+
+  function available_providers = "modules/user/helpers/get_available_oauth_providers"
+  assign provider = context.params.provider | upcase
+  assign selected_provider = available_providers[provider]
+  
+  if selected_provider == blank
+    include 'modules/core/helpers/redirect_to'
+    return
+  endif
+  
+  # check if user already has a given provider
+  if current_user.id != blank
+    graphql g = "modules/user/oauth/find_by_user_id", provider: provider, user_id: current_user.id
+    if g.records.total_entries > 0
+      log "Provider already assigned", type: "ERROR"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.provider_already_assigned"
+      return
+    endif
+  endif
+
+  # fetch user info using the appropriate module
+  assign command_path = "modules/oauth_" | append: selected_provider.key | append: "/helpers/get_user_info"
+  function user_info = command_path, provider: selected_provider, code: context.params.code
+
+  if user_info.valid == false
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.user_info_error"
+    return
+  endif
+
+  assign user_sub = user_info.sub | json
+  assign user_email = user_info.email
+  assign user_first_name = user_info.first_name
+  assign user_last_name = user_info.last_name
+  
+  # check if sub is already registered to an existing user
+  graphql g = "modules/user/oauth/find_by_sub", provider: provider, sub: user_sub
+  assign found_user_id = current_user.id
+  assign create_provider_assignment = true
+  if g.records.total_entries > 0
+    if current_user.id != null
+      log "Sub already assigned", type: "ERROR"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.sub_already_assigned"
+      return
+    else
+      assign found_user_id = g.records.results[0].user_id
+      assign create_provider_assignment = false
+    endif
+  endif
+
+  # check if user account should be created
+  if current_user.id == null and found_user_id == null
+    function new_user = "modules/user/commands/oauth/create_user", user_first_name: user_first_name, user_last_name: user_last_name, user_email: user_email
+    if new_user == null or new_user.valid == false
+      log new_user.errors, type: "ERROR"
+      include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.failed_to_create_account"
+      return
+    endif
+    assign found_user_id = new_user.id
+  endif
+  
+  # create a connection between user and provider
+  if create_provider_assignment
+    graphql g = "modules/user/oauth/create", sub: user_sub, provider: provider, user_id: found_user_id
+  endif
+  
+  # sign in as user
+  if current_user.id == blank
+    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false    
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.signed_in"
+  else
+    include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.assigned_provider"
+  endif
+%}

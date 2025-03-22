@@ -1,0 +1,21 @@
+mutation ($user_id: String!, $provider: String!, $sub: String!) {
+  record: record_create(
+    record: {
+      table: "modules/user/oauth"
+      properties: [
+        { name: "user_id", value: $user_id }
+        { name: "provider", value: $provider }
+        { name: "sub", value: $sub }
+      ]
+    }
+  ) {
+    id
+    create_at: created_at
+    updated_at: updated_at
+    table
+
+    user_id: property(name: "user_id")
+    provider: property(name: "provider")
+    sub: property(name: "sub")
+  }
+}

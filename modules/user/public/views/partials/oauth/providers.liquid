@@ -1,0 +1,24 @@
+{% function available_providers = 'modules/user/helpers/get_available_oauth_providers' %}
+  {% if available_providers.size %}
+    <div class="pos-user-social-login-separator">
+      <span>{{ 'modules/user/sessions.new.social_login_separator' | t }}</span>
+    </div>
+    <div class="pos-user-social-login-providers">
+      {% for provider in available_providers %}
+        <form class="pos-form pos-form-simple" action="/oauth/{{ provider[0] }}/start" method="post">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="post" />
+          <button type="submit" class="pos-button pos-button-primary">
+            {% liquid
+              assign icon = "modules/oauth_" | append: provider[1].key | append: "/img/icon.svg"
+              assign text = "modules/oauth_" | append: provider[1].key | append: "/module.button.continue"
+            %}
+            <span class="pos-button-social">
+              <span class="pos-button-social-icon"><img loading="eager" width="32" height="32" src="{{ icon | asset_url }}" /></span>
+              <span class="pos-button-social-text">{{ text | t }}</span>
+            </span>
+          </button>
+        </form>
+      {% endfor %}
+    </div>
+  {% endif %}
