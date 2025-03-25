@@ -33,6 +33,57 @@
   justify-content: space-between;
 }
 
-  .pos-user-label-password a:not(:hover):not(:active) {
-    color: var(--pos-color-content-foreground-supplementary);
-  }
+.pos-user-label-password a:not(:hover):not(:active) {
+  color: var(--pos-color-content-foreground-supplementary);
+}
+
+.pos-user-social-login-separator {
+  margin: 20px 0px;
+  text-align: center;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 8px;
+  text-transform: uppercase;
+}
+
+.pos-user-social-login-separator::before,
+.pos-user-social-login-separator::after {
+  content: "";
+  display: inline-block;
+  border-top: 1px solid var(--pos-color-content-foreground-supplementary);
+  flex-grow: 1;
+}
+
+.pos-user-content .pos-user-social-login-providers form {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.pos-button-social {
+  display: flex;
+  place-items: center;
+}
+
+.pos-button-social {
+  width: 100%;
+}
+
+.pos-button-social-icon {
+  width: 30%;
+  display: flex;
+  place-content: center;
+  place-items: center;
+}
+
+.pos-button-social-text {
+  width: 70%;
+}
+
+.pos-social-listing {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  gap: 10px;
+}

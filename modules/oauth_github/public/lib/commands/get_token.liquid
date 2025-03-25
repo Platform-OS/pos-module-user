@@ -1,0 +1,15 @@
+{% liquid
+  function query = 'modules/oauth_github/commands/get_token/build', object: data
+  function query = 'modules/oauth_github/commands/get_token/check', object: query
+  assign query = query | querify
+
+  if query.valid
+    assign headers = "{}" | parse_json
+    hash_assign headers["Accept"] = "application/json"
+
+    graphql r  = "modules/oauth_github/get_token", body: query, headers: headers
+    assign result = r.api_call_send.response.body | parse_json
+    return result
+  endif
+%}
+  

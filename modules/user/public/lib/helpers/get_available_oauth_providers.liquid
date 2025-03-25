@@ -1,0 +1,26 @@
+{% liquid 
+    assign available_providers = "{}" | parse_json
+    assign keys = context.constants | hash_keys
+    for item in keys
+      assign starts_with = item | start_with: "OAUTH2_"
+      assign ends_with = item | end_with: "_PROVIDER"
+      if starts_with and ends_with and context.constants[item] != null
+        assign provider_id = item | replace: "OAUTH2_", "" | replace: "_PROVIDER", "" | upcase
+  
+        assign provider_key = "OAUTH2_" | append: provider_id | append: "_PROVIDER"
+        assign name_key = "OAUTH2_" | append: provider_id | append: "_NAME"
+        assign client_id_key = "OAUTH2_" | append: provider_id | append: "_CLIENT_ID"
+        assign secret_value_key = "OAUTH2_" | append: provider_id | append: "_SECRET_VALUE"
+
+        assign provider_data = "{}" | parse_json
+        hash_assign provider_data['key'] = context.constants[provider_key]
+        hash_assign provider_data['name'] = context.constants[name_key]
+        hash_assign provider_data['client_id'] = context.constants[client_id_key]
+        hash_assign provider_data['secret_value'] = context.constants[secret_value_key]
+
+        hash_assign available_providers[provider_id] = provider_data
+      endif 
+    endfor
+
+    return available_providers
+  %}

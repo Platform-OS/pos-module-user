@@ -1,0 +1,13 @@
+en:
+  oauth:
+    app:
+      no_providers_available: 'There are no providers available'
+      provider_already_assigned: 'Selected provider is already in use.'
+      sub_already_assigned: 'External account is already connected to a different user.'
+      signed_in: 'Successfully signed in using OAuth 2.'
+      assigned_provider: 'Successfully assigned OAuth 2 provider.'
+      unassigned_provider: 'Successfully unassigned OAuth 2 provider.'
+      failed_to_create_account: 'Could not create a new account. Please try again later.'
+      invalid_request: 'Invalid request.'
+      unassign_provider: 'Unassign'
+      user_info_error: 'Could not fetch user info from OAuth 2 provider. Please try again later.'

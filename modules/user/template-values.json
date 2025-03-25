@@ -2,7 +2,7 @@
   "name": "User",
   "machine_name": "user",
   "type": "module",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "dependencies": {
     "core": "^1.5.0",
     "common-styling": "^0.4.0"

@@ -1,0 +1,23 @@
+{% comment %}
+  params:
+    - api_template
+    - data
+    - timeout
+  returns:
+    {
+      response {
+        status
+        body
+      }
+      errors {
+        message
+      }
+    }
+{% endcomment %}
+{%- liquid
+  graphql g = 'modules/user/api_call', api_template: api_template, data: data, timeout: timeout
+  if g.api_call_send == blank
+    log g, type: "QUERY ERROR"
+  endif
+  return g.api_call_send
+-%}

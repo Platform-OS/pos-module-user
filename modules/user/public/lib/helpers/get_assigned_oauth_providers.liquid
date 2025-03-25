@@ -1,0 +1,7 @@
+{% liquid
+    function current_user = 'modules/user/queries/user/current'
+    graphql g = 'modules/user/oauth/find_by_user_id', user_id: current_user.id
+
+    assign providers = g.records.results | map: 'provider'
+    return providers
+%}

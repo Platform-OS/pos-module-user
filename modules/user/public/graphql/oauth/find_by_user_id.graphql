@@ -1,0 +1,29 @@
+query find_by_user_id(
+  $user_id: String!
+  $provider: String = null
+) {
+  records(
+    per_page: 1
+    filter: {
+      table: { value: "modules/user/oauth" }
+      properties: [
+        { name: "user_id", value: $user_id }
+        { name: "provider", value: $provider }
+      ]
+    }
+  ) {
+    total_entries
+    total_pages
+    has_previous_page
+    has_next_page
+    results {
+      id
+      created_at: created_at
+      updated_at: updated_at
+      table
+
+      user_id: property(name: "user_id")
+      provider: property(name: "provider")
+    }
+  }
+}
