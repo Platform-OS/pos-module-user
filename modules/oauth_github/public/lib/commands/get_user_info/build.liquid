@@ -1,7 +1,7 @@
 {% parse_json object %}
     {
       "Accept": "application/json",
-      "Authorization": object
+      "Authorization": {{ object | json }}
     }
 {% endparse_json %}
 {% return object %}

@@ -520,17 +520,7 @@ This functionality allows a user with `users.impersonate` permission to log in a
 This feature allows users to authenticate using external identity providers such as Google, Facebook or GitHub.
 
 #### Configuration
-`{name}` can be set to any string identifying an OAuth2 integration.
-
-To configure a selected module, please set the following constants:
-
-| Constant | Value |
-| - | - |
-| OAUTH2_{name}_PROVIDER | This value must match one OAuth2 module. Available values: `github`, `facebook`, `google` |
-| OAUTH2_{name}_CLIENT_ID | Client ID of the OAuth 2 application. |
-| OAUTH2_{name}_SECRET_VALUE| Client ID of the OAuth 2 application. |
-
-and add the corresponding module (oauth_github, oauth_facebook, oauth_google) to the project modules.
+Configuring OAuth2 requires installing selected additional OAuth2 provider modules. Please follow the instructions provided by each installed module to configure it.
 
 #### Custom OAuth2 provider
 
