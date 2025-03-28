@@ -125,18 +125,6 @@ modules_that_allow_delete_on_deploy:
 - user
 ```
 
-### Troubleshooting
-
-> There is an error about missing partial `Liquid error: can't find partial "components/molecules/pagetitle". url: my-application.staging.oregon.platform-os.com/users/new page: users/new`
-
-This error occurs because the [app/config.yml](/developer-guide/platformos-workflow/directory-structure/config) has not been configured as instructed. You need to add the `theme_search_paths` in the `app/config.yml` file:
-
-```yml
-theme_search_paths:
-  - ''
-  - modules/user
-```
-
 ## Example application
 
 We recommend creating a [new Instance](https://partners.platformos.com/instances/new) and deploying this module as an application to get a better understanding of the basics and the functionality this module provides. When you install the module using `pos-cli modules install user`, only the contents of the `modules/user` will be available in your project. The `app` directory serves as an example of how you could incorporate the User Module into your application. When analyzing the code in the `app` directory, pay attention to the following files:
