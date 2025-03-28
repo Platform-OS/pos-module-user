@@ -381,10 +381,11 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
-function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
+function current_user = 'modules/user/queries/user/current'
+function can = 'modules/user/helpers/can_do', requester: current_user, do: 'admin_pages.view'
 ```
 
-It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) in a clean way.
+It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) cleanly.
 
 ##### `can_do_or_unauthorized` command
 
