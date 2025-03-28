@@ -381,9 +381,7 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
-# platformos-check-disable CodeUnrachable
 function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
-# platformos-check-enable CodeUnrachable
 ```
 
 It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) in a clean way.
@@ -395,9 +393,9 @@ If the user does not have permission, the system renders a **403 Unauthorized** 
 This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 ```
-# platformos-check-disable ConvertIncludeToRender
+# platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register', redirect_anonymous_to_login: true
-# platformos-check-enable ConvertIncludeToRender
+# platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
 The `platformos-check-disable` and `platformos-check-enable` tags are used to prevent the [platformOS-check](https://github.com/Platform-OS/platformos-check) from reporting a warning for using the `include` tag instead of the recommended `render` tag.
@@ -408,9 +406,9 @@ If the user does not have permission, they will be redirected to the URL provide
 
 
 ```
-# platformos-check-disable ConvertIncludeToRender
+# platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', return_url: '/sessions/new'
-# platformos-check-enable ConvertIncludeToRender
+# platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
 The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
