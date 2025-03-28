@@ -4,20 +4,14 @@
 
 {% parse_json fields %}
 [
-  {
-    "name": "email",
-    "required": true,
-    "type": "email",
-    "weight": 0,
-    "label": "Email"
-  },
-  {
-    "name": "password",
-    "required": true,
-    "type": "password",
-    "weight": 1,
-    "label": "Password"
-  }
+  {% comment %}
+    Example value:
+    {
+      "name": "email",
+      "type": "email",
+      "label": "Email"
+    }
+  {% endcomment %}
 ]
 {% endparse_json %}
 {% liquid

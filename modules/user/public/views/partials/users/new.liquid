@@ -4,6 +4,7 @@ metadata:
   params:
     values: {}
     errors: []
+    registration_fields: []
 ---
 
 {% liquid
@@ -17,6 +18,13 @@ metadata:
 
   <form action="/users" method="POST" class="pos-form pos-form-simple">
     <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+    {% for field in registration_fields %}
+      <fieldset>
+        <label for="pos-user-{{ field.name }}">{{ field.label }}</label>
+        <input type="{{ field.type }}" name="{{ field.name }}" id="pos-user-{{ field.name }}" value="{{ values[field.name] }}" required placeholder="{{ field.label | downcase }}"{% render 'modules/common-styling/forms/error_input_handler', name: '{{field.name}}', errors: errors[field.name] %}>
+        {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+      </fieldset>
+    {% endfor %}
 
     <fieldset>
       <label for="pos-user-email">Email</label>

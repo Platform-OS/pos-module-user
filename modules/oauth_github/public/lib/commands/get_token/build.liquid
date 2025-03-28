@@ -3,7 +3,7 @@
       "grant_type": "authorization_code",
       "code": {{ object.code | json }},
       "client_id": {{ object.client_id | json }},
-      "client_secret": {{ object.client_secret | json }},
+      "client_secret": {{ object.client_secret | json }}
     }
   {% endparse_json %}
   {% return object %}
