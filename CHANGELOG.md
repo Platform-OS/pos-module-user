@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v4.1.1
+* Fix: Hide OAuth 2 section when no providers are available
+
 ## v4.1.0
 * Feature: OAuth 2
 
