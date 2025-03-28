@@ -393,6 +393,7 @@ If the user does not have permission, the system renders a **403 Unauthorized** 
 This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 ```
+function current_user = 'modules/user/queries/user/current'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register', redirect_anonymous_to_login: true
 # platformos-check-enable ConvertIncludeToRender, UnreachableCode
@@ -406,6 +407,7 @@ If the user does not have permission, they will be redirected to the URL provide
 
 
 ```
+function current_user = 'modules/user/queries/user/current'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', return_url: '/sessions/new'
 # platformos-check-enable ConvertIncludeToRender, UnreachableCode
