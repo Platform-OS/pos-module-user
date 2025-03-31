@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "pw-tests": "playwright test tests --project=test",
+    "admin-panel-pw-tests": "playwright test tests --project=admin-panel"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.47.2",
+    "@types/node": "^22.13.10"
+  }
+}
