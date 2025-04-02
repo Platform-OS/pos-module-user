@@ -80,7 +80,7 @@
     outline: none;
     background-color: var(--pos-color-input-default-background);
     
-    color: var(--pos-color-input-default-foreground);
+    color: var(--pos-color-input-default-text);
 
     transition: all .1s linear;
   }
@@ -96,7 +96,7 @@
     background-color: var(--pos-color-input-default-hover-background);
     border-color: var(--pos-color-input-default-hover-border);
 
-    color: var(--pos-color-input-default-hover-foreground);
+    color: var(--pos-color-input-default-hover-text);
   }
 
   .pos-form [type="text"]:focus,
@@ -110,7 +110,7 @@
     background-color: var(--pos-color-input-default-focus-background);
     border-color: var(--pos-color-input-default-focus-border);
 
-    color: var(--pos-color-input-default-focus-foreground);
+    color: var(--pos-color-input-default-focus-text);
   }
 
   .pos-form [type="text"]:focus-visible,

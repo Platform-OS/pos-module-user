@@ -1,4 +1,4 @@
-vWIP
+WIP
 
 This module contains reusable CSS and JS, which is or will be leveraged by [platformOS modules](https://documentation.platformos.com/developer-guide/modules/platformos-modules#our-modules), and which you wil be able to use in your projects. The idea is to provide a consistent and documented way of providing modules which look good from a start and which you can easily customize to fit your needs.
 
@@ -53,6 +53,11 @@ This command installs the Common Styling Module and updates or creates the `app/
 When using the `common-styling` module you can easiliy configure the looks of components by overwriting the CSS variables stored in `pos-config.css`. Just copy the variables you need to overwrite to the CSS of your app so they can be overwritten.
 
 When building CSS don't hardcode any (well... probably with some exeptions) color or size. Everything should use CSS variables that are in line with [Figma variables](https://documentation.platformos.com/kits/ui/platformos-design-kit#download). (Pro tip - you can use calc(), from-color() or color-mix() if needed).
+
+
+## Dark mode
+
+There are two base themes provided by default - a light and a dark one. To enable dark mode on your app, please use `.pos-theme-darkEnabled` class on the root `html` tag of your layout. It will switch to dark theme automatically based on the system settings or - if you need to switch manually - please use `.pos-theme-dark` class on the root `html` tag of your layout.
 
 
 ## Scoping CSS

@@ -22,13 +22,13 @@
 
     text-rendering: optimizeLegibility;
     font-family: var(--pos-font-default);
-    color: var(--pos-color-content-foreground);
+    color: var(--pos-color-content-text);
   }
 
   .pos-app ::selection {
     background-color: var(--pos-color-selection-background);
 
-    color: var(--pos-color-selection-foreground);
+    color: var(--pos-color-selection-text);
   }
 
 }

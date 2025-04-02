@@ -63,7 +63,7 @@
   /* sidenotes
   ============================================================================ */
   .pos-supplementary {
-    color: var(--pos-color-light-content-foreground-supplementary);
+    color: var(--pos-color-light-content-text-supplementary);
   }
 
 }

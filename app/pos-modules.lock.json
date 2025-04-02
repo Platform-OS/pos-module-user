@@ -4,6 +4,6 @@
     "tests": "1.0.1",
     "core": "2.0.6",
     "oauth_github": "0.0.9-beta",
-    "common-styling": "0.4.0"
+    "common-styling": "1.2.0"
   }
 }
