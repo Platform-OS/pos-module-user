@@ -48,7 +48,7 @@
     line-height: 1.2em;
     font-size: .95rem;
     font-weight: 500;
-    color: var(--pos-color-button-secondary-foreground);
+    color: var(--pos-color-button-secondary-text);
 
     transition: all .1s linear;
   }
@@ -57,7 +57,7 @@
     background-color: var(--pos-color-button-secondary-hover-background);
     border-color: var(--pos-color-button-secondary-hover-frame);
 
-    color: var(--pos-color-button-secondary-hover-foreground);
+    color: var(--pos-color-button-secondary-hover-text);
   }
 
   .pos-button:active {
@@ -73,7 +73,7 @@
     background-color: var(--pos-color-button-secondary-disabled-background);
     border-color: var(--pos-color-button-secondary-disabled-frame);
 
-    color: var(--pos-color-button-secondary-disabled-foreground);
+    color: var(--pos-color-button-secondary-disabled-text);
   }
 
   /* icon */
@@ -106,14 +106,14 @@
     background-color: var(--pos-color-button-primary-background);
     border-color: var(--pos-color-button-primary-frame);
 
-    color: var(--pos-color-button-primary-foreground);
+    color: var(--pos-color-button-primary-text);
   }
 
   .pos-button-primary:hover {
     background-color: var(--pos-color-button-primary-hover-background);
     border-color: var(--pos-color-button-primary-hover-frame);
 
-    color: var(--pos-color-button-primary-hover-foreground);
+    color: var(--pos-color-button-primary-hover-text);
   }
 
   .pos-button-primary:active {
@@ -124,7 +124,7 @@
     background-color: var(--pos-color-button-primary-disabled-background);
     border-color: var(--pos-color-button-primary-disabled-frame);
 
-    color: var(--pos-color-button-primary-disabled-foreground);
+    color: var(--pos-color-button-primary-disabled-text);
   }
 
 }

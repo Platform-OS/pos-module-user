@@ -5,6 +5,6 @@
   "version": "4.1.1",
   "dependencies": {
     "core": "^1.5.0",
-    "common-styling": "^0.4.0"
+    "common-styling": "^1.2.0"
   }
 }
