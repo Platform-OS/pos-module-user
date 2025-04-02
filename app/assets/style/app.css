@@ -94,10 +94,6 @@ p + p {
     transition-delay: .1s;
   }
 
-  .app-user-intro nav li {
-    anchor-name: none;
-  }
-
   .app-user-intro-nav li:hover,
   .app-user-intro-nav li:has(a:focus-visible) {
     anchor-name: --app-user-intro-nav-active;
