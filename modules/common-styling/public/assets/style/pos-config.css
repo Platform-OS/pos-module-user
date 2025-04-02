@@ -250,7 +250,7 @@
   /* primary action button text and icons icons when a pointer is over it */
   --pos-color-dark-button-primary-hover-text: #000;
   /* border around primary action button when a pointer is over it */
-  --pos-color-dark-button-primary-hover-frame: var(--pos-color-dark-button-primary-hover-background);
+  --pos-color-dark-button-primary-hover-frame: var(--pos-color-dark-button-primary-frame);
   /* primary action button background when it is being pressed */
   --pos-color-dark-button-primary-active-background: var(--pos-color-dark-button-primary-hover-background);
   /* primary action button text and icons icons when it is being pressed */
