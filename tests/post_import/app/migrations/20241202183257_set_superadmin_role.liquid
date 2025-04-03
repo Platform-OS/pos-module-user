@@ -1,0 +1,18 @@
+{% assign roles = '["member", "superadmin"]' | parse_json %}
+
+{% if context.environment == "staging" %}
+  {% graphql r, userId: 1, roles: roles %}
+    mutation setAdminUser($roles: [String], $userId: ID) {
+      user_update(
+        id: $userId
+          user: { properties: { name: "roles", value_array: $roles }}
+      ) {
+        id
+        email
+        deleted_at
+        properties
+      }
+    }
+  {% endgraphql %}
+  {% log r, type: 'migrations/set_superadmin_role'  %}
+{% endif %}

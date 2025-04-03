@@ -40,25 +40,27 @@
   /* background color used under the content (grid, cards, panels) */
   --pos-color-light-content-background: #fff;
   /* general content text */
-  --pos-color-light-content-foreground: #374151;
+  --pos-color-light-content-text: #374151;
+  /* general content icons (moight be different shade due to contrast) */
+  --pos-color-light-content-icon: #405568;
   /* sidenotes, metadata, table headers */
-  --pos-color-light-content-foreground-supplementary: #6b7280;
+  --pos-color-light-content-text-supplementary: #6b7280;
   /* prominent text used to highlight important information */
-  --pos-color-light-content-foreground-prominent: #141414;
-  /* background color user under the content when the colors are inverted */
-  --pos-color-light-content-inverted-background: var(--pos-color-light-content-foreground);
+  --pos-color-light-content-text-prominent: #141414;
   /* content text when placed on an inverted contrasty background */
-  --pos-color-light-content-inverted-foreground: var(--pos-color-light-content-background);
+  --pos-color-light-content-inverted-text: var(--pos-color-light-content-background);
   /* dividers, separators, frames, table rows */
   --pos-color-light-frame: #e2e8f0;
   /* highlighted elements background, like a navigation item when it is hovered or panels that need to stand out from the rest of the page like a filters panel */
   --pos-color-light-highlight-background: #eff2f6;
   /* highlighted elements text and icons */
-  --pos-color-light-highlight-foreground: var(--pos-color-light-content-foreground);
+  --pos-color-light-highlight-text: var(--pos-color-light-content-text);
   /* background of sections of the page that needs to really stand out, like call to actions */
   --pos-color-light-standout-background: #fff;
+  /* background of sections of the page that needs to really stand out when poitner hovers over */
+  --pos-color-light-standout-background-hover: #f7f8fa;
   /* text and icons placed on the sections that needs to really stand out */
-  --pos-color-light-standout-foreground: var(--pos-color-light-content-foreground);
+  --pos-color-light-standout-text: var(--pos-color-light-content-text);
 
 
 
@@ -68,7 +70,7 @@
   /* active elements suggesting a possible interaction */
   --pos-color-light-interactive: #2173c4;
   /* active elements with possible interaction when a pointer is over them */
-  --pos-color-light-interactive-hover: #1a5f9c;
+  --pos-color-light-interactive-hover: #194f90;
   /* active elements with possible interaction when they are pressed */
   --pos-color-light-interactive-active: #1a5f9c;
   /* disabled elements that could become or has been interactive */
@@ -77,52 +79,52 @@
   /* primary action button background */
   --pos-color-light-button-primary-background: #141414;
   /* primary action button text and icons */
-  --pos-color-light-button-primary-foreground: #fff;
+  --pos-color-light-button-primary-text: #fff;
   /* border around primary action button */
   --pos-color-light-button-primary-frame: var(--pos-color-light-button-primary-background);
   /* primary action button background when a pointer is over it */
-  --pos-color-light-button-primary-hover-background: #2e70c1;
+  --pos-color-light-button-primary-hover-background: #374151;
   /* primary action button text and icons icons when a pointer is over it */
-  --pos-color-light-button-primary-hover-foreground: #fff;
+  --pos-color-light-button-primary-hover-text: #fff;
   /* border around primary action button when a pointer is over it */
-  --pos-color-light-button-primary-hover-frame: var(--pos-color-light-button-primary-frame);
+  --pos-color-light-button-primary-hover-frame: var(--pos-color-light-button-primary-hover-background);
   /* primary action button background when it is being pressed */
   --pos-color-light-button-primary-active-background: var(--pos-color-light-button-primary-hover-background);
   /* primary action button text and icons icons when it is being pressed */
-  --pos-color-light-button-primary-active-foreground: var(--pos-color-light-button-primary-hover-foreground);
+  --pos-color-light-button-primary-active-text: var(--pos-color-light-button-primary-hover-text);
   /* border around primary action button when it is being pressed */
   --pos-color-light-button-primary-active-frame: var(--pos-color-light-button-primary-hover-frame);
   /* primary action button background when it is disabled */
-  --pos-color-light-button-primary-disabled-background: #7fa9dd;
+  --pos-color-light-button-primary-disabled-background: color-mix(in srgb, var(--pos-color-light-button-primary-background) 30%, transparent 70%);
   /* primary action button text and icons when it is disabled */
-  --pos-color-light-button-primary-disabled-foreground: #fff;
+  --pos-color-light-button-primary-disabled-text: var(--pos-color-light-button-primary-text);
   /* border around primary action button when it is disabled */
-  --pos-color-light-button-primary-disabled-frame: var(--pos-color-button-primary-disabled-background);
+  --pos-color-light-button-primary-disabled-frame: var(--pos-color-light-button-primary-disabled-background);
 
   /* secondary action button background */
   --pos-color-light-button-secondary-background: #f7f8fa;
   /* secondary action button text and icons */
-  --pos-color-light-button-secondary-foreground: #2173c4;
+  --pos-color-light-button-secondary-text: var(--pos-color-light-interactive);
   /* border around secondary action button */
-  --pos-color-light-button-secondary-frame: #b6bdca;
+  --pos-color-light-button-secondary-frame: #6b7280;
   /* secondary action button background when a pointer is over it */
-  --pos-color-light-button-secondary-hover-background: var(--pos-color-light-button-secondary-background);
+  --pos-color-light-button-secondary-hover-background: #fff;
   /* secondary action button text and icons icons when a pointer is over it */
-  --pos-color-light-button-secondary-hover-foreground: #194f90;
+  --pos-color-light-button-secondary-hover-text: var(--pos-color-light-interactive-hover);
   /* border around secondary action button when a pointer is over it */
-  --pos-color-light-button-secondary-hover-frame: #808691;
+  --pos-color-light-button-secondary-hover-frame: var(--pos-color-light-button-secondary-frame);
   /* secondary action button background when it is being pressed */
   --pos-color-light-button-secondary-active-background: var(--pos-color-light-button-secondary-hover-background);
   /* secondary action button text and icons icons when it is being pressed */
-  --pos-color-light-button-secondary-active-foreground: var(--pos-color-light-button-secondary-hover-foreground);
+  --pos-color-light-button-secondary-active-text: var(--pos-color-light-button-secondary-hover-text);
   /* border around secondary action button when it is being pressed */
   --pos-color-light-button-secondary-active-frame: var(--pos-color-light-button-secondary-hover-frame);
   /* secondary action button background when it is disabled */
-  --pos-color-light-button-secondary-disabled-background: var(--pos-color-light-button-secondary-background);;
+  --pos-color-light-button-secondary-disabled-background: color-mix(in srgb, var(--pos-color-light-button-secondary-background) 30%, transparent 70%);
   /* secondary action button text and icons when it is disabled */
-  --pos-color-light-button-secondary-disabled-foreground: #e6eff8;
+  --pos-color-light-button-secondary-disabled-text: var(--pos-color-light-interactive-disabled);
   /* border around secondary action button when it is disabled */
-  --pos-color-light-button-secondary-disabled-frame: #7fa9dd;
+  --pos-color-light-button-secondary-disabled-frame: color-mix(in srgb, var(--pos-color-light-button-secondary-frame) 30%, transparent 70%);
 
 
   /* colors user for variety of browser-related UI elements */
@@ -134,39 +136,39 @@
   /* background color for selected text */
   --pos-color-light-selection-background: var(--pos-color-light-focused);
   /* foreground color for selected text */
-  --pos-color-light-selection-foreground: #fff;
+  --pos-color-light-selection-text: #fff;
 
 
   /* forms */
   /* ---------------------------------------- */
 
   /* placeholder text in input fields */
-  --pos-color-light-input-placeholder: color-mix(in srgb, var(--pos-color-light-input-foreground) 50%, transparent 50%);
+  --pos-color-light-input-placeholder: color-mix(in srgb, var(--pos-color-light-input-text) 50%, transparent 50%);
 
   /* input field background */
   --pos-color-light-input-background: #fff;
   /* input field text and icon */
-  --pos-color-light-input-foreground: var(--pos-color-light-content-foreground);
+  --pos-color-light-input-text: var(--pos-color-light-content-text);
   /* border around input field */
   --pos-color-light-input-frame: #6b7280;
   /* input field background when a pointer is over it */
   --pos-color-light-input-hover-background: var(--pos-color-light-input-background);
   /* input field text and icon when a pointer is over it */
-  --pos-color-light-input-hover-foreground: var(--pos-color-light-input-foreground);
+  --pos-color-light-input-hover-text: var(--pos-color-light-input-text);
   /* border around input field when a pointer is over it */
   --pos-color-light-input-hover-frame: var(--pos-color-light-input-frame);
   /* input field background when it is being focused */
   --pos-color-light-input-active-background: var(--pos-color-light-input-background);
   /* input field text and icon when it is being focused */
-  --pos-color-light-input-active-foreground: var(--pos-color-light-input-foreground);
+  --pos-color-light-input-active-text: var(--pos-color-light-input-text);
   /* border around input field when it is being focused */
   --pos-color-light-input-active-frame: var(--pos-color-light-interactive-active);
   /* background of disabled input field */
   --pos-color-light-input-disabled-background: var(--pos-color-light-input-background);
   /* text and icon of disabled input field */
-  --pos-color-light-input-disabled-foreground: #afb3b9;
+  --pos-color-light-input-disabled-text: color-mix(in srgb, var(--pos-color-light-input-text) 40%, transparent 60%);
   /* border around input field when it is disabled */
-  --pos-color-light-input-disabled-background: #c4c7cc;
+  --pos-color-light-input-disabled-frame: color-mix(in srgb, var(--pos-color-light-input-frame) 40%, transparent 60%);
 
 
   /* utility */
@@ -196,29 +198,31 @@
   /* ---------------------------------------- */
 
   /* whole page background */
-  --pos-color-dark-page-background: #f7f8fa;
+  --pos-color-dark-page-background: #000;
   /* background color used under the content (grid, cards, panels) */
-  --pos-color-dark-content-background: #fff;
+  --pos-color-dark-content-background: #141414;
   /* general content text */
-  --pos-color-dark-content-foreground: #374151;
+  --pos-color-dark-content-text: #b6bdca;
+  /* general content icons (moight be different shade due to contrast) */
+  --pos-color-dark-content-icon: #808691;
   /* sidenotes, metadata, table headers */
-  --pos-color-dark-content-foreground-supplementary: #6b7280;
+  --pos-color-dark-content-text-supplementary: #808691;
   /* prominent text used to highlight important information */
-  --pos-color-dark-content-foreground-prominent: #141414;
-  /* background color user under the content when the colors are inverted */
-  --pos-color-dark-content-inverted-background: var(--pos-color-dark-content-foreground);
+  --pos-color-dark-content-text-prominent: #fff;
   /* content text when placed on an inverted contrasty background */
-  --pos-color-dark-content-inverted-foreground: var(--pos-color-dark-content-background);
+  --pos-color-dark-content-inverted-text: #000;
   /* dividers, separators, frames, table rows */
-  --pos-color-dark-frame: #e2e8f0;
+  --pos-color-dark-frame: rgba(255, 255, 255, 0.1);
   /* highlighted elements background, like a navigation item when it is hovered or panels that need to stand out from the rest of the page like a filters panel */
-  --pos-color-dark-highlight-background: #eff2f6;
+  --pos-color-dark-highlight-background: #0c0c0c;
   /* highlighted elements text and icons */
-  --pos-color-dark-highlight-foreground: var(--pos-color-dark-content-foreground);
+  --pos-color-dark-highlight-text: var(--pos-color-dark-content-text);
   /* background of sections of the page that needs to really stand out, like call to actions */
-  --pos-color-dark-standout-background: #fff;
+  --pos-color-dark-standout-background: #2173c4;
+  /* background of sections of the page that needs to really stand out when hovered with a pointer */
+  --pos-color-dark-standout-background-hover: #194f90;
   /* text and icons placed on the sections that needs to really stand out */
-  --pos-color-dark-standout-foreground: var(--pos-color-dark-content-foreground);
+  --pos-color-dark-standout-text: #fff;
 
 
 
@@ -227,107 +231,107 @@
   /* ---------------------------------------- */
 
   /* active elements suggesting a possible interaction */
-  --pos-color-dark-interactive: #2173c4;
+  --pos-color-dark-interactive: #fff;
   /* active elements with possible interaction when a pointer is over them */
-  --pos-color-dark-interactive-hover: #1a5f9c;
+  --pos-color-dark-interactive-hover: #38d430;
   /* active elements with possible interaction when they are pressed */
-  --pos-color-dark-interactive-active: #1a5f9c;
+  --pos-color-dark-interactive-active: #31bd29;
   /* disabled elements that could become or has been interactive */
-  --pos-color-dark-interactive-disabled: #d9ebfc;
+  --pos-color-dark-interactive-disabled: #6b7280;
 
   /* primary action button background */
-  --pos-color-dark-button-primary-background: #141414;
+  --pos-color-dark-button-primary-background: #fff;
   /* primary action button text and icons */
-  --pos-color-dark-button-primary-foreground: #fff;
+  --pos-color-dark-button-primary-text: #141414;
   /* border around primary action button */
   --pos-color-dark-button-primary-frame: var(--pos-color-dark-button-primary-background);
   /* primary action button background when a pointer is over it */
-  --pos-color-dark-button-primary-hover-background: #2e70c1;
+  --pos-color-dark-button-primary-hover-background: #b6bdca;
   /* primary action button text and icons icons when a pointer is over it */
-  --pos-color-dark-button-primary-hover-foreground: #fff;
+  --pos-color-dark-button-primary-hover-text: #000;
   /* border around primary action button when a pointer is over it */
   --pos-color-dark-button-primary-hover-frame: var(--pos-color-dark-button-primary-frame);
   /* primary action button background when it is being pressed */
   --pos-color-dark-button-primary-active-background: var(--pos-color-dark-button-primary-hover-background);
   /* primary action button text and icons icons when it is being pressed */
-  --pos-color-dark-button-primary-active-foreground: var(--pos-color-dark-button-primary-hover-foreground);
+  --pos-color-dark-button-primary-active-text: var(--pos-color-dark-button-primary-hover-text);
   /* border around primary action button when it is being pressed */
   --pos-color-dark-button-primary-active-frame: var(--pos-color-dark-button-primary-hover-frame);
   /* primary action button background when it is disabled */
-  --pos-color-dark-button-primary-disabled-background: #7fa9dd;
+  --pos-color-dark-button-primary-disabled-background: color-mix(in srgb, var(--pos-color-dark-button-primary-background) 30%, transparent 70%);
   /* primary action button text and icons when it is disabled */
-  --pos-color-dark-button-primary-disabled-foreground: #fff;
+  --pos-color-dark-button-primary-disabled-text: var(--pos-color-dark-button-primary-text);
   /* border around primary action button when it is disabled */
-  --pos-color-dark-button-primary-disabled-frame: var(--pos-color-button-primary-disabled-background);
+  --pos-color-dark-button-primary-disabled-frame: color-mix(in srgb, var(--pos-color-dark-button-primary-frame) 30%, transparent 70%);
 
   /* secondary action button background */
-  --pos-color-dark-button-secondary-background: #f7f8fa;
+  --pos-color-dark-button-secondary-background: #000;
   /* secondary action button text and icons */
-  --pos-color-dark-button-secondary-foreground: #2173c4;
+  --pos-color-dark-button-secondary-text: #fff;
   /* border around secondary action button */
-  --pos-color-dark-button-secondary-frame: #b6bdca;
+  --pos-color-dark-button-secondary-frame: #9da3ad;
   /* secondary action button background when a pointer is over it */
   --pos-color-dark-button-secondary-hover-background: var(--pos-color-dark-button-secondary-background);
   /* secondary action button text and icons icons when a pointer is over it */
-  --pos-color-dark-button-secondary-hover-foreground: #194f90;
+  --pos-color-dark-button-secondary-hover-text: #fff;
   /* border around secondary action button when a pointer is over it */
-  --pos-color-dark-button-secondary-hover-frame: #808691;
+  --pos-color-dark-button-secondary-hover-frame: #000;
   /* secondary action button background when it is being pressed */
   --pos-color-dark-button-secondary-active-background: var(--pos-color-dark-button-secondary-hover-background);
   /* secondary action button text and icons icons when it is being pressed */
-  --pos-color-dark-button-secondary-active-foreground: var(--pos-color-dark-button-secondary-hover-foreground);
+  --pos-color-dark-button-secondary-active-text: var(--pos-color-dark-button-secondary-hover-text);
   /* border around secondary action button when it is being pressed */
   --pos-color-dark-button-secondary-active-frame: var(--pos-color-dark-button-secondary-hover-frame);
   /* secondary action button background when it is disabled */
-  --pos-color-dark-button-secondary-disabled-background: var(--pos-color-dark-button-secondary-background);
+  --pos-color-dark-button-secondary-disabled-background: color-mix(in srgb, var(--pos-color-dark-button-secondary-background) 30%, transparent 70%);
   /* secondary action button text and icons when it is disabled */
-  --pos-color-dark-button-secondary-disabled-foreground: #e6eff8;
+  --pos-color-dark-button-secondary-disabled-text: color-mix(in srgb, var(--pos-color-dark-button-secondary-text) 30%, transparent 70%);
   /* border around secondary action button when it is disabled */
-  --pos-color-dark-button-secondary-disabled-frame: #7fa9dd;
+  --pos-color-dark-button-secondary-disabled-frame: color-mix(in srgb, var(--pos-color-dark-button-secondary-frame) 30%, transparent 70%);
 
 
   /* colors user for variety of browser-related UI elements */
   /* ---------------------------------------- */
 
   /* outline for focused elements */
-  --pos-color-dark-focused: #2e70c1;
+  --pos-color-dark-focused: #2173c4;
 
   /* background color for selected text */
   --pos-color-dark-selection-background: var(--pos-color-dark-focused);
   /* foreground color for selected text */
-  --pos-color-dark-selection-foreground: #fff;
+  --pos-color-dark-selection-text: #fff;
 
 
   /* forms */
   /* ---------------------------------------- */
 
   /* placeholder text in input fields */
-  --pos-color-dark-input-placeholder: color-mix(in srgb, var(--pos-color-dark-input-foreground) 50%, transparent 50%);
+  --pos-color-dark-input-placeholder: color-mix(in srgb, var(--pos-color-dark-input-text) 50%, transparent 50%);
 
   /* input field background */
-  --pos-color-dark-input-background: #fff;
+  --pos-color-dark-input-background: #0c0c0c;
   /* input field text and icon */
-  --pos-color-dark-input-foreground: var(--pos-color-dark-content-foreground);
+  --pos-color-dark-input-text: #9da3ad;
   /* border around input field */
   --pos-color-dark-input-frame: #6b7280;
   /* input field background when a pointer is over it */
   --pos-color-dark-input-hover-background: var(--pos-color-dark-input-background);
   /* input field text and icon when a pointer is over it */
-  --pos-color-dark-input-hover-foreground: var(--pos-color-dark-input-foreground);
+  --pos-color-dark-input-hover-text: var(--pos-color-dark-input-text);
   /* border around input field when a pointer is over it */
   --pos-color-dark-input-hover-frame: var(--pos-color-dark-input-frame);
   /* input field background when it is being focused */
   --pos-color-dark-input-active-background: var(--pos-color-dark-input-background);
   /* input field text and icon when it is being focused */
-  --pos-color-dark-input-active-foreground: var(--pos-color-dark-input-foreground);
+  --pos-color-dark-input-active-text: var(--pos-color-dark-input-text);
   /* border around input field when it is being focused */
   --pos-color-dark-input-active-frame: var(--pos-color-dark-interactive-active);
   /* background of disabled input field */
   --pos-color-dark-input-disabled-background: var(--pos-color-dark-input-background);
   /* text and icon of disabled input field */
-  --pos-color-dark-input-disabled-foreground: #afb3b9;
+  --pos-color-dark-input-disabled-text: color-mix(in srgb, var(--pos-color-dark-input-text) 40%, transparent 60%);
   /* border around input field when it is disabled */
-  --pos-color-dark-input-disabled-background: #c4c7cc;
+  --pos-color-dark-input-disabled-background: color-mix(in srgb, var(--pos-color-dark-input-frame) 40%, transparent 60%);
 
 
   /* utility */
@@ -359,16 +363,17 @@
   /* ---------------------------------------- */
   --pos-color-page-background: var(--pos-color-light-page-background);
   --pos-color-content-background: var(--pos-color-light-content-background);
-  --pos-color-content-foreground: var(--pos-color-light-content-foreground);
-  --pos-color-content-foreground-supplementary: var(--pos-color-light-content-foreground-supplementary);
-  --pos-color-content-foreground-prominent: var(--pos-color-light-content-foreground-prominent);
-  --pos-color-content-inverted-background: var(--pos-color-light-content-inverted-background);
-  --pos-color-content-inverted-foreground: var(--pos-color-light-content-inverted-foreground);
+  --pos-color-content-text: var(--pos-color-light-content-text);
+  --pos-color-content-icon: var(--pos-color-light-content-icon);
+  --pos-color-content-text-supplementary: var(--pos-color-light-content-text-supplementary);
+  --pos-color-content-text-prominent: var(--pos-color-light-content-text-prominent);
+  --pos-color-content-inverted-text: var(--pos-color-light-content-inverted-text);
   --pos-color-frame: var(--pos-color-light-frame);
   --pos-color-highlight-background: var(--pos-color-light-highlight-background);
-  --pos-color-highlight-foreground: var(--pos-color-light-content-foreground);
+  --pos-color-highlight-text: var(--pos-color-light-content-text);
   --pos-color-standout-background: var(--pos-color-light-standout-background);
-  --pos-color-standout-foreground: var(--pos-color-light-standout-foreground);
+  --pos-color-standout-background-hover: var(--pos-color-light-standout-background-hover);
+  --pos-color-standout-text: var(--pos-color-light-standout-text);
 
 
   /* interactive elements */
@@ -379,29 +384,29 @@
   --pos-color-interactive-disabled: var(--pos-color-light-interactive-disabled);
 
   --pos-color-button-primary-background: var(--pos-color-light-button-primary-background);
-  --pos-color-button-primary-foreground: var(--pos-color-light-button-primary-foreground);
+  --pos-color-button-primary-text: var(--pos-color-light-button-primary-text);
   --pos-color-button-primary-frame: var(--pos-color-light-button-primary-frame);
   --pos-color-button-primary-hover-background: var(--pos-color-light-button-primary-hover-background);
-  --pos-color-button-primary-hover-foreground: var(--pos-color-light-button-primary-hover-foreground);
+  --pos-color-button-primary-hover-text: var(--pos-color-light-button-primary-hover-text);
   --pos-color-button-primary-hover-frame: var(--pos-color-light-button-primary-hover-frame);
   --pos-color-button-primary-active-background: var(--pos-color-light-button-primary-active-background);
-  --pos-color-button-primary-active-foreground: var(--pos-color-light-button-primary-active-foreground);
+  --pos-color-button-primary-active-text: var(--pos-color-light-button-primary-active-text);
   --pos-color-button-primary-active-frame: var(--pos-color-light-button-primary-active-frame);
   --pos-color-button-primary-disabled-background: var(--pos-color-light-button-primary-disabled-background);
-  --pos-color-button-primary-disabled-foreground: var(--pos-color-light-button-primary-disabled-foreground);
+  --pos-color-button-primary-disabled-text: var(--pos-color-light-button-primary-disabled-text);
   --pos-color-button-primary-disabled-frame: var(--pos-color-light-button-primary-disabled-frame);
 
   --pos-color-button-secondary-background: var(--pos-color-light-button-secondary-background);
-  --pos-color-button-secondary-foreground: var(--pos-color-light-button-secondary-foreground);
+  --pos-color-button-secondary-text: var(--pos-color-light-button-secondary-text);
   --pos-color-button-secondary-frame: var(--pos-color-light-button-secondary-frame);
   --pos-color-button-secondary-hover-background: var(--pos-color-light-button-secondary-hover-background);
-  --pos-color-button-secondary-hover-foreground: var(--pos-color-light-button-secondary-hover-foreground);
+  --pos-color-button-secondary-hover-text: var(--pos-color-light-button-secondary-hover-text);
   --pos-color-button-secondary-hover-frame: var(--pos-color-light-button-secondary-hover-frame);
   --pos-color-button-secondary-active-background: var(--pos-color-light-button-secondary-active-background);
-  --pos-color-button-secondary-active-foreground: var(--pos-color-light-button-secondary-active-foreground);
+  --pos-color-button-secondary-active-text: var(--pos-color-light-button-secondary-active-text);
   --pos-color-button-secondary-active-frame: var(--pos-color-light-button-secondary-active-frame);
   --pos-color-button-secondary-disabled-background: var(--pos-color-light-button-secondary-disabled-background);
-  --pos-color-button-secondary-disabled-foreground: var(--pos-color-light-button-secondary-disabled-foreground);
+  --pos-color-button-secondary-disabled-text: var(--pos-color-light-button-secondary-disabled-text);
   --pos-color-button-secondary-disabled-frame: var(--pos-color-light-button-secondary-disabled-frame);
 
 
@@ -410,7 +415,7 @@
   --pos-color-focused: var(--pos-color-light-focused);
 
   --pos-color-selection-background: var(--pos-color-light-selection-background);
-  --pos-color-selection-foreground: var(--pos-color-light-selection-foreground);
+  --pos-color-selection-text: var(--pos-color-light-selection-text);
 
 
   /* forms */
@@ -418,16 +423,16 @@
   --pos-color-input-placeholder: var(--pos-color-light-input-placeholder);
 
   --pos-color-input-background: var(--pos-color-light-input-background);
-  --pos-color-input-foreground: var(--pos-color-light-input-foreground);
+  --pos-color-input-text: var(--pos-color-light-input-text);
   --pos-color-input-frame: var(--pos-color-light-input-frame);
   --pos-color-input-hover-background: var(--pos-color-light-input-hover-background);
-  --pos-color-input-hover-foreground: var(--pos-color-light-input-hover-foreground);
+  --pos-color-input-hover-text: var(--pos-color-light-input-hover-text);
   --pos-color-input-hover-frame: var(--pos-color-light-input-hover-frame);
   --pos-color-input-active-background: var(--pos-color-light-input-active-background);
-  --pos-color-input-active-foreground: var(--pos-color-light-input-active-foreground);
+  --pos-color-input-active-text: var(--pos-color-light-input-active-text);
   --pos-color-input-active-frame: var(--pos-color-light-input-active-frame);
   --pos-color-input-disabled-background: var(--pos-color-light-input-disabled-background);
-  --pos-color-input-disabled-foreground: var(--pos-color-light-input-disabled-foreground);
+  --pos-color-input-disabled-text: var(--pos-color-light-input-disabled-text);
   --pos-color-input-disabled-background: var(--pos-color-light-input-disabled-background);
 
 
@@ -446,22 +451,23 @@
 }
 
 
-:root.pos-theme-dark {
+:root.pos-theme-dark:where(.pos-theme-darkEnabled) {
 
   /* general content */
   /* ---------------------------------------- */
   --pos-color-page-background: var(--pos-color-dark-page-background);
   --pos-color-content-background: var(--pos-color-dark-content-background);
-  --pos-color-content-foreground: var(--pos-color-dark-content-foreground);
-  --pos-color-content-foreground-supplementary: var(--pos-color-dark-content-foreground-supplementary);
-  --pos-color-content-foreground-prominent: var(--pos-color-dark-content-foreground-prominent);
-  --pos-color-content-inverted-background: var(--pos-color-dark-content-inverted-background);
-  --pos-color-content-inverted-foreground: var(--pos-color-dark-content-inverted-foreground);
+  --pos-color-content-text: var(--pos-color-dark-content-text);
+  --pos-color-content-icon: var(--pos-color-dark-content-icon);
+  --pos-color-content-text-supplementary: var(--pos-color-dark-content-text-supplementary);
+  --pos-color-content-text-prominent: var(--pos-color-dark-content-text-prominent);
+  --pos-color-content-inverted-text: var(--pos-color-dark-content-inverted-text);
   --pos-color-frame: var(--pos-color-dark-frame);
   --pos-color-highlight-background: var(--pos-color-dark-highlight-background);
-  --pos-color-highlight-foreground: var(--pos-color-dark-content-foreground);
+  --pos-color-highlight-text: var(--pos-color-dark-content-text);
   --pos-color-standout-background: var(--pos-color-dark-standout-background);
-  --pos-color-standout-foreground: var(--pos-color-dark-standout-foreground);
+  --pos-color-standout-background-hover: var(--pos-color-dark-standout-background-hover);
+  --pos-color-standout-text: var(--pos-color-dark-standout-text);
 
 
   /* interactive elements */
@@ -472,29 +478,29 @@
   --pos-color-interactive-disabled: var(--pos-color-dark-interactive-disabled);
 
   --pos-color-button-primary-background: var(--pos-color-dark-button-primary-background);
-  --pos-color-button-primary-foreground: var(--pos-color-dark-button-primary-foreground);
+  --pos-color-button-primary-text: var(--pos-color-dark-button-primary-text);
   --pos-color-button-primary-frame: var(--pos-color-dark-button-primary-frame);
   --pos-color-button-primary-hover-background: var(--pos-color-dark-button-primary-hover-background);
-  --pos-color-button-primary-hover-foreground: var(--pos-color-dark-button-primary-hover-foreground);
+  --pos-color-button-primary-hover-text: var(--pos-color-dark-button-primary-hover-text);
   --pos-color-button-primary-hover-frame: var(--pos-color-dark-button-primary-hover-frame);
   --pos-color-button-primary-active-background: var(--pos-color-dark-button-primary-active-background);
-  --pos-color-button-primary-active-foreground: var(--pos-color-dark-button-primary-active-foreground);
+  --pos-color-button-primary-active-text: var(--pos-color-dark-button-primary-active-text);
   --pos-color-button-primary-active-frame: var(--pos-color-dark-button-primary-active-frame);
   --pos-color-button-primary-disabled-background: var(--pos-color-dark-button-primary-disabled-background);
-  --pos-color-button-primary-disabled-foreground: var(--pos-color-dark-button-primary-disabled-foreground);
+  --pos-color-button-primary-disabled-text: var(--pos-color-dark-button-primary-disabled-text);
   --pos-color-button-primary-disabled-frame: var(--pos-color-dark-button-primary-disabled-frame);
 
   --pos-color-button-secondary-background: var(--pos-color-dark-button-secondary-background);
-  --pos-color-button-secondary-foreground: var(--pos-color-dark-button-secondary-foreground);
+  --pos-color-button-secondary-text: var(--pos-color-dark-button-secondary-text);
   --pos-color-button-secondary-frame: var(--pos-color-dark-button-secondary-frame);
   --pos-color-button-secondary-hover-background: var(--pos-color-dark-button-secondary-hover-background);
-  --pos-color-button-secondary-hover-foreground: var(--pos-color-dark-button-secondary-hover-foreground);
+  --pos-color-button-secondary-hover-text: var(--pos-color-dark-button-secondary-hover-text);
   --pos-color-button-secondary-hover-frame: var(--pos-color-dark-button-secondary-hover-frame);
   --pos-color-button-secondary-active-background: var(--pos-color-dark-button-secondary-active-background);
-  --pos-color-button-secondary-active-foreground: var(--pos-color-dark-button-secondary-active-foreground);
+  --pos-color-button-secondary-active-text: var(--pos-color-dark-button-secondary-active-text);
   --pos-color-button-secondary-active-frame: var(--pos-color-dark-button-secondary-active-frame);
   --pos-color-button-secondary-disabled-background: var(--pos-color-dark-button-secondary-disabled-background);
-  --pos-color-button-secondary-disabled-foreground: var(--pos-color-dark-button-secondary-disabled-foreground);
+  --pos-color-button-secondary-disabled-text: var(--pos-color-dark-button-secondary-disabled-text);
   --pos-color-button-secondary-disabled-frame: var(--pos-color-dark-button-secondary-disabled-frame);
 
 
@@ -503,7 +509,7 @@
   --pos-color-focused: var(--pos-color-dark-focused);
 
   --pos-color-selection-background: var(--pos-color-dark-selection-background);
-  --pos-color-selection-foreground: var(--pos-color-dark-selection-foreground);
+  --pos-color-selection-text: var(--pos-color-dark-selection-text);
 
 
   /* forms */
@@ -511,16 +517,16 @@
   --pos-color-input-placeholder: var(--pos-color-dark-input-placeholder);
 
   --pos-color-input-background: var(--pos-color-dark-input-background);
-  --pos-color-input-foreground: var(--pos-color-dark-input-foreground);
+  --pos-color-input-text: var(--pos-color-dark-input-text);
   --pos-color-input-frame: var(--pos-color-dark-input-frame);
   --pos-color-input-hover-background: var(--pos-color-dark-input-hover-background);
-  --pos-color-input-hover-foreground: var(--pos-color-dark-input-hover-foreground);
+  --pos-color-input-hover-text: var(--pos-color-dark-input-hover-text);
   --pos-color-input-hover-frame: var(--pos-color-dark-input-hover-frame);
   --pos-color-input-active-background: var(--pos-color-dark-input-active-background);
-  --pos-color-input-active-foreground: var(--pos-color-dark-input-active-foreground);
+  --pos-color-input-active-text: var(--pos-color-dark-input-active-text);
   --pos-color-input-active-frame: var(--pos-color-dark-input-active-frame);
   --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
-  --pos-color-input-disabled-foreground: var(--pos-color-dark-input-disabled-foreground);
+  --pos-color-input-disabled-text: var(--pos-color-dark-input-disabled-text);
   --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
 
 
@@ -540,17 +546,17 @@
 
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:where(.pos-theme-darkEnabled) {
 
     /* general content */
     /* ---------------------------------------- */
     --pos-color-page-background: var(--pos-color-dark-page-background);
     --pos-color-content-background: var(--pos-color-dark-content-background);
-    --pos-color-content-foreground: var(--pos-color-dark-content-foreground);
-    --pos-color-content-foreground-supplementary: var(--pos-color-dark-content-foreground-supplementary);
-    --pos-color-content-foreground-prominent: var(--pos-color-dark-content-foreground-prominent);
-    --pos-color-content-inverted-background: var(--pos-color-dark-content-inverted-background);
-    --pos-color-content-inverted-foreground: var(--pos-color-dark-content-inverted-foreground);
+    --pos-color-content-text: var(--pos-color-dark-content-text);
+    --pos-color-content-icon: var(--pos-color-dark-content-icon);
+    --pos-color-content-text-supplementary: var(--pos-color-dark-content-text-supplementary);
+    --pos-color-content-text-prominent: var(--pos-color-dark-content-text-prominent);
+    --pos-color-content-inverted-text: var(--pos-color-dark-content-inverted-text);
     --pos-color-frame: var(--pos-color-dark-frame);
 
 
@@ -562,29 +568,29 @@
     --pos-color-interactive-disabled: var(--pos-color-dark-interactive-disabled);
 
     --pos-color-button-primary-background: var(--pos-color-dark-button-primary-background);
-    --pos-color-button-primary-foreground: var(--pos-color-dark-button-primary-foreground);
+    --pos-color-button-primary-text: var(--pos-color-dark-button-primary-text);
     --pos-color-button-primary-frame: var(--pos-color-dark-button-primary-frame);
     --pos-color-button-primary-hover-background: var(--pos-color-dark-button-primary-hover-background);
-    --pos-color-button-primary-hover-foreground: var(--pos-color-dark-button-primary-hover-foreground);
+    --pos-color-button-primary-hover-text: var(--pos-color-dark-button-primary-hover-text);
     --pos-color-button-primary-hover-frame: var(--pos-color-dark-button-primary-hover-frame);
     --pos-color-button-primary-active-background: var(--pos-color-dark-button-primary-active-background);
-    --pos-color-button-primary-active-foreground: var(--pos-color-dark-button-primary-active-foreground);
+    --pos-color-button-primary-active-text: var(--pos-color-dark-button-primary-active-text);
     --pos-color-button-primary-active-frame: var(--pos-color-dark-button-primary-active-frame);
     --pos-color-button-primary-disabled-background: var(--pos-color-dark-button-primary-disabled-background);
-    --pos-color-button-primary-disabled-foreground: var(--pos-color-dark-button-primary-disabled-foreground);
+    --pos-color-button-primary-disabled-text: var(--pos-color-dark-button-primary-disabled-text);
     --pos-color-button-primary-disabled-frame: var(--pos-color-dark-button-primary-disabled-frame);
 
     --pos-color-button-secondary-background: var(--pos-color-dark-button-secondary-background);
-    --pos-color-button-secondary-foreground: var(--pos-color-dark-button-secondary-foreground);
+    --pos-color-button-secondary-text: var(--pos-color-dark-button-secondary-text);
     --pos-color-button-secondary-frame: var(--pos-color-dark-button-secondary-frame);
     --pos-color-button-secondary-hover-background: var(--pos-color-dark-button-secondary-hover-background);
-    --pos-color-button-secondary-hover-foreground: var(--pos-color-dark-button-secondary-hover-foreground);
+    --pos-color-button-secondary-hover-text: var(--pos-color-dark-button-secondary-hover-text);
     --pos-color-button-secondary-hover-frame: var(--pos-color-dark-button-secondary-hover-frame);
     --pos-color-button-secondary-active-background: var(--pos-color-dark-button-secondary-active-background);
-    --pos-color-button-secondary-active-foreground: var(--pos-color-dark-button-secondary-active-foreground);
+    --pos-color-button-secondary-active-text: var(--pos-color-dark-button-secondary-active-text);
     --pos-color-button-secondary-active-frame: var(--pos-color-dark-button-secondary-active-frame);
     --pos-color-button-secondary-disabled-background: var(--pos-color-dark-button-secondary-disabled-background);
-    --pos-color-button-secondary-disabled-foreground: var(--pos-color-dark-button-secondary-disabled-foreground);
+    --pos-color-button-secondary-disabled-text: var(--pos-color-dark-button-secondary-disabled-text);
     --pos-color-button-secondary-disabled-frame: var(--pos-color-dark-button-secondary-disabled-frame);
 
 
@@ -593,7 +599,7 @@
     --pos-color-focused: var(--pos-color-dark-focused);
 
     --pos-color-selection-background: var(--pos-color-dark-selection-background);
-    --pos-color-selection-foreground: var(--pos-color-dark-selection-foreground);
+    --pos-color-selection-text: var(--pos-color-dark-selection-text);
 
 
     /* forms */
@@ -601,16 +607,16 @@
     --pos-color-input-placeholder: var(--pos-color-dark-input-placeholder);
 
     --pos-color-input-background: var(--pos-color-dark-input-background);
-    --pos-color-input-foreground: var(--pos-color-dark-input-foreground);
+    --pos-color-input-text: var(--pos-color-dark-input-text);
     --pos-color-input-frame: var(--pos-color-dark-input-frame);
     --pos-color-input-hover-background: var(--pos-color-dark-input-hover-background);
-    --pos-color-input-hover-foreground: var(--pos-color-dark-input-hover-foreground);
+    --pos-color-input-hover-text: var(--pos-color-dark-input-hover-text);
     --pos-color-input-hover-frame: var(--pos-color-dark-input-hover-frame);
     --pos-color-input-active-background: var(--pos-color-dark-input-active-background);
-    --pos-color-input-active-foreground: var(--pos-color-dark-input-active-foreground);
+    --pos-color-input-active-text: var(--pos-color-dark-input-active-text);
     --pos-color-input-active-frame: var(--pos-color-dark-input-active-frame);
     --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
-    --pos-color-input-disabled-foreground: var(--pos-color-dark-input-disabled-foreground);
+    --pos-color-input-disabled-text: var(--pos-color-dark-input-disabled-text);
     --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
 
 

@@ -83,11 +83,15 @@ p + p {
     position: relative;
     align-items: center;
     justify-content: center;
+
+    transition-delay: 0s;
   }
 
   .app-user-intro-nav a:hover,
   .app-user-intro-nav a:active {
-    color: inherit;
+    color: var(--pos-color-highlight-text);
+
+    transition-delay: .1s;
   }
 
   .app-user-intro-nav li:hover,

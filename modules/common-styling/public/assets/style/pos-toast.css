@@ -130,7 +130,7 @@
   }
 
   .pos-toast-close:hover {
-    color: var(--pos-color-content-foreground);
+    color: var(--pos-color-content-text);
   }
 
 }

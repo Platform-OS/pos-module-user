@@ -15,7 +15,7 @@ The platformOS User Module is available on the [Partner Portal Modules Marketpla
 
 ### Prerequisites
 
-Before installing the module, ensure that you have [pos-cli](https://github.com/mdyd-dev/pos-cli#overview) installed. This tool is essential for managing and deploying platformOS projects.
+Before installing the module, please ensure you have [pos-cli](https://github.com/mdyd-dev/pos-cli#overview) installed. This tool is essential for managing and deploying platformOS projects.
 
 The platformOS User Module is fully compatible with [platformOS Check](https://github.com/Platform-OS/platformos-lsp#platformos-check----a-linter-for-platformos), a linter and language server that supports any IDE with Language Server Protocol (LSP) integration. For Visual Studio Code users, you can enhance your development experience by installing the [VSCode platformOS Check Extension](https://marketplace.visualstudio.com/items?itemName=platformOS.platformos-check-vscode).
 
@@ -27,6 +27,7 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
 
 ```bash
    pos-cli modules install user
+   pos-cli modules download user
 ```
 
 This command installs the User Module along with its dependencies (such as [pos-module-core](https://github.com/Platform-OS/pos-module-core) and [pos-module-common-styling](https://github.com/Platform-OS/pos-module-common-styling) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
@@ -122,18 +123,6 @@ The default behavior of modules is that **the files are never deleted**. It is a
 modules_that_allow_delete_on_deploy:
 - core
 - user
-```
-
-### Troubleshooting
-
-> There is an error about missing partial `Liquid error: can't find partial "components/molecules/pagetitle". url: my-application.staging.oregon.platform-os.com/users/new page: users/new`
-
-This error occurs because the [app/config.yml](/developer-guide/platformos-workflow/directory-structure/config) has not been configured as instructed. You need to add the `theme_search_paths` in the `app/config.yml` file:
-
-```yml
-theme_search_paths:
-  - ''
-  - modules/user
 ```
 
 ## Example application
@@ -392,12 +381,11 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
-# platformos-check-disable CodeUnrachable
-function can = 'modules/user/helpers/can_do', requester: user, do: 'admin_pages.view'
-# platformos-check-enable CodeUnrachable
+function current_user = 'modules/user/queries/user/current'
+function can = 'modules/user/helpers/can_do', requester: current_user, do: 'admin_pages.view'
 ```
 
-It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) in a clean way.
+It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) cleanly.
 
 ##### `can_do_or_unauthorized` command
 
@@ -406,9 +394,10 @@ If the user does not have permission, the system renders a **403 Unauthorized** 
 This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 ```
-# platformos-check-disable ConvertIncludeToRender
+function current_user = 'modules/user/queries/user/current'
+# platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register', redirect_anonymous_to_login: true
-# platformos-check-enable ConvertIncludeToRender
+# platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
 The `platformos-check-disable` and `platformos-check-enable` tags are used to prevent the [platformOS-check](https://github.com/Platform-OS/platformos-check) from reporting a warning for using the `include` tag instead of the recommended `render` tag.
@@ -419,9 +408,10 @@ If the user does not have permission, they will be redirected to the URL provide
 
 
 ```
-# platformos-check-disable ConvertIncludeToRender
+function current_user = 'modules/user/queries/user/current'
+# platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', return_url: '/sessions/new'
-# platformos-check-enable ConvertIncludeToRender
+# platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
 The `platformos-check-disable` and `platformos-check-enable` will let [platformos-check](https://github.com/Platform-OS/platformos-check) to not report a warning for using the `include` tag instead of the `render` tag.
