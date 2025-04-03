@@ -1,0 +1,30 @@
+mutation profiles_update(
+  $id: ID!
+  $name: String
+  $first_name: String
+  $last_name: String
+  $email: String
+  $roles: [String]
+  $c__names: String
+) {
+  record: record_update(
+    id: $id
+    record: {
+      table: "modules/profile/profile"
+      properties: [
+        { name: "name", value: $name }
+        { name: "first_name", value: $first_name }
+        { name: "last_name", value: $last_name }
+        { name: "email", value: $email }
+        { name: "roles", value: $roles }
+        { name: "c__names", value: $c__names }
+      ]
+    }
+  ) {
+    id
+    created_at
+    type: table
+
+    properties
+  }
+}

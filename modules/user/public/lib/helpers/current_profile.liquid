@@ -1,0 +1,11 @@
+{% liquid
+  function user = 'modules/user/queries/user/current'
+  if user.id
+    function current_profile = 'modules/profile/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
+  endif
+
+  assign current_profile = current_profile | hash_merge: roles: user.roles, permissions: user.permissions, user: user
+
+  export current_profile
+  return current_profile
+%}
