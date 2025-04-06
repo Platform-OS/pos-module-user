@@ -18,7 +18,7 @@ query (
     per_page: $limit
     filter: {
       id: { value: $id, value_in: $ids, not_value_in: $not_ids }
-      table: { value: "modules/profile/profile" }
+      table: { value: "modules/user/profile" }
       properties: [
         { name: "uuid", value: $uuid }
         { name: "first_name", value: $first_name }

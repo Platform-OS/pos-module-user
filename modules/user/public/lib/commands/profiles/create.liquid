@@ -1,8 +1,8 @@
 {% liquid
-  function object = 'modules/profile/commands/profiles/create/build', object: object, name: null
-  function object = 'modules/profile/commands/profiles/create/check', object: object
+  function object = 'modules/user/commands/profiles/create/build', object: object, name: null
+  function object = 'modules/user/commands/profiles/create/check', object: object
   if object.valid
-    function object = 'modules/core/commands/execute', mutation_name: 'modules/profile/profiles/create', object: object
+    function object = 'modules/core/commands/execute', mutation_name: 'modules/user/profiles/create', object: object
     assign object = object | hash_merge: object.properties
   endif
   return object

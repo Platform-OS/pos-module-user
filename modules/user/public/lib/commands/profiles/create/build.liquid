@@ -1,5 +1,5 @@
 {% liquid
-  function tokenized_names = 'modules/profile/commands/profiles/tokenize_names', object: object
+  function tokenized_names = 'modules/user/commands/profiles/tokenize_names', object: object
   assign uuid_new = '' | uuid
   assign uuid = object.uuid | default: uuid_new
   assign name = object.first_name | append: ' ' | append: object.last_name

@@ -10,7 +10,7 @@ mutation (
 ) {
   record: record_create(
     record: {
-      table: "modules/profile/profile"
+      table: "modules/user/profile"
       properties: [
         { name: "user_id", value: $user_id }
         { name: "first_name", value: $first_name }
@@ -18,7 +18,7 @@ mutation (
         { name: "uuid", value: $uuid }
         { name: "name", value: $name }
         { name: "email", value: $email }
-        { name: "roles", value: $roles }
+        { name: "roles", value_array: $roles }
         { name: "c__names", value: $c__names }
       ]
     }

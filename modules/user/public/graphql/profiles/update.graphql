@@ -10,13 +10,13 @@ mutation profiles_update(
   record: record_update(
     id: $id
     record: {
-      table: "modules/profile/profile"
+      table: "modules/user/profile"
       properties: [
         { name: "name", value: $name }
         { name: "first_name", value: $first_name }
         { name: "last_name", value: $last_name }
         { name: "email", value: $email }
-        { name: "roles", value: $roles }
+        { name: "roles", value_array: $roles }
         { name: "c__names", value: $c__names }
       ]
     }
