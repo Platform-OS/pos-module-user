@@ -4,7 +4,6 @@ method: delete
 ---
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
-  log current_profile, type: "D"
 
   if current_profile
     function res = 'modules/user/commands/session/destroy'

@@ -6,7 +6,6 @@
 
   graphql destroy = 'modules/user/session/destroy'
   hash_assign destroy['user'] = current_profile.user
-  log destroy, type: "D"
 
   unless destroy.errors
     assign params = '{}' | parse_json | hash_merge: destroy: destroy

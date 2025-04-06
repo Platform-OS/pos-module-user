@@ -13,7 +13,6 @@
 {% liquid
   function object = 'modules/user/commands/user/create/build', first_name: first_name, last_name: last_name, email: email, password: password, hook_params: hook_params
   function object = 'modules/user/commands/user/create/check', object: object
-  log object, type:"D"
   if object.valid
     function user = 'modules/core/commands/execute', mutation_name: 'modules/user/user/create', object: object, selection: 'user'
     hash_assign object['user_id'] = user.id
