@@ -1,8 +1,9 @@
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
-  # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', redirect_url: "/"
-  # platformos-check-enable UnreachableCode
+  function current_profile = 'modules/user/helpers/current_profile'
+  
+  if current_profile != null
+    include 'modules/core/helpers/redirect_to'
+  endif
 
   function registration_fields = 'modules/user/queries/registration_fields/load'
   assign values = null | hash_merge: email: context.params.email

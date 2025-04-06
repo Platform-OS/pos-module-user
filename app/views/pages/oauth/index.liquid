@@ -1,6 +1,6 @@
 {% liquid
   # platformos-check-disable ConvertIncludeToRender
-  function current_user = 'modules/user/queries/user/current'
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'oauth.manage', redirect_anonymous_to_login: true
+  function current_profile = 'modules/user/helpers/current_profile'
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'oauth.manage', redirect_anonymous_to_login: true
   render 'oauth/index'
 %}

@@ -10,7 +10,7 @@
   if profile
     function slug = 'modules/user/helpers/profiles/slugs/build' , current_profile: profile
     hash_assign profile['properties']['slug'] = slug
-    assign profile = profile | hash_merge: profile.properties
+    assign profile = profile.properties
   endif
 
 

@@ -27,6 +27,18 @@ metadata:
     {% endfor %}
 
     <fieldset>
+      <label for="pos-user-first-name">First name</label>
+      <input type="text" name="first_name" id="pos-user-first-name" value="{{ values.first_name }}" required placeholder="first name" {% render 'modules/common-styling/forms/error_input_handler', name: 'first_name', errors: errors['first_name'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'first_name', errors: errors['first_name'] %}
+    </fieldset>
+
+    <fieldset>
+      <label for="pos-user-last-name">Last name</label>
+      <input type="text" name="last_name" id="pos-user-last-name" value="{{ values.last_name }}" required placeholder="last name" {% render 'modules/common-styling/forms/error_input_handler', name: 'last_name', errors: errors['last_name'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'last_name', errors: errors['last_name'] %}
+    </fieldset>
+
+    <fieldset>
       <label for="pos-user-email">Email</label>
       <input type="email" name="email" id="pos-user-email" value="{{ values.email }}" required placeholder="my@email.com" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
       {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}

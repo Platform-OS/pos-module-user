@@ -1,8 +1,8 @@
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
+  function current_profile = 'modules/user/helpers/current_profile'
 %}
 
-{% if current_user.id %}
+{% if current_profile %}
 
   {% if context.session.original_user_id == blank %}
     <main class="app-user-page">
@@ -25,10 +25,8 @@
           </form>
         </header>
         <dl class="app-user-info-list">
-          <dt>id</dt>
-          <dd>{{ current_user.id }} </dd>
-          {% for info in current_user %}
-            {% if info[0] != 'id' %}
+          {% for info in current_profile %}
+            {% if info[0] != 'id' and info[0] != 'c__names' and info[0] != 'user' %}
               <dt>{{ info[0] }}</dt>
               <dd>
                 {% if info[0] == 'roles' %}
@@ -55,7 +53,18 @@
   {{ current_user }}
 %}
 {% endraw %}</pre></code>
-        <p>{{ current_user }}</p>
+        <p>{{ current_profile.user }}</p>
+      </section>
+
+      <section class="pos-user-code">
+        <code><pre>
+{%- raw -%}
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  {{ current_profile }}
+%}
+{% endraw %}</pre></code>
+        <p>{{ current_profile }}</p>
       </section>
 
 
