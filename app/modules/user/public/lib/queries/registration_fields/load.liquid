@@ -1,0 +1,24 @@
+{% parse_json fields %}
+[
+  {
+    "name": "email",
+    "required": true,
+    "type": "email",
+    "weight": 2,
+    "label": "Email",
+    "placeholder": "john.doe@email.com"
+  },
+  {
+    "name": "password",
+    "required": true,
+    "type": "password",
+    "weight": 3,
+    "label": "Password",
+    "placeholder": "••••••••"
+  }
+]
+{% endparse_json %}
+
+{%liquid
+  return fields
+%}
