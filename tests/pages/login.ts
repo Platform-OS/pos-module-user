@@ -14,7 +14,7 @@ export class LogInPage extends BasePage {
     this.page = page;
     this.elementWithText = (text) => page.getByText(text);
     this.emailInputField = page.getByRole('textbox', { name: 'Email' });
-    this.loginButton = page.getByRole('button', { name: 'Login' });
+    this.loginButton = page.getByRole('button', { name: 'Log In' });
     this.passwordInputField = page.getByRole('textbox', { name: 'Password' });
     this.resetButton = page.getByRole('link', { name: 'Forgot password?' });
   }
