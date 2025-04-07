@@ -3,21 +3,21 @@
 
   assign email = 10 | random_string | append: '-user-create@example.com'
 
-  function user = 'modules/user/commands/user/create', email: email , password: email, roles: null, hook_params: null
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, roles: null, hook_params: null
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
 
   assign roles = 'member' | split: ','
-  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: profile.roles expected: roles, field_name: null
 %}
 
 {% liquid
   # test explicitly provide roles argument as string
 
   assign email = 10 | random_string | append: '-user-create@example.com'
-
-  function user = 'modules/user/commands/user/create', email: email , password: email, roles: 'role 1,role 2', hook_params: null
-
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, roles: 'role 1,role 2', hook_params: null
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
   assign roles = 'role 1,role 2' | split: ','
-  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: profile.roles expected: roles, field_name: null
 %}
 
 {% liquid
@@ -26,9 +26,10 @@
   assign email = 10 | random_string | append: '-user-create@example.com'
 
   assign roles = 'role 1,role 2' | split: ','
-  function user = 'modules/user/commands/user/create', email: email , password: email, roles: roles, hook_params: null
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, roles: roles, hook_params: null
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
 
-  function contract = 'modules/tests/assertions/equal', contract: contract, given: user.roles expected: roles, field_name: null
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: profile.roles expected: roles, field_name: null
 %}
 
 {% liquid
@@ -36,6 +37,8 @@
 
   assign email = 10 | random_string | append: '-user-create@example.com'
 
-  function user = 'modules/user/commands/user/create', email: email , password: email, roles: 25, hook_params: null
-  function contract = 'modules/tests/assertions/invalid_object', contract: contract, object: user, field_name: null
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, roles: 25, hook_params: null
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
+  assign roles = 'member' | split: ','
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: profile.roles expected: roles, field_name: null
 %}

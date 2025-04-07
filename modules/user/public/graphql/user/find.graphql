@@ -17,7 +17,6 @@ query (
       created_at
       email
       id
-      roles: property_array(name: "roles")
       token: temporary_token(valid_for: $valid_for, expires_in: $expires_in) @include(if: $with_token)
     }
   }

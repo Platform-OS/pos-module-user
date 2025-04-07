@@ -1,0 +1,20 @@
+mutation (
+  $id: ID!
+  $roles: [String!]
+) {
+  record: record_update(
+    id: $id
+    record: {
+      table: "modules/user/profile"
+      properties: [
+        { name: "roles", value_array: $roles }
+      ]
+    }
+  ) {
+    id
+    created_at
+    type: table
+
+    properties
+  }
+}

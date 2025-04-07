@@ -1,9 +1,9 @@
 {% liquid
   # seed DB with a user
   assign email = 10 | random_string | append: '-user-append@example.com'
-  function user = 'modules/user/commands/user/create', email: email , password: email, hook_params: null, roles: roles
-
-  function result = 'modules/user/commands/user/roles/append', id: user.id, role: "custom-role"
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email, password: email, hook_params: null, roles: null
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
+  function result = 'modules/user/commands/profiles/roles/append', id: profile.id, role: "custom-role"
   assign roles = 'member,custom-role' | split: ','
   function contract = 'modules/tests/assertions/equal', contract: contract, given: result.roles expected: roles, field_name: null
 %}
