@@ -1,7 +1,7 @@
 en:
   sessions:
     new:
-      login: Login
+      log_in: Log in
       dont_have_account: Don't have an account?
       request_to_join: Request to join
       social_login_separator: or
