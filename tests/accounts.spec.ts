@@ -227,7 +227,7 @@ test.describe.serial('Testing password reset', () => {
     await testMailBoxPage.linkWithText('Show').first().click();
     await testMailBoxPage.linkWithText('Go to reset password form').click();
 
-    await expect(loginPage.headingWithText('Login')).toBeVisible();
+    await expect(loginPage.headingWithText('Log in')).toBeVisible();
     await expect(loginPage.page.getByText('The reset password link you’ve entered is invalid or has expired.')).toBeVisible();
   });
 
