@@ -21,7 +21,7 @@ test.describe('Register users', () => {
 
         await test.step(`Register user ${dataSet.email}`, async () => {
           await signUpPage.registerUser(
-            { email: dataSet.email },
+            { email: dataSet.email, firstName: dataSet.firstName, lastName: dataSet.lastName },
             PASSWORD
           );
 

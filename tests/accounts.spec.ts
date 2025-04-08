@@ -56,13 +56,13 @@ test.describe('Testing registration', () => {
     await registrationPage.goto();
 
     const testCases = [
-      { email: '', field: 'Email', password: PASSWORD },
-      { email: 'email@example.com', field: 'Password', password: '' }
+      { email: '', field: 'Email', password: PASSWORD, firstName: 'Test', lastName: 'Test' },
+      { email: 'email@example.com', field: 'Password', password: '',  firstName: 'Test', lastName: 'Test' }
     ];
 
     for (const testCase of testCases) {
       await registrationPage.registerUser(
-        { email: testCase.email },
+        { email: testCase.email, lastName: testCase.lastName,firstName: testCase.firstName },
         testCase.password
       );
 
@@ -84,7 +84,7 @@ test.describe('Testing registration', () => {
 
     for (const [email, expectedMessage] of testCases) {
       await registrationPage.registerUser(
-        { email },
+        { email, firstName: 'Test', lastName: 'Test' },
         PASSWORD
       );
 
