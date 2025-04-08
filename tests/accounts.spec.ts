@@ -45,7 +45,7 @@ test.describe('Testing registration', () => {
     await registrationPage.goto();
     await registrationPage.registerUser(users.newUser, PASSWORD);
 
-    await expect(homePage.headingWithText('Current user')).toBeVisible();
+    await expect(homePage.headingWithText('Current profile')).toBeVisible();
     await expect(homePage.elementWithText(users.newUser.email).first()).toBeVisible();
   });
 
