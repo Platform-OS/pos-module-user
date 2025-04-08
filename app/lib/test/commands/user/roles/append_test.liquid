@@ -5,5 +5,7 @@
   function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
   function result = 'modules/user/commands/profiles/roles/append', id: profile.id, role: "custom-role"
   assign roles = 'member,custom-role' | split: ','
-  function contract = 'modules/tests/assertions/equal', contract: contract, given: result.properties.roles expected: roles, field_name: null
+  log profile, type: "D"
+  log result, type: "D"
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: result.roles expected: roles, field_name: null
 %}

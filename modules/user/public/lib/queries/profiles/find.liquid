@@ -8,11 +8,9 @@
   assign profile = result.records.results.first
 
   if profile
-    function slug = 'modules/user/helpers/profiles/slugs/build' , current_profile: profile
-    hash_assign profile['properties']['slug'] = slug
-    hash_assign profile['roles'] = profile.properties.roles
+    function slug = 'modules/user/helpers/profiles/slugs/build', current_profile: profile
+    hash_assign profile['slug'] = slug
   endif
-
 
   return profile
 %}

@@ -5,7 +5,7 @@
 
   function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, roles: null, hook_params: null
   function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
-
+  log profile, type:"D"
   assign roles = 'member' | split: ','
   function contract = 'modules/tests/assertions/equal', contract: contract, given: profile.roles expected: roles, field_name: null
 %}
