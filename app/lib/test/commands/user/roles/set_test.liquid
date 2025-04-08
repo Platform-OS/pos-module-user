@@ -7,5 +7,5 @@
 
   assign roles = 'role 3,role 4' | split: ','
   function result = 'modules/user/commands/profiles/roles/set', id: profile.id, roles: roles
-  function contract = 'modules/tests/assertions/equal', contract: contract, given: result.roles, expected: roles, field_name: null
+  function contract = 'modules/tests/assertions/equal', contract: contract, given: result.properties.roles, expected: roles, field_name: null
 %}
