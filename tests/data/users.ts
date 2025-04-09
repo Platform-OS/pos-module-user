@@ -1,27 +1,27 @@
 export const users = {
   superadmin: {
-    firstName: 'Test',
-    lastName: 'Test',
+    firstName: 'Andrew',
+    lastName: 'Duncan',
     email: 'admin@example.com'
   },
   test1: {
-    firstName: 'Test',
-    lastName: 'Test',
+    firstName: 'Aaron',
+    lastName: 'Lopez',
     email: 'test1@example.com'
   },
   test2: {
-    firstName: 'Test',
-    lastName: 'Test',
+    firstName: 'Rhonda',
+    lastName: 'Blackwell',
     email: 'test2@example.com'      
   },
   test3: {
-    firstName: 'Test',
-    lastName: 'Test',
+    firstName: 'Coleen',
+    lastName: 'Nguyen',
     email: 'test3@example.com'      
   },
   newUser: {
-    firstName: 'Test',
-    lastName: 'Test',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'test129@example.com'
   }
 };
