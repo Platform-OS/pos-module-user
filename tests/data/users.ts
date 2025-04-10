@@ -19,6 +19,16 @@ export const users = {
     lastName: 'Nguyen',
     email: 'test3@example.com'      
   },
+  test4: {
+    firstName: 'Emma',
+    lastName: 'Vasquez',
+    email: 'test4@example.com'      
+  },
+  test4Edited: {
+    firstName: 'Juliet',
+    lastName: 'Naddour',
+    email: 'test4@example.com'      
+  },
   newUser: {
     firstName: 'John',
     lastName: 'Doe',
