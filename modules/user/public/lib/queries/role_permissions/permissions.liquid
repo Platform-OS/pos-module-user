@@ -3,7 +3,9 @@
   {% if context.constants.USER_DEFAULT_ROLE != blank %}
   "{{ context.constants.USER_DEFAULT_ROLE }}": [],
   {% endif %}
-  "authenticated": ["profile.manage"]
+  "admin": ["admin_pages.view", "admin.users.manage", "users.impersonate"],
+  "member": ["sessions.destroy", "profile.manage"],
+  "superadmin": ["users.impersonate_superadmin"]
 }
 {% endparse_json %}
 

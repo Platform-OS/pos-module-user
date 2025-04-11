@@ -4,7 +4,7 @@
   "{{ context.constants.USER_DEFAULT_ROLE }}": [],
   {% endif %}
   "admin": ["admin_pages.view", "admin.users.manage", "users.impersonate"],
-  "authenticated": ["sessions.destroy", "profile.manage"],
+  "member": ["sessions.destroy", "profile.manage"],
   "superadmin": ["users.impersonate_superadmin"]
 }
 {% endparse_json %}
