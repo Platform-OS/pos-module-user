@@ -1,0 +1,38 @@
+mutation (
+  $uuid: String!
+  $user_id: String!
+  $first_name: String
+  $last_name: String
+  $name: String
+  $email: String
+  $roles: [String]
+  $c__names: String
+) {
+  record: record_create(
+    record: {
+      table: "modules/user/profile"
+      properties: [
+        { name: "user_id", value: $user_id }
+        { name: "first_name", value: $first_name }
+        { name: "last_name", value: $last_name }
+        { name: "uuid", value: $uuid }
+        { name: "name", value: $name }
+        { name: "email", value: $email }
+        { name: "roles", value_array: $roles }
+        { name: "c__names", value: $c__names }
+      ]
+    }
+  ) {
+    id
+    created_at
+    type: table
+    
+    email: property(name: "email")
+    first_name: property(name: "first_name")
+    last_name: property(name: "last_name")
+    name: property(name: "name")
+    user_id: property(name: "user_id")
+    uuid: property(name: "uuid")
+    roles: property_array(name: "roles")
+  }
+}

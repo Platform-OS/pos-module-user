@@ -1,0 +1,4 @@
+{% liquid
+  assign tokenized_names = '[]' | parse_json | array_add: object.email | array_add: object.first_name | array_add: object.last_name | compact | uniq | join: ' ' | downcase
+  return tokenized_names
+%}

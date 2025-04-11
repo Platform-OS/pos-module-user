@@ -1,0 +1,10 @@
+{% liquid
+  function object = 'modules/user/commands/profiles/update/build', object: object, profile: profile, name: null
+  function object = 'modules/user/commands/profiles/update/check', object: object
+
+  if object.valid
+    function object = 'modules/core/commands/execute', mutation_name: 'modules/user/profiles/update', object: object
+    assign object = object | hash_merge: object.properties
+  endif
+  return object
+%}

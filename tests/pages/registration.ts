@@ -12,6 +12,8 @@ export class RegistrationForm extends Form {
     super(page);
     this.page = page;
     this.nameToLocatorMapping = {
+      firstName: { type: 'textbox', locator: '#pos-user-first-name'},
+      lastName: { type: 'textbox', locator: '#pos-user-last-name'},
       email: { type: 'textbox', locator: '#pos-user-email' },
       password: { type: 'textbox', locator: '#pos-user-password' }
     };
@@ -20,6 +22,8 @@ export class RegistrationForm extends Form {
   }
 
   async fillUserData(userData: {
+    firstName?: string;
+    lastName: string;
     email?: string;
     password?: string;
   }) {
@@ -43,7 +47,7 @@ export class RegistrationPage extends BasePage {
     await this.page.goto(this.path);
   }
 
-  async registerUser(user: { email: string }, password: string) {
+  async registerUser(user: { firstName: string, lastName: string, email: string }, password: string) {
     await this.form.fillUserData({ ...user, password });
     await this.form.submitButton('Register').click();
   }

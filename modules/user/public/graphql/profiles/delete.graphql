@@ -1,0 +1,6 @@
+mutation delete_profile($id: ID!) {
+  record: record_delete(
+    table: "modules/user/profile"
+    id: $id
+  ){ id }
+}

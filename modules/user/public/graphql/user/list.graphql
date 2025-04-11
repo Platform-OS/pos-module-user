@@ -5,7 +5,6 @@ query users_list($email:String) {
       created_at
       email
       id
-      roles: property_array(name: "roles")
     }
   }
 }

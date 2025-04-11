@@ -67,6 +67,7 @@
 
 .pos-button-social {
   width: 100%;
+  box-sizing: border-box;
 }
 
 .pos-button-social-icon {
@@ -84,6 +85,6 @@
   margin: 10px 0;
   display: flex;
   flex-direction: column;
-  max-width: 300px;
+  max-width: 350px;
   gap: 10px;
 }

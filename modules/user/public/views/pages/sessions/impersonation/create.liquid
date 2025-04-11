@@ -3,7 +3,7 @@ slug: sessions/impersonations
 method: post
 ---
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
+  function current_profile = 'modules/user/helpers/current_profile'
   function user_to_impersonate = 'modules/user/queries/user/load', id: context.params.user_id
 
   if user_to_impersonate
@@ -14,7 +14,7 @@ method: post
     endif
 
     # platformos-check-disable UnreachableCode
-    include 'modules/user/helpers/can_do_or_unauthorized', do: permission, requester: current_user
+    include 'modules/user/helpers/can_do_or_unauthorized', do: permission, requester: current_profile
     # platformos-check-enable UnreachableCode
 
     function impersonate_user = 'modules/user/commands/session/impersonation/create', current_user_id: context.current_user.id, user: user_to_impersonate

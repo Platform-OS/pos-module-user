@@ -2,9 +2,10 @@
   # test remove role
 
   assign email = 10 | random_string | append: '-user-create@example.com'
-  function user = 'modules/user/commands/user/create', email: email , password: email, hook_params: null, roles: 'role 1,role 2'
+  function user = 'modules/user/commands/user/create', first_name: 'test', last_name: 'test', email: email , password: email, hook_params: null, roles: 'role 1,role 2'
+  function profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
 
   assign roles = 'role 3,role 4' | split: ','
-  function result = 'modules/user/commands/user/roles/set', id: user.id, roles: roles
+  function result = 'modules/user/commands/profiles/roles/set', id: profile.id, roles: roles
   function contract = 'modules/tests/assertions/equal', contract: contract, given: result.roles, expected: roles, field_name: null
 %}

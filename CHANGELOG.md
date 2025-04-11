@@ -2,6 +2,9 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v5.0.0
+* This release introduces built-in profiles based on the now obsolete profile module.
+
 ## v4.1.1
 * Fix: Hide OAuth 2 section when no providers are available
 

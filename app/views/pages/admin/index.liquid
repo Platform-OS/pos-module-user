@@ -1,7 +1,7 @@
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
+  function current_profile = 'modules/user/helpers/current_profile'
   # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'admin.read', redirect_anonymous_to_login: true
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'admin.read', redirect_anonymous_to_login: true
   # platformos-check-enable UnreachableCode
 
   function users = 'modules/user/queries/user/search', id: null, not_ids: null, email: null, role: null, roles: null, sort: null, limit: 20

@@ -1,0 +1,8 @@
+{% liquid
+  function object = 'modules/user/commands/profiles/delete/build', object: object
+  function object = 'modules/user/commands/profiles/delete/check', object: object
+  if object.valid
+    function object = 'modules/core/commands/execute', mutation_name: 'modules/user/profiles/delete', object: object
+  endif
+  return object
+%}
