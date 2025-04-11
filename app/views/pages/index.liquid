@@ -29,7 +29,7 @@
           {% for info in current_profile %}
             {% if info[0] != 'id' and info[0] != 'c__names' and info[0] != 'user' %}
               <dt>{{ info[0] }}</dt>
-              <dd>
+              <dd data-tc="{{info[0]}}">
                 {% if info[0] == 'roles' %}
                   <ul class="pos-tags-list">
                     {% for role in info[1] %}
