@@ -283,17 +283,17 @@ test.describe('Testing profiles', () => {
 
     await homePage.goto();
 
-    await expect(homePage.elementWithText(users.test4.firstName)).toBeVisible();
-    await expect(homePage.elementWithText(users.test4.lastName)).toBeVisible();
+    await expect(homePage.descriptionDetails('first_name').getByText(users.test4.firstName)).toBeVisible();
+    await expect(homePage.descriptionDetails('last_name').getByText(users.test4.lastName)).toBeVisible();
 
     await profileEditPage.goto();
     await profileEditPage.editProfile(users.test4Edited);
 
     await homePage.goto();
-    await expect(homePage.elementWithText(users.test4Edited.firstName)).toBeVisible();
-    await expect(homePage.elementWithText(users.test4Edited.lastName)).toBeVisible();
-    await expect(homePage.elementWithText(users.test4.firstName)).not.toBeVisible();
-    await expect(homePage.elementWithText(users.test4.lastName)).not.toBeVisible();
+    await expect(homePage.descriptionDetails('first_name').getByText(users.test4Edited.firstName)).toBeVisible();
+    await expect(homePage.descriptionDetails('last_name').getByText(users.test4Edited.lastName)).toBeVisible();
+    await expect(homePage.descriptionDetails('first_name').getByText(users.test4.firstName)).not.toBeVisible();
+    await expect(homePage.descriptionDetails('last_name').getByText(users.test4.lastName)).not.toBeVisible();
 
     await context.close();
   });
