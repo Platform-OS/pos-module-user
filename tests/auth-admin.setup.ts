@@ -9,8 +9,7 @@ if (!PASSWORD) {
 }
 
 const testsUsers = [
-  users.superadmin,
-  users.test3
+  users.superadmin
 ];
 
 for (const user of testsUsers) {

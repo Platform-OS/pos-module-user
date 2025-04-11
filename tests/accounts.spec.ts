@@ -3,6 +3,7 @@ import { HomePage } from './pages/home';
 import { AdminHomePage } from './pages/admin/home';
 import { LogInPage } from './pages/login';
 import { PasswordResetPage } from './pages/passwordReset';
+import { ProfileEditPage } from './pages/profileEdit';
 import { RegistrationPage } from './pages/registration';
 import { SubscriptionPage } from './pages/subscription';
 import { TestMailBox } from './pages/testMailBox';
@@ -270,5 +271,30 @@ test.describe.serial('Testing password reset', () => {
       await passwordResetPage.form.buttonWithText('Update').click();
       await expect(passwordResetPage.elementWithText(expectedError)).toBeVisible();
     });
+  });
+});
+
+test.describe('Testing profiles', () => {
+  test('user can update their profile information', async ({ browser }) => {
+    const context = await browser.newContext({ storageState: `tests/.auth/${users.test4.email}.json` });
+    const page = await context.newPage();
+    const homePage = new HomePage(page);
+    const profileEditPage = new ProfileEditPage(page);
+
+    await homePage.goto();
+
+    await expect(homePage.elementWithText(users.test4.firstName)).toBeVisible();
+    await expect(homePage.elementWithText(users.test4.lastName)).toBeVisible();
+
+    await profileEditPage.goto();
+    await profileEditPage.editProfile(users.test4Edited);
+
+    await homePage.goto();
+    await expect(homePage.elementWithText(users.test4Edited.firstName)).toBeVisible();
+    await expect(homePage.elementWithText(users.test4Edited.lastName)).toBeVisible();
+    await expect(homePage.elementWithText(users.test4.firstName)).not.toBeVisible();
+    await expect(homePage.elementWithText(users.test4.lastName)).not.toBeVisible();
+
+    await context.close();
   });
 });
