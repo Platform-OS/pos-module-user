@@ -10,10 +10,9 @@
   assign profiles = '[]' | parse_json
   for profile in records.results
     function slug = 'modules/user/helpers/profiles/slugs/build' , current_profile: profile
-    hash_assign profile['properties']['slug'] = slug
-    assign p = profile
+    hash_assign profile['slug'] = slug
 
-    assign profiles = profiles | array_add: p
+    assign profiles = profiles | array_add: profile
   endfor
   hash_assign records['results'] = profiles
 
