@@ -1,11 +1,11 @@
 {% liquid
   function user = 'modules/user/queries/user/current'
   if user.id == null
-    return null
+    assign current_profile = '{ "user": null, "roles": ["anonymous"] }' | parse_json
+  else
+    function current_profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
+    assign current_profile = current_profile | hash_merge: user: user
   endif
-  
-  function current_profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
-  assign current_profile = current_profile | hash_merge: user: user
 
   export current_profile
   return current_profile

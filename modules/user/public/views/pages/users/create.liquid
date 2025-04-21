@@ -5,7 +5,7 @@ slug: users
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
   
-  if current_profile != null
+  if current_profile.user != null
     include 'modules/core/helpers/redirect_to'
   endif
 

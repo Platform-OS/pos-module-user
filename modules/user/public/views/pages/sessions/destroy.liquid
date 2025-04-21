@@ -5,7 +5,7 @@ method: delete
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
 
-  if current_profile
+  if current_profile.user
     function res = 'modules/user/commands/session/destroy'
   endif
   assign redirect_path = res.hook_results.redirect_to | default: params.redirect_to | default: '/'
