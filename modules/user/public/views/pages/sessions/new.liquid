@@ -1,10 +1,7 @@
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
   
-  if current_profile.user != null
-    include 'modules/core/helpers/redirect_to'
-  endif
-  # platformos-check-disable UnreachableCode
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'sessions.create', return_url: '/'
 
   theme_render_rc 'sessions/new', context: context
 %}

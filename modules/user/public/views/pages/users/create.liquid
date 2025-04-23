@@ -5,9 +5,7 @@ slug: users
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
   
-  if current_profile.user != null
-    include 'modules/core/helpers/redirect_to'
-  endif
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'users.register', redirect_url: "/"
 
   function object = 'modules/user/commands/user/create', first_name: params.first_name, last_name: params.last_name, email: params.email, password: params.password, hook_params: params
   if object.valid

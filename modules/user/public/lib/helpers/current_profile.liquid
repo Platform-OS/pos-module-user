@@ -5,6 +5,7 @@
   else
     function current_profile = 'modules/user/queries/profiles/find', user_id: user.id, id: null, uuid: null, first_name: null, last_name: null
     assign current_profile = current_profile | hash_merge: user: user
+    hash_assign current_profile['roles'] = current_profile.roles | array_add: 'authenticated'
   endif
 
   export current_profile

@@ -3,7 +3,8 @@ query ($id: ID!) {
     results {
       created_at
       email
-      id
+      id,
+      roles: property_array(name: "roles")
     }
   }
 }

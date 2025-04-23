@@ -11,8 +11,9 @@
   for profile in records.results
     function slug = 'modules/user/helpers/profiles/slugs/build' , current_profile: profile
     hash_assign profile['slug'] = slug
+    assign p = profile
 
-    assign profiles = profiles | array_add: profile
+    assign profiles = profiles | array_add: p
   endfor
   hash_assign records['results'] = profiles
 
