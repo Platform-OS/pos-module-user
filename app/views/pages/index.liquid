@@ -2,7 +2,7 @@
   function current_profile = 'modules/user/helpers/current_profile'
 %}
 
-{% if current_profile %}
+{% if current_profile.user != null %}
 
   {% if context.session.original_user_id == blank %}
     <main class="app-user-page">
