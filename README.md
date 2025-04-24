@@ -32,16 +32,44 @@ The platformOS User Module is fully compatible with [platformOS Check](https://g
 
 This command installs the User Module along with its dependencies (such as [pos-module-core](https://github.com/Platform-OS/pos-module-core) and [pos-module-common-styling](https://github.com/Platform-OS/pos-module-common-styling) and updates or creates the `app/pos-modules.json` file in your project directory to track module configurations.
 
-### Setup
+### Updating from <5.0.0 to 5.0.0
+In order to update the module from previous versions to version 5.0.0, install the newest user module and then perform the following steps:
+1. Run the profile migration script:
+```
+{% liquid
+function profiles = 'modules/profile/queries/profiles/search', limit: 50, page: 1
 
-1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
+for page in (1..profiles.total_pages)
+ function profiles = 'modules/profile/queries/profiles/search', limit: 50, page: page
+ for profile in profiles.results
+  function user = 'modules/user/queries/user/load', id: profile.user_id
+  assign data = '{}' | parse_json
+  hash_assign data['first_name'] = profile.first_name
+  hash_assign data['last_name'] = profile.last_name
+  hash_assign data['email'] = user.email
+  hash_assign data['user_id'] = profile.user_id
+  hash_assign data['roles'] = user.roles
+  function r = 'modules/user/commands/profiles/create', object: data
+ endfor
+endfor
+%}
+```
+Validate if all records from the modules/profile/profiles table have been properly migrated to modules/user/profiles.
 
-2. **Update the user configuration** in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
+2. Remove the profile module and delete the modules/profiles/profiles table.
 
+3.  Remove user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
+
+4. Update application code to use current profile instead of user for checking permissions.
 ```yaml
 properties:
   - name: roles
     type: array
+
+
+### Setup
+
+1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
 
 ```
 
@@ -87,32 +115,18 @@ cp modules/user/public/lib/queries/role_permissions/permissions.liquid app/modul
 
 6. Create a [superadmin](#superadmin) using the [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui).
 
-* To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password`, assigned the `superadmin` role, would look as follows:
+* To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password` would look as follows:
 
 ```
 mutation user_create {
   user: user_create(user: { 
     email: "admin@example.com", 
-    password: "password", 
-    properties: [{ name: "roles", value_array: ["superadmin"] }] 
+    password: "password"
   }) {
       id
       email
-      roles: property_array(name: "roles")
     }
   }
-```
-
-* To promote an existing user to superadmin, use the [user_update](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-update) mutation. The following mutation demonstrates promoting the user with ID `1`. To check the ID of any user, use `pos-cli gui serve`, then visit [Users](http://localhost:3333/users) or query the `users` GraphQL endpoint.
-
-```
-mutation user_update {
-  user: user_update(id: 1, user: { properties: [{ name: "roles", value_array: ["superadmin"] }] }) {
-    id
-    email
-    roles: property_array(name: "roles")
-  }
-}
 ```
 
 ### Managing Module Files
@@ -256,15 +270,15 @@ function res = 'modules/user/commands/session/create', email: 'email@example.com
 
 This command also triggers the `hook_user_login` hooks.
 
-#### Accessing current user
+#### Accessing current profile
 
 To access information about the currently logged-in user, use the following command provided by the module:
 
 ```
-function user = 'modules/user/queries/user/current'
+function profile = 'modules/user/helpers/current_profile'
 ```
 
-This command is implemented in `modules/user/public/lib/queries/user/current.liquid`. When you investigate the file, you'll notice that it not only loads the user's information from the database but also extends the user's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in.
+This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in. User object is also available under profile.user when the user is logged in.
 
 #### Log out
 
