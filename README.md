@@ -34,31 +34,19 @@ This command installs the User Module along with its dependencies (such as [pos-
 
 ### Updating from <5.0.0 to 5.0.0
 In order to update the module from previous versions to version 5.0.0, install the newest user module and then perform the following steps:
-1. Run the profile migration script:
+1. Run the profile migration graphql query:
 ```
-{% liquid
-function profiles = 'modules/profile/queries/profiles/search', limit: 50, page: 1
-
-for page in (1..profiles.total_pages)
- function profiles = 'modules/profile/queries/profiles/search', limit: 50, page: page
- for profile in profiles.results
-  function user = 'modules/user/queries/user/load', id: profile.user_id
-  assign data = '{}' | parse_json
-  hash_assign data['first_name'] = profile.first_name
-  hash_assign data['last_name'] = profile.last_name
-  hash_assign data['email'] = user.email
-  hash_assign data['user_id'] = profile.user_id
-  hash_assign data['roles'] = user.roles
-  function r = 'modules/user/commands/profiles/create', object: data
- endfor
-endfor
-%}
+mutation {
+  records_update_all(sync: false, table: "modules/profile/profile", record: { table: "modules/user/profile" }) {
+    count
+  }
+}
 ```
 Validate if all records from the modules/profile/profiles table have been properly migrated to modules/user/profiles.
 
 2. Remove the profile module and delete the modules/profiles/profiles table.
 
-3.  Remove user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
+3.  Remove user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file if present.
 
 4. Update application code to use current profile instead of user for checking permissions.
 ```yaml
