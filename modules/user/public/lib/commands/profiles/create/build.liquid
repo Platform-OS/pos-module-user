@@ -13,7 +13,7 @@
   else
     assign roles_type = object.roles | type_of
     if roles_type == 'String'
-      assign roles = object.roles | append: '' | split: ','
+      assign roles = object.roles | split: ','
     elsif roles_type == 'Array'
       assign roles = object.roles
     else
