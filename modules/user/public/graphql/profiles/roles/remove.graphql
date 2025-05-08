@@ -1,0 +1,26 @@
+mutation (
+  $id: ID!
+  $role: String!
+) {
+  record: record_update(
+    id: $id
+    record: {
+      table: "modules/user/profile"
+      properties: [
+        { name: "roles", array_remove: $role }
+      ]
+    }
+  ) {
+    id
+    created_at
+    type: table
+
+    email: property(name: "email")
+    first_name: property(name: "first_name")
+    last_name: property(name: "last_name")
+    name: property(name: "name")
+    user_id: property(name: "user_id")
+    uuid: property(name: "uuid")
+    roles: property_array(name: "roles")
+  }
+}

@@ -1,0 +1,7 @@
+{% liquid
+  function tokenized_names = 'modules/user/commands/profiles/tokenize_names', object: object
+  assign name = object.first_name | append: ' ' | append: object.last_name
+  assign data = null | hash_merge: id: profile.id, first_name: object.first_name, last_name: object.last_name, name: name, c__names: tokenized_names, email: profile.email
+
+  return data
+%}

@@ -12,7 +12,8 @@ const testsUsers = [
   users.superadmin,
   users.test1,
   users.test2,
-  users.test3
+  users.test3,
+  users.test4
 ];
 
 for (const user of testsUsers) {

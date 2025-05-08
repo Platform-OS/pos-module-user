@@ -1,0 +1,15 @@
+{% parse_json sort_options %}
+{
+   "first_name_desc": { "properties": { "name": "first_name", "order": "DESC" }},
+   "first_name_desc": { "properties": { "name": "first_name", "order": "ASC" }}
+}
+{% endparse_json %}
+{% liquid
+  assign filters = '{}' | parse_json
+  hash_assign filters['page'] = params.page | to_positive_integer: 1
+  hash_assign filters['keyword'] = params.keyword | default: ''
+  hash_assign filters['sort_by'] = params.sort_by | default: 'first_name_desc'
+  hash_assign filters['sort'] = sort_options[filters.sort_by]
+
+  return filters
+%}

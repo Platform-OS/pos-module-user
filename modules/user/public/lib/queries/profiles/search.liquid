@@ -1,0 +1,22 @@
+{% liquid
+  assign page = page | to_positive_integer: 1
+  if not_ids == blank
+    assign not_ids = null
+  endif
+
+  graphql r = 'modules/user/profiles/search', limit: limit, uuid: uuid, id: id, ids: ids, first_name: first_name , last_name: last_name , user_id: user_id, not_ids: not_ids, query: query, emails: emails, sort: sort, page: page
+
+  assign records = r.records
+  assign profiles = '[]' | parse_json
+  for profile in records.results
+    function slug = 'modules/user/helpers/profiles/slugs/build' , current_profile: profile
+    hash_assign profile['slug'] = slug
+    assign p = profile
+
+    assign profiles = profiles | array_add: p
+  endfor
+  hash_assign records['results'] = profiles
+
+  return records
+%}
+

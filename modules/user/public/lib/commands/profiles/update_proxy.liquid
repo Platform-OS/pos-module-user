@@ -1,0 +1,6 @@
+{% liquid
+  function profile_module = 'modules/core/queries/variable/get', name: 'PROFILE_MODULE', default: 'modules/user', type: null
+  assign function_name = profile_module | append: '/commands/profiles/update'
+  function profile = function_name, object: object, profile: profile
+  return profile
+%}

@@ -11,7 +11,7 @@ if (!PASSWORD) {
 
 test.describe('Register users', () => {
   for (const dataSet of Object.values(users)) {
-    if (dataSet.email !== 'test129@example.com') {
+    if (dataSet.firstName !== 'John' && dataSet.firstName !== 'Juliet') {
       test(`Register test profile for ${dataSet.email}`, async ({ page }) => {
         const signUpPage = new RegistrationPage(page);
 
@@ -21,7 +21,7 @@ test.describe('Register users', () => {
 
         await test.step(`Register user ${dataSet.email}`, async () => {
           await signUpPage.registerUser(
-            { email: dataSet.email },
+            { email: dataSet.email, firstName: dataSet.firstName, lastName: dataSet.lastName },
             PASSWORD
           );
 

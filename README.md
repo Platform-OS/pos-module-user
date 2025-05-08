@@ -36,13 +36,6 @@ This command installs the User Module along with its dependencies (such as [pos-
 
 1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
 
-2. **Update the user configuration** in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file:
-
-```yaml
-properties:
-  - name: roles
-    type: array
-
 ```
 
 3. Configure the [common-styling](https://github.com/Platform-OS/pos-module-common-styling) to include default styles. It is recommended that you familiarize with the common-styling module by reading its README file. At ensures that your [Layout](https://documentation.platformos.com/developer-guide/pages/layouts) includes:
@@ -87,32 +80,18 @@ cp modules/user/public/lib/queries/role_permissions/permissions.liquid app/modul
 
 6. Create a [superadmin](#superadmin) using the [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui).
 
-* To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password`, assigned the `superadmin` role, would look as follows:
+* To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password` would look as follows:
 
 ```
 mutation user_create {
   user: user_create(user: { 
     email: "admin@example.com", 
-    password: "password", 
-    properties: [{ name: "roles", value_array: ["superadmin"] }] 
+    password: "password"
   }) {
       id
       email
-      roles: property_array(name: "roles")
     }
   }
-```
-
-* To promote an existing user to superadmin, use the [user_update](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-update) mutation. The following mutation demonstrates promoting the user with ID `1`. To check the ID of any user, use `pos-cli gui serve`, then visit [Users](http://localhost:3333/users) or query the `users` GraphQL endpoint.
-
-```
-mutation user_update {
-  user: user_update(id: 1, user: { properties: [{ name: "roles", value_array: ["superadmin"] }] }) {
-    id
-    email
-    roles: property_array(name: "roles")
-  }
-}
 ```
 
 ### Managing Module Files
@@ -256,15 +235,15 @@ function res = 'modules/user/commands/session/create', email: 'email@example.com
 
 This command also triggers the `hook_user_login` hooks.
 
-#### Accessing current user
+#### Accessing current profile
 
 To access information about the currently logged-in user, use the following command provided by the module:
 
 ```
-function user = 'modules/user/queries/user/current'
+function profile = 'modules/user/helpers/current_profile'
 ```
 
-This command is implemented in `modules/user/public/lib/queries/user/current.liquid`. When you investigate the file, you'll notice that it not only loads the user's information from the database but also extends the user's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in.
+This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in. User object is also available under profile.user when the user is logged in.
 
 #### Log out
 

@@ -1,21 +1,22 @@
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
+  function current_profile = 'modules/user/helpers/current_profile'
 %}
 
-{% if current_user.id %}
+{% if current_profile.user != null %}
 
   {% if context.session.original_user_id == blank %}
     <main class="app-user-page">
 
       <nav class="app-user-navigation">
+        <a href="/">Home</a>
+        <a href="/profile">Profile</a>
         <a href="/subscription">Subscription area</a>
         <a href="/admin">Admin</a>
-        <a href="/oauth">OAuth 2</a>
       </nav>
 
       <section class="app-user-info pos-card pos-card-highlighted">
         <header>
-          <h1 class="pos-heading-3">Current user</h1>
+          <h1 class="pos-heading-3">Current profile</h1>
           <form action="/sessions" method="post">
             <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
             <input type="hidden" name="_method" value="delete">
@@ -25,12 +26,10 @@
           </form>
         </header>
         <dl class="app-user-info-list">
-          <dt>id</dt>
-          <dd>{{ current_user.id }} </dd>
-          {% for info in current_user %}
-            {% if info[0] != 'id' %}
+          {% for info in current_profile %}
+            {% if info[0] != 'id' and info[0] != 'c__names' and info[0] != 'user' %}
               <dt>{{ info[0] }}</dt>
-              <dd>
+              <dd data-tc="{{info[0]}}">
                 {% if info[0] == 'roles' %}
                   <ul class="pos-tags-list">
                     {% for role in info[1] %}
@@ -55,7 +54,18 @@
   {{ current_user }}
 %}
 {% endraw %}</pre></code>
-        <p>{{ current_user }}</p>
+        <p>{{ current_profile.user }}</p>
+      </section>
+
+      <section class="pos-user-code">
+        <code><pre>
+{%- raw -%}
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  {{ current_profile }}
+%}
+{% endraw %}</pre></code>
+        <p>{{ current_profile }}</p>
       </section>
 
 

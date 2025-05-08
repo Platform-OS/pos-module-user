@@ -2,19 +2,19 @@
   Destroys the current user's session.
 {% endcomment %}
 {% liquid
-  function user = 'modules/user/queries/user/current'
+  function current_profile = 'modules/user/helpers/current_profile'
+
   graphql destroy = 'modules/user/session/destroy'
-  hash_assign destroy['user'] = user
+  hash_assign destroy['user'] = current_profile.user
 
   unless destroy.errors
     assign params = '{}' | parse_json | hash_merge: destroy: destroy
     function results = 'modules/core/commands/hook/fire', hook: 'user_logout', params: params, merge_to_object: null
     hash_assign destroy['hook_results'] = results
-    assign event_payload = null | hash_merge: user_id: user.id
+    assign event_payload = null | hash_merge: user_id: current_profile.user.id
     function _ = 'modules/core/commands/events/publish', type: 'user_logout', object: event_payload, delay: null, max_attempts: null
     session original_user_id = null
     session return_to = null
   endunless
-
   return destroy
 %}

@@ -28,6 +28,6 @@ slug: authentication_links
     function _ = 'modules/user/helpers/flash', notice: 'modules/user/authentication_links.created'
     redirect_to '/'
   else
-    theme_render_rc 'passwords/reset', context: context, errors: object.errors
+    render 'modules/user/passwords/reset', context: context, errors: object.errors
   endif
 %}

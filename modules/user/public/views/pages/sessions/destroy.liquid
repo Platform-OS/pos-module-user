@@ -3,12 +3,12 @@ slug: sessions
 method: delete
 ---
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
-  # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'sessions.destroy', return_url: '/'
-  # platformos-check-enable UnreachableCode
+  function current_profile = 'modules/user/helpers/current_profile'
 
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'sessions.destroy', return_url: '/'
+  
   function res = 'modules/user/commands/session/destroy'
+
   assign redirect_path = res.hook_results.redirect_to | default: params.redirect_to | default: '/'
   redirect_to redirect_path
 %}

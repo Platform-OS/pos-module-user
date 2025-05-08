@@ -1,0 +1,51 @@
+query (
+  $page: Int = 1
+  $limit: Int = 20
+  $first_name: String
+  $last_name: String
+  $email: String
+  $emails: [String!]
+  $id: ID
+  $ids: [ID!]
+  $not_ids: [ID!]
+  $uuid: String
+  $user_id: String
+  $sort: RecordsSortInput = { created_at: { order: DESC } }
+  $query: String
+) {
+  records(
+    page: $page
+    per_page: $limit
+    filter: {
+      id: { value: $id, value_in: $ids, not_value_in: $not_ids }
+      table: { value: "modules/user/profile" }
+      properties: [
+        { name: "uuid", value: $uuid }
+        { name: "first_name", value: $first_name }
+        { name: "last_name", value: $last_name }
+        { name: "user_id", value: $user_id }
+        { name: "email", value: $email, value_in: $emails }
+        { name: "c__names", contains: $query }
+      ]
+    }
+    sort: [$sort]
+  ) {
+    total_entries
+    total_pages
+    has_previous_page
+    has_next_page
+    results {
+      id
+      created_at
+      type: table
+
+      email: property(name: "email")
+      first_name: property(name: "first_name")
+      last_name: property(name: "last_name")
+      name: property(name: "name")
+      user_id: property(name: "user_id")
+      uuid: property(name: "uuid")
+      roles: property_array(name: "roles")
+    }
+  }
+}

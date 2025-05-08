@@ -1,12 +1,11 @@
 {% comment %}
-  Loads the current user. Automatically adds `authenticated` role or `anonymous` role, depending if the user is logged in or not
+  Loads the current user.
 {% endcomment %}
 {% liquid
   if context.current_user
     function user = 'modules/user/queries/user/load', id: context.current_user.id
-    hash_assign user['roles'] = user['roles'] | array_add: 'authenticated'
   else
-    assign user = '{ "roles": ["anonymous"] }' | parse_json
+    assign user = null
   endif
   return user
 %}

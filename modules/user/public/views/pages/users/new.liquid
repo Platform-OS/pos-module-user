@@ -1,11 +1,10 @@
 {% liquid
-  function current_user = 'modules/user/queries/user/current'
-  # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', redirect_url: "/"
-  # platformos-check-enable UnreachableCode
+  function current_profile = 'modules/user/helpers/current_profile'
+  
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'users.register', redirect_url: "/"
 
   function registration_fields = 'modules/user/queries/registration_fields/load'
   assign values = null | hash_merge: email: context.params.email
 
-  theme_render_rc 'users/new', context: context, registration_fields: registration_fields, values: values
+  render 'modules/user/users/new', context: context, registration_fields: registration_fields, values: values
 %}

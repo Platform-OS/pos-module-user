@@ -1,0 +1,11 @@
+{% liquid
+  assign object = '{}' | parse_json | hash_merge: valid: true, id: id, role: role
+  function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/profiles/roles/append'
+
+  if object.errors == blank
+    assign event_payload = null | hash_merge: profile_id: id, role: role
+    function _ = 'modules/core/commands/events/publish', type: 'user_role_appended', object: event_payload, delay: null, max_attempts: null
+  endif
+
+  return object
+%}
