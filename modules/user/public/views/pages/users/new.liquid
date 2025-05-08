@@ -6,5 +6,5 @@
   function registration_fields = 'modules/user/queries/registration_fields/load'
   assign values = null | hash_merge: email: context.params.email
 
-  theme_render_rc 'users/new', context: context, registration_fields: registration_fields, values: values
+  render 'modules/user/users/new', context: context, registration_fields: registration_fields, values: values
 %}
