@@ -1,8 +1,8 @@
 # User Module
 
-This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) to your application. Before using the module for the first time, we recommend reading the official platformOS documentation on [User Authentication Basics](https://documentation.staging.oregon.platform-os.com/get-started/build-your-first-app/user-authentication) and on [Example Application](#example-application).
+This module serves as a starting point for adding authentication and RBAC (Role-Based Access Control) to your application. Before using the module for the first time, we recommend reading the official platformOS documentation on [User Authentication Basics](https://documentation.platformos.com/get-started/build-your-first-app/user-authentication) and on [Example Application](#example-application).
 
-This module follows the [platformOS DevKit best practices](https://documentation.staging.oregon.platform-os.com/developer-guide/modules/platformos-modules) and includes the [core module](https://github.com/Platform-OS/pos-module-core) as a dependency, enabling you to implement patterns such as [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
+This module follows the [platformOS DevKit best practices](https://documentation.platformos.com/developer-guide/modules/platformos-modules) and includes the [core module](https://github.com/Platform-OS/pos-module-core) as a dependency, enabling you to implement patterns such as [Commands](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#commands--business-logic) and [Events](https://github.com/Platform-OS/pos-module-core?tab=readme-ov-file#events).
 
 For more information, 
 - read the documentation about the [built-in User table](https://documentation.platformos.com/developer-guide/users/user),
