@@ -36,9 +36,7 @@ This command installs the User Module along with its dependencies (such as [pos-
 
 1.  **Install the module** using the [pos-cli](https://github.com/Platform-OS/pos-cli).
 
-```
-
-3. Configure the [common-styling](https://github.com/Platform-OS/pos-module-common-styling) to include default styles. It is recommended that you familiarize with the common-styling module by reading its README file. At ensures that your [Layout](https://documentation.platformos.com/developer-guide/pages/layouts) includes:
+2. Configure the [common-styling](https://github.com/Platform-OS/pos-module-common-styling) to include default styles. It is recommended that you familiarize with the common-styling module by reading its README file. At ensures that your [Layout](https://documentation.platformos.com/developer-guide/pages/layouts) includes:
 
 a) `pos-app` class in the root `html` tag
 b) css files from the common-styling module in the head section
@@ -47,7 +45,7 @@ d) liquid code which displays built-in notifications after `{{ content_for_layou
 
 Navigate to [app/views/layouts/application.liquid](https://github.com/Platform-OS/pos-module-user/blob/master/app/views/layouts/application.liquid) to see a complete example of a layout file with the common-styling and user module stylesheets and js code included. 
 
-4. (Optional) Create a [migration](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure#migrations) to set up the `USER_DEFAULT_ROLE` [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
+3. (Optional) Create a [migration](https://documentation.platformos.com/developer-guide/platformos-workflow/directory-structure#migrations) to set up the `USER_DEFAULT_ROLE` [constant](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-constants).
 
 To generate a new migration, can use `pos-cli migrations generate` command. Remember to change `env` to your environment that you've used for the `pos-cli env add` command. If you don't remember it, check the `.pos` file.
 
@@ -70,7 +68,7 @@ Don’t forget to deploy your code to invoke the newly created migration:
 pos-cli deploy <env>
 ```
 
-5. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At a minimum, you should overwrite the [permissions file](modules/user/public/lib/queries/role_permissions/permissions.liquid), where you will configure [RBAC authorization](#rbac-authorization) roles and permissions for your application:
+4. Overwrite default views that you would like to customize by following the guide on [overwriting a module file](https://documentation.platformos.com/developer-guide/modules/modules#overwritting-a-module-file). This allows you to add functionality based on your project requirements, such as extending the registration form with additional fields. At a minimum, you should overwrite the [permissions file](modules/user/public/lib/queries/role_permissions/permissions.liquid), where you will configure [RBAC authorization](#rbac-authorization) roles and permissions for your application:
 
 
 ```
@@ -78,7 +76,7 @@ mkdir -p app/modules/user/public/lib/queries/role_permissions
 cp modules/user/public/lib/queries/role_permissions/permissions.liquid app/modules/user/public/lib/queries/role_permissions/permissions.liquid
 ```
 
-6. Create a [superadmin](#superadmin) using the [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui).
+5. Create a [superadmin](#superadmin) using the [GraphQL Explorer](https://documentation.platformos.com/developer-guide/pos-cli/developing-graphql-queries-using-pos-cli-gui).
 
 * To create a new user, use the [user_create](https://documentation.platformos.com/api-reference/graphql/data/mutations/user-create) mutation. The query to create a user with the email `admin@example.com` and password `password` would look as follows:
 
