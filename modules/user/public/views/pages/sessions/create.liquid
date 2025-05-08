@@ -12,6 +12,6 @@ slug: sessions
   if res.valid
     include 'modules/core/helpers/redirect_to'
   else
-    theme_render_rc 'sessions/new', context: context, errors: res.errors
+    render 'modules/user/sessions/new', context: context, errors: res.errors, values: null
   endif
 %}
