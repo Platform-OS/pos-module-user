@@ -14,10 +14,6 @@ Validate if all records from the modules/profile/profiles table have been proper
 
 2. Remove the profile module and delete the modules/profiles/profiles table.
 
-3.  Remove user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file if present.
+3.  Remove roles from user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file if present.
 
 4. Update application code to use current profile instead of user for checking permissions.
-```yaml
-properties:
-  - name: roles
-    type: array
