@@ -18,7 +18,8 @@ query (
     results {
       id
       email
-      created_at
+      created_at,
+      roles: property_array(name: "roles")
     }
   }
 }
