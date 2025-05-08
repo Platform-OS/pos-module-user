@@ -18,7 +18,7 @@ Validate if all records from the modules/profile/profiles table have been proper
 graphql total = 'modules/user/user/count'
 assign count = total.users.total_entries
 assign pages = count | divided_by: 20.0 | ceil
-log pages, type:"D"
+
 for page in (1..pages)
   graphql r = 'modules/user/user/search', page: page, limit: 20
   for user in r.users.results
@@ -26,8 +26,7 @@ for page in (1..pages)
     assign id = user.id
     graphql profile_result= 'modules/user/profiles/search', user_id: id, limit: 1, page: 1
     assign profile = profile_result.records.results.first
-    log profile, type:"D"
-    log roles, type:"D"
+
     if profile != null
       assign object = '{}' | parse_json | hash_merge: valid: true, id: profile.id, roles: roles
       function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/profiles/roles/set'
