@@ -40,4 +40,4 @@ endfor
 
 4.  Remove roles from user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file if present.
 
-5. Update application code to use current profile instead of user for checking permissions.
+5. Update application code to use current profile ```modules/user/helpers/current_profile``` instead of user for checking permissions.
