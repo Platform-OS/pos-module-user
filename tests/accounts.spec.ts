@@ -105,7 +105,7 @@ test.describe('Testing registration', () => {
       .toBeVisible();
   });
 
-  test.skip('validate password strength indicator', async ({ page }) => {
+  test('validate password strength indicator', async ({ page }) => {
     const registrationPage = new RegistrationPage(page);
     const weakPassword = 'weak';
     const expectedError = 'is too short (minimum is 6 characters)';
