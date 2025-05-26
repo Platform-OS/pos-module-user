@@ -107,13 +107,41 @@ test.describe('Testing registration', () => {
 
   test('validate password strength indicator', async ({ page }) => {
     const registrationPage = new RegistrationPage(page);
-    const weakPassword = 'weak';
-    const expectedError = 'is too short (minimum is 6 characters)';
+    const expectedMessages = ['must include at least one upper case', 'must include at least one number', 'is too short (minimum is 6 characters)'];
 
     await registrationPage.goto();
-    await registrationPage.registerUser(users.newUser, weakPassword);
 
-    await expect(registrationPage.page.getByText(expectedError)).toBeVisible();
+    const testCases = [
+      {
+        password: 'weak',
+        visibleErrors: [expectedMessages[0], expectedMessages[1], expectedMessages[2]]
+      },
+      {
+        password: 'weak1',
+        visibleErrors: [expectedMessages[0], expectedMessages[2]]
+      },
+      {
+        password: 'w3akB',
+        visibleErrors: [expectedMessages[2]]
+      },
+      {
+        password: 'w3akB1',
+        visibleErrors: [],
+        alreadyRegisteredMessage: 'It seems you already have a registered account. Please check the email field again or log in with your credentials.',
+      },
+    ];
+
+    for (const testCase of testCases) {
+      await registrationPage.registerUser(users.newUser, testCase.password);
+
+      for (const error of testCase.visibleErrors) {
+        await expect(page.getByText(error)).toBeVisible();
+      }
+
+      if (testCase.alreadyRegisteredMessage) {
+        await expect(page.getByText(testCase.alreadyRegisteredMessage)).toBeVisible();
+      }
+    }
   });
 });
 
