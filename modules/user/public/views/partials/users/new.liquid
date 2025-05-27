@@ -24,7 +24,7 @@ metadata:
           <label for="pos-user-{{ field.name }}">{{ field.label }}</label>
         {% endif %}
         <input type="{{ field.type }}" name="{{ field.name }}" id="pos-user-{{ field.name }}" value="{{ values[field.name] }}" required placeholder="{{ field.placeholder }}"{% render 'modules/common-styling/forms/error_input_handler', name: field.name, errors: errors[field.name] %}>
-        {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+        {% render 'modules/common-styling/forms/error_list', name: field.name, errors: errors[field.name] %}
       </fieldset>
     {% endfor %}
 
@@ -49,7 +49,7 @@ metadata:
     <fieldset>
       <label for="pos-user-password">Password</label>
       <input type="password" name="password" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
-      {% if errors['email'] %}
+      {% if errors['password'] %}
         <ul id="pos-user-password-error">
           {% for error in errors['password'] %}
             <li class="pos-form-error">{{ error }}</li>
