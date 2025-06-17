@@ -5,6 +5,7 @@ query (
   $limit: Int = 20
   $page: Int = 1
   $sort: UsersSortInput = { id: { order: DESC } }
+  $include_profiles: Boolean = false
 ) {
   users(
     per_page: $limit
@@ -18,8 +19,22 @@ query (
     results {
       id
       email
-      created_at,
+      created_at
       roles: property_array(name: "roles")
+      profiles: related_records(
+        table: "modules/user/profile"
+        join_on_property: "id"
+        foreign_property: "user_id"
+        limit: 1
+      ) @include(if: $include_profiles) {
+        email: property(name: "email")
+        first_name: property(name: "first_name")
+        last_name: property(name: "last_name")
+        name: property(name: "name")
+        user_id: property(name: "user_id")
+        uuid: property(name: "uuid")
+        roles: property_array(name: "roles")
+      }
     }
   }
 }
