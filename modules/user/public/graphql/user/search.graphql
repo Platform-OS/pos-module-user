@@ -27,6 +27,7 @@ query (
         foreign_property: "user_id"
         limit: 1
       ) @include(if: $include_profiles) {
+        id
         email: property(name: "email")
         first_name: property(name: "first_name")
         last_name: property(name: "last_name")
