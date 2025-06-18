@@ -17,15 +17,13 @@ Validate if all records from the modules/profile/profiles table have been proper
 {% liquid
 graphql total = 'modules/user/user/count'
 assign count = total.users.total_entries
-assign pages = count | divided_by: 20.0 | ceil
+assign pages = count | divided_by: 1000.0 | ceil
 
 for page in (1..pages)
-  graphql r = 'modules/user/user/search', page: page, limit: 20
+  graphql r = 'modules/user/user/search', page: page, limit: 1000, include_profiles: true
   for user in r.users.results
     assign roles = user.roles
-    assign id = user.id
-    graphql profile_result= 'modules/user/profiles/search', user_id: id, limit: 1, page: 1
-    assign profile = profile_result.records.results.first
+    assign profile = user.profiles.first
 
     if profile != null
       assign object = '{}' | parse_json | hash_merge: valid: true, id: profile.id, roles: roles
@@ -36,7 +34,7 @@ endfor
 %}
 ```
 
-3. Remove the profile module and delete the modules/profiles/profiles table.
+3. Remove the profile module and delete the modules/profile/profile table.
 
 4.  Remove roles from user configuration in the [app/user.yml](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) file if present.
 
