@@ -215,6 +215,7 @@ p + p {
   background-color: var(--pos-color-highlight-background);
   border-radius: var(--pos-radius-panel);
 
+  word-wrap: break-word;
   font-family: monospace;
   font-size: 1rem;
 }
