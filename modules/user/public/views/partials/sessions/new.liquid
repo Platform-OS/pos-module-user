@@ -31,7 +31,9 @@ metadata:
       {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
     </fieldset>
 
-    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/sessions.new.log_in' | t }}</button>
+    <fieldset>
+      <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/sessions.new.log_in' | t }}</button>
+    </fieldset>
 
   </form>
 

@@ -1,0 +1,1402 @@
+---
+layout: 'modules/common-styling/style-guide'
+---
+
+<main class="styleguide">
+
+  <nav class="styleguide-navigation">
+    <ul>
+      <li><a href="#initialization">Initialization</a></li>
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#icons">Icons</a></li>
+      <li><a href="#fonts">Typography</a></li>
+      <li><a href="#interactive-elements">Interactive elements</a></li>
+      <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#forms">Forms</a></li>
+      <li><a href="#boxes">Boxes</a></li>
+      <li><a href="#tables">Tables</a></li>
+    </ul>
+  </nav>
+
+  <section class="styleguide-container">
+    
+    <!---------------------------------------------------------------------------------------- initialization -->
+    <article id="initialization">
+      <h2 class="pos-heading-2">Initlialization</h2>
+      <div class="styleguide-columns">
+        <div>
+          <p>All of the following CSS (except CSS custom properties) are scoped to container that uses <code>pos-app</code> class. You can use that class either on the root <code>html</code> tag of your app or just limit the scope to any container.</p>
+{% capture code %}{% raw %}
+<html class="pos-app">
+…
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+
+          <h3 class="pos-heading-4">Dark mode</h3>
+          <p>To enable dark mode add the <code>pos-theme-darkEnabled</code> class to the same container. Dark theme setting is based on the user's system settings or can be forced by adding a <code>pos-theme-dark</code> class to your app container.</p>
+{% capture code %}{% raw %}
+<html class="pos-app pos-theme-darkEnabled">
+…
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+        <dl class="styleguide-details styleguide-details-highlighted">
+          <dt>Initialize common styling class</dt><dd><code>pos-app</code></dd>
+          <dt>Enable automatic dark mode class</dt><dd><code>pos-theme-darkEnabled</code></dd>
+          <dt>Manually turn on dark theme class</dt><dd><code>pos-theme-dark</code></dd>
+        </dl>
+      </div>
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- colors -->
+    <article id="colors">
+      <h2 class="pos-heading-2">Colors</h2>
+
+      <h3 class="styleguide-subheading">General content</h3>
+      <ul>
+        <li>
+          <h4 class="pos-heading-4">Page background</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-page-background);">
+                <small class="styleguide-color-variable">--pos-color-page-background</small>
+              </div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Content background</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-content-background);">
+                <small class="styleguide-color-variable">--pos-color-content-background</small>
+              </div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Content text & icons</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-content-text);"><small class="styleguide-color-variable">--pos-color-content-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-content-icon);"><small class="styleguide-color-variable">--pos-color-content-icon</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-content-text-supplementary);"><small class="styleguide-color-variable">--pos-color-content-text-supplementary</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-content-text-prominent);"><small class="styleguide-color-variable">--pos-color-content-text-prominent</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Borders & separators</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-frame);"><small class="styleguide-color-variable">--pos-color-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Highlighted elements</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-highlight-background);"><small class="styleguide-color-variable">--pos-color-highlight-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-highlight-text);"><small class="styleguide-color-variable">--pos-color-highlight-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Standout sections, call to actions</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-standout-background);"><small class="styleguide-color-variable">--pos-color-standout-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-standout-background-hover);"><small class="styleguide-color-variable">--pos-color-standout-background-hover</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-standout-text);"><small class="styleguide-color-variable">--pos-color-standout-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="styleguide-subheading">Interactive elements</h3>
+      <ul>
+        <li>
+          <h4 class="pos-heading-4">Links</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-interactive);"><small class="styleguide-color-variable">--pos-color-interactive</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-interactive-hover);"><small class="styleguide-color-variable">--pos-color-interactive-hover</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-interactive-active);"><small class="styleguide-color-variable">--pos-color-interactive-active</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-interactive-disabled);"><small class="styleguide-color-variable">--pos-color-interactive-disabled</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <h4 class="pos-heading-4">Primary buttons</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-background);"><small class="styleguide-color-variable">--pos-color-button-primary-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-frame);"><small class="styleguide-color-variable">--pos-color-button-primary-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-text);"><small class="styleguide-color-variable">--pos-color-button-primary-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-hover-background);"><small class="styleguide-color-variable">--pos-color-button-primary-hover-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-hover-frame);"><small class="styleguide-color-variable">--pos-color-button-primary-hover-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-hover-text);"><small class="styleguide-color-variable">--pos-color-button-primary-hover-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-active-background);"><small class="styleguide-color-variable">--pos-color-button-primary-active-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-active-frame);"><small class="styleguide-color-variable">--pos-color-button-primary-active-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-active-text);"><small class="styleguide-color-variable">--pos-color-button-primary-active-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-disabled-background);"><small class="styleguide-color-variable">--pos-color-button-primary-disabled-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-disabled-frame);"><small class="styleguide-color-variable">--pos-color-button-primary-disabled-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-primary-disabled-text);"><small class="styleguide-color-variable">--pos-color-button-primary-disabled-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <h4 class="pos-heading-4">Secondary buttons</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-background);"><small class="styleguide-color-variable">--pos-color-button-secondary-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-frame);"><small class="styleguide-color-variable">--pos-color-button-secondary-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-text);"><small class="styleguide-color-variable">--pos-color-button-secondary-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-hover-background);"><small class="styleguide-color-variable">--pos-color-button-secondary-hover-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-hover-frame);"><small class="styleguide-color-variable">--pos-color-button-secondary-hover-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-hover-text);"><small class="styleguide-color-variable">--pos-color-button-secondary-hover-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-active-background);"><small class="styleguide-color-variable">--pos-color-button-secondary-active-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-active-frame);"><small class="styleguide-color-variable">--pos-color-button-secondary-active-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-active-text);"><small class="styleguide-color-variable">--pos-color-button-secondary-active-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-disabled-background);"><small class="styleguide-color-variable">--pos-color-button-secondary-disabled-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-disabled-frame);"><small class="styleguide-color-variable">--pos-color-button-secondary-disabled-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-button-secondary-disabled-text);"><small class="styleguide-color-variable">--pos-color-button-secondary-disabled-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="styleguide-subheading">Browser UI</h3>
+      <ul>
+        <li>
+          <h4 class="pos-heading-4">Focused elements highlight</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-focused);"><small class="styleguide-color-variable">--pos-color-focused</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Text selection highlight</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-selection-background);"><small class="styleguide-color-variable">--pos-color-selection-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-selection-text);"><small class="styleguide-color-variable">--pos-color-selection-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="styleguide-subheading">Forms</h3>
+      <ul>
+        <li>
+          <h4 class="pos-heading-4">Placeholder text</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-placeholder);"><small class="styleguide-color-variable">--pos-color-input-placeholder</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+        <li>
+          <h4 class="pos-heading-4">Input field</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-background);"><small class="styleguide-color-variable">--pos-color-input-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-frame);"><small class="styleguide-color-variable">--pos-color-input-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-text);"><small class="styleguide-color-variable">--pos-color-input-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-hover-background);"><small class="styleguide-color-variable">--pos-color-input-hover-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-hover-frame);"><small class="styleguide-color-variable">--pos-color-input-hover-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-hover-text);"><small class="styleguide-color-variable">--pos-color-input-hover-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-active-background);"><small class="styleguide-color-variable">--pos-color-input-active-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-active-frame);"><small class="styleguide-color-variable">--pos-color-input-active-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-active-text);"><small class="styleguide-color-variable">--pos-color-input-active-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-disabled-background);"><small class="styleguide-color-variable">--pos-color-input-disabled-background</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-disabled-frame);"><small class="styleguide-color-variable">--pos-color-input-disabled-frame</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-input-disabled-text);"><small class="styleguide-color-variable">--pos-color-input-disabled-text</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="styleguide-subheading">Utility</h3>
+      <ul>
+        <li>
+          <h4 class="pos-heading-4">Statuses</h4>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-important);"><small class="styleguide-color-variable">--pos-color-important</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-important-hover);"><small class="styleguide-color-variable">--pos-color-important-hover</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-important-disabled);"><small class="styleguide-color-variable">--pos-color-important-disabled</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-warning);"><small class="styleguide-color-variable">--pos-color-warning</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-warning-hover);"><small class="styleguide-color-variable">--pos-color-warning-hover</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-warning-disabled);"><small class="styleguide-color-variable">--pos-color-warning-disabled</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+          <div class="styleguide-colors">
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-confirmation);"><small class="styleguide-color-variable">--pos-color-confirmation</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-confirmation-hover);"><small class="styleguide-color-variable">--pos-color-confirmation-hover</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+            <div class="styleguide-color-container">
+              <div class="styleguide-color" style="background-color: var(--pos-color-confirmation-disabled);"><small class="styleguide-color-variable">--pos-color-confirmation-disabled</small></div>
+              <small class="styleguide-color-hex">#</small>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- colors -->
+    <article id="icons">
+      <h2 class="pos-heading-2">Icons</h2>
+{% capture code %}{% raw %}
+{% render 'modules/common-styling/icon', icon: 'dashDown' %}
+{% endraw %}{% endcapture %}
+      <div class="styleguide-code">
+        <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+      </div>
+      <ul>
+        {% render 'modules/common-styling/icon', icon: 'all' %}
+      </ul>
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- fonts -->
+    <article id="fonts">
+      <h2 class="pos-heading-2">Fonts</h2>
+
+      <div class="styleguide-columns">
+        <div>
+          <p style="font-family: var(--pos-font-default);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod aliquet nisi euismod eleifend. Phasellus justo tellus, aliquet ac aliquam ut, dictum eu augue.</p>
+          <p style="font-family: var(--pos-font-default);">Nullam vitae ex sed ligula convallis suscipit. Maecenas et neque facilisis.</p>
+
+          <picture class="styleguide-fonts-example" style="font-family: var(--pos-font-default);">
+            <strong>Aa</strong>
+            <ul>
+              <li style="font-weight: 300;">Light</li>
+              <li style="font-weight: 400;">Regular</li>
+              <li style="font-weight: 500;">Medium</li>
+              <li style="font-weight: 600;">Semi Bold</li>
+              <li style="font-weight: 700;">Bold</li>
+            </ul>
+            <aside>
+              <em>BbCc123</em>
+              <small>
+                ABCDEFGHIJKLMNOPRSTUVWXYZ<br>
+                abcdefghijklmnoprstuvwxyz<br>
+                1234567890&nbsp;&nbsp; <>/@&!%?+
+              </small>
+            </aside>
+          </picture>
+          <dl class="styleguide-details styleguide-details-highlighted">
+            <dt>Property</dt><dd><code>--pos-font-default</code></dd>
+            <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+            <dt>Default font size</dt><dd class="styleguide-typography-content-size"></dd>
+          </dl>
+        </div>
+
+        <div>
+          <p style="font-family: var(--pos-font-heading);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod aliquet nisi euismod eleifend. Phasellus justo tellus, aliquet ac aliquam ut, dictum eu augue.</p>
+          <p style="font-family: var(--pos-font-heading);">Nullam vitae ex sed ligula convallis suscipit. Maecenas et neque facilisis.</p>
+
+          <picture class="styleguide-fonts-example" style="font-family: var(--pos-font-heading);">
+            <strong>Aa</strong>
+            <ul>
+              <li style="font-weight: 300;">Light</li>
+              <li style="font-weight: 400;">Regular</li>
+              <li style="font-weight: 500;">Medium</li>
+              <li style="font-weight: 600;">Semi Bold</li>
+              <li style="font-weight: 700;">Bold</li>
+            </ul>
+            <aside>
+              <em>BbCc123</em>
+              <small>
+                ABCDEFGHIJKLMNOPRSTUVWXYZ<br>
+                abcdefghijklmnoprstuvwxyz<br>
+                1234567890&nbsp;&nbsp; <>/@&!%?+
+              </small>
+            </aside>
+          </picture>
+          <dl class="styleguide-details styleguide-details-highlighted">
+            <dt>Property</dt><dd><code>--pos-font-heading</code></dd>
+            <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+            <dt>Default font size</dt><dd class="styleguide-typography-content-size"></dd>
+          </dl>
+        </div>
+      </div>
+
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- fonts -->
+    <article id="headings">
+      <h2 class="pos-heading-2">Headings</h2>
+      
+      <h3 class="pos-heading-4">Heading 1</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-heading-1</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-heading-1">
+            The quick brown fox jumps over the lazy dog
+          </picture>
+{% capture code %}{% raw %}
+<h1 class="pos-heading-1">The quick brown fox jumps over the lazy dog</h1>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+      
+      <h3 class="pos-heading-4">Heading 2</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-heading-2</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-heading-2">
+            The quick brown fox jumps over the lazy dog
+          </picture>
+{% capture code %}{% raw %}
+<h2 class="pos-heading-2">The quick brown fox jumps over the lazy dog</h1>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="pos-heading-4">Heading 3</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-heading-3</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-heading-3">
+            The quick brown fox jumps over the lazy dog
+          </picture>
+{% capture code %}{% raw %}
+<h3 class="pos-heading-3">The quick brown fox jumps over the lazy dog</h1>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="pos-heading-4">Heading 4</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-heading-4</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-heading-4">
+            The quick brown fox jumps over the lazy dog
+          </picture>
+{% capture code %}{% raw %}
+<h4 class="pos-heading-4">The quick brown fox jumps over the lazy dog</h1>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- text styles -->
+    <article id="text-styles">
+      <h2 class="pos-heading-2">Text styles</h2>
+      <h3 class="pos-heading-4">Sidenote</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-supplementary</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-supplementary">
+            The quick brown fox jumps over the lazy dog
+          </picture>
+{% capture code %}{% raw %}
+<span class="pos-supplementary">The quick brown fox jumps over the lazy dog</span>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="pos-heading-4">Tip</h3>
+      <div class="styleguide-columns">
+        <dl class="styleguide-details">
+          <dt>Class</dt><dd><code>pos-tip</code></dd>
+          <dt>Font family</dt><dd class="styleguide-typography-content-family"></dd>
+          <dt>Color</dt><dd class="styleguide-typography-content-color"></dd>
+          <dt>Size</dt><dd class="styleguide-typography-content-size"></dd>
+          <dt>Weight</dt><dd class="styleguide-typography-content-weight"></dd>
+          <dt>Line height</dt><dd class="styleguide-typography-content-lineheight"></dd>
+        </dl>
+        <div>
+          <picture class="styleguide-example pos-supplementary">
+            {% render 'modules/common-styling/tip', content: 'The quick brown fox jumps over the lazy dog' %}
+          </picture>
+          {% capture code %}{% raw %}
+            {% render 'modules/common-styling/tip', content: 'The quick brown fox jumps over the lazy dog' %}
+          {% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+    </article>
+
+    <!---------------------------------------------------------------------------------------- Links -->
+    <article id="interactive-elements">
+      <h2 class="pos-heading-2">Links</h2>
+
+      <div class="styleguide-columns">
+
+        <div>
+          <div class="pos-links-example">Lorem ipsum dolor sit amet <a href="#">consectetur</a> adipisicing elit. Aut quisquam nemo ipsam <a href="#"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> quo placeat</a> voluptate voluptates doloribus magnam error dolorum vero corrupti <a href="#">aliquam nobis nesciunt</a>, qui debitis cumque perferendis provident?</div>
+          {% render 'modules/common-styling/tip', content: 'When overwriting the <code>&lt;a&gt;</code> classes, please remember to also overwrite the debug classes used in the style guide: <code>pos-debug-link-hover</code>, <code>pos-debug-link-active</code>, <code>pos-debug-link-focus</code>.' %}
+        </div>
+
+        <table class="styleguide-examples-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th scope="col">Text</th>
+              <th scope="col">Icon</th>
+              <th scope="col">Text with icon</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Default</th>
+              <td><a href="#">Link</a></td>
+              <td><a href="#"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> <span class="pos-label">Link</span></a></td>
+              <td><a href="#"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> Link</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Hover</th>
+              <td><a href="#" class="pos-debug-link-hover">Link</a></td>
+              <td><a href="#" class="pos-debug-link-hover"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> <span class="pos-label">Link</span></a></td>
+              <td><a href="#" class="pos-debug-link-hover"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> Link</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Active</th>
+              <td><a href="#" class="pos-debug-link-active">Link</a></td>
+              <td><a href="#" class="pos-debug-link-active"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> <span class="pos-label">Link</span></a></td>
+              <td><a href="#" class="pos-debug-link-active"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> Link</a></td>
+            </tr>
+            <tr>
+              <th scope="row">Focused</th>
+              <td><a href="#" class="pos-debug-link-focus">Link</a></td>
+              <td><a href="#" class="pos-debug-link-focus"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> <span class="pos-label">Link</span></a></td>
+              <td><a href="#" class="pos-debug-link-focus"><svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12 15.75c-3.308 0-6-2.692-6-6s2.692-6 6-6 6 2.692 6 6-2.692 6-6 6zm0-10.5c-2.481 0-4.5 2.019-4.5 4.5s2.019 4.5 4.5 4.5 4.5-2.019 4.5-4.5-2.019-4.5-4.5-4.5z"></path><path d="M12 24c-2.677 0-5.211-.868-7.332-2.51a.507.507 0 01-.126-.099C1.655 19.094 0 15.674 0 12 0 5.383 5.383 0 12 0s12 5.383 12 12c0 3.674-1.655 7.094-4.543 9.391l-.015.016c-.043.043-.087.069-.112.084A11.868 11.868 0 0112 24zm-5.716-3.199A10.408 10.408 0 0012 22.5a10.41 10.41 0 005.717-1.699 8.966 8.966 0 00-5.716-2.045 8.965 8.965 0 00-5.717 2.045zM12 1.5C6.21 1.5 1.5 6.21 1.5 12c0 3.023 1.294 5.875 3.562 7.874A10.449 10.449 0 0112 17.257c2.573 0 5.023.927 6.938 2.616 2.268-2 3.562-4.851 3.562-7.874C22.5 6.21 17.79 1.5 12 1.5z"></path></svg> Link</a></td>
+            </tr>
+          </tbody>
+        </table>
+    </article>
+
+
+
+    <!---------------------------------------------------------------------------------------- buttons -->
+    <article id="buttons">
+      <h2 class="pos-heading-2">Buttons</h2>
+
+      <div class="styleguide-columns">
+        <div>
+          <div class="styleguide-example">
+            <h3 class="pos-heading-4">Default</h3>
+            <picture>
+              <button class="pos-button">Button</button>
+            </picture>
+            <dl class="styleguide-details">
+              <dt>Class</dt><dd><code>pos-button</code></dd>
+            </dl>
+          </div>
+{% capture code %}{% raw %}
+<button class="pos-button">Button</button>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+          <div class="styleguide-example">
+            <h3 class="pos-heading-4">Primary</h3>
+            <picture>
+              <button class="pos-button pos-button-primary">Button</button>
+            </picture>
+          </div>
+{% capture code %}{% raw %}
+<button class="pos-button pos-button-primary">Button</button>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+
+          {% render 'modules/common-styling/tip', content: 'When overwriting the <code>&lt;button&gt;</code> classes, please remember to also overwrite the debug classes used in the style guide: <code>pos-debug-button-hover</code>, <code>pos-debug-button-active</code>, <code>pos-debug-button-focus-visible</code>.' %}
+        </div>
+
+        <table class="styleguide-examples-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Default</th>
+              <th>Primary</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Enabled</th>
+              <td><button class="pos-button">Button</button></td>
+              <td><button class="pos-button pos-button-primary">Button</button></td>
+            </tr>
+            <tr>
+              <th class="styleguide-table-heading">Hover</th>
+              <td><button class="pos-button pos-debug-button-hover">Button</button></td>
+              <td><button class="pos-button pos-button-primary pos-debug-button-hover">Button</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Active</th>
+              <td><button class="pos-button pos-debug-button-active">Button</button></td>
+              <td><button class="pos-button pos-button-primary pos-debug-button-active">Button</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Focused</th>
+              <td><button class="pos-button pos-debug-button-focus-visible">Button</button></td>
+              <td><button class="pos-button pos-button-primary pos-debug-button-focus-visible">Button</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Disabled</th>
+              <td><button disabled class="pos-button">Button</button></td>
+              <td><button disabled class="pos-button pos-button-primary">Button</button></td>
+            </tr>
+            <tr>
+              <th scope="row">Icon</th>
+              <td>
+                <button class="pos-button">
+                  <svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12.089 24a6.747 6.747 0 01-1.853-.26l-3.634-1.038A5.342 5.342 0 006 22.568v.682a.75.75 0 01-.75.75H.75a.75.75 0 01-.75-.75V9.75A.75.75 0 01.75 9h4.5a.75.75 0 01.75.75v1.512a6.747 6.747 0 006-6.708V3c0-1.654 1.346-3 3-3s3 1.346 3 3v3.382c0 .346.234.645.57.728l1.435.313c2.443.612 4.116 2.867 3.989 5.365l-.301 5.106C23.343 21.382 20.455 24 16.974 24h-4.885zM6 21.053c.342.043.682.112 1.014.207l3.634 1.038c.468.134.953.202 1.441.202h4.885a5.235 5.235 0 005.224-4.725l.298-5.069a3.758 3.758 0 00-2.834-3.823l-1.433-.313A2.253 2.253 0 0116.5 6.382V3c0-.827-.673-1.5-1.5-1.5s-1.5.673-1.5 1.5v1.554A8.236 8.236 0 016 12.77v8.283zM4.5 22.5v-12h-3v12h3z"></path></svg>
+                  Button
+                </button>
+              </td>
+              <td>
+                <button class="pos-button pos-button-primary">
+                  <svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg"><path d="M12.089 24a6.747 6.747 0 01-1.853-.26l-3.634-1.038A5.342 5.342 0 006 22.568v.682a.75.75 0 01-.75.75H.75a.75.75 0 01-.75-.75V9.75A.75.75 0 01.75 9h4.5a.75.75 0 01.75.75v1.512a6.747 6.747 0 006-6.708V3c0-1.654 1.346-3 3-3s3 1.346 3 3v3.382c0 .346.234.645.57.728l1.435.313c2.443.612 4.116 2.867 3.989 5.365l-.301 5.106C23.343 21.382 20.455 24 16.974 24h-4.885zM6 21.053c.342.043.682.112 1.014.207l3.634 1.038c.468.134.953.202 1.441.202h4.885a5.235 5.235 0 005.224-4.725l.298-5.069a3.758 3.758 0 00-2.834-3.823l-1.433-.313A2.253 2.253 0 0116.5 6.382V3c0-.827-.673-1.5-1.5-1.5s-1.5.673-1.5 1.5v1.554A8.236 8.236 0 016 12.77v8.283zM4.5 22.5v-12h-3v12h3z"></path></svg>
+                  Button
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <th scope="row">Link</th>
+              <td><a href="#" class="pos-button">Link</a></td>
+              <td><a href="#" class="pos-button pos-button-primary">Link</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- forms -->
+    <article id="forms">
+      <h2 class="pos-heading-2">Forms</h2>
+      <p>There are two ways for styling form controlls. You can add a <code>pos-form</code> class to a container and make all the child inputs styled automatically or you can add one of the following classes to any single input to style it separately.</p>
+
+      <h3 class="pos-heading-4">Basic example</h3>
+      <form action="" class="pos-form pos-form-simple styleguide-example">
+        <fieldset>
+          <label for="styleguide-form-example-a">Email</label>
+          <input type="email" id="styleguide-form-example-a" placeholder="Email address" required>
+        </fieldset>
+        <fieldset>
+          <label for="styleguide-form-example-b">Password</label>
+          <input type="password" id="styleguide-form-example-b" placeholder="••••••••" required>
+        </fieldset>
+        <fieldset>
+          <input type="checkbox" id="styleguide-form-example-c" required>
+          <label for="styleguide-form-example-c">An agreement</label>
+        </fieldset>
+      </form>
+{% capture code %}{% raw %}
+<form action="" class="pos-form pos-form-simple">
+  <fieldset>
+    <label for="styleguide-form-example-a">Email</label>
+    <input type="email" id="styleguide-form-example-a" placeholder="Email address" required {% render 'modules/common-styling/forms/error_input_handler', name: 'styleguide-form-example-a', errors: errors['styleguide-form-example-a'] %}>
+    {% render 'modules/common-styling/forms/error_list', name: 'styleguide-example-error', errors: errors['styleguide-form-example-a'] %}
+  </fieldset>
+  <fieldset>
+    <label for="styleguide-form-example-b">Password</label>
+    <input type="password" id="styleguide-form-example-b" placeholder="••••••••" required {% render 'modules/common-styling/forms/error_input_handler', name: 'styleguide-form-example-b', errors: errors['styleguide-form-example-b'] %}>
+    {% render 'modules/common-styling/forms/error_list', name: 'styleguide-example-error', errors: errors['styleguide-form-example-b'] %}
+  </fieldset>
+  <fieldset>
+    <input type="checkbox" id="styleguide-form-example-c" required {% render 'modules/common-styling/forms/error_input_handler', name: 'styleguide-form-example-c', errors: errors['styleguide-form-example-c'] %}>
+    <label for="styleguide-form-example-c">An agreement</label>
+    {% render 'modules/common-styling/forms/error_list', name: 'styleguide-example-error', errors: errors['styleguide-form-example-c'] %}
+  </fieldset>
+</form>
+{% endraw %}{% endcapture %}
+      <div class="styleguide-code">
+        <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+      </div>
+
+      
+      <h3 class="pos-heading-4">Containers</h3>
+
+      <div class="styleguide-columns">
+
+        <div>
+          <form action="" class="pos-form styleguide-forms-placeholder-container">
+            <div class="styleguide-forms-placeholder-input"></div>
+            <div class="styleguide-forms-placeholder-radio"></div>
+            <div class="styleguide-forms-placeholder-radio"></div>
+            <div class="styleguide-forms-placeholder-button styleguide-forms-placeholder-button-next"></div>
+          </form>
+          <dl class="styleguide-details">
+            <dt>Class</dt><dd><code>pos-form</code></dd>
+          </dl>
+          <p>Used for complex forms that needs more manual customized styling. No automatic labels styling, no automatic spacing between elements.</p>
+        </div>
+
+        <div>
+          <form action="" class="pos-form pos-form-simple styleguide-forms-placeholder-container">
+            <div class="styleguide-forms-placeholder-input"></div>
+            <div class="styleguide-forms-placeholder-input"></div>
+            <div class="styleguide-forms-placeholder-button"></div>
+          </form>
+          <dl class="styleguide-details">
+            <dt>Class</dt><dd><code>pos-form pos-form-simple</code></dd>
+          </dl>
+          <p>Used for simple forms that can be styled automatically. Styles the labels and spacing between items as well. You can just throw this class onto the container and forget about styling each separate control.</p>
+        </div>
+
+      </div>
+
+      <h3 class="pos-heading-4">Rows</h3>
+
+      <div class="styleguide-columns">
+        <div>
+          <dl class="styleguide-details">
+            <dt>Class</dt><dd><code>pos-form-fieldset</code></dd>
+            <dt>Properties</dt><dd><code>--pos-gap-text-text</code></dd>
+          </dl>
+{% capture code %}{% raw %}
+<fieldset class="pos-form-fieldset">
+  
+</fieldset>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+        <form action="" class="pos-form styleguide-forms-placeholder-container">
+          <fieldset class="styleguide-forms-placeholder-fieldset"></fieldset>
+          <fieldset class="styleguide-forms-placeholder-fieldset"></fieldset>
+        </form>
+      </div>
+
+      <h3 class="pos-heading-4">Labels</h3>
+
+      <div class="styleguide-columns">
+        {% render 'modules/common-styling/tip', content: 'Labels that are placed in a <code>fieldset</code> that has a <code>reqired</code> input will automatically be marked with an asterisk.' %}
+        <div>
+          <div class="styleguide-example">
+            <form action="" class="pos-form pos-form-simple">
+              <fieldset>
+                <label for="input-id">My label</label>
+                <input type="text" id="input-id" placeholder="Placeholder text" required>
+              </fieldset>
+            </form>
+          </div>
+          {% capture code %}{% raw %}
+          <label for="input-id">My label</label>
+          {% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="styleguide-columns">
+
+        <div>
+          <h3 class="pos-heading-4">Radio</h3>
+
+          <form action="" class="pos-form pos-form-simple styleguide-example">
+            <fieldset>
+              <input type="radio" id="styleguide-radio-a"><label for="styleguide-radio-a">Default</label>
+            </fieldset>
+                  <fieldset>
+              <input type="radio" checked id="styleguide-radio-b"><label for="styleguide-radio-b">Checked</label>
+            </fieldset>
+            <fieldset>
+              <input type="radio" id="styleguide-radio-c" class="pos-debug-radio-hover"><label for="styleguide-radio-c">Hover</label>
+            </fieldset>
+            <fieldset>
+              <input type="radio" id="styleguide-radio-d" class="pos-debug-radio-focus-visible"><label for="styleguide-radio-d">Focused</label>
+            </fieldset>
+            <fieldset>
+              <input type="radio" disabled checked id="styleguide-radio-e"><label for="styleguide-radio-e">Disabled & checked</label>
+            </fieldset>
+          </form>
+        </div>
+
+        <div>
+          <h3 class="pos-heading-4">Checkbox</h3>
+
+          <form action="" class="pos-form pos-form-simple styleguide-example">
+            <fieldset>
+              <input type="checkbox" id="styleguide-checkbox-a"><label for="styleguide-checkbox-a">Default</label>
+            </fieldset>
+                  <fieldset>
+              <input type="checkbox" checked id="styleguide-checkbox-b"><label for="styleguide-checkbox-b">Checked</label>
+            </fieldset>
+            <fieldset>
+              <input type="checkbox" id="styleguide-checkbox-c" class="pos-debug-checkbox-hover"><label for="styleguide-checkbox-c">Hover</label>
+            </fieldset>
+            <fieldset>
+              <input type="checkbox" id="styleguide-checkbox-d" class="pos-debug-checkbox-focus-visible"><label for="styleguide-checkbox-d">Focused</label>
+            </fieldset>
+            <fieldset>
+              <input type="checkbox" disabled checked id="styleguide-checkbox-e"><label for="styleguide-checkbox-e">Disabled & checked</label>
+            </fieldset>
+          </form>
+        </div>
+
+      </div>
+
+
+      <h3 class="pos-heading-4">Text inputs</h3>
+
+      <div id="text-inputs" class="styleguide-columns">
+
+        <div>
+          <div class="styleguide-example">
+            <input type="text" class="pos-form-input" placeholder="Text input">
+            <dl class="styleguide-details">
+              <dt>Class</dt><dd><code>pos-form-input</code></dd>
+            </dl>
+          </div>
+{% capture code %}{% raw %}
+<input type="text" class="pos-form-input" placeholder="Text input">
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+
+          {% render 'modules/common-styling/tip', content: 'When overwriting the <code>&lt;input&gt;</code> classes, please remember to also overwrite the debug classes used in the style guide: <code>pos-debug-form-input-hover</code>, <code>pos-debug-form-input-focus-visible</code>.' %}
+        </div>
+
+        <div>
+          <table class="styleguide-examples-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Placeholder</th>
+                <th>Filled</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Default</th>
+                <td><input type="text" class="pos-form-input" placeholder="Text input"></td>
+                <td><input type="text" class="pos-form-input" value="Lorem ipsum"></td>
+              </tr>
+              <tr>
+                <th class="styleguide-table-heading">Hover</th>
+                <td><input type="text" class="pos-form-input pos-debug-form-input-hover" placeholder="Text input"></td>
+                <td><input type="text" class="pos-form-input pos-debug-form-input-hover" value="Lorem ipsum"></td>
+              </tr>
+              <tr>
+                <th scope="row">Focused</th>
+                <td><input type="text" class="pos-form-input pos-debug-form-input-focus-visible" placeholder="Text input"></td>
+                <td><input type="text" class="pos-form-input pos-debug-form-input-focus-visible" value="Lorem ipsum"></td>
+              </tr>
+              <tr>
+                <th scope="row">Disabled</th>
+                <td><input type="text" disabled class="pos-form-input" placeholder="Text input"></td>
+                <td><input type="text" disabled class="pos-form-input" value="Lorem ipsum"></td>
+              </tr>
+              <tr>
+                <th scope="row">Error</th>
+                <td><input type="text" aria-invalid="true" class="pos-form-input" placeholder="Text input"></td>
+                <td><input type="text" aria-invalid="true" class="pos-form-input" value="Lorem ipsum"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+
+      <h3 class="pos-heading-4">Password input</h3>
+
+      <div class="styleguide-columns">
+        <div>
+          <dl class="styleguide-details">
+            <dt>name</dt><dd>Input <code>name</code> attribute <i>string</i></dd>
+            <dt>id</dt><dd>Input <code>id</code> attribute <i>string</i></dd>
+            <dt>value</dt><dd>Current input value <i>string</i></dd>
+            <dt>class</dt><dd>Class list added to input container <i>string</i></dd>
+            <dt>meter</dt><dd>If you want to show the password strength meter <i>bool</i></dd>
+          </dl>
+          {% render 'modules/common-styling/tip', content: 'Strong passwords consists of small and capitalized letters, numbers, special signs and are at least 6 characters long. Remember to provide clear instructios for your users.' %}
+        </div>
+        <div>
+          <div class="styleguide-example" style="text-align: center;">
+            {% render 'modules/common-styling/forms/password', name: 'styleguide-form-password-test', id: 'styleguide-form-password-test', value: '123456', meter: true %}
+          </div>
+{% capture code %}{% raw %}
+{% render 'modules/common-styling/forms/password',
+          name: 'styleguide-form-password-test',
+          value: '123',
+          id: 'styleguide-form-password-test',
+          meter: true
+%}
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 class="pos-heading-4">Select</h3>
+
+      <div class="styleguide-columns">
+        <div>
+          <dl class="styleguide-details">
+            <dt>class</dt><dd><code>pos-form-select</code></dd>
+          </dl>
+        </div>
+        <div class="styleguide-example" style="text-align: center;">
+          <select class="pos-form-select">
+            <option>Default 1</option>
+            <option>Default 2</option>
+            <option>Default 3</option>
+          </select>
+
+          <select disabled class="pos-form-select">
+            <option>Disabled 1</option>
+            <option>Disabled 2</option>
+            <option>Disabled 3</option>
+          </select>
+        </div>
+      </div>
+
+
+      <h3 class="pos-heading-4">Multiselect</h3>
+
+      <div class="styleguide-columns">
+        <div>
+          <dl class="styleguide-details">
+            <dt>id</dt><dd>Unique ID for the input <i>string</i></dd>
+            <dt>list</dt>
+            <dd>
+              an array of objects with items to show, must include 'value' and 'label' <i>array</i><br>
+              <code>[ { value: 'item1value', label: 'Item 1 label' }, { value: 'item2value', label: 'Item 2 label' } ]</code>
+            </dd>
+            <dt>selected</dt>
+            <dd>
+              array with selected values (the same as in the 'list') <i>array</i><br>
+              <code>[ 'item2value' ]</code>
+            </dd>
+            <dt>form</dt><dd>the <code>&lt;form&gt;</code> element that the multiselect corresponds to <i>string</i></dd>
+            <dt>name</dt><dd>the <code>name=""</code> property for the multiselect checkboxes <i>string</i></dd>
+            <dt>required</dt><dd>at least one option is required <i>bool</i></dd>
+            <dt>combine_selected</dt><dd>if you want to combine selected items into a single element ('2 selected' instead of displaying names) <i>bool</i></dd>
+            <dt>multiline</dt><dd>if you want the list to extend vertically if there are more items than fit the single line <i>bool</i></dd>
+            <dt>showFilter</dt><dd>allow to filter the list of options with a text input <i>bool</i></dd>
+            <dt>placeholder</dt><dd>translation key for the main select input placeholder <i>string</i></dd>
+            <dt>placeholder_filter</dt><dd>translation key for the filter input placeholder <i>string</i></dd>
+            <dt>placeholder_empty</dt><dd>translation key shown when the filter brings no results <i>string</i></dd>
+          </dl>
+        </div>
+        <div>
+          <div class="styleguide-example" style="display: flex; flex-direction: column; gap: var(--pos-gap-text-text);">
+            {% liquid
+              assign example_list = '' | split: ''
+
+              for i in (i..10)
+                assign value = 'value' | append: i
+                assign label = 'Label for value ' | append: i
+                assign example_item = '{}' | parse_json | hash_merge: value: value, label: label
+                assign example_list = example_list | add_to_array: example_item
+                assign selected = '["value0", "value5", "value6"]' | parse_json
+              endfor
+            %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-1', id: 'styleguide-form-multiselect-test-1', list: example_list, showFilter: true, combine_selected: true %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-2', id: 'styleguide-form-multiselect-test-2', list: example_list, showFilter: true %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-3', id: 'styleguide-form-multiselect-test-3', list: example_list, showFilter: false, multiline: true %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-4', id: 'styleguide-form-multiselect-test-4', list: example_list, selected: selected, showFilter: true, combine_selected: true %}
+          </div>
+{% capture code %}{% raw %}
+{% render 'modules/common-styling/forms/multiselect',
+          name: 'styleguide-form-multiselect-test',
+          id: 'styleguide-form-multiselect-test'
+%}
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 class="pos-heading-4">Error handling</h3>
+
+        <p>There are two partials that can be helpful when dealing with forms validation. One can be added to the input itself to handle usability code and the other can output the error message.</p>
+
+        {% liquid
+          assign errors = '{ "styleguide-example-error": ["This is a field with two errors", "This is the second error"] }' | parse_json
+        %}
+        <div class="styleguide-example">
+          <input type="text" name="styleguide-example-error" id="styleguide-example-error" class="pos-form-input" {% render 'modules/common-styling/forms/error_input_handler', name: 'styleguide-example-error', errors: errors['styleguide-example-error'] %}>
+          {% render 'modules/common-styling/forms/error_list', name: 'styleguide-example-error', errors: errors['styleguide-example-error'] %}
+{% capture code %}{% raw %}
+<input type="text" name="styleguide-example-error" id="styleguide-example-error" class="pos-form-input" {% render 'modules/common-styling/forms/error_input_handler', name: 'styleguide-example-error', errors: errors['styleguide-example-error'] %}>
+
+{% render 'modules/common-styling/forms/error_list', name: 'styleguide-example-error', errors: errors['styleguide-example-error'] %}
+{% endraw %}{% endcapture %}
+        </div>
+        <div class="styleguide-code">
+          <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+        </div>
+      </div>
+
+    </article>
+
+
+
+    <!---------------------------------------------------------------------------------------- boxes -->
+    <article id="boxes">
+      <h2 class="pos-heading-2">Boxes</h2>
+
+      <div class="styleguide-columns">
+        <div>
+          <div class="styleguide-example">
+            <div class="pos-card">The quick brown fox jumps over the lazy dog</div>
+          </div>
+  {% capture code %}{% raw %}
+  <div class="pos-card"></div>
+  {% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+          <dl class="styleguide-details">
+            <dt>class</dt><dd><code>pos-card</code></dd>
+            <dt>props</dt><dd><code>--pos-padding-card</code>, <code>--pos-radius-card</code>, <code>--pos-color-content-background</code></dd>
+          </dl>
+        </div>
+        <div>
+          <div class="styleguide-example">
+            <div class="pos-card pos-card-highlighted">The quick brown fox jumps over the lazy dog</div>
+          </div>
+  {% capture code %}{% raw %}
+  <div class="pos-card pos-card-highlighted"></div>
+  {% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+          <dl class="styleguide-details">
+            <dt>class</dt><dd><code>pos-card pos-card-highlighted</code></dd>
+            <dt>props</dt><dd><code>--pos-padding-card</code>, <code>--pos-radius-card</code>, <code>--pos-color-highlight-background</code></dd>
+          </dl>
+        </div>
+      </div>
+    </article>
+
+
+    <!---------------------------------------------------------------------------------------- tables -->
+    <article id="tables">
+      <h2 class="pos-heading-2">Tables</h2>
+
+      <div class="styleguide-columns">
+        <div>
+{% capture code %}{% raw %}
+<section class="pos-table">
+  <header>
+    <div>Column 1</div>
+    <div>Column 2</div>
+    <div class="pos-table-number">Column 3</div>
+  </header>
+  <div class="pos-table-content pos-card">
+    <ul>
+      <li>
+        <span class="pos-table-content-heading">Column 1</span>
+        Content 1
+      </li>
+      <li>
+        <span class="pos-table-content-heading">Column 1</span>
+        Content 2
+      </li>
+      <li class="pos-table-number">
+        <span class="pos-table-content-heading">Column 3</span>
+        321
+      </li>
+    </ul>
+  </div>
+</section>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="styleguide-example">
+            <section class="pos-table">
+              <header>
+                <div>Column 1</div>
+                <div>Column 2</div>
+                <div class="pos-table-number">Column 3</div>
+              </header>
+              <div class="pos-table-content pos-card">
+                <ul>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 1
+                  </li>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 2
+                  </li>
+                  <li class="pos-table-number">
+                    <span class="pos-table-content-heading">Column 3</span>
+                    321
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 2
+                  </li>
+                  <li>
+                    <span class="pos-table-content-heading">Column 2</span>
+                    Content 2
+                  </li>
+                  <li class="pos-table-number">
+                    <span class="pos-table-content-heading">Column 3</span>
+                    123
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <dl class="styleguide-details">
+            <dt>class</dt><dd><code>pos-table</code></dd>
+            <dt>props</dt><dd><code>--pos-padding-cell</code></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div class="styleguide-columns">
+        <div>
+{% capture code %}{% raw %}
+<section class="pos-table">
+  <header>
+    <div>Column 1</div>
+    <div>Column 2</div>
+    <div class="pos-table-number">Column 3</div>
+  </header>
+  <div class="pos-table-content">
+    <ul>
+      <li>
+        <span class="pos-table-content-heading">Column 1</span>
+        Content 1
+      </li>
+      <li>
+        <span class="pos-table-content-heading">Column 1</span>
+        Content 2
+      </li>
+      <li class="pos-table-number">
+        <span class="pos-table-content-heading">Column 3</span>
+        321
+      </li>
+    </ul>
+  </div>
+</section>
+{% endraw %}{% endcapture %}
+          <div class="styleguide-code">
+            <pre><code>{{ code | lstrip | rstrip }}</code></pre>
+          </div>
+        </div>
+        <div>
+          <div class="styleguide-example">
+            <section class="pos-table">
+              <header>
+                <div>Column 1</div>
+                <div>Column 2</div>
+                <div class="pos-table-number">Column 3</div>
+              </header>
+              <div class="pos-table-content">
+                <ul>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 1
+                  </li>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 2
+                  </li>
+                  <li class="pos-table-number">
+                    <span class="pos-table-content-heading">Column 3</span>
+                    321
+                  </li>
+                </ul>
+                <ul>
+                  <li>
+                    <span class="pos-table-content-heading">Column 1</span>
+                    Content 2
+                  </li>
+                  <li>
+                    <span class="pos-table-content-heading">Column 2</span>
+                    Content 2
+                  </li>
+                  <li class="pos-table-number">
+                    <span class="pos-table-content-heading">Column 3</span>
+                    123
+                  </li>
+                </ul>
+              </div>
+            </section>
+          </div>
+          <dl class="styleguide-details">
+            <dt>class</dt><dd><code>pos-table</code></dd>
+            <dt>props</dt><dd><code>--pos-padding-cell</code></dd>
+          </dl>
+        </div>
+      </div>
+
+
+    </article>
+
+  </section>
+
+</main>
+
+<template id="styleguide-copy">
+  <button title="Copy code to clipboard" class="styleguide-copy">
+    <span class="styleguide-button-label">Copy code to clipboard</span>
+    <svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" class="styleguide-copy-icon-default"><path d="M2.25 23.998A2.252 2.252 0 010 21.748v-16.5a2.252 2.252 0 012.25-2.25h2.959l-.341-1.026a1.484 1.484 0 01.08-1.143c.178-.359.485-.626.865-.753.155-.052.306-.079.447-.079l.049.001h8.4c.401 0 .776.155 1.059.436a1.49 1.49 0 01.364 1.541l-.342 1.023h2.96A2.252 2.252 0 0121 5.248v3a.75.75 0 01-1.5 0v-3a.75.75 0 00-.75-.75h-3.46l-.158.474a1.5 1.5 0 01-1.423 1.026H7.291a1.5 1.5 0 01-1.423-1.025l-.159-.475H2.25a.75.75 0 00-.75.75v16.5c0 .414.336.75.75.75h6a.75.75 0 010 1.5h-6zm4.039-22.5l1.001 3h6.419l1-3h-8.42z"></path><path d="M12.75 23.998a2.252 2.252 0 01-2.25-2.25v-9a2.252 2.252 0 012.25-2.25h9a2.252 2.252 0 012.25 2.25v9a2.252 2.252 0 01-2.25 2.25h-9zm0-12a.75.75 0 00-.75.75v9c0 .414.336.75.75.75h9a.75.75 0 00.75-.75v-9a.75.75 0 00-.75-.75h-9z"></path><path d="M14.25 14.998a.75.75 0 010-1.5h6a.75.75 0 010 1.5h-6zM14.25 17.998a.75.75 0 010-1.5h6a.75.75 0 010 1.5h-6zM14.25 20.998a.75.75 0 010-1.5h2.25a.75.75 0 010 1.5h-2.25z"></path></svg>
+    <svg viewBox="0 0 24 24" fill="none" focusable="false" role="img" xmlns="http://www.w3.org/2000/svg" class="styleguide-copy-icon-done"><path d="M6.347 24.003a2.95 2.95 0 01-2.36-1.187L.15 17.7a.748.748 0 01.6-1.2c.235 0 .459.112.6.3l3.839 5.118a1.442 1.442 0 001.42.562c.381-.068.712-.281.933-.599L22.636.32a.748.748 0 111.228.86L8.772 22.739a2.93 2.93 0 01-1.9 1.217c-.173.031-.35.047-.525.047z"></path></svg>
+  </button>
+</template>

@@ -24,7 +24,6 @@
 
     user-select: none;
     -webkit-user-select: none;
-    cursor: pointer;
   }
 
   .pos-button {
@@ -35,8 +34,9 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 1em;
+    gap: .5em;
     vertical-align: middle;
+    cursor: pointer;
 
     background-color: var(--pos-color-button-secondary-background);
     border-width: var(--pos-border-button);
@@ -53,20 +53,24 @@
     transition: all .1s linear;
   }
 
-  .pos-button:hover {
+  .pos-button:hover,
+  .pos-debug-button-hover {
     background-color: var(--pos-color-button-secondary-hover-background);
     border-color: var(--pos-color-button-secondary-hover-frame);
 
     color: var(--pos-color-button-secondary-hover-text);
   }
 
-  .pos-button:active {
+  .pos-button:active,
+  .pos-debug-button-active {
     transform: scale(98%);
   }
 
-  .pos-button:focus-visible {
+  .pos-button:focus-visible,
+  .pos-debug-button-focus-visible {
     border-color: var(--pos-color-focused);
-    box-shadow: 0 0 6px 1px var(--pos-color-focused);
+    outline: 2px solid var(--pos-color-focused);
+    outline-offset: 2px;
   }
 
   .pos-button:disabled {
@@ -87,12 +91,9 @@
     transition: fill .2s ease-in-out;
   }
 
-  .pos-button:focus-visible svg {
-      fill: var(--color-page);
-  }
-
   /* label for screen readers */
-  .pos-button .pos-label {
+  .pos-button .pos-label,
+  .pos-button-label {
       position: absolute;
       left: -200vw;
       top: -100vh;
@@ -100,7 +101,7 @@
 
 
 
-  /* secondary
+  /* primary
   ============================================================================ */
   .pos-button-primary {
     background-color: var(--pos-color-button-primary-background);
@@ -109,14 +110,16 @@
     color: var(--pos-color-button-primary-text);
   }
 
-  .pos-button-primary:hover {
+  .pos-button-primary:hover,
+  .pos-button-primary.pos-debug-button-hover {
     background-color: var(--pos-color-button-primary-hover-background);
     border-color: var(--pos-color-button-primary-hover-frame);
 
     color: var(--pos-color-button-primary-hover-text);
   }
 
-  .pos-button-primary:active {
+  .pos-button-primary:active,
+  .pos-button-primary.pos-debug-button-active {
     transform: scale(98%);
   }
 

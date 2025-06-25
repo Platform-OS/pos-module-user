@@ -1,0 +1,94 @@
+{% comment %}
+  Multiselect input component
+
+  Arguments:
+    - id                    (string) unique ID of the input
+
+    - list                  (array, required) an array of objects with items to show, must include 'value' and 'label'
+                            [ { value: 'item1value', label: 'Item 1 label' }, { value: 'item2value', label: 'Item 2 label' } ]
+    - selected              (array) array with selected values (the same as in the 'list')
+                            [ 'item2value' ]
+
+    - form                  (string) the <form> element that the multiselect corresponds to
+    - name                  (string) the name="" property for the multiselect checkboxes (no need for adding [] at the end)
+    - required              (bool, false) at least one option is required
+
+    - combine_selected      (bool, false) if you want to combine selected items into a single element ('2 selected' instead of displaying names)
+    - multiline             (bool, false) if you want the list to extend vertically if there are more items than fit the single line
+    - showFilter            (bool, false) allow to filter the list of options with a text input
+
+    - placeholder           (string, default) translation key for the main select input placeholder
+    - placeholder_filter    (string, default) translation key for the filter input placeholder
+    - placeholder_empty     (string, default) translation key shown when the filter brings no results
+{% endcomment %}
+
+
+
+{% unless list %}
+  <script>
+    pos.modules.debug(true, {{ id }}, 'No options list provided!');
+  </script>
+{% endunless %}
+
+
+
+{% liquid
+  assign list = list | default: '[]'
+
+  if selected[0]
+    assign selected = selected | default: '[]'
+  endif
+
+  assign view = view | default: 'list'
+
+  assign placeholder = placeholder | default: 'modules/common-styling/form.select'
+  assign placeholder_filter = placeholder_filter | default: 'modules/common-styling/form.type_to_filter'
+  assign placeholder_empty = placeholder_empty | default: 'modules/common-styling/form.no_filter_results'
+%}
+
+<div {% if required %} required {% endif %} class="pos-form-multiselect {% if multiline %} pos-form-multiselect-multiline {% endif %} {% if combine_selected %} pos-form-multiselect-combine {% endif %}" id="{{ id }}">
+
+  <div aria-expanded="false" aria-controls="{{ id }}-list-container" class="pos-form-multiselect-input pos-form-input" tabindex="0">
+    <span class="pos-form-multiselect-placeholder">
+      {{ placeholder | t }}
+    </span>
+    {% if combine_selected %}
+      <div class="pos-form-multiselect-selected-item pos-form-multiselect-selected-item-combined">
+        <span class="pos-form-multiselect-selected-item-label"><i>0</i> selected</span>
+        <button type="button" class="pos-form-multiselect-selected-item-remove pos-form-multiselect-clear">
+          <span class="pos-button-label">{{ 'modules/common-styling/form.clear_selection' | t }}</span>
+          {% render 'modules/common-styling/icon', icon: 'x' %}
+        </button>
+      </div>
+    {% endif %}
+    <template class="pos-form-multiselect-selected-template">
+      <li class="pos-form-multiselect-selected-item">
+        <span class="pos-form-multiselect-selected-item-label"></span>
+        <label class="pos-form-multiselect-selected-item-remove" for="">
+          <span class="pos-button-label">{{ 'modules/common-styling/form.deselect' | t }}</span>
+          {% render 'modules/common-styling/icon', icon: 'x' %}
+        </label>
+      </li>
+    </template>
+    <ul class="pos-form-multiselect-selected-list">
+    </ul>
+    {% render 'modules/common-styling/icon', icon: 'dashDown', class: 'pos-form-multiselect-input-arrow' %}
+  </div>
+
+  <div class="pos-form-multiselect-list-container" id="{{ id }}-list-container">
+    {% if showFilter %}
+      <input type="text" placeholder="{{ placeholder_filter | t }}" class="pos-form-multiselect-filter pos-form-input">
+    {% endif %}
+    <ul class="pos-form-multiselect-list">
+      {% for item in list %}
+        <li>
+          <input type="checkbox" name="{{ name }}[]" value="{{ item.value }}" {% if form %} form="{{ form }}" {% endif %} {% if selected contains item.value %} checked {% endif %} id="pos-multiselect-{{ id }}-{{ item.value }}" class="pos-form-checkbox"> <label for="pos-multiselect-{{ id }}-{{ item.value }}">{{ item.label }}</label>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if showFilter %}
+      <span class="pos-form-multiselect-filter-noresults">{{ placeholder_empty | t }}</span>
+    {% endif %}
+  </div>
+
+</div>

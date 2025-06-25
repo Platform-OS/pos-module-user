@@ -3,46 +3,57 @@
 
   general form
   form paragraphs/fieldsets
+  checkbox
+  radio
   text inputs
   textareas
   selects
   errors
+  password input
+  multiselect
 */
 
 
 
 @layer common-styling {
 
-  /* page background and font
-  ============================================================================ */
   .pos-form {
 
   }
 
-  
+
   /* form paragraphs/fieldsets
   ============================================================================ */
   .pos-form fieldset,
   .pos-form-fieldset {
     all: unset;
     display: revert;
+
+    box-sizing: border-box;
   }
 
   .pos-form fieldset + fieldset,
   .pos-form-fieldset + .pos-form-fieldset {
-    margin-top: var(--pos-gap-navigation);
+    margin-top: var(--pos-gap-text-text);
   }
 
-  .pos-form-simple fieldset {
+  .pos-form-simple fieldset:has(label + input) {
     display: flex;
     flex-direction: column;
     gap: .2em;
   }
 
+  .pos-form-simple fieldset:has([type="checkbox"] + label),
+  .pos-form-simple fieldset:has([type="radio"] + label) {
+    display: flex;
+    gap: .5em;
+    align-items: center;
+  }
+
 
   /* labels
   ============================================================================ */
-  .pos-form-simple fieldset label {
+  .pos-form-simple fieldset:has(label + input) label {
     margin-inline-start: -.1em;
     align-self: start;
   }
@@ -54,6 +65,33 @@
   }
 
 
+  /* checkbox
+  ============================================================================ */
+  .pos-form [type="checkbox"] {
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  .pos-form [type="checkbox"]:focus-visible,
+  .pos-form-checkbox:focus-visible,
+  .pos-debug-checkbox-focus-visible {
+    outline: 2px solid var(--pos-color-focused);
+    outline-offset: 2px;
+  }
+
+
+  /* radio
+  ============================================================================ */
+  .pos-form [type="radio"]:focus-visible,
+  .pos-form-radio:focus-visible,
+  .pos-debug-radio-focus-visible {
+    box-sizing: border-box;
+
+    outline: 2px solid var(--pos-color-focused);
+    outline-offset: 2px;
+  }
+
+
   /* text inputs
   ============================================================================ */
   .pos-form-input {
@@ -61,77 +99,72 @@
     display: revert;
   }
 
+  .pos-form-input,
   .pos-form [type="text"],
-  .pos-form-input[type="text"],
   .pos-form [type="email"],
-  .pos-form-input[type="email"],
   .pos-form [type="password"],
-  .pos-form-input[type="password"],
-  .pos-form [type="url"],
-  .pos-form-input[type="url"] {
+  .pos-form [type="url"] {
     height: var(--pos-height-input);
     padding-inline: var(--pos-padding-input);
+    box-sizing: border-box;
 
     border-radius: var(--pos-radius-input);
     border-width: var(--pos-border-input);
     border-style: solid;
-    border-color: var(--pos-color-input-default-border);
-    border-radius: var(--pos-radius-input);
+    border-color: var(--pos-color-input-frame);
     outline: none;
-    background-color: var(--pos-color-input-default-background);
+    background-color: var(--pos-color-input-background);
     
-    color: var(--pos-color-input-default-text);
+    text-align: start;
+    color: var(--pos-color-input-text);
 
     transition: all .1s linear;
   }
 
-  .pos-form [type="text"]:hover:not(:focus),
-  .pos-form-input[type="text"]:hover:not(:focus),
-  .pos-form [type="email"]:hover:not(:focus),
-  .pos-form-input[type="email"]:hover:not(:focus),
-  .pos-form [type="password"]:hover:not(:focus),
-  .pos-form-input[type="password"]:hover:not(:focus),
-  .pos-form [type="url"]:hover:not(:focus),
-  .pos-form-input[type="url"]:hover:not(:focus) {
-    background-color: var(--pos-color-input-default-hover-background);
-    border-color: var(--pos-color-input-default-hover-border);
+  .pos-form-input:not(:disabled):hover,
+  .pos-form [type="text"]:not(:disabled):hover,
+  .pos-form [type="email"]:not(:disabled):hover,
+  .pos-form [type="password"]:not(:disabled):hover,
+  .pos-form [type="url"]:not(:disabled):hover,
+  .pos-debug-form-input-hover {
+    border-color: var(--pos-color-input-hover-frame);
+    background-color: var(--pos-color-input-hover-background);
 
-    color: var(--pos-color-input-default-hover-text);
+    color: var(--pos-color-input-hover-text);
   }
 
-  .pos-form [type="text"]:focus,
-  .pos-form-input[type="text"]:focus,
-  .pos-form [type="email"]:focus,
-  .pos-form-input[type="email"]:focus,
-  .pos-form [type="password"]:focus,
-  .pos-form-input[type="password"]:focus,
-  .pos-form [type="url"]:focus,
-  .pos-form-input[type="url"]:focus {
-    background-color: var(--pos-color-input-default-focus-background);
-    border-color: var(--pos-color-input-default-focus-border);
-
-    color: var(--pos-color-input-default-focus-text);
-  }
-
+  .pos-form-input:focus-visible,
   .pos-form [type="text"]:focus-visible,
-  .pos-form-input[type="text"]:focus-visible,
   .pos-form [type="email"]:focus-visible,
-  .pos-form-input[type="email"]:focus-visible,
   .pos-form [type="password"]:focus-visible,
-  .pos-form-input[type="password"]:focus-visible,
   .pos-form [type="url"]:focus-visible,
-  .pos-form-input[type="url"]:focus-visible {
-    box-shadow: 0 0 0 2px var(--pos-color-focused);
+  .pos-debug-form-input-focus-visible {
+    position: relative;
+    z-index: 1;
+
+    border-color: var(--pos-color-input-active-frame);
+    background-color: var(--pos-color-input-active-background);
+    outline: 2px solid var(--pos-color-focused);
+
+    color: var(--pos-color-input-focus-text);
   }
 
+  .pos-form-input:disabled,
+  .pos-form [type="text"]:disabled,
+  .pos-form [type="email"]:disabled,
+  .pos-form [type="password"]:disabled,
+  .pos-form [type="url"]:disabled {
+    border-color: var(--pos-color-input-disabled-frame);
+    background-color: var(--pos-color-input-disabled-background);
+
+    color: var(--pos-color-input-disabled-text);
+  }
+
+  .pos-form-input::placeholder,
   .pos-form [type="text"]::placeholder,
-  .pos-form-input[type="text"]::placeholder,
   .pos-form [type="email"]::placeholder,
-  .pos-form-input[type="email"]::placeholder,
   .pos-form [type="password"]::placeholder,
-  .pos-form-input[type="password"]::placeholder,
-  .pos-form [type="url"]::placeholder,
-  .pos-form-input[type="url"]::placeholder {
+  .pos-form [type="url"]::placeholder {
     color: var(--pos-color-input-placeholder);
   }
 
@@ -141,6 +174,8 @@
   .pos-form textarea {
     all: unset;
     display: revert;
+
+    box-sizing: border-box;
   }
 
 
@@ -148,29 +183,65 @@
   ============================================================================ */
   .pos-form select,
   .pos-form-select {
-    all: revert;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 
     height: var(--pos-height-input);
-    padding-inline: var(--pos-padding-input);
+    padding-inline: var(--pos-padding-input) calc(var(--pos-padding-input) * 2 + 1rem);
+    box-sizing: border-box;
 
-    background-color: var(--pos-color-input-default-background);
     border-width: var(--pos-border-input);
     border-style: solid;
-    border-color: var(--pos-color-input-default-border);
+    border-color: var(--pos-color-input-frame);
     border-radius: var(--pos-radius-input);
+    background-image: var(--pos-icon-select-arrow);
+    background-repeat: no-repeat;
+    background-size: 1rem;
+    background-position: right var(--pos-padding-input) center;
+    background-color: var(--pos-color-input-background);
+
+    color: var(--pos-color-input-text);
+  }
+
+  .pos-form select:not(:disabled):hover,
+  .pos-form-select:not(:disabled):hover {
+    border-color: var(--pos-color-input-hover-frame);
+    background-image: var(--pos-icon-select-arrow-hover);
+    background-color: var(--pos-color-input-hover-background);
+
+    color: var(--pos-color-input-hover-text);
+  }
+
+  .pos-form select:focus-visible,
+  .pos-form-select:focus-visible {
+    position: relative;
+    z-index: 1;
+
+    border-color: var(--pos-color-input-active-frame);
+    outline: 2px solid var(--pos-color-focused);
+    background-image: var(--pos-icon-select-arrow-hover);
+    background-color: var(--pos-color-input-active-background);
+
+    color: var(--pos-color-input-focus-text);
+  }
+
+  .pos-form select:disabled,
+  .pos-form-select:disabled {
+    border-color: var(--pos-color-input-disabled-frame);
+    background-color: var(--pos-color-input-disabled-background);
+
+    color: var(--pos-color-input-disabled-text);
   }
 
 
   /* errors
   ============================================================================ */
+  .pos-form-input[aria-invalid="true"],
   .pos-form [type="text"][aria-invalid="true"],
-  .pos-form-input[type="text"][aria-invalid="true"],
   .pos-form [type="email"][aria-invalid="true"],
-  .pos-form-input[type="email"][aria-invalid="true"],
   .pos-form [type="password"][aria-invalid="true"],
-  .pos-form-input[type="password"][aria-invalid="true"],
-  .pos-form [type="url"][aria-invalid="true"],
-  .pos-form-input[type="url"][aria-invalid="true"] {
+  .pos-form [type="url"][aria-invalid="true"] {
     border-color: var(--pos-color-important);
   }
 
@@ -178,5 +249,314 @@
     text-wrap: pretty;
     color: var(--pos-color-important);
   }
+
+
+  /* password input
+  ============================================================================ */
+  .pos-form-password {
+    display: inline-block;
+    box-sizing: border-box;
+  }
+
+    .pos-form-password * {
+      box-sizing: border-box;
+    }
+
+  .pos-form-password-input-container {
+    display: flex;
+    align-items: center;
+  }
+
+  /* input */
+  .pos-form-password input[type] {
+    width: 100%;
+    padding-inline-end: 48px;
+  }
+
+  /* toggle visibility button */
+  .pos-form-password-toggle {
+    width: var(--pos-height-input);
+    height: var(--pos-height-input);
+    margin-inline-start: calc(-1 * var(--pos-height-input));
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    color: var(--pos-color-content-secondary);
+  }
+
+    .pos-form-password-toggle:hover {
+      color: var(--pos-color-interactive-hover);
+    }
+
+    .pos-form-password-toggle:focus-visible {
+      outline: 2px solid var(--pos-color-focused);
+    }
+
+    .pos-form-password-toggle .pos-label {
+      position: absolute;
+      left: -100vw;
+    }
+
+    .pos-form-password-toggle svg {
+      width: clamp(6px, calc(var(--pos-height-input) - var(--pos-padding-input)), 24px);
+
+      transition: fill .1s linear;
+    }
+
+    .pos-form-password-toggle-hide {
+      display: none;
+    }
+
+    .pos-form-password-shown .pos-form-password-toggle-hide {
+      display: block;
+    }
+
+    .pos-form-password-shown .pos-form-password-toggle-show {
+      display: none;
+    }
+
+  /* strength meter */
+  .pos-form-password .pos-form-password-strength-meter {
+    height: 4px;
+    margin-block-start: 5px;
+    display: flex;
+    align-items: stretch;
+    gap: 5px;
+  }
+
+  .pos-form-password .pos-form-password-strength-meter > * {
+    flex-grow: 1;
+
+    background-color: var(--pos-color-frame);
+
+    transition: background-color .1s linear;
+  }
+
+    .pos-form-password-strength-1 .pos-form-password-strength-meter > :first-child {
+      background-color: var(--pos-color-important);
+    }
+
+    .pos-form-password-strength-2 .pos-form-password-strength-meter > :nth-child(-n+2) {
+      background-color: var(--pos-color-warning);
+    }
+
+    .pos-form-password-strength-3 .pos-form-password-strength-meter > * {
+      background-color: var(--pos-color-confirmation);
+    }
+
+    /* strength meter description */
+    .pos-form-password-strength-description {
+      margin-block-start: .5em;
+
+      text-align: start;
+      font-size: .9em;
+    }
+
+    .pos-form-password-strength-description span {
+      display: none;
+    }
+
+    .pos-form-password-strength-1 .pos-form-password-strength-description-weak {
+      display: block;
+
+      color: var(--pos-color-important);
+    }
+
+    .pos-form-password-strength-2 .pos-form-password-strength-description-medium {
+      display: block;
+
+      color: var(--pos-color-warning);
+    }
+
+    .pos-form-password-strength-3 .pos-form-password-strength-description-strong {
+      display: block;
+
+      color: var(--pos-color-confirmation);
+    }
+
+
+  /* multiselect
+  ============================================================================ */
+  .pos-form-multiselect {
+    min-width: 300px;
+    display: inline-block;
+    position: relative;
+
+    user-select: none;
+  }
+
+  .pos-form-multiselect-input {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5em;
+  }
+
+    .pos-form-multiselect-input:focus-visible {
+      position: relative;
+      z-index: 2;
+
+      outline: 2px solid var(--pos-color-focused);
+    }
+
+  .pos-form-multiselect-placeholder {
+    cursor: default;
+
+    color: var(--pos-color-input-placeholder);
+  }
+
+    .pos-form-multiselect-input:has(li) .pos-form-multiselect-placeholder {
+      display: none;
+    }
+
+  /* dropdown arrow */
+  .pos-form-multiselect-input-arrow {
+    width: 1em;
+    height: 1em;
+    flex-shrink: 0;
+  }
+
+    .pos-form-multiselect-input:has(.pos-form-multiselect-selected-list:not(:hover)):hover .pos-form-multiselect-input-arrow,
+    .pos-form-multiselect-input:focus-visible .pos-form-multiselect-input-arrow {
+      fill: var(--pos-color-interactive-hover);
+    }
+
+  /* selected items */
+  .pos-form-multiselect-selected-list {
+    display: flex;
+    gap: var(--pos-gap-tag-tag);
+    overflow: hidden;
+  }
+
+  .pos-form-multiselect-selected-item {
+    flex-grow: 0;
+    padding-inline: .3em;
+    padding-block: .2em;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    gap: .2em;
+
+    background-color: var(--pos-color-page-background);
+    border-radius: var(--pos-radius-tag);
+
+    white-space: nowrap;
+  }
+
+    .pos-form-multiselect-selected-item-label {
+      overflow: hidden;
+      leading-trim: both;
+      text-overflow: ellipsis;
+      line-height: 1em;
+    }
+
+    .pos-form-multiselect-selected-item-remove {
+      width: 1.1em;
+      padding: .25em;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      line-height: 0;
+      cursor: pointer;
+
+      color: var(--pos-color-content-text-supplementary);
+    }
+
+      .pos-form-multiselect-selected-item-remove:hover {
+        color: var(--pos-color-interactive-hover);
+      }
+
+      .pos-form-multiselect-selected-item-remove:focus-visible {
+        outline: 2px solid var(--pos-color-focused);
+      }
+
+    /* multiline version */
+    .pos-form-multiselect-multiline .pos-form-multiselect-input {
+      height: auto;
+      min-height: var(--pos-height-input);
+      padding-block: var(--pos-padding-input);
+    }
+
+    .pos-form-multiselect-multiline .pos-form-multiselect-selected-list {
+      flex-wrap: wrap;
+    }
+
+    /* combined version */
+    .pos-form-multiselect-selected-item-combined {
+      display: none;
+    }
+
+    .pos-form-multiselect-combine:has(.pos-form-multiselect-selected-item:nth-of-type(2)) .pos-form-multiselect-selected-item-combined {
+      display: flex; /* show the combined counter when more than two items are selectd */
+    }
+
+    .pos-form-multiselect-combine:has(.pos-form-multiselect-selected-item:nth-of-type(2)) .pos-form-multiselect-selected-list {
+      display: none; /* hide the selected list items when there are more than two selected */
+    }
+
+  /* list popup */
+  .pos-form-multiselect-list-container {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    inset: 100% 0 auto 0;
+    z-index: 1;
+
+    border: 1px solid var(--pos-color-input-frame);
+    border-block-start-width: 0;
+    background-color: var(--pos-color-input-background);
+
+    text-align: start;
+  }
+
+    .pos-form-multiselect-opened .pos-form-multiselect-list-container {
+      display: flex;
+    }
+
+  .pos-form-multiselect-list {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .pos-form-multiselect-list li {
+    min-height: calc(var(--pos-height-input) * 0.75);
+    padding: var(--pos-padding-input);
+    display: flex;
+    align-items: center;
+    gap: .3em;
+  }
+
+  /* filter input */
+  .pos-form-multiselect-filter {
+    border: 0;
+  }
+
+  .pos-form-multiselect-filter + .pos-form-multiselect-list {
+    border-block-start: 1px solid var(--pos-color-input-frame);
+  }
+
+  .pos-form-multiselect-filter-noresults {
+    display: none;
+  }
+
+    .pos-form-multiselect-filtered-empty .pos-form-multiselect-filter-noresults {
+      min-height: calc(var(--pos-height-input) * 0.75);
+      padding: var(--pos-padding-input);
+      display: block;
+
+      font-style: italic;
+      color: var(--pos-color-content-text-supplementary);
+    }
+
+  .pos-form-multiselect-list .pos-form-multiselect-list-item-filtered {
+    display: none;
+  }
+
 
 }

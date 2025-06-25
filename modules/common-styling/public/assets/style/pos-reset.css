@@ -7,7 +7,7 @@
 
 @layer common-styling {
 
-  :where(.pos-app) *:where(:not(html, iframe, canvas, img, svg, video, audio, input):not(svg *, symbol *)) {
+  :where(.pos-app) *:where(:not(html, iframe, canvas, img, svg, video, audio, input, select):not(svg *, symbol *)) {
     all: unset;
     display: revert;
   }

@@ -18,6 +18,7 @@
     negotiating colors based on the choosen theme
   fonts
   typography
+  sizes
   spacing
   button shape
   input shape
@@ -250,7 +251,7 @@
   /* primary action button text and icons icons when a pointer is over it */
   --pos-color-dark-button-primary-hover-text: #000;
   /* border around primary action button when a pointer is over it */
-  --pos-color-dark-button-primary-hover-frame: var(--pos-color-dark-button-primary-frame);
+  --pos-color-dark-button-primary-hover-frame: var(--pos-color-dark-button-primary-hover-background);
   /* primary action button background when it is being pressed */
   --pos-color-dark-button-primary-active-background: var(--pos-color-dark-button-primary-hover-background);
   /* primary action button text and icons icons when it is being pressed */
@@ -331,7 +332,7 @@
   /* text and icon of disabled input field */
   --pos-color-dark-input-disabled-text: color-mix(in srgb, var(--pos-color-dark-input-text) 40%, transparent 60%);
   /* border around input field when it is disabled */
-  --pos-color-dark-input-disabled-background: color-mix(in srgb, var(--pos-color-dark-input-frame) 40%, transparent 60%);
+  --pos-color-dark-input-disabled-frame: color-mix(in srgb, var(--pos-color-dark-input-frame) 40%, transparent 60%);
 
 
   /* utility */
@@ -433,7 +434,7 @@
   --pos-color-input-active-frame: var(--pos-color-light-input-active-frame);
   --pos-color-input-disabled-background: var(--pos-color-light-input-disabled-background);
   --pos-color-input-disabled-text: var(--pos-color-light-input-disabled-text);
-  --pos-color-input-disabled-background: var(--pos-color-light-input-disabled-background);
+  --pos-color-input-disabled-frame: var(--pos-color-light-input-disabled-frame);
 
 
   /* utility */
@@ -527,7 +528,7 @@
   --pos-color-input-active-frame: var(--pos-color-dark-input-active-frame);
   --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
   --pos-color-input-disabled-text: var(--pos-color-dark-input-disabled-text);
-  --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
+  --pos-color-input-disabled-frame: var(--pos-color-dark-input-disabled-frame);
 
 
   /* utility */
@@ -617,7 +618,7 @@
     --pos-color-input-active-frame: var(--pos-color-dark-input-active-frame);
     --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
     --pos-color-input-disabled-text: var(--pos-color-dark-input-disabled-text);
-    --pos-color-input-disabled-background: var(--pos-color-dark-input-disabled-background);
+    --pos-color-input-disabled-frame: var(--pos-color-dark-input-disabled-frame);
 
 
     /* utility */
@@ -731,6 +732,15 @@
 
 
 
+/* sizes */
+/* ================================================================================ */
+:root {
+  /* max width of the page */
+  --pos-size-page: 1280px;
+}
+
+
+
 /* spacing */
 /* ================================================================================ */
 /* missing the values for the different screen sizes but need some clarifications */
@@ -762,7 +772,7 @@
   /* gap between buttons of small size */
   --pos-gap-button-button-small: 8px;
   /* gap between tags */
-  --pos-gap-tag-tag: 8px 16px;
+  --pos-gap-tag-tag: .5em .5em;
   /* gap between form inputs */
   --pos-gap-input-input: 16px;
 
@@ -773,7 +783,6 @@
 /* corners */
 /* ================================================================================ */
 :root {
-
   /* border radius for content panels */
   --pos-radius-panel: 4px;
   /* border radius for a popup */
@@ -786,7 +795,6 @@
   --pos-radius-input: 0;
   /* border radius for a tag */
   --pos-radius-tag: 4px;
-
 }
 
 
@@ -800,6 +808,10 @@
   --pos-height-input: 44px;
   /* border width for inputs */
   --pos-border-input: 1px;
+  /* arrow icon for <select> inputs */
+  --pos-icon-select-arrow: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Regular' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 12 12' style='enable-background:new 0 0 12 12;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E.st0%7Bfill:none;stroke:rgb(107, 114, 128);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;%7D%3C/style%3E%3Cpath class='st0' d='M11.3,3.4l-5,5c-0.1,0.1-0.4,0.1-0.5,0c0,0,0,0,0,0l-5-5'/%3E%3C/svg%3E");
+  /* arrow icon for <select> input when focused or hovered with a pointer */
+  --pos-icon-select-arrow-hover: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3Csvg version='1.1' id='Regular' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 12 12' style='enable-background:new 0 0 12 12;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E.st0%7Bfill:none;stroke:rgb(34, 77, 142);stroke-width:1;stroke-linecap:round;stroke-linejoin:round;%7D%3C/style%3E%3Cpath class='st0' d='M11.3,3.4l-5,5c-0.1,0.1-0.4,0.1-0.5,0c0,0,0,0,0,0l-5-5'/%3E%3C/svg%3E");
 }
 
 

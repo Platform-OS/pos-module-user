@@ -1,31 +1,41 @@
 /*
   styling for the user forms
 
+  layout
+  texts
   form
 */
 
 
 
-/* page background and font
+/* layout
 ============================================================================ */
 .pos-user-content {
   width: 100%;
   max-width: 350px;
 }
 
+
+
+/* texts
+============================================================================ */
 .pos-user-content .pos-heading-2 {
   margin-block-end: calc(var(--pos-gap-text-text) / 3);
 }
 
-.pos-user-content form {
-  margin-top: var(--pos-gap-title-content);
+
+
+/* form
+============================================================================ */
+.pos-user-content .pos-form {
+  margin-block-start: var(--pos-gap-title-content);
+  margin-block-end: var(--pos-gap-content-footer);
 }
 
-.pos-user-content .pos-form {
-  margin-block-end: var(--pos-gap-content-footer);
+.pos-user-content fieldset {
   display: flex;
   flex-direction: column;
-  gap: var(--pos-gap-input-input);
+  gap: .2em;
 }
 
 .pos-user-label-password {

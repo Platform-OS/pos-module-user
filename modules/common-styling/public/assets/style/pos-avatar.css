@@ -2,6 +2,7 @@
   avatar component
 
   no-image avatar
+  image avatar
 */
 
 
@@ -20,11 +21,11 @@
   flex-shrink: 0;
   
   border-radius: 50%;
-  background-color: var(--pos-color-divider);
+  background-color: var(--pos-color-frame);
 
   line-height: 0;
   font-weight: 500;
-  color: var(--pos-color-content-supplementary);
+  color: var(--pos-color-content-text-supplementary);
 }
 
 .pos-avatar-xs {
@@ -64,4 +65,12 @@
 .pos-avatar-xxxl {
   width: 192px;
   height: 192px;
+}
+
+
+
+/* image avatar
+============================================================================ */
+.pos-avatar img {
+  border-radius: 50%;
 }

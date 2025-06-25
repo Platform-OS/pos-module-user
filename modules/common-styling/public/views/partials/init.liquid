@@ -1,0 +1,44 @@
+{% if reset %}
+  <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-reset.css' | asset_url }}">
+{% endif %}
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-config.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-typography.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-button.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-toast.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-avatar.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-forms.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-page.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-card.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-table.css' | asset_url }}">
+<link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-tag.css' | asset_url }}">
+
+<script src="{{ 'modules/common-styling/js/pos.js' | asset_url }}"></script>
+
+<script>
+
+  if(typeof window.pos.csrfToken !== 'string'){
+    window.pos.csrfToken = '{{ context.authenticity_token }}';
+  }
+
+  /* selectively load modules */
+  document.addEventListener('DOMContentLoaded', () => {
+
+    if(document.querySelector('.pos-form-password')){
+      import('{{ 'modules/common-styling/js/pos-forms-password.js' | asset_url }}').then(module => {
+        document.querySelectorAll('.pos-form-password').forEach((element, index) => {
+          window.pos.modules.active[element.querySelector('input').id || `pos-password-${index}`] = new window.pos.modules.password(element, { password: element.value });
+        });
+      });
+    }
+
+    if(document.querySelector('.pos-form-multiselect')){
+      import('{{ 'modules/common-styling/js/pos-forms-multiselect.js' | asset_url }}').then(module => {
+        document.querySelectorAll('.pos-form-multiselect').forEach((element, index) => {
+          window.pos.modules.active[element.id || `pos-multiselect-${index}`] = new window.pos.modules.multiselect(element, {});
+        });
+      });
+    }
+
+  });
+
+</script>

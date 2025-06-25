@@ -1,0 +1,125 @@
+/*
+  responsive table component
+*/
+
+
+
+@layer common-styling {
+
+  .pos-table {
+    width: 100%;
+  }
+
+    @media (min-width: 801px) {
+      .pos-table {
+        display: table;
+      }
+    }
+
+  /* header */
+  .pos-table header {
+    text-transform: uppercase;
+    color: var(--pos-color-content-text-supplementary);
+  }
+
+    @media (min-width: 801px) {
+      .pos-table header {
+        display: table-row;
+      }
+
+      .pos-table header > * {
+        padding-inline: var(--pos-padding-cell);
+        padding-block: calc(var(--pos-padding-cell) / 2);
+        display: table-cell;
+
+        font-size: .9rem;
+      }
+
+      .pos-table header > :first-child {
+        padding-inline-start: 0;
+      }
+
+      .pos-table header > :last-child {
+        padding-inline-end: 0;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .pos-table header {
+        display: none;
+      }
+    }
+
+  /* content */
+  @media (min-width: 801px) {
+    .pos-table-content {
+      display: table-row-group;
+    }
+
+    .pos-table-content > ul {
+      display: table-row;
+    }
+
+    .pos-table-content > ul > li {
+      padding: var(--pos-padding-cell);
+      display: table-cell;
+    }
+
+      .pos-table-content > ul > li:first-child {
+        padding-inline-start: 0;
+      }
+
+      .pos-table-content > ul > li:last-child {
+        padding-inline-end: 0;
+      }
+
+    .pos-table-content > ul:not(:first-child) li {
+      border-block-start: 1px solid var(--pos-color-frame);
+    }
+
+    .pos-table-content:not(.pos-card) > ul:last-child li {
+      padding-block-end: 0;
+    }
+  }
+
+  /* content, card variant */
+  @media (min-width: 801px) {
+    .pos-table-content.pos-card > ul:first-child > li:first-child {
+      border-top-left-radius: var(--pos-radius-card);
+    }
+
+    .pos-table-content.pos-card > ul:first-child > li:last-child {
+      border-top-left-radius: var(--pos-radius-card);
+    }
+
+    .pos-table-content.pos-card > ul > li:first-child {
+      padding-inline-start: var(--pos-padding-cell);
+    }
+
+    .pos-table-content.pos-card > ul > li:last-child {
+      padding-inline-end: var(--pos-padding-cell);
+    }
+  }
+
+  /* text formatting */
+  @media (min-width: 801px) {
+    .pos-table-number {
+      text-align: end;
+    }
+
+    .pos-table-content-heading {
+      display: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    .pos-table-content-heading {
+      color: var(--pos-color-content-text-supplementary);
+    }
+    
+    .pos-table-content-heading:after {
+      content: ': '
+    }
+  }
+
+}
