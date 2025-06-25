@@ -30,7 +30,9 @@ metadata:
       {% render 'modules/common-styling/forms/error_list', name: 'password_confirmation', errors: errors['password_confirmation'] %}
     </fieldset>
 
-    <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.password_update' | t }}</button>
+    <fieldset>
+      <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/passwords.password_update' | t }}</button>
+    </fieldset>
 
   </form>
 

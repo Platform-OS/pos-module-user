@@ -4,16 +4,7 @@
 
     <meta charset="utf-8">
       {% comment %} default platformOS provided styles {% endcomment %}
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-reset.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-config.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-button.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-typography.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-toast.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-avatar.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-forms.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-page.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-card.css' | asset_url }}">
-      <link rel="stylesheet" href="{{ 'modules/common-styling/style/pos-tag.css' | asset_url }}">
+      {% render 'modules/common-styling/init', reset: true %}
       <link rel="stylesheet" href="{{ 'modules/user/style/pos-user-form.css' | asset_url }}">
       {% comment %} custom styles specific for this app, some overwrite the defaults {% endcomment %}
       <link rel="stylesheet" href="{{ 'style/app.css' | asset_url }}">
