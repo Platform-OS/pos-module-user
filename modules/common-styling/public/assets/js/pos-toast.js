@@ -30,6 +30,8 @@ window.pos.modules.toast = function(type, message, userSettings){
   module.settings = {};
   // notifications container (dom node)
   module.settings.container = document.querySelector('#pos-toasts');
+  // id used to mark the module (string)
+  module.settings.id = 'toast'
   // the html template to be used for notifications (dom node)
   module.settings.template = module.settings.container.querySelector('#pos-toast-template');
   // the selector for the text content in the template (string)
@@ -52,6 +54,8 @@ window.pos.modules.toast = function(type, message, userSettings){
   // purpose:		initializes the component
   // ------------------------------------------------------------------------
   module.init = () => {
+    pos.modules.debug(module.settings.debug, module.settings.id, 'Initializing', module.settings.container);
+
     if(module.settings.delay){
       setTimeout(() => {
         module.show();
@@ -93,6 +97,7 @@ window.pos.modules.toast = function(type, message, userSettings){
     // when we append the template to the container we are loosing the reference so we need to get it back
     module.settings.notification = module.settings.container.appendChild(module.settings.notification);
 
+    pos.modules.debug(module.settings.debug, module.settings.id, `Showed toast notification, type: ${type}, message: ${message}`);
   };
 
 
@@ -109,6 +114,8 @@ window.pos.modules.toast = function(type, message, userSettings){
     module.settings.notification.addEventListener('animationend', () => {
       module.settings.notification.remove();
     });
+
+    pos.modules.debug(module.settings.debug, module.settings.id, `Hidden and removed toast notification, type: ${type}, message: ${message}`);
   };
 
 

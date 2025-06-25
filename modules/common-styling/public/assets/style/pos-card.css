@@ -14,6 +14,7 @@
     padding: var(--pos-padding-card);
 
     border-radius: var(--pos-radius-card);
+    background-color: var(--pos-color-content-background);
   }
 
 
