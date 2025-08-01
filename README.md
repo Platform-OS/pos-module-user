@@ -168,19 +168,21 @@ The User module provides basic CRUD (Create, Read, Update, Delete) functionality
 
 You can create:
 
-```
+```liquid
 function result = 'modules/user/commands/user/create', email: 'admin@example.com', password: 'password', roles: []
 ```
 
 load:
 
-```
+```liquid
 function user = 'modules/user/queries/user/load', id: '1'
 ```
 
 > [!NOTE] 
 > Usually, you will want to load the currently authenticated user. You can achieve this by providing [context.current_user.id](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-current_user) as the ID:
-
+> ```
+> function user = 'modules/user/queries/user/load', id: context.current_user.id
+> ```
 
 update:
 
