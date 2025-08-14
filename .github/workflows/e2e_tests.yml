@@ -76,8 +76,8 @@ jobs:
           MPKIT_TOKEN: ${{ steps.get-token.outputs.mpkit-token }}
         run: |
           set -eu
-          chmod +x ./tests/data/seed/seed.sh
-          ./tests/data/seed/seed.sh
+          rm app/pos-modules.*
+          sh ./tests/data/seed/seed.sh
 
   test:
     needs: ["reserve-ci-instance", "deploy"]
