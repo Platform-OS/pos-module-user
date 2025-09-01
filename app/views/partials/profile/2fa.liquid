@@ -1,0 +1,21 @@
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+%}
+{% if context.session.original_user_id == blank %}
+  <section class="pos-card pos-card-highlighted">
+    <section class="pos-user-content">
+    
+      <h1 class="pos-heading-2">Two-Factor Authentication setup</h1>
+
+    {% render 'modules/user/2fa/setup' %}
+  </section>
+
+{% else %}
+  impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+  <form action="/sessions/impersonations" method="post">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="redirect_to" value="/admin">
+    <button type="submit" class="pos-button">Log back in as original user</button>
+  </form>
+{% endif %}

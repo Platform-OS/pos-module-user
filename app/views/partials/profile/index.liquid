@@ -2,52 +2,49 @@
   function current_profile = 'modules/user/helpers/current_profile'
 %}
 {% if context.session.original_user_id == blank %}
-  <main class="app-user-page">
-    <nav class="app-user-navigation">
-      <a href="/">Home</a>
-      <a href="/profile">Profile</a>
-      <a href="/subscription">Subscription area</a>
-      <a href="/admin">Admin</a>
-    </nav>
+  <section class="pos-card pos-card-highlighted">
+    <section class="pos-user-content">
+    
+      <h1 class="pos-heading-2">Profile</h1>
 
-    <section class="pos-card pos-card-highlighted">
-      <section class="pos-user-content">
-      
-        <h1 class="pos-heading-2">Profile</h1>
+      <form action="/profile/update" method="POST" class="pos-form pos-form-simple">
+        <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+        <fieldset>
+          <label for="pos-user-first-name">First name</label>
+          <input type="text" name="first_name" id="pos-user-first-name" value="{{ current_profile.first_name }}" required placeholder="first name" {% render 'modules/common-styling/forms/error_input_handler', name: 'first_name', errors: errors['first_name'] %}>
+          {% render 'modules/common-styling/forms/error_list', name: 'first_name', errors: errors['first_name'] %}
+        </fieldset>
 
-        <form action="/profile/update" method="POST" class="pos-form pos-form-simple">
-          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-          <fieldset>
-            <label for="pos-user-first-name">First name</label>
-            <input type="text" name="first_name" id="pos-user-first-name" value="{{ current_profile.first_name }}" required placeholder="first name" {% render 'modules/common-styling/forms/error_input_handler', name: 'first_name', errors: errors['first_name'] %}>
-            {% render 'modules/common-styling/forms/error_list', name: 'first_name', errors: errors['first_name'] %}
-          </fieldset>
+        <fieldset>
+          <label for="pos-user-last-name">Last name</label>
+          <input type="text" name="last_name" id="pos-user-last-name" value="{{ current_profile.last_name }}" required placeholder="last name" {% render 'modules/common-styling/forms/error_input_handler', name: 'last_name', errors: errors['last_name'] %}>
+          {% render 'modules/common-styling/forms/error_list', name: 'last_name', errors: errors['last_name'] %}
+        </fieldset>
 
-          <fieldset>
-            <label for="pos-user-last-name">Last name</label>
-            <input type="text" name="last_name" id="pos-user-last-name" value="{{ current_profile.last_name }}" required placeholder="last name" {% render 'modules/common-styling/forms/error_input_handler', name: 'last_name', errors: errors['last_name'] %}>
-            {% render 'modules/common-styling/forms/error_list', name: 'last_name', errors: errors['last_name'] %}
-          </fieldset>
+        {% render 'modules/common-styling/forms/hcaptcha' %}
 
-          {% render 'modules/common-styling/forms/hcaptcha' %}
+        <button type="submit" class="pos-button pos-button-primary">Submit</button>
 
-          <button type="submit" class="pos-button pos-button-primary">Submit</button>
-
-        </form>
-      </section>
-
-      {% render 'modules/user/oauth/listing' %}
+      </form>
     </section>
-  </main>
 
+    <section class="pos-spacing">
+      <header>
+        <h1 class="pos-heading-3">2FA</h1>
+      </header>
+      <a href="/profiles/2fa/new" class="pos-button pos-button-primary">
+        Setup 2FA
+      </a>
+    </section>
+
+    {% render 'modules/user/oauth/listing' %}
+  </section>
 {% else %}
-  <main class="app-user-page">
-    impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
-    <form action="/sessions/impersonations" method="post">
-      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-      <input type="hidden" name="_method" value="delete">
-      <input type="hidden" name="redirect_to" value="/admin">
-      <button type="submit" class="pos-button">Log back in as original user</button>
-    </form>
-  </main>
+  impersonating: {{ current_user }} (original user id: {{ context.session.original_user_id }})
+  <form action="/sessions/impersonations" method="post">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+    <input type="hidden" name="_method" value="delete">
+    <input type="hidden" name="redirect_to" value="/admin">
+    <button type="submit" class="pos-button">Log back in as original user</button>
+  </form>
 {% endif %}

@@ -98,3 +98,15 @@
   max-width: 350px;
   gap: 10px;
 }
+
+.pos-2fa-input {
+  width: 50px;
+}
+
+.pos-2fa-spacing {
+  padding-top: var(--pos-gap-title-content);
+}
+
+.pos-user-2fa .submit-2fa {
+  margin-top: 5px;
+}

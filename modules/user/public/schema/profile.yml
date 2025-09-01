@@ -11,3 +11,7 @@ properties:
 
   # tokenized downcased names for searching
   - name: c__names
+
+  # 2fa
+  - name: otp_configured
+    type: boolean

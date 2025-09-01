@@ -1,0 +1,17 @@
+mutation mark_otp(
+  $id: ID!
+  $otp_configured: Boolean!
+) {
+  record: record_update(
+    id: $id
+    record: {
+      table: "modules/user/profile"
+      properties: [
+        { name: "otp_configured", value_boolean: $otp_configured }
+      ]
+    }
+  ) {
+    id
+    otp_configured: property_boolean(name: "otp_configured")
+  }
+}
