@@ -486,10 +486,12 @@ This functionality allows a user with `users.impersonate` permission to log in a
 
 ### OAuth2
 
-This feature allows users to authenticate using external identity providers such as Google, Facebook or GitHub.
+This feature allows users to authenticate using external identity providers. Each integration can be encapsulated in its own module. As of today, we have created three modules as examples, which you can also use in production. Those are:
+- [OAuth Google](https://github.com/Platform-OS/pos-module-oauth-google)
+- [OAuth Facebook](https://github.com/Platform-OS/pos-module-oauth-facebook)
+- [OAuth GitHub](https://github.com/Platform-OS/pos-module-oauth-github)
 
-#### Configuration
-Configuring OAuth2 requires installing selected additional OAuth2 provider modules. Please follow the instructions provided by each installed module to configure it.
+Please follow the instructions provided by each installed module to configure it.
 
 #### Custom OAuth2 provider
 
@@ -507,7 +509,7 @@ To implement a custom OAuth2 provider, you must provide two helper methods:
 | email | User's email. |
 | valid | A boolean indicating whether the flow was successful or not. |
 
-#### Endpoints for Loggin as another user
+#### Endpoints for Logging as another user
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 
