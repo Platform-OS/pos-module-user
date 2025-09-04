@@ -38,7 +38,6 @@
     if profile.otp_configured and skip_otp == false
         hash_assign object['otp_required'] = true
     else
-      log user, type:"DD2"
       if user.id
         sign_in user_id: user.id
         assign params = '{}' | parse_json | hash_merge: user: user, hook_params: hook_params
