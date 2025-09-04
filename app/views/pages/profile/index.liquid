@@ -4,6 +4,6 @@
     include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'profile.manage', redirect_anonymous_to_login: true
     # platformos-check-enable UnreachableCode
   
-    render 'profile/index'
+    render 'profile/index', errors: null
   %}
   
