@@ -78,7 +78,7 @@ slug: oauth/:provider/callback
   
   # sign in as user
   if current_user.id == blank
-    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false    
+    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false, skip_otp: true    
     include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.signed_in"
   else
     include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.assigned_provider"

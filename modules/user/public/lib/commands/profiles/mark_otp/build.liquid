@@ -1,6 +1,6 @@
 {% liquid
   assign data = '{}' | parse_json | hash_merge: id: object.id
-  if object.otp_configured == null
+  if object.otp_configured != true
     hash_assign data['otp_configured'] = true
   else
     hash_assign data['otp_configured'] = object.otp_configured

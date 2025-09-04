@@ -70,6 +70,10 @@
   margin-bottom: 10px;
 }
 
+.pos-user-content .pos-user-social-login-providers .pos-button {
+  width: 100%;
+}
+
 .pos-button-social {
   display: flex;
   place-items: center;

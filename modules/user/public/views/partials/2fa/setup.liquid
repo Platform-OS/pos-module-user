@@ -33,7 +33,7 @@
 
         <input type="hidden" name="2fa[email]" value="{{ object.email }}">
 
-        <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus>
+        <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus autocomplete="off">
         {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
 
         <h3 class="pos-heading-3 pos-2fa-spacing">
