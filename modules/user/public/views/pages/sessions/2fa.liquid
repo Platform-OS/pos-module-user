@@ -4,7 +4,6 @@ method: post
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
   if current_profile.user != null
-    log current_profile, type:"DD"
     include 'modules/core/helpers/redirect_to'
   endif
 
@@ -13,14 +12,12 @@ method: post
   function object = 'modules/user/commands/user/verify_otp', object: context.params.2fa, email: null
   if object.valid
     function res = 'modules/user/commands/session/create', email: object.email, password: object.password, hook_params: context.params, skip_otp: true
-    log res, type:"DD3"
     if res.valid
       include 'modules/core/helpers/redirect_to'
     else
       render 'modules/user/sessions/new', context: context, errors: res.errors, values: null
     endif
   else
-    log object, type:"DD4"
     render 'modules/user/2fa/verify', object: object
   endif
 %}
