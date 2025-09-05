@@ -1,0 +1,22 @@
+---
+slug: profiles/2fa/delete
+method: post
+---
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  if current_profile.id == blank
+    redirect_to '/'
+  endif
+
+  function object = 'modules/user/commands/user/verify_otp', object: context.params.2fa, email: current_profile.user.email
+  if object.valid
+    hash_assign current_profile['otp_configured'] = false
+    function object = 'modules/user/commands/profiles/mark_otp', object: current_profile
+    if object.valid != true
+      log object, 'ERROR: modules/user/profiles/mark_otp'
+    endif
+    include 'modules/core/helpers/redirect_to', url: '/', notice: 'modules/user/2fa.delete.success'
+  else
+    render 'modules/user/2fa/disable', otp: user_otp.otp, errors: object.errors
+  endif
+%}

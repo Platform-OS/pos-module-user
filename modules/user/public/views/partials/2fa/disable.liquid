@@ -1,12 +1,10 @@
 <div class="pos-card pos-card-highlighted pos-user-2fa">
   <h2 class="pos-heading-2">
-    {{ 'modules/user/2fa.new.two_factor_authentication' | t }}
+    {{ 'modules/user/2fa.disable.two_factor_authentication' | t }}
   </h2>
 
-  <form action="/sessions/2fa" method="post">
+  <form action="/profiles/2fa/delete" method="post">
     <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-    <input type="hidden" name="2fa[email]" value="{{ object.email }}">
-    <input type="hidden" name="2fa[password]" value="{{ object.password }}">
 
     <h3 class="pos-heading-3 pos-2fa-spacing">
       {{ 'modules/user/2fa.new.confirm_otp_code' | t }}
@@ -16,15 +14,20 @@
     </div>
 
     <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus autocomplete="off">
-    {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: object.errors.otp_code %}
+    {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
+
+    <div>
+        {{ 'modules/user/2fa.new.your_password' | t }}
+    </div>
+    <div>
+        <input name="2fa[password]" type="password" id="password" required>
+        {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors.password %}
+    </div>
 
     <div>
       <button type="submit" class="submit-2fa pos-button pos-button-primary">
         {{ 'modules/user/2fa.new.submit' | t }}
       </button>
-    </div>
-    <div class="pos-2fa-spacing">
-      <span class="pos-supplementary"><a href="/sessions/new">{{ 'modules/user/sessions.new.back_to_login' | t }}</a></span>
     </div>
   </form>
 </div>

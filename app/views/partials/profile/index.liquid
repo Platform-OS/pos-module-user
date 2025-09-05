@@ -32,9 +32,15 @@
       <header>
         <h1 class="pos-heading-3">2FA</h1>
       </header>
-      <a href="/profiles/2fa/new" class="pos-button pos-button-primary">
-        Setup 2FA
-      </a>
+      {% if otp_configured == false %}
+        <a href="/profiles/2fa/new" class="pos-button pos-button-primary">
+          Setup 2FA
+        </a>
+      {% else %}
+        <a href="/profiles/2fa/disable" class="pos-button pos-button-primary">
+          Disable 2FA
+        </a>
+      {% endif %}
     </section>
 
     {% render 'modules/user/oauth/listing' %}

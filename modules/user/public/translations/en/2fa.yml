@@ -17,6 +17,9 @@ en:
       if_you_cannot_scan: 'Or enter the following code manually in the app:'
       confirm_otp_code: Confirm code
       please_confirm: Enter 6-digit code from your two-factor authenticator app.
+    disable:
+      two_factor_authentication: Disable two factor authentication
     create:
-        success: Successfully enabled two factor authentication.
-    logout: Log out
+      success: Successfully enabled two factor authentication.
+    delete:
+      success: Successfully disabled two factor authentication.
