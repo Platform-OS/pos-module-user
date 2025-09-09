@@ -15,7 +15,8 @@ method: post
     if object.valid != true
       log object, 'ERROR: modules/user/profiles/mark_otp'
     endif
-    include 'modules/core/helpers/redirect_to', url: '/', notice: 'modules/user/2fa.delete.success'
+    assign notice = 'modules/user/2fa.delete.success' | t
+    include 'modules/core/helpers/redirect_to', url: '/', notice: notice
   else
     render 'modules/user/2fa/disable', otp: user_otp.otp, errors: object.errors
   endif
