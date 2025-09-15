@@ -16,7 +16,7 @@ en:
         You can use [Authy](https://authy.com) or [any other authentication tool](https://www.lastpass.com/two-factor-authentication).</a>
       if_you_cannot_scan: 'Or enter the following code manually in the app:'
       confirm_otp_code: Confirm code
-      please_confirm: Enter 6-digit code from your two-factor authenticator app.
+      please_confirm: Enter 6-digit code from your two-factor authenticator app
     disable:
       two_factor_authentication: Disable two factor authentication
     create:

@@ -5,8 +5,16 @@
   <section class="pos-card pos-card-highlighted">
     <section class="pos-user-content">
     
-      <h1 class="pos-heading-2">Profile</h1>
-
+      <h1 class="pos-heading-2 pos-spacing">Profile</h1>
+      <section>
+        <header>
+          <h1 class="pos-heading-3">Email</h1>
+        </header>
+        <div>Current email: {{current_profile.user.email}}</div>
+        <a href="/users/email/edit" class="pos-button pos-button-primary">
+          Change email
+        </a>
+      </section>
       <form action="/profile/update" method="POST" class="pos-form pos-form-simple">
         <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
         <fieldset>

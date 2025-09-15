@@ -4,3 +4,9 @@ en:
       create_account: Create an Account
       already_have_account: Already have an account? <a href="/sessions/new">Log in</a>
     logout: Log out
+    email:
+      new_email: 'New email'
+      current_password: 'Current password'
+      change_email: 'Change email'
+      email_update: 'Update'
+      change_success: 'Email updated'
