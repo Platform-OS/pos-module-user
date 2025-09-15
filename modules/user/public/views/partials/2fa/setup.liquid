@@ -3,9 +3,9 @@
     {{ 'modules/user/2fa.new.two_factor_authentication' | t }}
   </h2>
 
-  <form action="/profiles/2fa" method="post">
+  <form action="/profiles/2fa" method="post" class="pos-form pos-form-simple">
     <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
-    <div>
+    <div class="pos-user-content">
       <section>
         <div>
           {{ 'modules/user/2fa.new.2fa_info' | t | markdown }}
@@ -19,34 +19,24 @@
           {{ otp.secret_as_svg_qr_code }}
         </div>
 
-        <div>
+        <div class="pos-spacing">
           {{ 'modules/user/2fa.new.if_you_cannot_scan' | t }}<br>
           <span>{{ otp.secret }}</span>
         </div>
 
-        <h3 class="pos-heading-3 pos-2fa-spacing">
-          {{ 'modules/user/2fa.new.confirm_otp_code' | t }}
-        </h3>
-         <div>
-          {{ 'modules/user/2fa.new.please_confirm' | t }}
-        </div>
-
         <input type="hidden" name="2fa[email]" value="{{ object.email }}">
+        <fieldset>
+          <label for="otp_code">{{ 'modules/user/2fa.new.please_confirm' | t }}</label>
+          <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus autocomplete="off">
+          {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
+        </fieldset>
 
-        <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus autocomplete="off">
-        {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
-
-        <h3 class="pos-heading-3 pos-2fa-spacing">
-          {{ 'modules/user/2fa.new.enter_password' | t }}
-        </h3>
-
-        <div>
-          {{ 'modules/user/2fa.new.your_password' | t }}
-        </div>
-        <div>
-          <input name="2fa[password]" type="password" id="password" required>
-          {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors.password %}
-        </div>
+         <fieldset>
+            <label for="password">{{ 'modules/user/2fa.new.enter_password' | t }}</label>
+            {{ 'modules/user/2fa.new.your_password' | t }}
+            <input name="2fa[password]" type="password" id="password" required>
+            {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors.password %}
+        </fieldset>
 
         <div>
           <button type="submit" class="submit-2fa pos-button pos-button-primary">
