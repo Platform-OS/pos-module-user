@@ -4,6 +4,6 @@
     assign object = "{}" | parse_json | hash_merge: email: user_email
     assign object = object | hash_merge: firstName: user_first_name, lastName: user_last_name, fullName: full_name
     
-    function new_user = "modules/user/commands/user/create", first_name: user_first_name, last_name: user_last_name, email: user_email, password: password, hook_params: object
+    function new_user = "modules/user/commands/user/create", first_name: user_first_name, last_name: user_last_name, email: user_email, password: password, hook_params: object, roles: null
     return new_user
 %}

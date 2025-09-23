@@ -18,6 +18,6 @@ method: post
     assign notice = 'modules/user/2fa.delete.success' | t
     include 'modules/core/helpers/redirect_to', url: '/', notice: notice
   else
-    render 'modules/user/2fa/disable', otp: user_otp.otp, errors: object.errors
+    render 'modules/user/2fa/disable', errors: object.errors
   endif
 %}

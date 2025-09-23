@@ -78,9 +78,11 @@ slug: oauth/:provider/callback
   
   # sign in as user
   if current_user.id == blank
-    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false, skip_otp: true    
+    function _ = "modules/user/commands/session/create", user_id: found_user_id, validate_password: false, skip_otp: true, email: null, password: null, hook_params: null
     include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.signed_in"
   else
     include 'modules/core/helpers/redirect_to', notice: "modules/user/oauth.app.assigned_provider"
   endif
+  # platformos-check-enable ConvertIncludeToRender
 %}
+

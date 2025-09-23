@@ -4,7 +4,7 @@
     redirect_to '/'
   endif
 
-  function user_otp = 'modules/user/queries/user/otp', email: current_profile.user.email
+  function user_otp = 'modules/user/queries/user/otp', email: current_profile.user.email, roles: null
 
   render 'modules/user/2fa/setup', otp: user_otp.otp
 %}
