@@ -16,17 +16,17 @@ method: put
     endif
   endif
 
-  function object = 'modules/user/commands/user/email_update', object: context.params.user, current_user: current_profile.user
+  function object = 'modules/user/commands/user/email_update', object: context.params.user, current_user: current_profile.user, c: null
 
   if object.valid
     hash_assign current_profile['email'] = context.params.user.email
     function _ = 'modules/user/commands/profiles/update', object: current_profile, profile: current_profile
     assign event_payload = null | hash_merge: actor_id: object.id, object: object, actor: object, target: null, object_id: null, target_id: null
-    function _event = 'modules/core/commands/events/publish', type: 'email_updated', object: event_payload
+    function _event = 'modules/core/commands/events/publish', type: 'email_updated', object: event_payload, delay: null, max_attempts: null
 
      assign notice = 'modules/user/users.email.change_success' | t
     include 'modules/core/helpers/redirect_to', url: '/', notice: notice
   else
-    render 'modules/user/users/email/edit', object: object, context: context
+    render 'modules/user/users/email/edit', context: context, otp_enabled: null
   endif
 %}

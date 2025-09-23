@@ -15,8 +15,8 @@ metadata:
   <h1 class="pos-heading-2">{{ 'modules/user/users.email.change_email' | t }}</h1>
 
   <form action="/users/email/edit" method="POST" class="pos-form pos-form-simple">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
     <input type="hidden" name="_method" value="put" />
-    {% render 'modules/core/helpers/authenticity_token', context: context %}
 
     <fieldset>
       <label for="pos-user-password">{{ 'modules/user/users.email.new_email' | t }}</label>

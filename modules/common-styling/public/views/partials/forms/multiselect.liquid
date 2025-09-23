@@ -57,7 +57,7 @@
         <span class="pos-form-multiselect-selected-item-label"><i>0</i> selected</span>
         <button type="button" class="pos-form-multiselect-selected-item-remove pos-form-multiselect-clear">
           <span class="pos-button-label">{{ 'modules/common-styling/form.clear_selection' | t }}</span>
-          {% render 'modules/common-styling/icon', icon: 'x' %}
+          {% render 'modules/common-styling/icon', icon: 'x', class: null %}
         </button>
       </div>
     {% endif %}
@@ -66,7 +66,7 @@
         <span class="pos-form-multiselect-selected-item-label"></span>
         <label class="pos-form-multiselect-selected-item-remove" for="">
           <span class="pos-button-label">{{ 'modules/common-styling/form.deselect' | t }}</span>
-          {% render 'modules/common-styling/icon', icon: 'x' %}
+          {% render 'modules/common-styling/icon', icon: 'x', class: null %}
         </label>
       </li>
     </template>

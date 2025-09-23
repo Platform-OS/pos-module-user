@@ -5,7 +5,7 @@
   if object.email != blank and object.email != current_user.email
     graphql emails_count = 'modules/user/user/emails_count', email: object.email | dig: 'users', 'total_entries'
     if emails_count > 0
-      include 'modules/core/helpers/register_error', contract: c, field_name: 'email', key: 'app.errors.taken'
+      render 'modules/core/helpers/register_error', contract: c, field_name: 'email', key: 'app.errors.taken'
     endif
   endif
 
