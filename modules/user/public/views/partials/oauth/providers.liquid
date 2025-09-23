@@ -11,7 +11,7 @@
         <button type="submit" class="pos-button pos-button-primary">
           {% liquid
             assign icon = "modules/oauth_" | append: provider[1].key | append: "/img/icon.svg"
-            assign text = "modules/oauth_" | append: provider[1].key | append: "/module.button.continue"
+            assign text = "modules/oauth_" | append: provider[1].key | append: "/provider.button.continue"
           %}
           <span class="pos-button-social">
             <span class="pos-button-social-icon"><img loading="eager" width="32" height="32" src="{{ icon | asset_url }}" /></span>
