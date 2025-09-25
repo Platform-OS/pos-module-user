@@ -22,24 +22,21 @@
 
   </head>
   <body>
-    {% liquid
-      function current_profile = 'modules/user/helpers/current_profile'
-    %}
-      {% if current_profile.user.id %}
-        <main class="app-user-page">
-          <nav class="app-user-navigation">
-            <a href="/">Home</a>
-            <a href="/profile">Profile</a>
-            <a href="/subscription">Subscription area</a>
-            <a href="/admin">Admin</a>
-          </nav>
-          {{ content_for_layout }}
-        </main>
-      {% else %}
-        <main class="app-user-intro">
-          {{ content_for_layout }}
-        </main>
-      {% endif %}
+    {% if context.exports.current_profile.user.id %}
+      <main class="app-user-page">
+        <nav class="app-user-navigation">
+          <a href="/">Home</a>
+          <a href="/profile">Profile</a>
+          <a href="/subscription">Subscription area</a>
+          <a href="/admin">Admin</a>
+        </nav>
+        {{ content_for_layout }}
+      </main>
+    {% else %}
+      <main class="app-user-intro">
+        {{ content_for_layout }}
+      </main>
+    {% endif %}
 
     {% liquid
       function flash = 'modules/core/commands/session/get', key: 'sflash', clear: null
