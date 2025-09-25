@@ -1,4 +1,4 @@
-mutation update_email($id: ID!, $email: String) {
+mutation update_email($id: ID!, $email: String!) {
   user: user_update(
     id: $id
     user: {
