@@ -1,0 +1,23 @@
+---
+method: post
+---
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  if current_profile.user != null
+    include 'modules/core/helpers/redirect_to'
+  endif
+
+  include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'sessions.create', return_url: '/'
+
+  function object = 'modules/user/commands/user/verify_otp', object: context.params.2fa, email: null
+  if object.valid
+    function res = 'modules/user/commands/session/create', email: object.email, password: object.password, hook_params: context.params, skip_otp: true, validate_password: null
+    if res.valid
+      include 'modules/core/helpers/redirect_to'
+    else
+      render 'modules/user/sessions/new', context: context, errors: res.errors, values: null
+    endif
+  else
+    render 'modules/user/2fa/verify', object: object
+  endif
+%}

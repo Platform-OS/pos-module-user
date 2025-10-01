@@ -448,7 +448,7 @@ layout: 'modules/common-styling/style-guide'
         <pre><code>{{ code | lstrip | rstrip }}</code></pre>
       </div>
       <ul>
-        {% render 'modules/common-styling/icon', icon: 'all' %}
+        {% render 'modules/common-styling/icon', icon: 'all', class: null %}
       </ul>
     </article>
 
@@ -1063,7 +1063,7 @@ layout: 'modules/common-styling/style-guide'
         </div>
         <div>
           <div class="styleguide-example" style="text-align: center;">
-            {% render 'modules/common-styling/forms/password', name: 'styleguide-form-password-test', id: 'styleguide-form-password-test', value: '123456', meter: true %}
+            {% render 'modules/common-styling/forms/password', name: 'styleguide-form-password-test', id: 'styleguide-form-password-test', value: '123456', meter: true, class: null %}
           </div>
 {% capture code %}{% raw %}
 {% render 'modules/common-styling/forms/password',
@@ -1144,10 +1144,10 @@ layout: 'modules/common-styling/style-guide'
                 assign selected = '["value0", "value5", "value6"]' | parse_json
               endfor
             %}
-            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-1', id: 'styleguide-form-multiselect-test-1', list: example_list, showFilter: true, combine_selected: true %}
-            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-2', id: 'styleguide-form-multiselect-test-2', list: example_list, showFilter: true %}
-            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-3', id: 'styleguide-form-multiselect-test-3', list: example_list, showFilter: false, multiline: true %}
-            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-4', id: 'styleguide-form-multiselect-test-4', list: example_list, selected: selected, showFilter: true, combine_selected: true %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-1', id: 'styleguide-form-multiselect-test-1', list: example_list, showFilter: true, combine_selected: true, selected: selected, required: null, multiline: null, form: null %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-2', id: 'styleguide-form-multiselect-test-2', list: example_list, showFilter: true, selected: selected, required: null, multiline: null, combine_selected: null, form: null %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-3', id: 'styleguide-form-multiselect-test-3', list: example_list, showFilter: false, multiline: true, selected: selected, required: null, combine_selected: null, form: null %}
+            {% render 'modules/common-styling/forms/multiselect', name: 'styleguide-form-multiselect-test-4', id: 'styleguide-form-multiselect-test-4', list: example_list, selected: selected, showFilter: true, combine_selected: true, required: null, multiline: null, form: null %}
           </div>
 {% capture code %}{% raw %}
 {% render 'modules/common-styling/forms/multiselect',

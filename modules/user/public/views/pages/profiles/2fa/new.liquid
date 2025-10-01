@@ -1,0 +1,10 @@
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  if current_profile.user.id == null
+    redirect_to '/'
+  endif
+
+  function user_otp = 'modules/user/queries/user/otp', email: current_profile.user.email, name: null
+
+  render 'modules/user/2fa/setup', otp: user_otp.otp, object: null, errors: null
+%}

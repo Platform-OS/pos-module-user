@@ -70,6 +70,10 @@
   margin-bottom: 10px;
 }
 
+.pos-user-content .pos-user-social-login-providers .pos-button {
+  width: 100%;
+}
+
 .pos-button-social {
   display: flex;
   place-items: center;
@@ -97,4 +101,16 @@
   flex-direction: column;
   max-width: 350px;
   gap: 10px;
+}
+
+.pos-2fa-input {
+  width: 50px;
+}
+
+.pos-2fa-spacing {
+  padding-top: var(--pos-gap-title-content);
+}
+
+.pos-user-2fa .submit-2fa {
+  margin-top: 5px;
 }

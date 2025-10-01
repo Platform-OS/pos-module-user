@@ -1,0 +1,15 @@
+query otp($email: String!, $issuer: String!){
+  users(
+    filter: { email: { value: $email} }, per_page:1
+  ){
+    results{
+      id
+      email
+      otp {
+        current_code
+        secret_as_svg_qr_code(label: $email, issuer: $issuer)
+        secret
+      }
+    }
+  }
+}

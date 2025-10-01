@@ -1,0 +1,50 @@
+---
+metadata:
+  name: New password
+  params:
+    context: {}
+    errors: {}
+---
+{% liquid
+  assign context = context | default: params.context
+  assign errors = errors | default: params.errors
+%}
+
+<section class="pos-user-content">
+
+  <h1 class="pos-heading-2">{{ 'modules/user/users.email.change_email' | t }}</h1>
+
+  <form action="/users/email/edit" method="POST" class="pos-form pos-form-simple">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+    <input type="hidden" name="_method" value="put" />
+
+    <fieldset>
+      <label for="pos-user-password">{{ 'modules/user/users.email.new_email' | t }}</label>
+      <input type="email" name="user[email]" id="pos-user-email" required placeholder="new email" {% render 'modules/common-styling/forms/error_input_handler', name: 'email', errors: errors['email'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'email', errors: errors['email'] %}
+    </fieldset>
+
+    <fieldset>
+      <label for="pos-user-password">{{ 'modules/user/users.email.current_password' | t }}</label>
+      <input type="password" name="user[password]" id="pos-user-password" required placeholder="••••••••" {% render 'modules/common-styling/forms/error_input_handler', name: 'password', errors: errors['password'] %}>
+      {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors['password'] %}
+    </fieldset>
+
+    {% if otp_enabled %}
+    <h3 class="pos-heading-3 pos-2fa-spacing">
+      {{ 'modules/user/2fa.new.confirm_otp_code' | t }}
+    </h3>
+    <fieldset>
+      <label for="pos-user-otp">{{ 'modules/user/2fa.new.please_confirm' | t }}</label>
+      <input name="user[otp_code]" id="pos-user-otp" type="text" pattern="\d{6,6}" placeholder="••••••" maxlength="6" required autocomplete="off">
+      {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
+    </fieldset>
+    {% endif %}
+
+    <fieldset>
+      <button type="submit" class="pos-button pos-button-primary">{{ 'modules/user/users.email.email_update' | t }}</button>
+    </fieldset>
+
+  </form>
+
+</section>

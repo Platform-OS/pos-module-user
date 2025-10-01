@@ -46,6 +46,7 @@ query (
       user_id: property(name: "user_id")
       uuid: property(name: "uuid")
       roles: property_array(name: "roles")
+      otp_configured: property_boolean(name: "otp_configured")
     }
   }
 }

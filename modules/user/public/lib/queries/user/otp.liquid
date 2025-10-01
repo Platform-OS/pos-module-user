@@ -1,0 +1,17 @@
+{% liquid
+  if email == blank
+    log 'Something went wrong. Email cannot be blank.', type: 'ERROR'
+    return null
+  endif
+
+  assign issuer = 'app.title' | t
+  graphql r = 'modules/user/user/otp', email: email, issuer: issuer
+
+  if r.errors
+    assign type = 'ERROR' | append: name
+    log r, type: type
+    break
+  endif
+
+  return r.users.results.first
+%}

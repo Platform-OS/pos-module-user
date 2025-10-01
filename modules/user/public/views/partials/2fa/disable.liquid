@@ -1,0 +1,32 @@
+<div class="pos-card pos-card-highlighted pos-user-2fa">
+  <h2 class="pos-heading-2">
+    {{ 'modules/user/2fa.disable.two_factor_authentication' | t }}
+  </h2>
+
+  <section class="pos-user-content">
+    <form action="/profiles/2fa/delete" method="post" class="pos-form pos-form-simple">
+      <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+
+      <fieldset>
+        <label for="password">{{ 'modules/user/2fa.new.your_password' | t }}</label>
+        <input name="2fa[password]" type="password" id="password" required>
+        {% render 'modules/common-styling/forms/error_list', name: 'password', errors: errors.password %}
+      </fieldset>
+
+      <h3 class="pos-heading-3 pos-2fa-spacing">
+        {{ 'modules/user/2fa.new.confirm_otp_code' | t }}
+      </h3>
+      <fieldset>
+        <label for="otp_code">{{ 'modules/user/2fa.new.please_confirm' | t }}</label>
+        <input name="2fa[otp_code]" id="otp_code" type="text" pattern="\d{6,6}" maxlength="6" required autofocus autocomplete="off">
+        {% render 'modules/common-styling/forms/error_list', name: 'otp_code', errors: errors.otp_code %}
+      </fieldset>
+
+      <div>
+        <button type="submit" class="submit-2fa pos-button pos-button-primary">
+          {{ 'modules/user/2fa.new.submit' | t }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

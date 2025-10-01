@@ -235,3 +235,7 @@ p + p {
 
     border-block-end: 1px solid var(--pos-color-page-background);
   }
+
+  .pos-spacing {
+    padding-bottom: var(--pos-padding-card);
+  }

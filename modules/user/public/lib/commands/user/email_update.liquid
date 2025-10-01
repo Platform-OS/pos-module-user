@@ -1,0 +1,10 @@
+{% liquid
+  function object = 'modules/user/commands/user/email_update/build', object: object, current_user: current_user
+  function object = 'modules/user/commands/user/email_update/check', object: object, current_user: current_user, c: c
+
+  if object.valid
+    function object = 'modules/core/commands/execute', object: object, mutation_name: 'modules/user/user/email_update', selection: 'user'
+  endif
+
+  return object
+%}

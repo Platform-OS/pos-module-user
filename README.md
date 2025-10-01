@@ -129,13 +129,13 @@ Implements Role-Based Access Control (RBAC), allowing fine-grained authorization
 This feature allows logging in as another user, providing access to all of their functionalities. It comes with a dedicated logout process which logs user back to their original profile. It includes security consideration that only superadmin can impersonate another superadmin user.
 - [x] **[OAuth Module Integration](#oauth2)**:  
 This feature allows users to authenticate using external identity providers (such as Google, Facebook, or GitHub).
-
-TODO (Upcoming Features)
-
-- [ ] **2FA Authentication**:  
+- [x] **[2FA Authentication](#2fa)**:  
    Adds **Two-Factor Authentication (2FA)**, including:
    - **Displaying OTP secret QR code** for setting up 2FA. More details can be found in the [OTP secret object documentation](https://documentation.platformos.com/api-reference/graphql/common/objects/otp).
    - **OTP Verification**: After setting up 2FA, the user will need to verify the code. Refer to the [OTP verification documentation](https://documentation.platformos.com/api-reference/graphql/common/objects/authenticate).
+
+TODO (Upcoming Features)
+
 - [ ] **Mandatory Email Verification (Feature Flag)**:  
 Adds a feature flag to enforce **mandatory email verification**, ensuring users validate their email addresses before gaining full access to the platform.
 - [ ] **Mandatory SMS Verification (Feature Flag)**:  
@@ -480,10 +480,6 @@ If you receive a **500 error** after modifying the `permissions.liquid` file, ch
   - `comment.delete`
 * **Managing Permissions for Administrators/Moderators:** Use `<resource>.manage.all` for permissions granted to administrators or moderators. Regular users should typically have permission only for the entities they create. For example, in a blog application that allows users to write comments, users should be able to edit and delete their own comments.  In contrast, administrators and moderators need permission to manage all comments. We recommend creating a `<resource>.manage.all` permission for this purpose and handling it as described in the [Creating Your Own Authorization Commands](#creating-your-own-authorization-commands) example.
 
-### Impersonation
-
-This functionality allows a user with `users.impersonate` permission to log in as another user (unless they are superadmin - in which scenario `users.impersonate_superadmin` permission is needed). It comes with a dedicated logout process which logs the user back to their original profile.
-
 ### OAuth2
 
 This feature allows users to authenticate using external identity providers. Each integration can be encapsulated in its own module. As of today, we have created three modules as examples, which you can also use in production. Those are:
@@ -509,7 +505,18 @@ To implement a custom OAuth2 provider, you must provide two helper methods:
 | email | User's email. |
 | valid | A boolean indicating whether the flow was successful or not. |
 
-#### Endpoints for Logging as another user
+### 2FA
+
+This feature enables the use of a second form of identification to verify a user's identity and grant them access to the account. Users can scan the generated QR code with any authenticator app to be able to generate one-time passwords (OTP).
+
+#### Configuration
+To use 2FA, users must scan the provider QR code with an authenticator app of their choice, input the generated code (6 digits) and confirm their password. Once successfully enabled, they will be prompted to provide the generated code every time they log in, change their email or if they try to disable 2FA.
+
+### Impersonation
+
+This functionality allows a user with `users.impersonate` permission to log in as another user (unless they are superadmin - in which scenario `users.impersonate_superadmin` permission is needed). It comes with a dedicated logout process which logs the user back to their original profile.
+
+#### Endpoints for logging in as another user
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 

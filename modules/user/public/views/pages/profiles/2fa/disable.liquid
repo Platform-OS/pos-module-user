@@ -1,0 +1,8 @@
+{% liquid
+  function current_profile = 'modules/user/helpers/current_profile'
+  if current_profile.user.id == null or current_profile.otp_configured != true
+    redirect_to '/'
+  endif
+
+  render 'modules/user/2fa/disable', errors: null
+%}

@@ -1,0 +1,10 @@
+{% liquid
+  assign data = '{}' | parse_json | hash_merge: id: object.id
+  if object.otp_configured == null
+    hash_assign data['otp_configured'] = true
+  else
+    hash_assign data['otp_configured'] = object.otp_configured
+  endif
+
+  return data
+%}

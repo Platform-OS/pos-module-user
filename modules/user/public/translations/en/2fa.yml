@@ -1,0 +1,25 @@
+en:
+  2fa:
+    errors:
+      otp_code: Invalid OTP code provided.
+      password: Invalid password provided.
+    new:
+      enter_password: Enter password
+      your_password: Please enter your password.
+      submit: Submit
+      confirm_and_enable: Confirm and Enable Two Factor
+      two_factor_authentication: Two-factor authentication
+      scan_qr_code: Scan QR Code
+      2fa_info: |-
+        To be able to log in you need to scan this QR Code with your authentication app.
+
+        You can use [Authy](https://authy.com) or [any other authentication tool](https://www.lastpass.com/two-factor-authentication).</a>
+      if_you_cannot_scan: 'Or enter the following code manually in the app:'
+      confirm_otp_code: Confirm code
+      please_confirm: Enter 6-digit code from your two-factor authenticator app
+    disable:
+      two_factor_authentication: Disable two factor authentication
+    create:
+      success: Successfully enabled two factor authentication.
+    delete:
+      success: Successfully disabled two factor authentication.

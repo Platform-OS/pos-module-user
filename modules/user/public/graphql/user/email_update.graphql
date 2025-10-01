@@ -1,0 +1,10 @@
+mutation update_email($id: ID!, $email: String!) {
+  user: user_update(
+    id: $id
+    user: {
+      email: $email
+    }
+  ){
+    id
+  }
+}

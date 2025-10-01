@@ -1,0 +1,14 @@
+query verify($email: String!, $otp_code: String!, $password: String!){
+  users(
+    filter: { email: { value: $email} }, per_page:1
+  ){
+    results{
+      id
+      email
+      authenticate{
+        otp_code(code: $otp_code, drift: 30)
+        password(password: $password)
+      }
+    }
+  }
+}

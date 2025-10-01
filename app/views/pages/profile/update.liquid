@@ -9,6 +9,6 @@ slug: profile/update
     # platformos-check-enable UnreachableCode
   
     function object = 'modules/user/commands/profiles/update', object: params, profile: current_profile
-    render 'profile/index', errors: object.errors
+    render 'profile/index', errors: object.errors, otp_configured: current_profile.otp_configured
   %}
   

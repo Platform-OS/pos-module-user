@@ -4,7 +4,7 @@
   include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'admin.read', redirect_anonymous_to_login: true
   # platformos-check-enable UnreachableCode
 
-  function users = 'modules/user/queries/user/search', id: null, not_ids: null, email: null, role: null, roles: null, sort: null, limit: 20
+  function users = 'modules/user/queries/user/search', id: null, not_ids: null, email: null, sort: null, limit: 20
 
   render 'admin/home/index', users: users
 %}
