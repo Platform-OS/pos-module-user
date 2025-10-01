@@ -516,7 +516,7 @@ This feature enables the use of a second form of identification to verify a user
 #### Configuration
 To use 2FA, users must scan the provider QR code with an authenticator app of their choice, input the generated code (6 digits) and confirm their password. Once successfully enabled, they will be prompted to provide the generated code every time they log in, change their email or if they try to disable 2FA.
 
-#### Endpoints for logging in as another user
+### Endpoints for logging in as another user
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 
