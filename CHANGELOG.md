@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v5.1.0
+* Added the change email function
+* Added support for 2FA one-time passwords
+
 ## v5.0.0
 * This release introduces built-in profiles based on the now obsolete profile module.
 
