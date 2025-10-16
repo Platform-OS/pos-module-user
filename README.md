@@ -214,7 +214,7 @@ The following table outlines the [resourceful routes](https://documentation.plat
 
 You can log the user in (which [creates a new session](https://documentation.platformos.com/developer-guide/users/session#security)) using the following command:
 
-```
+```liquid
 function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
 ```
 
@@ -222,7 +222,7 @@ function res = 'modules/user/commands/session/create', email: 'email@example.com
 
 To access information about the currently logged-in user, use the following command provided by the module:
 
-```
+```liquid
 function profile = 'modules/user/helpers/current_profile'
 ```
 
@@ -245,7 +245,7 @@ If you want to add a button to your web site to log out the logged in user, you 
 
 If you want to log out the user in your own endppint, run the following command provided by the module:
 
-```
+```liquid
 function res = 'modules/user/commands/session/destroy'
 ```
 
@@ -255,7 +255,7 @@ function res = 'modules/user/commands/session/destroy'
 
 It’s possible to skip password validation and create a session by setting the `validate_password` boolean argument to `false` when calling the `modules/user/commands/session/create` command. In this case, the `user_id` argument must be provided.
 
-```
+```liquid
 function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
 ```
 
@@ -278,13 +278,13 @@ The table below contains the [resourceful routes](https://documentation.platform
 
 To create or update a given user's password:
 
-```
+```liquid
 function result = 'modules/user/commands/passwords/create', object: object
 ```
 
 To create an `authentication link` that points to the `GET /passwords/edit` endpoint, which will be sent to the user's email, use the following command. The authentication link will include [a temporary token that authenticates a user based on their email only](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token):
 
-```
+```liquid
 function object = 'modules/user/commands/authentication_links/create', email: "john@doe.com", host: context.location.host
 ```
 
@@ -316,19 +316,19 @@ The roles are stored in [User's property](https://documentation.platformos.com/d
 
 You can append role using the `append` command:
 
-```
+```liquid
 function result = 'modules/user/commands/profiles/roles/append', id: 1, role: "admin"
 ```
 
 You can remove role using the `remove` command:
 
-```
+```liquid
 function result = 'modules/user/commands/profiles/roles/remove', id: 1, role: "admin"
 ```
 
 You can set multiple roles at once using the `set` command:
 
-```
+```liquid
 assign roles = '["member", "admin"]' | parse_json
 function result = 'modules/user/commands/profiles/roles/set', id: 1, roles: roles
 ```
@@ -337,13 +337,13 @@ function result = 'modules/user/commands/profiles/roles/set', id: 1, roles: role
 
 You can fetch all defined roles in the system by using `modules/user/queries/roles/all` query:
 
-```
+```liquid
 function roles = 'modules/user/queries/roles/all'
 ```
 
 You can fetch all custom roles (without `authenticated` and `anonymous`) defined in the system by using `modules/user/queries/roles/custom` query:
 
-```
+```liquid
 function roles = 'modules/user/queries/roles/custom'
 ```
 
@@ -355,7 +355,7 @@ The module offers several helper commands to authorize users:
 
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
-```
+```liquid
 function current_profile = 'modules/user/helpers/current_profile'
 function can = 'modules/user/helpers/can_do', requester: current_profile, do: 'admin_pages.view'
 ```
@@ -368,7 +368,7 @@ If the user does not have permission, the system renders a **403 Unauthorized** 
 
 This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
-```
+```liquid
 function current_profile = 'modules/user/helpers/current_profile'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'users.register', redirect_anonymous_to_login: true
@@ -382,7 +382,7 @@ The `platformos-check-disable` and `platformos-check-enable` tags are used to pr
 If the user does not have permission, they will be redirected to the URL provided as an argument. This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 
-```
+```liquid
 function current_profile = 'modules/user/helpers/current_profile'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
 include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'users.register', return_url: '/sessions/new'
@@ -395,7 +395,7 @@ The `platformos-check-disable` and `platformos-check-enable` will let [platformo
 
 You can leverage existing commands while providing custom authorization rules by using the `access_callback` and `entity` arguments. Consider the following complex real-life example:
 
-```
+```liquid
 {% assign order = '{"buyer_id": 1, "seller_id": 2}' | parse_json %}
 function can = 'modules/user/helpers/can_do', requester: user, do: 'orders.confirm', entity: order, access_callback: 'can/orders'
 ```
@@ -406,7 +406,7 @@ The `entity` represents the object for which you want to check if the requester 
 
 The example implementation of the `app/lib/can/orders.liquid` might be as follows:
 
-```
+```liquid
 {% liquid
   assign order = entity
 
