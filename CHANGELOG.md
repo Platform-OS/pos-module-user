@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+## v5.1.1
+
+* Fix: remove theme_render for can_do_or_unauthorized command
+
 ## v5.1.0
 * Added the change email function
 * Added support for 2FA one-time passwords

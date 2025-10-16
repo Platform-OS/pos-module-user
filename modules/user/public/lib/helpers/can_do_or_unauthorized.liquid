@@ -12,6 +12,8 @@
     - access_callback String
       The callback function that checks the request. By default searches that the `requester`
       has `do` permission or not.
+    - forbidden_partial String
+      The partial to render if the requester is not authorized. If not set, just sets the response status to 403.
 {% endcomment %}
 {% liquid
   function can = 'modules/user/helpers/can_do', requester: requester, entity: entity, do: do, access_callback: access_callback
@@ -22,7 +24,9 @@
       include 'modules/core/helpers/redirect_to', url: '/sessions/new', info: info
     else
       response_status 403
-      theme_render_rc 'components/pages/403'
+      if forbidden_partial
+        include forbidden_partial
+      endif
       break
     endif
   endunless
