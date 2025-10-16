@@ -115,8 +115,6 @@ We recommend creating a [new Instance](https://partners.platformos.com/instances
 
 Once the module is installed and you have completed the [setup](#setup), you will immediately gain access to the new endpoints created by this module. For example, you can navigate to `/users/new` for the registration form or `/sessions/new` for the login form. This section describes all the functionalities provided by this module and includes a roadmap for potential future enhancements.
 
-To provide your own HTML (for example, for styling purposes), you can leverage the fact that all of the endpoints use the [theme_render_rc](https://documentation.platformos.com/api-reference/liquid/platformos-tags#theme-render-rc) Liquid tag. This means you can easily provide your own HTML for each endpoint by creating a partial in the `app` directory. For example, you can create `app/views/partials/users/new.liquid` for the registration endpoint. Refer to the Endpoints section for each functionality to see which partial to create for which endpoint.
-
 - [x] **[Registration](#crud-endpoints-including-registration)**:  
 Provides CRUD operations (Create, Read, Update, Delete) for user management and implements the necessary endpoints for user registration. These views are located in the `modules/user/public/views/pages/users/` directory. This handles essential user registration processes in platformOS.
 - [x] **[Session-Based Authentication](#session-based-authentication)**:  
@@ -155,10 +153,10 @@ With these CRUD commands, you can handle typical user management operations such
 
 The table below outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for registration functionality:
 
-| HTTP method   | slug  | page file path |  description | partial rendering HTML |
+| HTTP method   | slug  | page file path |  description | 
 |---|---|---|---|---|
-| GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. | app/views/users/new.liquid |
-| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database and logs the user in or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | app/views/users/new.liquid |
+| GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. |
+| POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database and logs the user in or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | 
 
 #### CRUD commands 
 
@@ -206,11 +204,11 @@ The `POST /users` endpoint defined in `modules/user/public/views/pages/users/cre
 
 The following table outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) for sign-in and sign-out functionality:
 
-| HTTP method   | slug  | page file path |  description | partial rendering HTML |
+| HTTP method   | slug  | page file path |  description | 
 |---|---|---|---|---|
-| GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | app/views/partials/sessions/new.liquid |
-| POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | app/views/partials/sessions/new.liquid |
-| DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | N/A |
+| GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | 
+| POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | 
+| DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | 
 
 Example: You can define a `hook_user_login` that redirects a user to `/admin` if they have the `admin_pages.view` permission. 
 
@@ -271,12 +269,12 @@ The reset password functionality consists of two resources: `password` and `auth
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
 
-| HTTP method   | slug  | page file path |  description | partial rendering HTML |
+| HTTP method   | slug  | page file path |  description | 
 |---|---|---|---|---|
-| GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | app/views/partials/passwords/reset.liquid |
-| POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | app/views/partials/passwords/reset.liquid |
-| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) using `modules/user/helpers/user_from_temporary_token` helper and, if successful, it renders a form where the user can provide their new password. | app/views/partials/passwords/new.liquid | 
-| POST  | /passwords/create | `modules/user/public/views/pages/passwords/create.liquid` | Overwrites the existing user's password with the new password and redirects the user to the `GET /sessions/new` endpoint, so they can log in. | app/views/partials/passwords/new.liquid |
+| GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | 
+| POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | 
+| GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) using `modules/user/helpers/user_from_temporary_token` helper and, if successful, it renders a form where the user can provide their new password. | 
+| POST  | /passwords/create | `modules/user/public/views/pages/passwords/create.liquid` | Overwrites the existing user's password with the new password and redirects the user to the `GET /sessions/new` endpoint, so they can log in. | 
 
 #### CRUD commands 
 
@@ -520,10 +518,10 @@ This functionality allows a user with `users.impersonate` permission to log in a
 
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 
-| HTTP method   | slug  | page file path |  description | partial rendering HTML |
+| HTTP method   | slug  | page file path |  description | 
 |---|---|---|---|---|
-| POST |  sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/create.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the [session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session) named `original_user_id` | |
-| DESTROY | /sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/destroy.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | modules/community/public/views/partials/components/organisms/logging_back.liquid|
+| POST |  sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/create.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the [session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session) named `original_user_id` |
+| DESTROY | /sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/destroy.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | 
 
 ## Customizing the Module
 
@@ -551,7 +549,6 @@ As a result, the registration form will now be available at `/sign-up`, and the 
 ### Example 2: Modifying the HTML of the Sign-In Form
 
 If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
-If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
 
 Steps:
 1. Create the directory for the overwrite. Since we are overriding the presentation layer, we should overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages).
@@ -561,11 +558,11 @@ Steps:
 2. Copy the partial responsible for rendering the sign-in form:
 
 `cp modules/user/public/views/partials/sessions/new.liquid app/modules/user/public/views/partials/sessions/new.liquid`
+
 > [!NOTE] 
 > Please note that in this example, we are working with the `sessions` directory, as this is where the Sign-In functionality is located.
+
 Now, you can freely modify the HTML or presentation layer of the sign-in form in the copied file.
-> [!NOTE] 
-> Please note that in this example, we are working with the `sessions` directory, as this is where the Sign-In functionality is located.
 ## Helper Queries and Commands
 
 The module also provides several useful queries and commands to help you manage users and permissions
