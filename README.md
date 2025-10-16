@@ -230,11 +230,26 @@ This command is implemented in `modules/user/public/lib/helpers/current_profile.
 
 #### Log out
 
-To log out a user and destroy their session, run the following command:
+If you want to add a button to your web site to log out the logged in user, you can create a form that sends a `DELETE` request to the `/sessions` endpoint provided by the module. Here is an example of how to implement this:
+
+
+```liquid
+{% if context.current_user %}
+  <form method="post" action="/sessions">
+    <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+    <input type="hidden" name="_method" value="delete">
+    <button type="submit">Logout</button>
+  </form>
+{% endif %}
+```
+
+If you want to log out the user in your own endppint, run the following command provided by the module:
 
 ```
 function res = 'modules/user/commands/session/destroy'
 ```
+
+
 
 #### Log in without password validation 
 
