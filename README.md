@@ -360,8 +360,8 @@ The module offers several helper commands to authorize users:
 This command returns `true` or `false` depending on whether the user has permission to perform the operation defined by the `do` argument. It is useful for modifying the UI based on permissions, ensuring that functionalities a user does not have access to are not displayed.
 
 ```
-function current_user = 'modules/user/queries/user/current'
-function can = 'modules/user/helpers/can_do', requester: current_user, do: 'admin_pages.view'
+function current_profile = 'modules/user/helpers/current_profile'
+function can = 'modules/user/helpers/can_do', requester: current_profile, do: 'admin_pages.view'
 ```
 
 It can also accept additional `entity` and `access_callback` arguments, which allow you to [write your own authorization rules](#creating your-own-authorization-commands) cleanly.
@@ -373,9 +373,9 @@ If the user does not have permission, the system renders a **403 Unauthorized** 
 This command uses the deprecated `include` tag to work with the `break` Liquid tag properly - we do not want to execute code past this point if the user has no permission.
 
 ```
-function current_user = 'modules/user/queries/user/current'
+function current_profile = 'modules/user/helpers/current_profile'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
-include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register', redirect_anonymous_to_login: true
+include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'users.register', redirect_anonymous_to_login: true
 # platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
@@ -387,9 +387,9 @@ If the user does not have permission, they will be redirected to the URL provide
 
 
 ```
-function current_user = 'modules/user/queries/user/current'
+function current_profile = 'modules/user/helpers/current_profile'
 # platformos-check-disable ConvertIncludeToRender, UnreachableCode
-include 'modules/user/helpers/can_do_or_redirect', requester: current_user, do: 'users.register', return_url: '/sessions/new'
+include 'modules/user/helpers/can_do_or_redirect', requester: current_profile, do: 'users.register', return_url: '/sessions/new'
 # platformos-check-enable ConvertIncludeToRender, UnreachableCode
 ```
 
@@ -546,26 +546,10 @@ Steps:
 
 4. Modify the Liquid code - explicitly define `slug` property to `sign-up` of the `app/modules/user/public/views/pages/users/new.liquid` [Page](https://documentation.platformos.com/developer-guide/pages/pages) to define `/sign-up` endpoint:
 
-```yaml
----
-slug: sign-up
----
-```
-```liquid
-{% raw %}
-{% liquid
-  function current_user = 'modules/user/queries/user/current'
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_user, do: 'users.register'
-
-  function registration_fields = 'modules/user/queries/registration_fields/load'
-  theme_render_rc 'modules/user/users/new', context: context, registration_fields: registration_fields
-%}
-{% endraw %}
-```
-
 As a result, the registration form will now be available at `/sign-up`, and the `/users/new` URL will render a 404 Not Found error.
 
 ### Example 2: Modifying the HTML of the Sign-In Form
+
 If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
 If you want to modify the **Sign-In** form's HTML, you can overwrite the [Partial](https://documentation.platformos.com/developer-guide/pages/reusing-code-across-multiple-pages) responsible for rendering the form.
 
