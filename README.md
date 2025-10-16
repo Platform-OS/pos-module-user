@@ -316,15 +316,15 @@ Any user with the `superadmin` role will have immediate access to any permission
 
 #### Role management commands
 
-The roles are stored in [User's property](https://documentation.platformos.com/developer-guide/users/user#adding-properties-to-the-user) named `roles`. 
+The user module automatically creates a profile for each registered user. Each profile can be assigned a set of roles.
 
-You can append role using the `append` command:
+You can append a role using the `append` command:
 
 ```liquid
 function result = 'modules/user/commands/profiles/roles/append', id: 1, role: "admin"
 ```
 
-You can remove role using the `remove` command:
+You can remove a role using the `remove` command:
 
 ```liquid
 function result = 'modules/user/commands/profiles/roles/remove', id: 1, role: "admin"
