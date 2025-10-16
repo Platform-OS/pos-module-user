@@ -321,20 +321,20 @@ The roles are stored in [User's property](https://documentation.platformos.com/d
 You can append role using the `append` command:
 
 ```
-function result = 'modules/user/commands/user/roles/append', id: 1, role: "admin"
+function result = 'modules/user/commands/profiles/roles/append', id: 1, role: "admin"
 ```
 
 You can remove role using the `remove` command:
 
 ```
-function result = 'modules/user/commands/user/roles/remove', id: 1, role: "admin"
+function result = 'modules/user/commands/profiles/roles/remove', id: 1, role: "admin"
 ```
 
 You can set multiple roles at once using the `set` command:
 
 ```
 assign roles = '["member", "admin"]' | parse_json
-function result = 'modules/user/commands/user/roles/set', id: 1, roles: roles
+function result = 'modules/user/commands/profiles/roles/set', id: 1, roles: roles
 ```
 
 #### Role management queries
