@@ -154,7 +154,7 @@ With these CRUD commands, you can handle typical user management operations such
 The table below outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for registration functionality:
 
 | HTTP method   | slug  | page file path |  description | 
-|---|---|---|---|---|
+|---|---|---|---|
 | GET  | /users/new | `modules/user/public/views/pages/users/new.liquid` | Renders a registration form with inputs for email and password. |
 | POST  | /users | `modules/user/public/views/pages/users/create.liquid` | Adds a new [User](https://documentation.platformos.com/developer-guide/users/user) to the database and logs the user in or re-renders the form if validation errors occur. You can modify the redirect path using the `redirect_to` param or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | 
 
@@ -205,7 +205,7 @@ The `POST /users` endpoint defined in `modules/user/public/views/pages/users/cre
 The following table outlines the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) for sign-in and sign-out functionality:
 
 | HTTP method   | slug  | page file path |  description | 
-|---|---|---|---|---|
+|---|---|---|---|
 | GET  | /sessions/new | `modules/user/public/views/pages/sessions/new.liquid` | Renders a sign-in form with inputs for user's email and password. | 
 | POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | 
 | DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | 
@@ -270,7 +270,7 @@ The reset password functionality consists of two resources: `password` and `auth
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the reset password functionality, ordered based on the flow. The process begins with `GET /passwords/reset` and ends at `POST /passwords/create`, which updates the password and redirects the user to the sign-in page.
 
 | HTTP method   | slug  | page file path |  description | 
-|---|---|---|---|---|
+|---|---|---|---|
 | GET  | /passwords/reset | `modules/user/public/views/pages/passwords/reset.liquid` | Renders a reset password form. | 
 | POST  | /authentication_links | `modules/user/public/views/pages/authentication_links/create.liquid` | Generates a link with [temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) and sends an email using the `modules/user/commands/emails/auth-link` command to the email address provided by the user in the reset password step.  | 
 | GET  | /passwords/new | `modules/user/public/views/pages/passwords/new.liquid` | This endpoint [authenticates the user using the temporary token](https://documentation.platformos.com/developer-guide/users/authentication#temporary-token) using `modules/user/helpers/user_from_temporary_token` helper and, if successful, it renders a form where the user can provide their new password. | 
@@ -519,7 +519,7 @@ This functionality allows a user with `users.impersonate` permission to log in a
 The table below contains the [resourceful routes](https://documentation.platformos.com/developer-guide/modules/platformos-modules#resourceful-route-naming-convention) provided for the logging as functionality, ordered based on the flow. 
 
 | HTTP method   | slug  | page file path |  description | 
-|---|---|---|---|---|
+|---|---|---|---|
 | POST |  sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/create.liquid` |This feature allows an administrator to log in as another based on `user_id` parameter. Only users with the superadmin role can log in as another superadmin user. The original user ID is stored in the [session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session) named `original_user_id` |
 | DESTROY | /sessions/impersonations | `modules/user/public/views/pages/sessions/impersonation/destroy.liquid`|Logging back in as the original user whose id was stored in `original_user_id` session field. | 
 
