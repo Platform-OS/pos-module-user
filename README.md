@@ -210,19 +210,6 @@ The following table outlines the [resourceful routes](https://documentation.plat
 | POST  | /sessions | `modules/user/public/views/pages/sessions/create.liquid` | Creates a session for the authenticated user based on [password authentication](https://documentation.platformos.com/developer-guide/users/authentication#password) or re-renders the sign in form if credentials do not match. You can modify the redirect path with a param called `redirect_to` or by setting `return_to` [Session field](https://documentation.platformos.com/api-reference/liquid/platformos-tags#session). | 
 | DELETE  | /sessions |  `modules/user/public/views/pages/sessions/delete.liquid` | Invalidates the current session and logging the user out. | 
 
-Example: You can define a `hook_user_login` that redirects a user to `/admin` if they have the `admin_pages.view` permission. 
-
-```
-assign redirect_to = '/'
-function can = 'modules/user/helpers/can_do', requester: params.user, do: 'admin_pages.view'
-if can
-  assign redirect_to = '/admin'
-endif
-
-assign res = '{}' | parse_json | hash_merge: redirect_to: redirect_to
-return res
-```
-
 #### Log in using email and password
 
 You can log the user in (which [creates a new session](https://documentation.platformos.com/developer-guide/users/session#security)) using the following command:
@@ -230,8 +217,6 @@ You can log the user in (which [creates a new session](https://documentation.pla
 ```
 function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
 ```
-
-This command also triggers the `hook_user_login` hooks.
 
 #### Accessing current profile
 
@@ -251,11 +236,9 @@ To log out a user and destroy their session, run the following command:
 function res = 'modules/user/commands/session/destroy'
 ```
 
-This command triggers the `hook_user_logout` hooks.
-
 #### Log in without password validation 
 
-It’s possible to skip password validation and create a session while triggering the `hook_user_login` by setting the `validate_password` boolean argument to `false` when calling the `modules/user/commands/session/create` command. In this case, the `user_id` argument must be provided.
+It’s possible to skip password validation and create a session by setting the `validate_password` boolean argument to `false` when calling the `modules/user/commands/session/create` command. In this case, the `user_id` argument must be provided.
 
 ```
 function res = 'modules/user/commands/session/create', user_id: '1', validate_password: false
