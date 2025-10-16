@@ -162,13 +162,14 @@ The table below outlines the [resourceful routes](https://documentation.platform
 
 The User module provides basic CRUD (Create, Read, Update, Delete) functionality for managing users in platformOS. You can run commands such as creating or deleting users.
 
-The User module provides basic CRUD (Create, Read, Update, Delete) functionality for managing users in platformOS. You can run commands such as creating or deleting users.
-
 You can create:
 
 ```liquid
 function result = 'modules/user/commands/user/create', email: 'admin@example.com', password: 'password', roles: []
 ```
+
+> [!NOTE] 
+> The command will also automatically invoke `modules/user/commands/profile/create` to create a corresponding profile for the user. To follow seucity best parctices, behind the scenes, platformOS will apply [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) hashing function to the password before saving it to the database. 
 
 load:
 
@@ -177,10 +178,7 @@ function user = 'modules/user/queries/user/load', id: '1'
 ```
 
 > [!NOTE] 
-> Usually, you will want to load the currently authenticated user. You can achieve this by providing [context.current_user.id](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-current_user) as the ID:
-> ```
-> function user = 'modules/user/queries/user/load', id: context.current_user.id
-> ```
+> Usually, you will want to load the currently authenticated user to perform [authorization](#rbac-authorization). You will want to leverage  `function profile = 'modules/user/helpers/current_profile' helper for that and fetch profile, not the user. However, if for some reason you would like to load currently authenticated user, you can achieve this by providing [context.current_user.id](https://documentation.platformos.com/api-reference/liquid/platformos-objects#context-current_user) as the ID `{% function user = 'modules/user/queries/user/load', id: context.current_user.id %}`
 
 update:
 
@@ -188,11 +186,17 @@ update:
 function user = 'modules/user/queries/user/update', id: '1', email: 'admin@example.com', password: 'password'
 ```
 
+> [!NOTE] 
+> Behind the scenes, platformOS will apply [bcrypt](https://en.wikipedia.org/wiki/Bcrypt) hashing function to the password before saving it to the database.
+
 and delete:
 
 ```
 function result = 'modules/user/commands/user/delete', id: '1'
 ```
+
+> [!NOTE] 
+> Please note that for every User, pos-module-user also creates a corresponding Profile. If you really want to delete a user, will need to take care of it associations as well, which at minimum will be this user's profile.`
 
 #### Assigning roles to users during registration
 
