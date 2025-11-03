@@ -268,7 +268,7 @@ It will trigger `current_profile` helper only if it hasn't already been triggere
         <li>Welcome, {{ current_profile.email }}</li>
         {% function can_view_admin = 'modules/user/helpers/can_do', requester: current_profile, do: 'admin_pages.view' %}
         {% if can_view_admin %}
-          <li><a href="/admin">Admin</li>
+          <li><a href="/admin">Admin</a></li>
         {% endif %}
         <form method="post" action="/sessions">
           <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
