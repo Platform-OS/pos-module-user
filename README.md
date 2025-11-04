@@ -263,7 +263,7 @@ It triggers the `current_profile` helper only if it hasn't already been triggere
 <nav>
   <a href="/">Home</a>
   <ul>
-    <li>
+
        {% if current_profile %}
         <li>Welcome, {{ current_profile.email }}</li>
         {% function can_view_admin = 'modules/user/helpers/can_do', requester: current_profile, do: 'admin_pages.view' %}
@@ -276,9 +276,9 @@ It triggers the `current_profile` helper only if it hasn't already been triggere
           <button class="pos-button" type="submit">Logout</button>
         </form>
       {% else %}
-        <a href="/sessions/new">Login</a>
+        <li><a href="/sessions/new">Login</a></li>
       {% endif %}
-    </li>
+    
   </ul>
 </nav>
 ```
