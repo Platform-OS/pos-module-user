@@ -222,7 +222,7 @@ You can log the user in (which [creates a new session](https://documentation.pla
 function res = 'modules/user/commands/session/create', email: 'email@example.com', password: 'password'
 ```
 
-#### Accessing current profile
+#### Accessing current profile in Pages
 
 To access information about the currently logged-in user, use the following command provided by the module:
 
@@ -230,7 +230,60 @@ To access information about the currently logged-in user, use the following comm
 function profile = 'modules/user/helpers/current_profile'
 ```
 
-This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in. User object is also available under profile.user when the user is logged in.
+This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles. If the user is logged in, the helper adds the [authenticated](#authenticated-role) role. If not, it adds the [anonymous](#anonymous-role) role instead. The user object is also available under profile.user when the user is logged in.
+
+##### Current profile in Layouts
+
+In most applications, you will have a layout with a navigation bar, where you might want to display different links depending on the user's state - for example, a “Log in” link for unauthenticated users, or a list of user-specific links for logged-in users. To avoid invoking `modules/user/helpers/current_profile` twice — once in a Page and once in a Layout — the helper uses the [export Liquid tag](https://documentation.platformos.com/api-reference/liquid/platformos-tags#export). This tag makes the current profile easily accessible via context.exports.current_profile ([see implementation](https://github.com/Platform-OS/pos-module-user/blob/master/modules/user/public/lib/helpers/current_profile.liquid#L15)).
+
+As a result, you can include logic like the following in your `app/views/layouts/application.liquid` file: 
+
+```liquid
+{% liquid
+ if context.current_user 
+   assign current_profile = context.exports.current_profile
+   unless current_profile
+     function current_profile = 'modules/user/helpers/current_profile'
+   endunless
+ endif
+%}
+```
+
+It triggers the `current_profile` helper only if it hasn't already been triggered in a Page.  You can then build the navigation and check permissions based on the current profile's roles as follows:
+
+```html
+{% liquid
+ if context.current_user 
+   assign current_profile = context.exports.current_profile
+   unless current_profile
+     function current_profile = 'modules/user/helpers/current_profile'
+   endunless
+ endif
+%}
+<nav>
+  <a href="/">Home</a>
+  <ul>
+    <li>
+       {% if current_profile %}
+        <li>Welcome, {{ current_profile.email }}</li>
+        {% function can_view_admin = 'modules/user/helpers/can_do', requester: current_profile, do: 'admin_pages.view' %}
+        {% if can_view_admin %}
+          <li><a href="/admin">Admin</a></li>
+        {% endif %}
+        <form method="post" action="/sessions">
+          <input type="hidden" name="authenticity_token" value="{{ context.authenticity_token }}">
+          <input type="hidden" name="_method" value="delete">
+          <button class="pos-button" type="submit">Logout</button>
+        </form>
+      {% else %}
+        <a href="/sessions/new">Login</a>
+      {% endif %}
+    </li>
+  </ul>
+</nav>
+```
+
+You can use the `can_do` helper to check if the currently logged-in user has permission to view certain pages. 
 
 #### Log out
 
