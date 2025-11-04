@@ -249,7 +249,7 @@ As a result, you can include logic like the following in your `app/views/layouts
 %}
 ```
 
-It will trigger `current_profile` helper only if it hasn't already been triggered in a Page. You could then build navigation and check permissions based on the current profile's roles as follows:
+It triggers the `current_profile` helper only if it hasn't already been triggered in a Page.  You can then build the navigation and check permissions based on the current profile's roles as follows:
 
 ```html
 {% liquid
