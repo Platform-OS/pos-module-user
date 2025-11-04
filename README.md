@@ -236,7 +236,7 @@ This command is implemented in `modules/user/public/lib/helpers/current_profile.
 
 In most applications, you will have a layout with a navigation bar, in which you will want to display a "log in" link for the not logged in user, or a list of links to which the currently logged in user has access. To avoid invoking `modules/user/helpers/current_profile` twice—once in a Page and once in a Layout —the helper uses the [export liquid tag](https://documentation.platformos.com/api-reference/liquid/platformos-tags#export) to make the current profile easily accessible via context.exports.current_profile ([see implementation](https://github.com/Platform-OS/pos-module-user/blob/master/modules/user/public/lib/helpers/current_profile.liquid#L15)).
 
-As a result,  inside your app/views/layouts/application.liquid, you can have code like: 
+As a result, you can include logic like the following in your `app/views/layouts/application.liquid` file: 
 
 ```liquid
 {% liquid
