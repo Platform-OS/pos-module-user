@@ -283,7 +283,7 @@ It triggers the `current_profile` helper only if it hasn't already been triggere
 </nav>
 ```
 
-And invoke `can_do` helpers to check if the currently logged-in user has permissions to view certain pages. 
+You can use the `can_do` helper to check if the currently logged-in user has permission to view certain pages. 
 
 #### Log out
 
