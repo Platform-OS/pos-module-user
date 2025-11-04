@@ -230,7 +230,7 @@ To access information about the currently logged-in user, use the following comm
 function profile = 'modules/user/helpers/current_profile'
 ```
 
-This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles with either [authenticated](#authenticated-role) or [anonymous](#anonymous-role) if the user is not currently logged in. The user object is also available under profile.user when the user is logged in.
+This command is implemented in `modules/user/public/lib/helpers/current_profile.liquid`. When you investigate the file, you'll notice that it not only loads the user's profile information from the database but also extends the profile's roles. If the user is logged in, the helper adds the [authenticated](#authenticated-role) role. If not, it adds the [anonymous](#anonymous-role) role instead. The user object is also available under profile.user when the user is logged in.
 
 ##### Current profile in Layouts
 
