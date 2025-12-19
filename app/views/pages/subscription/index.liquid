@@ -1,7 +1,7 @@
 {% liquid
   function current_profile = 'modules/user/helpers/current_profile'
   # platformos-check-disable UnreachableCode
-  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'subscription.read', redirect_anonymous_to_login: true
+  include 'modules/user/helpers/can_do_or_unauthorized', requester: current_profile, do: 'subscription.read', redirect_anonymous_to_login: true, forbidden_partial: 'modules/user/components/pages/403'
   # platformos-check-enable UnreachableCode
 
   render 'subscription/home/index'
